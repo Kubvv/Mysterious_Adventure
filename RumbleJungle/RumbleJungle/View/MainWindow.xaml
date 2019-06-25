@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RumbleJungle"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow"
+        Height="450"
+        Width="800"
+        DataContext="{Binding MainInstance, Mode=Default, Source={StaticResource Locator}}">
+    <StackPanel>
+        <Button Content="Nowa gra"
+                Command="{Binding StartNewGame, Mode=OneWay}" />
+        <Button Content="Wczytaj grę" />
+        <Button Content="Opcje"
+                Command="{Binding OpenConfigurationOptions, Mode=OneWay}" />
+        <Button Content="Wyjście"
+                Command="{Binding CloseAppCommand, Mode=OneWay}" />
+    </StackPanel>
 </Window>

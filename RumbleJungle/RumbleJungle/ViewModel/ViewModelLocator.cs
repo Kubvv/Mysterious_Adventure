@@ -43,16 +43,19 @@ namespace RumbleJungle.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<JungleViewModel>();
+            SimpleIoc.Default.Register<OptionsViewModel>();
+            SimpleIoc.Default.Register<IngameMenuViewModel>();
         }
 
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
-        
+        public MainViewModel MainInstance => ServiceLocator.Current.GetInstance<MainViewModel>();
+
+        public JungleViewModel JungleInstance => ServiceLocator.Current.GetInstance<JungleViewModel>();
+
+        public OptionsViewModel OptionsInstance => ServiceLocator.Current.GetInstance<OptionsViewModel>();
+
+        public IngameMenuViewModel IngameMenuInstance => ServiceLocator.Current.GetInstance<IngameMenuViewModel>();
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

@@ -70,8 +70,53 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\BeastModel\Beast.cs" />
+    <Compile Include="Model\BeastModel\CarnivorousPlant.cs" />
+    <Compile Include="Model\BeastModel\DragonflySwarm.cs" />
+    <Compile Include="Model\BeastModel\Hydra.cs" />
+    <Compile Include="Model\BeastModel\Minotaur.cs" />
+    <Compile Include="Model\BeastModel\Snakes.cs" />
+    <Compile Include="Model\BeastModel\WildPig.cs" />
+    <Compile Include="Model\Camp.cs" />
+    <Compile Include="Model\DenseJungle.cs" />
+    <Compile Include="Model\ForgottenCity.cs" />
+    <Compile Include="Model\GameState.cs" />
+    <Compile Include="Model\Jungle.cs" />
+    <Compile Include="Model\JungleObject.cs" />
+    <Compile Include="Model\ObstacleModel\Natives.cs" />
+    <Compile Include="Model\ObstacleModel\Obstacle.cs" />
+    <Compile Include="Model\ObstacleModel\Quicksand.cs" />
+    <Compile Include="Model\ObstacleModel\Trap.cs" />
+    <Compile Include="Model\Rambler.cs" />
+    <Compile Include="Model\Tent.cs" />
+    <Compile Include="Model\Treasure.cs" />
+    <Compile Include="Model\UtilityModel\Compass.cs" />
+    <Compile Include="Model\UtilityModel\Elixir.cs" />
+    <Compile Include="Model\UtilityModel\LostWeapon.cs" />
+    <Compile Include="Model\UtilityModel\MagnifyingGlass.cs" />
+    <Compile Include="Model\UtilityModel\Map.cs" />
+    <Compile Include="Model\UtilityModel\Talisman.cs" />
+    <Compile Include="Model\UtilityModel\Utility.cs" />
+    <Compile Include="Model\WeaponModel\Weapon.cs" />
+    <Compile Include="ViewModel\IngameMenuViewModel.cs" />
+    <Compile Include="ViewModel\JungleViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\IngameMenuView.xaml.cs">
+      <DependentUpon>IngameMenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OptionsView.xaml.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\IngameMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\JungleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,10 +125,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\JungleView.xaml.cs">
+      <DependentUpon>JungleView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\OptionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -112,8 +164,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
