@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RumbleJungle"
         mc:Ignorable="d"
-        Title="MainWindow"
-        Height="450"
-        Width="800"
-        DataContext="{Binding MainInstance, Mode=Default, Source={StaticResource Locator}}">
+        Title="RumbleJungle"
+        Height="227"
+        Width="484"
+        DataContext="{Binding MainInstance, Mode=Default, Source={StaticResource Locator}}"
+        ResizeMode="NoResize">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,11 +19,15 @@
     </Window.Resources>
     <StackPanel>
         <Button Content="Nowa gra"
-                Command="{Binding StartNewGame, Mode=OneWay}" />
-        <Button Content="Wczytaj grę" />
+                Command="{Binding StartNewGame, Mode=OneWay}"
+                Style="{DynamicResource MenuButton}" />
+        <Button Content="Wczytaj grę"
+                Style="{DynamicResource MenuButton}" />
         <Button Content="Opcje"
-                Command="{Binding OpenConfigurationOptions, Mode=OneWay}" />
+                Command="{Binding OpenConfigurationOptions, Mode=OneWay}"
+                Style="{DynamicResource MenuButton}" />
         <Button Content="Wyjście"
-                Command="{Binding CloseAppCommand, Mode=OneWay}" />
+                Command="{Binding CloseAppCommand, Mode=OneWay}"
+                Style="{DynamicResource MenuButton}" />
     </StackPanel>
 </Window>

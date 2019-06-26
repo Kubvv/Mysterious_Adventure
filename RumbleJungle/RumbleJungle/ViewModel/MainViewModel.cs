@@ -22,10 +22,9 @@ namespace RumbleJungle.ViewModel
 
         private void ExecuteStartNewGame()
         {
+            jungleViewModel.StartGame();
             JungleView jungleView = new JungleView();
             jungleView.ShowDialog();
-            jungleViewModel.StartGame();
-
         }
 
         private RelayCommand openConfigurationOptions;
@@ -34,7 +33,8 @@ namespace RumbleJungle.ViewModel
 
         private void ExecuteOpenConfigurationOptions()
         {
-            throw new NotImplementedException();
+            OptionsView optionsView = new OptionsView();
+            optionsView.ShowDialog();
         }
 
         private RelayCommand closeAppCommand;
