@@ -1,6 +1,7 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using RumbleJungle.View;
 using System;
 using System.Windows;
 
@@ -21,6 +22,8 @@ namespace RumbleJungle.ViewModel
 
         private void ExecuteStartNewGame()
         {
+            JungleView jungleView = new JungleView();
+            jungleView.ShowDialog();
             jungleViewModel.StartGame();
 
         }
