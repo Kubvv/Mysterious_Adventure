@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RumbleJungle"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="RumbleJungle"
+        Width="484"
+        DataContext="{Binding MainInstance, Mode=Default, Source={StaticResource Locator}}"
+        ResizeMode="NoResize"
+        SizeToContent="Height">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RumbleJungle;component/Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <StackPanel>
+        <Button Content="Nowa gra"
+                Command="{Binding StartNewGame, Mode=OneWay}"
+                Style="{DynamicResource MenuButton}" />
+        <Button Content="Wczytaj grę"
+                Style="{DynamicResource MenuButton}" />
+        <Button Content="Opcje"
+                Command="{Binding OpenConfigurationOptions, Mode=OneWay}"
+                Style="{DynamicResource MenuButton}" />
+        <Button Content="Wyjście"
+                Command="{Binding CloseAppCommand, Mode=OneWay}"
+                Style="{DynamicResource MenuButton}" />
+    </StackPanel>
 </Window>

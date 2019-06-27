@@ -1,34 +1,46 @@
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using RumbleJungle.View;
+using System;
+using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
+        private JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
+
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+
         }
+
+        private RelayCommand startNewGame;
+
+        public RelayCommand StartNewGame => startNewGame ?? (startNewGame = new RelayCommand(() => ExecuteStartNewGame()));
+
+        private void ExecuteStartNewGame()
+        {
+            jungleViewModel.StartGame();
+            JungleView jungleView = new JungleView();
+            jungleView.ShowDialog();
+        }
+
+        private RelayCommand openConfigurationOptions;
+
+        public RelayCommand OpenConfigurationOptions => openConfigurationOptions ?? (openConfigurationOptions = new RelayCommand(() => ExecuteOpenConfigurationOptions()));
+
+        private void ExecuteOpenConfigurationOptions()
+        {
+            OptionsView optionsView = new OptionsView();
+            optionsView.ShowDialog();
+        }
+
+        private RelayCommand closeAppCommand;
+        public RelayCommand CloseAppCommand => closeAppCommand ?? (closeAppCommand = new RelayCommand(() => Application.Current.Shutdown()));
+
+        
     }
+
 }
