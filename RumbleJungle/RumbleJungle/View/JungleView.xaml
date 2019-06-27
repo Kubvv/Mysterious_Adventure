@@ -9,7 +9,29 @@
         Height="450"
         Width="800"
         DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}">
-    <Grid>
-        
-    </Grid>
+    <ItemsControl ItemsSource="{Binding JungleObjects}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <UniformGrid Background="Green"
+                             Rows="{Binding JungleHeight}"
+                             Columns="{Binding JungleWidth}" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemContainerStyle>
+            <Style>
+                <Setter Property="Grid.Row"
+                        Value="{Binding JungleRow}" />
+                <Setter Property="Grid.Column"
+                        Value="{Binding JungleColumn}" />
+            </Style>
+        </ItemsControl.ItemContainerStyle>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding Name}"
+                            Foreground="White"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </Window>

@@ -81,6 +81,7 @@
     <Compile Include="Model\Camp.cs" />
     <Compile Include="Model\Configuration.cs" />
     <Compile Include="Model\DenseJungle.cs" />
+    <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\ForgottenCity.cs" />
     <Compile Include="Model\GameState.cs" />
     <Compile Include="Model\Jungle.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\JungleObjectViewModel.cs" />
     <Compile Include="View\IngameMenuView.xaml.cs">
       <DependentUpon>IngameMenuView.xaml</DependentUpon>
     </Compile>

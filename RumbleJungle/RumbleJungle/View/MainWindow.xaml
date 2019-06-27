@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:RumbleJungle"
         mc:Ignorable="d"
         Title="RumbleJungle"
-        Height="227"
         Width="484"
         DataContext="{Binding MainInstance, Mode=Default, Source={StaticResource Locator}}"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        SizeToContent="Height">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
