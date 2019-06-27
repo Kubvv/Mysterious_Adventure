@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
@@ -25,11 +26,11 @@ namespace RumbleJungle.ViewModel
             set => Set(ref jungleCol, value);
         }
 
-        public JungleObjectViewModel(int row, int col)
+        public JungleObjectViewModel(Point point)
         {
-            name = $"{row}-{col}";
-            jungleRow = row;
-            jungleCol = col;
+            Name = $"{point.Y}-{point.X}";
+            JungleRow = (int)point.Y;
+            JungleCol = (int)point.X;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace RumbleJungle.Model
 {
     public static class Configuration
     {
-        public static Dictionary<JungleObjectTypes, int> JungleObjectsCount = new Dictionary<JungleObjectTypes, int>
+        public static Dictionary<JungleObjectTypes, int> JungleObjectsCount { get; private set; } = new Dictionary<JungleObjectTypes, int>
         {
             [JungleObjectTypes.Camp] = 2,
             [JungleObjectTypes.Tent] = 6,
@@ -30,8 +30,8 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.Talisman] = 2
         };
 
-        public static int JungleHeight = 10;
-        public static int JungleWidth = 16;
+        public static int JungleHeight { get; private set; } = 10;
+        public static int JungleWidth { get; private set; } = 16;
 
         public static void ReadConfiguration()
         {
@@ -46,6 +46,8 @@ namespace RumbleJungle.Model
             {
                 JungleObjectsCount[objectCount.Key] = (int) Math.Round(objectCount.Value * factor);
             }
+            JungleHeight = jungleHeight;
+            JungleWidth = jungleWidth;
         }
     }
 }

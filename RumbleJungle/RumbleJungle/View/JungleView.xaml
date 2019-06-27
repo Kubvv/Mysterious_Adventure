@@ -9,7 +9,7 @@
         Height="450"
         Width="800"
         DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}">
-    <ItemsControl ItemsSource="{Binding JungleObjects}">
+    <ItemsControl ItemsSource="{Binding JungleObjectsViewModel}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <UniformGrid Background="Green"
@@ -22,15 +22,15 @@
                 <Setter Property="Grid.Row"
                         Value="{Binding JungleRow}" />
                 <Setter Property="Grid.Column"
-                        Value="{Binding JungleColumn}" />
+                        Value="{Binding JungleCol}" />
             </Style>
         </ItemsControl.ItemContainerStyle>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <TextBlock Text="{Binding Name}"
-                            Foreground="White"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center" />
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>

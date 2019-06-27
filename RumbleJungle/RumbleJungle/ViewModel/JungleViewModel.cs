@@ -11,27 +11,26 @@ namespace RumbleJungle.ViewModel
         public int JungleHeight => Configuration.JungleHeight;
         public int JungleWidth => Configuration.JungleWidth;
 
-        private ObservableCollection<JungleObjectViewModel> jungleObjects = new ObservableCollection<JungleObjectViewModel>();
-        public ObservableCollection<JungleObjectViewModel> JungleObjects
+        private ObservableCollection<JungleObjectViewModel> jungleObjectsViewModel = new ObservableCollection<JungleObjectViewModel>();
+        public ObservableCollection<JungleObjectViewModel> JungleObjectsViewModel
         {
-            get => jungleObjects;
-            set => Set(ref jungleObjects, value);
+            get => jungleObjectsViewModel;
+            set => Set(ref jungleObjectsViewModel, value);
         }
 
         public JungleViewModel()
         {
-            for (int row = 0; row < JungleHeight; row++)
-            {
-                for (int col = 0; col < JungleWidth; col++)
-                {
-                    jungleObjects.Add(new JungleObjectViewModel(row, col));
-                }
-            }
+            
         }
 
         internal void StartGame()
         {
             jungle.Generate();
+            
+            foreach (JungleObject jungleObject in jungle.JungleObjects)
+            {
+                JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject.Coordinates));
+            }
         }
     }
 }

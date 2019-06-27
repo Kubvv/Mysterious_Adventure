@@ -3,91 +3,109 @@ using RumbleJungle.Model.ObstacleModel;
 using RumbleJungle.Model.UtilityModel;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace RumbleJungle.Model
 {
     public class Jungle
     {
-        private List<JungleObject> jungleObjects = new List<JungleObject>();
+        public List<JungleObject> JungleObjects { get; private set; } = new List<JungleObject>();
         internal void Generate()
         {
             Random random = new Random();
             int denseJungleCount = random.Next(Configuration.JungleObjectsCount[JungleObjectTypes.DenseJungle]) + 1;
             for (int i = 0; i < denseJungleCount; i++)
             {
-                jungleObjects.Add(new DenseJungle());
+                JungleObjects.Add(new DenseJungle());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Camp]; i++)
             {
-                jungleObjects.Add(new Camp());
+                JungleObjects.Add(new Camp());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Tent]; i++)
             {
-                jungleObjects.Add(new Tent());
+                JungleObjects.Add(new Tent());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.ForgottenCity]; i++)
             {
-                jungleObjects.Add(new ForgottenCity());
+                JungleObjects.Add(new ForgottenCity());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.CarnivorousPlant]; i++)
             {
-                jungleObjects.Add(new CarnivorousPlant());
+                JungleObjects.Add(new CarnivorousPlant());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.DragonflySwarm]; i++)
             {
-                jungleObjects.Add(new DragonflySwarm());
+                JungleObjects.Add(new DragonflySwarm());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Hydra]; i++)
             {
-                jungleObjects.Add(new Hydra());
+                JungleObjects.Add(new Hydra());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Minotaur]; i++)
             {
-                jungleObjects.Add(new Minotaur());
+                JungleObjects.Add(new Minotaur());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Snakes]; i++)
             {
-                jungleObjects.Add(new Snakes());
+                JungleObjects.Add(new Snakes());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.WildPig]; i++)
             {
-                jungleObjects.Add(new WildPig());
+                JungleObjects.Add(new WildPig());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Compass]; i++)
             {
-                jungleObjects.Add(new Compass());
+                JungleObjects.Add(new Compass());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Elixir]; i++)
             {
-                jungleObjects.Add(new Elixir());
+                JungleObjects.Add(new Elixir());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.LostWeapon]; i++)
             {
-                jungleObjects.Add(new LostWeapon());
+                JungleObjects.Add(new LostWeapon());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.MagnifyingGlass]; i++)
             {
-                jungleObjects.Add(new MagnifyingGlass());
+                JungleObjects.Add(new MagnifyingGlass());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Map]; i++)
             {
-                jungleObjects.Add(new Map());
+                JungleObjects.Add(new Map());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Talisman]; i++)
             {
-                jungleObjects.Add(new Talisman());
+                JungleObjects.Add(new Talisman());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Natives]; i++)
             {
-                jungleObjects.Add(new Natives());
+                JungleObjects.Add(new Natives());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Quicksand]; i++)
             {
-                jungleObjects.Add(new Quicksand());
+                JungleObjects.Add(new Quicksand());
             }
             for (int i = 0; i < Configuration.JungleObjectsCount[JungleObjectTypes.Trap]; i++)
             {
-                jungleObjects.Add(new Trap());
+                JungleObjects.Add(new Trap());
+            }
+
+            List<Point> coordinates = new List<Point>();
+
+            for(int row = 0; row < Configuration.JungleHeight; row++)
+            {
+                for (int col = 0; col < Configuration.JungleWidth; col++)
+                {
+                    coordinates.Add(new Point(col, row));
+                }
+            }
+
+            foreach (JungleObject jungleObject in JungleObjects)
+            {
+                int coordinate = random.Next(coordinates.Count);
+                jungleObject.SetCoordinates(coordinates[coordinate]);
+                coordinates.RemoveAt(coordinate);
             }
         }
     }
