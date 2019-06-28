@@ -14,6 +14,8 @@ namespace RumbleJungle.Model
         {
             Configuration.Read();
 
+            JungleObjects.Add(new Rambler());
+
             Random random = new Random();
             int denseJungleCount = random.Next(Configuration.JungleObjectsCount[JungleObjectTypes.DenseJungle]) + 1;
             for (int i = 0; i < denseJungleCount; i++)
@@ -109,6 +111,11 @@ namespace RumbleJungle.Model
                 jungleObject.SetCoordinates(coordinates[coordinate]);
                 coordinates.RemoveAt(coordinate);
             }
+        }
+
+        internal void MoveRambler(Point point)
+        {
+            JungleObjects[0].SetCoordinates(point);
         }
     }
 }

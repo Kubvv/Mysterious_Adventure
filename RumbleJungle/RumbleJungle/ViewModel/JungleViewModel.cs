@@ -1,7 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
@@ -36,6 +39,11 @@ namespace RumbleJungle.ViewModel
                     JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
                 }
             }
+        }
+
+        internal void MoveRambler(Point coordinates)
+        {
+            jungle.MoveRambler(coordinates);
         }
     }
 }

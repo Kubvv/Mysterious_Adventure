@@ -19,15 +19,18 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="{Binding Name}"
-                               Foreground="White"
-                               HorizontalAlignment="Center"
-                               FontWeight="Bold" />
-                    <TextBlock Text="{Binding Coordinates}"
-                               Foreground="White"
-                               HorizontalAlignment="Center" />
-                </StackPanel>
+                <Button Background="{x:Null}"
+                        Command="{Binding MoveRamblerCommand, Mode=OneWay}">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Name}"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   FontWeight="Bold" />
+                        <TextBlock Text="{Binding Coordinates}"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Button>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
