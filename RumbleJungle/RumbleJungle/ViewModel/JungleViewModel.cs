@@ -1,6 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
@@ -26,11 +30,20 @@ namespace RumbleJungle.ViewModel
         internal void StartGame()
         {
             jungle.Generate();
-            
-            foreach (JungleObject jungleObject in jungle.JungleObjects)
+
+            for (int row = 0; row < Configuration.JungleHeight; row++)
             {
-                JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject.Coordinates));
+                for (int col = 0; col < Configuration.JungleWidth; col++)
+                {
+                    JungleObject jungleObject = jungle.JungleObjects.FirstOrDefault(jo => jo.Coordinates.Y == row && jo.Coordinates.X == col);
+                    JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
+                }
             }
+        }
+
+        internal void MoveRambler(Point coordinates)
+        {
+            jungle.MoveRambler(coordinates);
         }
     }
 }
