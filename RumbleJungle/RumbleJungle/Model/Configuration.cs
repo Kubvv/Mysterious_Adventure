@@ -6,7 +6,8 @@ namespace RumbleJungle.Model
 {
     public static class Configuration
     {
-        public static Dictionary<JungleObjectTypes, int> JungleObjectsCount { get; private set; } = new Dictionary<JungleObjectTypes, int>
+        private static int defaultJungleHeight = 10, defaultJungleWidth = 16;
+        private static Dictionary<JungleObjectTypes, int> defaultJungleObjectsCount = new Dictionary<JungleObjectTypes, int>
         {
             [JungleObjectTypes.Camp] = 2,
             [JungleObjectTypes.Tent] = 6,
@@ -30,24 +31,23 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.Talisman] = 2
         };
 
-        public static int JungleHeight { get; private set; } = 10;
-        public static int JungleWidth { get; private set; } = 16;
+        public static int JungleHeight { get; private set; }
+        public static int JungleWidth { get; private set; }
 
-        public static void ReadConfiguration()
+        public static Dictionary<JungleObjectTypes, int> JungleObjectsCount { get; private set; }
+
+        public static void Read()
         {
-            JungleObjectsCount.Add(JungleObjectTypes.Camp, 2);
+            JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings["JungleHeight"]);
+            JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings["JungleWidth"]);
 
-            int jungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings["JungleHeight"]);
-            int jungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings["JungleWidth"]);
+            double factor = (JungleHeight * JungleWidth) / (defaultJungleHeight * defaultJungleWidth);
 
-            double factor = (jungleHeight * jungleWidth) / (JungleHeight * JungleWidth);
-
-            foreach (KeyValuePair<JungleObjectTypes, int> objectCount in JungleObjectsCount)
+            JungleObjectsCount = new Dictionary<JungleObjectTypes, int>();
+            foreach (KeyValuePair<JungleObjectTypes, int> objectCount in defaultJungleObjectsCount)
             {
-                JungleObjectsCount[objectCount.Key] = (int) Math.Round(objectCount.Value * factor);
+                JungleObjectsCount.Add(objectCount.Key, (int) Math.Round(objectCount.Value * factor));
             }
-            JungleHeight = jungleHeight;
-            JungleWidth = jungleWidth;
         }
     }
 }

@@ -1,36 +1,33 @@
 ﻿using GalaSoft.MvvmLight;
-using System.Windows;
+using RumbleJungle.Model;
 
 namespace RumbleJungle.ViewModel
 {
     public class JungleObjectViewModel : ViewModelBase
     {
-        private string name;
+        private string name = "";
         public string Name
         {
             get => name;
             set => Set(ref name, value);
         }
 
-        private int jungleRow;
-        public int JungleRow
+        private string coordinates = "";
+        public string Coordinates
         {
-            get => jungleRow;
-            set => Set(ref jungleRow, value);
+            get => coordinates;
+            set => Set(ref coordinates, value);
         }
 
-        private int jungleCol;
-        public int JungleCol
+        public JungleObjectViewModel(JungleObject jungleObject)
         {
-            get => jungleCol;
-            set => Set(ref jungleCol, value);
-        }
+            if (jungleObject != null)
+            {
+                string[] splittedName = jungleObject.ToString().Split('.');
+                Name = splittedName[splittedName.Length - 1];
 
-        public JungleObjectViewModel(Point point)
-        {
-            Name = $"{point.Y}-{point.X}";
-            JungleRow = (int)point.Y;
-            JungleCol = (int)point.X;
+                Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
+            }
         }
     }
 }

@@ -12,6 +12,8 @@ namespace RumbleJungle.Model
         public List<JungleObject> JungleObjects { get; private set; } = new List<JungleObject>();
         internal void Generate()
         {
+            Configuration.Read();
+
             Random random = new Random();
             int denseJungleCount = random.Next(Configuration.JungleObjectsCount[JungleObjectTypes.DenseJungle]) + 1;
             for (int i = 0; i < denseJungleCount; i++)

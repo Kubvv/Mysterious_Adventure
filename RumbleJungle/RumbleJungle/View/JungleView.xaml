@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:RumbleJungle.View"
         mc:Ignorable="d"
         Title="JungleView"
-        Height="450"
-        Width="800"
+        Height="800"
+        Width="1600"
         DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}">
     <ItemsControl ItemsSource="{Binding JungleObjectsViewModel}">
         <ItemsControl.ItemsPanel>
@@ -17,20 +17,16 @@
                              Columns="{Binding JungleWidth}" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemContainerStyle>
-            <Style>
-                <Setter Property="Grid.Row"
-                        Value="{Binding JungleRow}" />
-                <Setter Property="Grid.Column"
-                        Value="{Binding JungleCol}" />
-            </Style>
-        </ItemsControl.ItemContainerStyle>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <TextBlock Text="{Binding Name}"
-                           Foreground="White"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Name}"
+                               Foreground="White"
+                               HorizontalAlignment="Center" />
+                    <TextBlock Text="{Binding Coordinates}"
+                               Foreground="White"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
