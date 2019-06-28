@@ -22,7 +22,8 @@
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="{Binding Name}"
                                Foreground="White"
-                               HorizontalAlignment="Center" />
+                               HorizontalAlignment="Center"
+                               FontWeight="Bold" />
                     <TextBlock Text="{Binding Coordinates}"
                                Foreground="White"
                                HorizontalAlignment="Center" />

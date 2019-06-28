@@ -12,7 +12,7 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.Camp] = 2,
             [JungleObjectTypes.Tent] = 6,
             [JungleObjectTypes.ForgottenCity] = 2,
-            [JungleObjectTypes.DenseJungle] = (int)Math.Round(JungleHeight * JungleWidth * 0.1),
+            [JungleObjectTypes.DenseJungle] = (int)Math.Round(defaultJungleHeight * defaultJungleWidth * 0.1),
             [JungleObjectTypes.Treasure] = 10,
             [JungleObjectTypes.CarnivorousPlant] = 5,
             [JungleObjectTypes.DragonflySwarm] = 5,
