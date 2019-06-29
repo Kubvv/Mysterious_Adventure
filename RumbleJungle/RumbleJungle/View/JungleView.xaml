@@ -26,10 +26,10 @@
                         VerticalAlignment="Top"
                         Width="{Binding JungleInstance.CellWidth, Source={StaticResource Locator}}"
                         Height="{Binding JungleInstance.CellHeight, Source={StaticResource Locator}}">
-                    <StackPanel VerticalAlignment="Center">
+                    <StackPanel>
                         <TextBlock Text="{Binding Name}"
                                    Foreground="White"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Stretch"
                                    FontWeight="Bold" />
                         <TextBlock Text="{Binding Coordinates}"
                                    Foreground="White"

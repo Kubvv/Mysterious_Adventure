@@ -94,6 +94,10 @@ namespace RumbleJungle.Model
             {
                 JungleObjects.Add(new Trap());
             }
+            for (int i = JungleObjects.Count; i < Configuration.JungleHeight * Configuration.JungleWidth; i++)
+            {
+                JungleObjects.Add(new EmptyField());
+            }
 
             List<Point> coordinates = new List<Point>();
 

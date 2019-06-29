@@ -9,10 +9,16 @@ namespace RumbleJungle.Model
 {
     public class JungleObject
     {
-        public Point Coordinates { get; private set; } 
+        public Point Coordinates { get; private set; }
+
+        public event EventHandler Moved;
+
+
+
         internal void SetCoordinates(Point point)
         {
             Coordinates = point;
+            Moved?.Invoke(this, null);
         }
     }
 }

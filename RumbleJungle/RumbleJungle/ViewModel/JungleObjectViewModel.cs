@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
+using System;
 using System.Windows;
 
 namespace RumbleJungle.ViewModel
@@ -47,14 +48,16 @@ namespace RumbleJungle.ViewModel
         public JungleObjectViewModel(JungleObject jungleObject)
         {
             this.jungleObject = jungleObject;
+            string[] splittedName = jungleObject.ToString().Split('.');
+            Name = splittedName[splittedName.Length - 1];
+            Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
+            jungleObject.Moved += JungleObjectMoved;
+        }
 
-            if (jungleObject != null)
-            {
-                string[] splittedName = jungleObject.ToString().Split('.');
-                Name = splittedName[splittedName.Length - 1];
-
-                Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
-            }
+        private void JungleObjectMoved(object sender, EventArgs e)
+        {
+            Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
+            Update();
         }
     }
 }

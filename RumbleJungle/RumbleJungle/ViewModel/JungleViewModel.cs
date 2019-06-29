@@ -73,12 +73,12 @@ namespace RumbleJungle.ViewModel
             {
                 JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
             }
-            //for (int row = 0; row < Configuration.JungleHeight; row++)
+            //for (int row = 0; row < configuration.jungleheight; row++)
             //{
-            //    for (int col = 0; col < Configuration.JungleWidth; col++)
+            //    for (int col = 0; col < configuration.junglewidth; col++)
             //    {
-            //        JungleObject jungleObject = jungle.JungleObjects.FirstOrDefault(jo => jo.Coordinates.Y == row && jo.Coordinates.X == col);
-            //        JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
+            //        jungleobject jungleobject = jungle.jungleobjects.firstordefault(jo => jo.coordinates.y == row && jo.coordinates.x == col);
+            //        jungleobjectsviewmodel.add(new jungleobjectviewmodel(jungleobject));
             //    }
             //}
         }
