@@ -140,7 +140,10 @@ namespace RumbleJungle.Model
 
         internal void MoveRambler(ref Rambler rambler, Point point)
         {
-            rambler.SetCoordinates(point);
+            if (point.X >= rambler.Coordinates.X - 1 && point.X <= rambler.Coordinates.X + 1 && point.Y >= rambler.Coordinates.Y - 1 && point.Y <= rambler.Coordinates.Y + 1)
+            {
+                rambler.SetCoordinates(point);
+            }
         }
     }
 }
