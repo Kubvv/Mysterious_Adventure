@@ -9,18 +9,23 @@
         Height="800"
         Width="1600"
         DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}">
-    <ItemsControl ItemsSource="{Binding JungleObjectsViewModel}">
+    <ItemsControl x:Name="jungle"
+                  ItemsSource="{Binding JungleObjectsViewModel}"
+                  SizeChanged="Jungle_SizeChanged">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <UniformGrid Background="Green"
-                             Rows="{Binding JungleHeight}"
-                             Columns="{Binding JungleWidth}" />
+                <Canvas Background="Green" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <Button Background="{x:Null}"
-                        Command="{Binding MoveRamblerCommand, Mode=OneWay}">
+                        Command="{Binding MoveRamblerCommand, Mode=OneWay}"
+                        Margin="{Binding Margin, Mode=OneWay}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="{Binding JungleInstance.CellWidth, Source={StaticResource Locator}}"
+                        Height="{Binding JungleInstance.CellHeight, Source={StaticResource Locator}}">
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="{Binding Name}"
                                    Foreground="White"

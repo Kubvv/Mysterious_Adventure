@@ -25,11 +25,24 @@ namespace RumbleJungle.ViewModel
             set => Set(ref coordinates, value);
         }
 
-        private RelayCommand moveRamblerCommand;
-        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() =>
+        Thickness margin = new Thickness(0);
+        public Thickness Margin
         {
-            jungleViewModel.MoveRambler(jungleObject.Coordinates);
-        }));
+            get
+            {
+                margin.Left = jungleObject.Coordinates.X * jungleViewModel.CellWidth;
+                margin.Top = jungleObject.Coordinates.Y * jungleViewModel.CellHeight;
+                return margin;
+            }
+        }
+
+        private RelayCommand moveRamblerCommand;
+        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => jungleViewModel.MoveRambler(jungleObject.Coordinates)));
+
+        internal void Update()
+        {
+            RaisePropertyChanged("Margin");
+        }
 
         public JungleObjectViewModel(JungleObject jungleObject)
         {

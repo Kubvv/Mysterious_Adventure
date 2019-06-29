@@ -1,7 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -14,6 +12,46 @@ namespace RumbleJungle.ViewModel
 
         public int JungleHeight => Configuration.JungleHeight;
         public int JungleWidth => Configuration.JungleWidth;
+
+        private double canvasWidth;
+        public double CanvasWidth
+        {
+            get => canvasWidth;
+            set
+            {
+                Set(ref canvasWidth, value);
+                CellWidth = value / Configuration.JungleWidth;
+                foreach (JungleObjectViewModel jungleObjectViewModel in jungleObjectsViewModel)
+                    jungleObjectViewModel.Update();
+            }
+        }
+
+        private double canvasHeight;
+        public double CanvasHeight
+        {
+            get => canvasHeight;
+            set
+            {
+                Set(ref canvasHeight, value);
+                CellHeight = value / Configuration.JungleHeight;
+                foreach (JungleObjectViewModel jungleObjectViewModel in jungleObjectsViewModel)
+                    jungleObjectViewModel.Update();
+            }
+        }
+
+        private double cellWidth;
+        public double CellWidth
+        {
+            get => cellWidth;
+            set => Set(ref cellWidth, value);
+        }
+
+        private double cellHeight;
+        public double CellHeight
+        {
+            get => cellHeight;
+            set => Set(ref cellHeight, value);
+        }
 
         private ObservableCollection<JungleObjectViewModel> jungleObjectsViewModel = new ObservableCollection<JungleObjectViewModel>();
         public ObservableCollection<JungleObjectViewModel> JungleObjectsViewModel
@@ -31,14 +69,18 @@ namespace RumbleJungle.ViewModel
         {
             jungle.Generate();
 
-            for (int row = 0; row < Configuration.JungleHeight; row++)
+            foreach (JungleObject jungleObject in jungle.JungleObjects)
             {
-                for (int col = 0; col < Configuration.JungleWidth; col++)
-                {
-                    JungleObject jungleObject = jungle.JungleObjects.FirstOrDefault(jo => jo.Coordinates.Y == row && jo.Coordinates.X == col);
-                    JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
-                }
+                JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
             }
+            //for (int row = 0; row < Configuration.JungleHeight; row++)
+            //{
+            //    for (int col = 0; col < Configuration.JungleWidth; col++)
+            //    {
+            //        JungleObject jungleObject = jungle.JungleObjects.FirstOrDefault(jo => jo.Coordinates.Y == row && jo.Coordinates.X == col);
+            //        JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
+            //    }
+            //}
         }
 
         internal void MoveRambler(Point coordinates)
