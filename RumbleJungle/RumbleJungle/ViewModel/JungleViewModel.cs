@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -9,6 +10,7 @@ namespace RumbleJungle.ViewModel
     public class JungleViewModel : ViewModelBase
     {
         private Jungle jungle = new Jungle();
+        private Rambler rambler = new Rambler();
 
         public int JungleHeight => Configuration.JungleHeight;
         public int JungleWidth => Configuration.JungleWidth;
@@ -21,8 +23,7 @@ namespace RumbleJungle.ViewModel
             {
                 Set(ref canvasWidth, value);
                 CellWidth = value / Configuration.JungleWidth;
-                foreach (JungleObjectViewModel jungleObjectViewModel in jungleObjectsViewModel)
-                    jungleObjectViewModel.Update();
+                UpdateJungle();
             }
         }
 
@@ -34,8 +35,7 @@ namespace RumbleJungle.ViewModel
             {
                 Set(ref canvasHeight, value);
                 CellHeight = value / Configuration.JungleHeight;
-                foreach (JungleObjectViewModel jungleObjectViewModel in jungleObjectsViewModel)
-                    jungleObjectViewModel.Update();
+                UpdateJungle();
             }
         }
 
@@ -60,6 +60,13 @@ namespace RumbleJungle.ViewModel
             set => Set(ref jungleObjectsViewModel, value);
         }
 
+        private JungleObjectViewModel ramblerViewModel;
+        public JungleObjectViewModel RamblerViewModel
+        {
+            get => ramblerViewModel;
+            set => Set(ref ramblerViewModel, value);
+        }
+
         public JungleViewModel()
         {
             
@@ -68,6 +75,9 @@ namespace RumbleJungle.ViewModel
         internal void StartGame()
         {
             jungle.Generate();
+            RamblerViewModel = new JungleObjectViewModel(rambler);
+            rambler.Moved += RamblerMoved;
+            jungle.ReleaseRambler(ref rambler);
 
             foreach (JungleObject jungleObject in jungle.JungleObjects)
             {
@@ -83,9 +93,23 @@ namespace RumbleJungle.ViewModel
             //}
         }
 
+        private void UpdateJungle()
+        {
+            foreach (JungleObjectViewModel jungleObjectViewModel in jungleObjectsViewModel)
+            {
+                jungleObjectViewModel.Update();
+            }
+            RamblerViewModel.Update();
+        }
+
+        private void RamblerMoved(object sender, EventArgs e)
+        {
+            RamblerViewModel.Update();
+        }
+
         internal void MoveRambler(Point coordinates)
         {
-            jungle.MoveRambler(coordinates);
+            jungle.MoveRambler(ref rambler, coordinates);
         }
     }
 }

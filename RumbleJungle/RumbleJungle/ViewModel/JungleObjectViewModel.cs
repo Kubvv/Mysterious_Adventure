@@ -42,6 +42,7 @@ namespace RumbleJungle.ViewModel
 
         internal void Update()
         {
+            Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
             RaisePropertyChanged("Margin");
         }
 
@@ -51,13 +52,6 @@ namespace RumbleJungle.ViewModel
             string[] splittedName = jungleObject.ToString().Split('.');
             Name = splittedName[splittedName.Length - 1];
             Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
-            jungleObject.Moved += JungleObjectMoved;
-        }
-
-        private void JungleObjectMoved(object sender, EventArgs e)
-        {
-            Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
-            Update();
         }
     }
 }
