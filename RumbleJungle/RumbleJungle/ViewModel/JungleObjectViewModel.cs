@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
+using System;
 using System.Windows;
 
 namespace RumbleJungle.ViewModel
@@ -25,23 +26,32 @@ namespace RumbleJungle.ViewModel
             set => Set(ref coordinates, value);
         }
 
-        private RelayCommand moveRamblerCommand;
-        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() =>
+        Thickness margin = new Thickness(0);
+        public Thickness Margin
         {
-            jungleViewModel.MoveRambler(jungleObject.Coordinates);
-        }));
+            get
+            {
+                margin.Left = jungleObject.Coordinates.X * jungleViewModel.CellWidth;
+                margin.Top = jungleObject.Coordinates.Y * jungleViewModel.CellHeight;
+                return margin;
+            }
+        }
+
+        private RelayCommand moveRamblerCommand;
+        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => jungleViewModel.MoveRambler(jungleObject.Coordinates)));
+
+        internal void Update()
+        {
+            Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
+            RaisePropertyChanged("Margin");
+        }
 
         public JungleObjectViewModel(JungleObject jungleObject)
         {
             this.jungleObject = jungleObject;
-
-            if (jungleObject != null)
-            {
-                string[] splittedName = jungleObject.ToString().Split('.');
-                Name = splittedName[splittedName.Length - 1];
-
-                Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
-            }
+            string[] splittedName = jungleObject.ToString().Split('.');
+            Name = splittedName[splittedName.Length - 1];
+            Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
         }
     }
 }

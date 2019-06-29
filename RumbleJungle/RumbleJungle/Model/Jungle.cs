@@ -9,12 +9,12 @@ namespace RumbleJungle.Model
 {
     public class Jungle
     {
+        private int emptyFieldsCount;
+
         public List<JungleObject> JungleObjects { get; private set; } = new List<JungleObject>();
         internal void Generate()
         {
             Configuration.Read();
-
-            JungleObjects.Add(new Rambler());
 
             Random random = new Random();
             int denseJungleCount = random.Next(Configuration.JungleObjectsCount[JungleObjectTypes.DenseJungle]) + 1;
@@ -94,6 +94,11 @@ namespace RumbleJungle.Model
             {
                 JungleObjects.Add(new Trap());
             }
+            emptyFieldsCount = Configuration.JungleHeight * Configuration.JungleWidth - JungleObjects.Count;
+            for (int i = JungleObjects.Count; i < Configuration.JungleHeight * Configuration.JungleWidth; i++)
+            {
+                JungleObjects.Add(new EmptyField());
+            }
 
             List<Point> coordinates = new List<Point>();
 
@@ -113,9 +118,29 @@ namespace RumbleJungle.Model
             }
         }
 
-        internal void MoveRambler(Point point)
+        internal void ReleaseRambler(ref Rambler rambler)
         {
-            JungleObjects[0].SetCoordinates(point);
+            Random random = new Random();
+            int ramblerPosition = random.Next(emptyFieldsCount) + 1;
+            JungleObject ramblerJungleObject = null;
+            foreach (JungleObject jungleObject in JungleObjects)
+            {
+                if (jungleObject is EmptyField)
+                {
+                    ramblerPosition--;
+                    if (ramblerPosition == 0)
+                    {
+                        ramblerJungleObject = jungleObject;
+                        break;
+                    }
+                }
+            }
+            rambler.SetCoordinates(ramblerJungleObject.Coordinates);
+        }
+
+        internal void MoveRambler(ref Rambler rambler, Point point)
+        {
+            rambler.SetCoordinates(point);
         }
     }
 }

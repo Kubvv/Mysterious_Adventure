@@ -81,6 +81,7 @@
     <Compile Include="Model\Camp.cs" />
     <Compile Include="Model\Configuration.cs" />
     <Compile Include="Model\DenseJungle.cs" />
+    <Compile Include="Model\EmptyField.cs" />
     <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\ForgottenCity.cs" />
     <Compile Include="Model\GameState.cs" />
