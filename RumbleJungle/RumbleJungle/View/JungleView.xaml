@@ -8,8 +8,14 @@
         Title="JungleView"
         Height="800"
         Width="1600"
-        DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}">
+        DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}"
+        MinWidth="200"
+        MinHeight="200">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <ItemsControl x:Name="jungle"
                       ItemsSource="{Binding JungleObjectsViewModel}"
                       SizeChanged="Jungle_SizeChanged">
@@ -57,5 +63,6 @@
                            HorizontalAlignment="Center" />
             </StackPanel>
         </Border>
+        <local:StatusBar Grid.Row="1" />
     </Grid>
 </Window>
