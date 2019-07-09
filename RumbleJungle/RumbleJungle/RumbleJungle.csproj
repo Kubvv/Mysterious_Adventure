@@ -80,10 +80,12 @@
     <Compile Include="Model\Weapon.cs" />
     <Compile Include="ViewModel\BeastViewModel.cs" />
     <Compile Include="ViewModel\IngameMenuViewModel.cs" />
+    <Compile Include="ViewModel\ItemsViewModel.cs" />
     <Compile Include="ViewModel\JungleViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
+    <Compile Include="ViewModel\TreasureViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\JungleObjectViewModel.cs" />
     <Compile Include="View\IngameMenuView.xaml.cs">

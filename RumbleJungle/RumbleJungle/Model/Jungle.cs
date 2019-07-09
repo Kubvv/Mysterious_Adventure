@@ -94,5 +94,10 @@ namespace RumbleJungle.Model
         {
             return JungleObjects.Count(jo => jo.JungleObjectType == jungleObjectType);
         }
+
+        internal string QuantityOfTreasure(JungleObjectTypes jungleObjectType)
+        {
+            return $"{Configuration.TreasureCount - JungleObjects.Count(jo => jo.JungleObjectType == jungleObjectType)}/{Configuration.TreasureCount}";
+        }
     }
 }

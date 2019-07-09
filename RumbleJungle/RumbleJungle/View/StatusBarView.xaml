@@ -34,7 +34,7 @@
         <ItemsControl Grid.Column="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid Background="Green" />
+                    <Grid Background="Gray" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -86,10 +86,12 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <!-- items -->
-        <ItemsControl Grid.Column="3">
+        <ItemsControl Grid.Column="3"
+                      ItemsSource="{Binding Items}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid Background="Blue" />
+                    <UniformGrid Background="Aqua" 
+                                 Rows="1"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -102,28 +104,46 @@
                         <TextBlock Text="{Binding Name}"
                                    Foreground="White"
                                    FontWeight="Bold"
-                                   HorizontalAlignment="Center" />
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
                         <TextBlock Text="{Binding Quantity}"
                                    Foreground="White"
-                                   HorizontalAlignment="Center" />
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Grid.Row="1" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <!-- treasures -->
-        <Grid Background="Gold"
-              Grid.Column="4">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Name}"
-                       Foreground="White"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center" />
-            <TextBlock Text="{Binding Quantity}"
-                       Foreground="White"
-                       HorizontalAlignment="Center" />
-        </Grid>
+        <ItemsControl Grid.Column="4"
+                      ItemsSource="{Binding Treasure}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Background="Gold"
+                                 Rows="1" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Name}"
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Quantity}"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" 
+                                   Grid.Row="1" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>

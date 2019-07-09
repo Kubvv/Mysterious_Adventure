@@ -33,6 +33,7 @@ namespace RumbleJungle.Model
 
         public static int JungleHeight { get; private set; }
         public static int JungleWidth { get; private set; }
+        public static int TreasureCount { get; private set; }
 
         public static Dictionary<JungleObjectTypes, int> JungleObjectsCount { get; private set; }
 
@@ -48,6 +49,8 @@ namespace RumbleJungle.Model
             {
                 JungleObjectsCount.Add(objectCount.Key, (int) Math.Round(objectCount.Value * factor));
             }
+
+            TreasureCount = (int)(Math.Round(10 * factor));
         }
     }
 }

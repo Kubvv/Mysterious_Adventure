@@ -117,5 +117,10 @@ namespace RumbleJungle.ViewModel
         {
             return jungle.QuantityOf(jungleObjectType);
         }
+
+        internal string QuantityOfTreasure(JungleObjectTypes jungleObjectType)
+        {
+            return jungle.QuantityOfTreasure(jungleObjectType);
+        }
     }
 }
