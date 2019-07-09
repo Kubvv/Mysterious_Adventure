@@ -49,8 +49,7 @@ namespace RumbleJungle.ViewModel
         public JungleObjectViewModel(JungleObject jungleObject)
         {
             this.jungleObject = jungleObject;
-            string[] splittedName = jungleObject.ToString().Split('.');
-            Name = splittedName[splittedName.Length - 1];
+            Name = Enum.GetName(typeof(JungleObjectTypes), jungleObject.JungleObjectType);
             Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
         }
     }

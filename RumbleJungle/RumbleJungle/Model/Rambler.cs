@@ -7,6 +7,10 @@ namespace RumbleJungle.Model
     {
         public event EventHandler Moved;
 
+        public Rambler() : base(JungleObjectTypes.Rambler)
+        {
+        }
+
         public override void SetCoordinates(Point point)
         {
             base.SetCoordinates(point);

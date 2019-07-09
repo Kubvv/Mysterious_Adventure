@@ -18,9 +18,9 @@ namespace RumbleJungle.View
     /// <summary>
     /// Logika interakcji dla klasy StatusBar.xaml
     /// </summary>
-    public partial class StatusBar : UserControl
+    public partial class StatusBarView : UserControl
     {
-        public StatusBar()
+        public StatusBarView()
         {
             InitializeComponent();
         }

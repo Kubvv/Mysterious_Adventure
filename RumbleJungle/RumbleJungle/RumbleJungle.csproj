@@ -71,41 +71,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\BeastModel\Beast.cs" />
-    <Compile Include="Model\BeastModel\CarnivorousPlant.cs" />
-    <Compile Include="Model\BeastModel\DragonflySwarm.cs" />
-    <Compile Include="Model\BeastModel\Hydra.cs" />
-    <Compile Include="Model\BeastModel\Minotaur.cs" />
-    <Compile Include="Model\BeastModel\Snakes.cs" />
-    <Compile Include="Model\BeastModel\WildPig.cs" />
-    <Compile Include="Model\Camp.cs" />
     <Compile Include="Model\Configuration.cs" />
-    <Compile Include="Model\DenseJungle.cs" />
-    <Compile Include="Model\EmptyField.cs" />
     <Compile Include="Model\Enums.cs" />
-    <Compile Include="Model\ForgottenCity.cs" />
     <Compile Include="Model\GameState.cs" />
     <Compile Include="Model\Jungle.cs" />
     <Compile Include="Model\JungleObject.cs" />
-    <Compile Include="Model\ObstacleModel\Natives.cs" />
-    <Compile Include="Model\ObstacleModel\Obstacle.cs" />
-    <Compile Include="Model\ObstacleModel\Quicksand.cs" />
-    <Compile Include="Model\ObstacleModel\Trap.cs" />
     <Compile Include="Model\Rambler.cs" />
-    <Compile Include="Model\Tent.cs" />
-    <Compile Include="Model\Treasure.cs" />
-    <Compile Include="Model\UtilityModel\Compass.cs" />
-    <Compile Include="Model\UtilityModel\Elixir.cs" />
-    <Compile Include="Model\UtilityModel\LostWeapon.cs" />
-    <Compile Include="Model\UtilityModel\MagnifyingGlass.cs" />
-    <Compile Include="Model\UtilityModel\Map.cs" />
-    <Compile Include="Model\UtilityModel\Talisman.cs" />
-    <Compile Include="Model\UtilityModel\Utility.cs" />
-    <Compile Include="Model\WeaponModel\Weapon.cs" />
+    <Compile Include="Model\Weapon.cs" />
+    <Compile Include="ViewModel\BeastViewModel.cs" />
     <Compile Include="ViewModel\IngameMenuViewModel.cs" />
     <Compile Include="ViewModel\JungleViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
+    <Compile Include="ViewModel\StatusBarViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\JungleObjectViewModel.cs" />
     <Compile Include="View\IngameMenuView.xaml.cs">
@@ -114,8 +92,8 @@
     <Compile Include="View\OptionsView.xaml.cs">
       <DependentUpon>OptionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\StatusBar.xaml.cs">
-      <DependentUpon>StatusBar.xaml</DependentUpon>
+    <Compile Include="View\StatusBarView.xaml.cs">
+      <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -148,7 +126,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\StatusBar.xaml">
+    <Page Include="View\StatusBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

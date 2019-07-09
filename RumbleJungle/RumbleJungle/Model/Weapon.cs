@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RumbleJungle.Model.BeastModel
+namespace RumbleJungle.Model
 {
-    class Beast : JungleObject
+    class Weapon
     {
     }
 }

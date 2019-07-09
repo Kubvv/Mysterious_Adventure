@@ -2,6 +2,8 @@
 {
     public enum JungleObjectTypes
     {
+        Rambler,
+        EmptyField,
         Camp,
         Tent,
         ForgottenCity,

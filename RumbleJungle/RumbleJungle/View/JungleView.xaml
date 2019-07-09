@@ -63,6 +63,6 @@
                            HorizontalAlignment="Center" />
             </StackPanel>
         </Border>
-        <local:StatusBar Grid.Row="1" />
+        <local:StatusBarView Grid.Row="1" />
     </Grid>
 </Window>

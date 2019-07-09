@@ -28,6 +28,7 @@ namespace RumbleJungle.ViewModel
         }
 
         private double canvasHeight;
+
         public double CanvasHeight
         {
             get => canvasHeight;
@@ -110,6 +111,11 @@ namespace RumbleJungle.ViewModel
         internal void MoveRambler(Point coordinates)
         {
             jungle.MoveRambler(ref rambler, coordinates);
+        }
+
+        internal int QuantityOf(JungleObjectTypes jungleObjectType)
+        {
+            return jungle.QuantityOf(jungleObjectType);
         }
     }
 }
