@@ -10,7 +10,7 @@ namespace RumbleJungle.ViewModel
 
         public ObservableCollection<ItemsViewModel> Items { get; set; }
 
-        public ObservableCollection<TreasureViewModel> Treasure { get; set; }
+        public TreasureViewModel Treasure { get; set; }
 
         public StatusBarViewModel()
         {
@@ -37,8 +37,7 @@ namespace RumbleJungle.ViewModel
             Items.Add(new ItemsViewModel(JungleObjectTypes.Quicksand));
             Items.Add(new ItemsViewModel(JungleObjectTypes.Trap));
 
-            Treasure = new ObservableCollection<TreasureViewModel>();
-            Treasure.Add(new TreasureViewModel(JungleObjectTypes.Treasure));
+            Treasure = new TreasureViewModel(JungleObjectTypes.Treasure);
 
         }
     }

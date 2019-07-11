@@ -20,17 +20,19 @@ namespace RumbleJungle.ViewModel
             set => Set(ref name, value);
         }
 
-        private string quantity;
-        public string Quantity
+        private int foundQuantity;
+        public int FoundQuantity
         {
-            get => quantity;
-            set => Set(ref quantity, value);
+            get => foundQuantity;
+            set => Set(ref foundQuantity, value);
         }
+
+        public int TotalQuantity => Configuration.TreasureCount;
 
         public TreasureViewModel(JungleObjectTypes treasureType)
         {
             Name = "Treasure";
-            Quantity = jungleViewModel.QuantityOfTreasure(treasureType);
+            FoundQuantity = 0;
         }
     }
 }
