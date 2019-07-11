@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RumbleJungle.Properties;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 
@@ -31,6 +32,30 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.Talisman] = 2
         };
 
+        private static Dictionary<JungleObjectTypes, string> jungleObjectsShape = new Dictionary<JungleObjectTypes, string>
+        {
+            [JungleObjectTypes.Camp] = "",
+            [JungleObjectTypes.Tent] = "",
+            [JungleObjectTypes.ForgottenCity] = "",
+            [JungleObjectTypes.DenseJungle] = "",
+            [JungleObjectTypes.Treasure] = "",
+            [JungleObjectTypes.CarnivorousPlant] = "",
+            [JungleObjectTypes.DragonflySwarm] = "",
+            [JungleObjectTypes.Hydra] = "",
+            [JungleObjectTypes.Minotaur] = "",
+            [JungleObjectTypes.Snakes] = "",
+            [JungleObjectTypes.WildPig] = Resources.WildPig,
+            [JungleObjectTypes.Natives] = "",
+            [JungleObjectTypes.Quicksand] = "",
+            [JungleObjectTypes.Trap] = "",
+            [JungleObjectTypes.Compass] = "",
+            [JungleObjectTypes.Elixir] = "",
+            [JungleObjectTypes.LostWeapon] = "",
+            [JungleObjectTypes.MagnifyingGlass] = "",
+            [JungleObjectTypes.Map] = "",
+            [JungleObjectTypes.Talisman] = ""
+        };
+
         public static int JungleHeight { get; private set; }
         public static int JungleWidth { get; private set; }
         public static int TreasureCount { get; private set; }
@@ -51,6 +76,16 @@ namespace RumbleJungle.Model
             }
 
             TreasureCount = (int)(Math.Round(10 * factor));
+        }
+
+        internal static string ShapeOf(JungleObjectTypes jungleObjectType)
+        {
+            string result = "";
+            if (jungleObjectsShape.ContainsKey(jungleObjectType))
+            {
+                result = jungleObjectsShape[jungleObjectType];
+            }
+            return result;
         }
     }
 }

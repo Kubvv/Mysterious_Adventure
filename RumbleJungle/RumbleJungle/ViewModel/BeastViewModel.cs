@@ -8,6 +8,7 @@ namespace RumbleJungle.ViewModel
     public class BeastViewModel : ViewModelBase
     {
         private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
+        private JungleObjectTypes beastType;
 
         private string name;
         public string Name
@@ -15,6 +16,8 @@ namespace RumbleJungle.ViewModel
             get => name;
             set => Set(ref name, value);
         }
+
+        public string Shape => Configuration.ShapeOf(beastType);
 
         private int quantity;
         public int Quantity
@@ -25,6 +28,7 @@ namespace RumbleJungle.ViewModel
 
         public BeastViewModel(JungleObjectTypes beastType)
         {
+            this.beastType = beastType;
             Name = Enum.GetName(typeof(JungleObjectTypes), beastType);
             Quantity = jungleViewModel.QuantityOf(beastType);
         }
