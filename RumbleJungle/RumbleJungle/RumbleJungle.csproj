@@ -89,6 +89,7 @@
     <Compile Include="ViewModel\TreasureViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\JungleObjectViewModel.cs" />
+    <Compile Include="ViewModel\WeaponViewModel.cs" />
     <Compile Include="View\IngameMenuView.xaml.cs">
       <DependentUpon>IngameMenuView.xaml</DependentUpon>
     </Compile>
@@ -166,7 +167,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Image1.bmp" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

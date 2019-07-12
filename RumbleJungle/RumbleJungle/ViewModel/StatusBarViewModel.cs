@@ -15,12 +15,12 @@ namespace RumbleJungle.ViewModel
         public StatusBarViewModel()
         {
             Beasts = new ObservableCollection<BeastViewModel>();
-            Beasts.Add(new BeastViewModel(JungleObjectTypes.CarnivorousPlant));
             Beasts.Add(new BeastViewModel(JungleObjectTypes.DragonflySwarm));
-            Beasts.Add(new BeastViewModel(JungleObjectTypes.Hydra));
-            Beasts.Add(new BeastViewModel(JungleObjectTypes.Minotaur));
-            Beasts.Add(new BeastViewModel(JungleObjectTypes.Snakes));
             Beasts.Add(new BeastViewModel(JungleObjectTypes.WildPig));
+            Beasts.Add(new BeastViewModel(JungleObjectTypes.Snakes));
+            Beasts.Add(new BeastViewModel(JungleObjectTypes.CarnivorousPlant));
+            Beasts.Add(new BeastViewModel(JungleObjectTypes.Minotaur));
+            Beasts.Add(new BeastViewModel(JungleObjectTypes.Hydra));
 
             Items = new ObservableCollection<ItemsViewModel>();
             Items.Add(new ItemsViewModel(JungleObjectTypes.Camp));

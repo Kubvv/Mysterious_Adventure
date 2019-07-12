@@ -39,7 +39,7 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.ForgottenCity] = "",
             [JungleObjectTypes.DenseJungle] = "",
             [JungleObjectTypes.Treasure] = "",
-            [JungleObjectTypes.CarnivorousPlant] = "",
+            [JungleObjectTypes.CarnivorousPlant] = Resources.CarnivorousPlant,
             [JungleObjectTypes.DragonflySwarm] = "",
             [JungleObjectTypes.Hydra] = "",
             [JungleObjectTypes.Minotaur] = "",
@@ -54,6 +54,17 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.MagnifyingGlass] = "",
             [JungleObjectTypes.Map] = "",
             [JungleObjectTypes.Talisman] = ""
+        };
+
+        private static Dictionary<WeaponTypes, string> weaponShape = new Dictionary<WeaponTypes, string>
+        {
+            [WeaponTypes.Dagger] = "",
+            [WeaponTypes.Torch] = "",
+            [WeaponTypes.Spear] = "",
+            [WeaponTypes.Machete] = "",
+            [WeaponTypes.Bow] = "",
+            [WeaponTypes.Battleaxe] = "",
+            [WeaponTypes.Sword] = ""
         };
 
         public static int JungleHeight { get; private set; }
@@ -84,6 +95,16 @@ namespace RumbleJungle.Model
             if (jungleObjectsShape.ContainsKey(jungleObjectType))
             {
                 result = jungleObjectsShape[jungleObjectType];
+            }
+            return result;
+        }
+
+        internal static string ShapeOf(WeaponTypes weaponType)
+        {
+            string result = "";
+            if (weaponShape.ContainsKey(weaponType))
+            {
+                result = weaponShape[weaponType];
             }
             return result;
         }

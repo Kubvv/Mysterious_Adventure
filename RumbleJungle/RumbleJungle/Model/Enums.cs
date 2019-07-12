@@ -25,4 +25,15 @@
         Map,
         Talisman
     }
+
+    public enum WeaponTypes
+    {
+        Dagger,
+        Torch,
+        Spear,
+        Machete,
+        Bow,
+        Battleaxe,
+        Sword
+    }
 }
