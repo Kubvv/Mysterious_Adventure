@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RumbleJungle.View"
+             xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
              mc:Ignorable="d"
              MinWidth="200"
              DataContext="{Binding StatusBarInstance, Mode=OneWay, Source={StaticResource Locator}}">
@@ -43,10 +44,11 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding Name}"
+                        <svg:SVGImage FileSource="{Binding Shape, Mode=OneWay}" />
+                        <!--<TextBlock Text="{Binding Name}"
                                    Foreground="Black"
                                    FontWeight="Bold"
-                                   HorizontalAlignment="Center" />
+                                   HorizontalAlignment="Center" />-->
                         <TextBlock Text="{Binding Quantity}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center" />
@@ -69,9 +71,10 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Path Fill="Black"
+                        <svg:SVGImage FileSource="{Binding Shape, Mode=OneWay}" />
+                        <!--<Path Fill="Black"
                               Stretch="Uniform"
-                              Data="{Binding Shape, Mode=OneWay}" />
+                              Data="{Binding Shape, Mode=OneWay}" />-->
                         <!--<TextBlock Text="{Binding Name}"
                                    Foreground="White"
                                    FontWeight="Bold"

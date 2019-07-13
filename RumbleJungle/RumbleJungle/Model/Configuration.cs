@@ -39,12 +39,12 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.ForgottenCity] = "",
             [JungleObjectTypes.DenseJungle] = "",
             [JungleObjectTypes.Treasure] = "",
-            [JungleObjectTypes.CarnivorousPlant] = Resources.CarnivorousPlant,
+            [JungleObjectTypes.CarnivorousPlant] = @"D:\VS\RumbleJungle\RumbleJungle\RumbleJungle\Images\noun_Carnivorous Plant_1837131.svg",
             [JungleObjectTypes.DragonflySwarm] = "",
             [JungleObjectTypes.Hydra] = "",
             [JungleObjectTypes.Minotaur] = "",
             [JungleObjectTypes.Snakes] = "",
-            [JungleObjectTypes.WildPig] = Resources.WildPig,
+            [JungleObjectTypes.WildPig] = @"D:\VS\RumbleJungle\RumbleJungle\RumbleJungle\Images\noun_boar_1046565.svg",
             [JungleObjectTypes.Natives] = "",
             [JungleObjectTypes.Quicksand] = "",
             [JungleObjectTypes.Trap] = "",
@@ -96,7 +96,7 @@ namespace RumbleJungle.Model
             {
                 result = jungleObjectsShape[jungleObjectType];
             }
-            return result;
+            return string.IsNullOrEmpty(result) ? @"D:\VS\RumbleJungle\RumbleJungle\RumbleJungle\Images\noun_Axe_688879.svg" : result;
         }
 
         internal static string ShapeOf(WeaponTypes weaponType)
@@ -106,7 +106,7 @@ namespace RumbleJungle.Model
             {
                 result = weaponShape[weaponType];
             }
-            return result;
+            return string.IsNullOrEmpty(result) ? @"D:\VS\RumbleJungle\RumbleJungle\RumbleJungle\Images\noun_Axe_688879.svg" : result;
         }
     }
 }
