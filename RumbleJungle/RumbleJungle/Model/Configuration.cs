@@ -39,12 +39,12 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.ForgottenCity] = "",
             [JungleObjectTypes.DenseJungle] = "",
             [JungleObjectTypes.Treasure] = "",
-            [JungleObjectTypes.CarnivorousPlant] = "",
+            [JungleObjectTypes.CarnivorousPlant] = "noun_Carnivorous Plant_1837131",
             [JungleObjectTypes.DragonflySwarm] = "",
             [JungleObjectTypes.Hydra] = "",
             [JungleObjectTypes.Minotaur] = "",
             [JungleObjectTypes.Snakes] = "",
-            [JungleObjectTypes.WildPig] = "",
+            [JungleObjectTypes.WildPig] = "noun_boar_1046565",
             [JungleObjectTypes.Natives] = "",
             [JungleObjectTypes.Quicksand] = "",
             [JungleObjectTypes.Trap] = "",
@@ -58,7 +58,7 @@ namespace RumbleJungle.Model
 
         private static Dictionary<WeaponTypes, string> weaponShape = new Dictionary<WeaponTypes, string>
         {
-            [WeaponTypes.Dagger] = "",
+            [WeaponTypes.Dagger] = "noun_dagger_2431232",
             [WeaponTypes.Torch] = "",
             [WeaponTypes.Spear] = "",
             [WeaponTypes.Machete] = "",
