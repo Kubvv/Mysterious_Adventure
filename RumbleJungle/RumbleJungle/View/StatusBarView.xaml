@@ -31,7 +31,8 @@
                        HorizontalAlignment="Center" />
         </Grid>
         <!-- weapons -->
-        <ItemsControl Grid.Column="1">
+        <ItemsControl Grid.Column="1"
+                      ItemsSource="{Binding Weapons}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid />
@@ -44,11 +45,7 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <svg:SVGImage FileSource="{Binding Shape, Mode=OneWay}" />
-                        <!--<TextBlock Text="{Binding Name}"
-                                   Foreground="Black"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center" />-->
+                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}" />
                         <TextBlock Text="{Binding Quantity}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center" />

@@ -10,10 +10,21 @@ namespace RumbleJungle.ViewModel
 
         public ObservableCollection<ItemsViewModel> Items { get; set; }
 
+        public ObservableCollection<WeaponViewModel> Weapons { get; set; }
+
         public TreasureViewModel Treasure { get; set; }
 
         public StatusBarViewModel()
         {
+            Weapons = new ObservableCollection<WeaponViewModel>();
+            Weapons.Add(new WeaponViewModel(WeaponTypes.Dagger));
+            Weapons.Add(new WeaponViewModel(WeaponTypes.Torch));
+            Weapons.Add(new WeaponViewModel(WeaponTypes.Spear));
+            Weapons.Add(new WeaponViewModel(WeaponTypes.Machete));
+            Weapons.Add(new WeaponViewModel(WeaponTypes.Bow));
+            Weapons.Add(new WeaponViewModel(WeaponTypes.Battleaxe));
+            Weapons.Add(new WeaponViewModel(WeaponTypes.Sword));
+
             Beasts = new ObservableCollection<BeastViewModel>();
             Beasts.Add(new BeastViewModel(JungleObjectTypes.DragonflySwarm));
             Beasts.Add(new BeastViewModel(JungleObjectTypes.WildPig));

@@ -39,12 +39,12 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.ForgottenCity] = "",
             [JungleObjectTypes.DenseJungle] = "",
             [JungleObjectTypes.Treasure] = "",
-            [JungleObjectTypes.CarnivorousPlant] = "noun_Carnivorous Plant_1837131",
+            [JungleObjectTypes.CarnivorousPlant] = "",
             [JungleObjectTypes.DragonflySwarm] = "",
             [JungleObjectTypes.Hydra] = "",
             [JungleObjectTypes.Minotaur] = "",
             [JungleObjectTypes.Snakes] = "",
-            [JungleObjectTypes.WildPig] = "noun_boar_1046565",
+            [JungleObjectTypes.WildPig] = "",
             [JungleObjectTypes.Natives] = "",
             [JungleObjectTypes.Quicksand] = "",
             [JungleObjectTypes.Trap] = "",
@@ -106,7 +106,7 @@ namespace RumbleJungle.Model
             {
                 result = weaponShape[weaponType];
             }
-            return string.IsNullOrEmpty(result) ? @"D:\VS\RumbleJungle\RumbleJungle\RumbleJungle\Images\noun_Axe_688879.svg" : result;
+            return string.IsNullOrEmpty(result) ? "noun_Axe_688879" : result;
         }
     }
 }
