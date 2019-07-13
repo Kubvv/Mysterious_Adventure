@@ -71,15 +71,7 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <svg:SVGImage FileSource="{Binding Shape, Mode=OneWay}" />
-                        <!--<Path Fill="Black"
-                              Stretch="Uniform"
-                              Data="{Binding Shape, Mode=OneWay}" />-->
-                        <!--<TextBlock Text="{Binding Name}"
-                                   Foreground="White"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center" />-->
+                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}" />
                         <TextBlock Text="{Binding Quantity}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"

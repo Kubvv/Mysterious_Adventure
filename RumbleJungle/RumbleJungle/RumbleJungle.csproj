@@ -102,10 +102,6 @@
     <Compile Include="View\StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Images\WildPig.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -173,7 +169,22 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\noun_boar_1046565.svg" />
+    <Resource Include="Images\noun_boar_1046565.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\noun_Axe_688879.svg" />
+    <Resource Include="Images\noun_camp_2575719.svg" />
+    <Resource Include="Images\noun_Carnivorous Plant_1837131.svg" />
+    <Resource Include="Images\noun_dagger_2431232.svg" />
+    <Resource Include="Images\noun_Dragonfly_609457.svg" />
+    <Resource Include="Images\noun_explorer_25480.svg" />
+    <Resource Include="Images\noun_hydra_2266443.svg" />
+    <Resource Include="Images\noun_Machete_40574.svg" />
+    <Resource Include="Images\noun_Minotaur_2266437.svg" />
+    <Resource Include="Images\noun_Snake_1998414.svg" />
+    <Resource Include="Images\noun_Spear_33215.svg" />
+    <Resource Include="Images\noun_temple_1942040.svg" />
+    <Resource Include="Images\noun_Torch_2376184.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

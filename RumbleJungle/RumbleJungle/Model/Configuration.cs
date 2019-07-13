@@ -39,12 +39,12 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.ForgottenCity] = "",
             [JungleObjectTypes.DenseJungle] = "",
             [JungleObjectTypes.Treasure] = "",
-            [JungleObjectTypes.CarnivorousPlant] = @"D:\VS\RumbleJungle\RumbleJungle\RumbleJungle\Images\noun_Carnivorous Plant_1837131.svg",
+            [JungleObjectTypes.CarnivorousPlant] = "noun_Carnivorous Plant_1837131",
             [JungleObjectTypes.DragonflySwarm] = "",
             [JungleObjectTypes.Hydra] = "",
             [JungleObjectTypes.Minotaur] = "",
             [JungleObjectTypes.Snakes] = "",
-            [JungleObjectTypes.WildPig] = @"D:\VS\RumbleJungle\RumbleJungle\RumbleJungle\Images\noun_boar_1046565.svg",
+            [JungleObjectTypes.WildPig] = "noun_boar_1046565",
             [JungleObjectTypes.Natives] = "",
             [JungleObjectTypes.Quicksand] = "",
             [JungleObjectTypes.Trap] = "",
@@ -96,7 +96,7 @@ namespace RumbleJungle.Model
             {
                 result = jungleObjectsShape[jungleObjectType];
             }
-            return string.IsNullOrEmpty(result) ? @"D:\VS\RumbleJungle\RumbleJungle\RumbleJungle\Images\noun_Axe_688879.svg" : result;
+            return string.IsNullOrEmpty(result) ? "noun_Axe_688879" : result;
         }
 
         internal static string ShapeOf(WeaponTypes weaponType)

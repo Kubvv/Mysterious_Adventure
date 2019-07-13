@@ -17,7 +17,7 @@ namespace RumbleJungle.ViewModel
             set => Set(ref name, value);
         }
 
-        public string Shape => Configuration.ShapeOf(beastType);
+        public string Shape => $"/RumbleJungle;component/Images/{Configuration.ShapeOf(beastType)}.svg";
 
         private int quantity;
         public int Quantity
