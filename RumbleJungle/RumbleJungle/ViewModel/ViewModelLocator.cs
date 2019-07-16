@@ -43,8 +43,10 @@ namespace RumbleJungle.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<JungleViewModel>();
+            SimpleIoc.Default.Register<JungleObjectViewModel>();
+            //SimpleIoc.Default.Register<RamblerViewModel>();
             SimpleIoc.Default.Register<StatusBarViewModel>();
+            SimpleIoc.Default.Register<JungleViewModel>();
             SimpleIoc.Default.Register<OptionsViewModel>();
             SimpleIoc.Default.Register<IngameMenuViewModel>();
         }
@@ -53,11 +55,16 @@ namespace RumbleJungle.ViewModel
 
         public JungleViewModel JungleInstance => ServiceLocator.Current.GetInstance<JungleViewModel>();
 
+        public JungleObjectViewModel JungleObjectInstance => ServiceLocator.Current.GetInstance<JungleObjectViewModel>();
+
         public StatusBarViewModel StatusBarInstance => ServiceLocator.Current.GetInstance<StatusBarViewModel>();
 
         public OptionsViewModel OptionsInstance => ServiceLocator.Current.GetInstance<OptionsViewModel>();
 
         public IngameMenuViewModel IngameMenuInstance => ServiceLocator.Current.GetInstance<IngameMenuViewModel>();
+
+        //public RamblerViewModel RamblerInstance => ServiceLocator.Current.GetInstance<RamblerViewModel>();
+
 
         public static void Cleanup()
         {

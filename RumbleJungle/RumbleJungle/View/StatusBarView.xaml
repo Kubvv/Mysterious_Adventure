@@ -13,7 +13,7 @@
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="7*" />
             <ColumnDefinition Width="6*" />
-            <ColumnDefinition Width="13*" />
+            <ColumnDefinition Width="12*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
         <!-- life -->
@@ -22,20 +22,27 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Name}"
-                       Foreground="Black"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center" />
-            <TextBlock Text="{Binding Quantity}"
-                       Foreground="Black"
-                       HorizontalAlignment="Center" />
+            <ProgressBar Value="{Binding RamblerHealth, Mode=OneWay}" />
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <TextBlock Text="{Binding RamblerHealth, Mode=OneWay}"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+                <TextBlock Text="%"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+            </StackPanel>
         </Grid>
         <!-- weapons -->
         <ItemsControl Grid.Column="1"
                       ItemsSource="{Binding Weapons}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid />
+                    <UniformGrid Rows="1" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -48,7 +55,9 @@
                         <svg:SVGImage Source="{Binding Shape, Mode=OneWay}" />
                         <TextBlock Text="{Binding Quantity}"
                                    Foreground="Black"
-                                   HorizontalAlignment="Center" />
+                                   HorizontalAlignment="Center"
+                                   Grid.Row="1"
+                                   VerticalAlignment="Center" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -93,11 +102,7 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding Name}"
-                                   Foreground="Black"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center" />
+                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}" />
                         <TextBlock Text="{Binding Quantity}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"

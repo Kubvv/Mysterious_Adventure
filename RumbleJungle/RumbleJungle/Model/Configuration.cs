@@ -34,37 +34,36 @@ namespace RumbleJungle.Model
 
         private static Dictionary<JungleObjectTypes, string> jungleObjectsShape = new Dictionary<JungleObjectTypes, string>
         {
-            [JungleObjectTypes.Camp] = "",
+            [JungleObjectTypes.Camp] = "Camp",
             [JungleObjectTypes.Tent] = "",
-            [JungleObjectTypes.ForgottenCity] = "",
-            [JungleObjectTypes.DenseJungle] = "",
+            [JungleObjectTypes.ForgottenCity] = "Temple",
             [JungleObjectTypes.Treasure] = "",
-            [JungleObjectTypes.CarnivorousPlant] = "noun_Carnivorous Plant_1837131",
-            [JungleObjectTypes.DragonflySwarm] = "",
-            [JungleObjectTypes.Hydra] = "",
-            [JungleObjectTypes.Minotaur] = "",
-            [JungleObjectTypes.Snakes] = "",
-            [JungleObjectTypes.WildPig] = "noun_boar_1046565",
-            [JungleObjectTypes.Natives] = "",
-            [JungleObjectTypes.Quicksand] = "",
-            [JungleObjectTypes.Trap] = "",
-            [JungleObjectTypes.Compass] = "",
-            [JungleObjectTypes.Elixir] = "",
+            [JungleObjectTypes.CarnivorousPlant] = "CarnivorousPlant",
+            [JungleObjectTypes.DragonflySwarm] = "Dragonfly",
+            [JungleObjectTypes.Hydra] = "Hydra",
+            [JungleObjectTypes.Minotaur] = "Minotaur",
+            [JungleObjectTypes.Snakes] = "Snake",
+            [JungleObjectTypes.WildPig] = "Boar",
+            [JungleObjectTypes.Natives] = "Natives",
+            [JungleObjectTypes.Quicksand] = "Quicksand",
+            [JungleObjectTypes.Trap] = "Trap",
+            [JungleObjectTypes.Compass] = "Compass",
+            [JungleObjectTypes.Elixir] = "Elixir",
             [JungleObjectTypes.LostWeapon] = "",
-            [JungleObjectTypes.MagnifyingGlass] = "",
-            [JungleObjectTypes.Map] = "",
-            [JungleObjectTypes.Talisman] = ""
+            [JungleObjectTypes.MagnifyingGlass] = "MagnifyingGlass",
+            [JungleObjectTypes.Map] = "Map",
+            [JungleObjectTypes.Talisman] = "Talisman"
         };
 
         private static Dictionary<WeaponTypes, string> weaponShape = new Dictionary<WeaponTypes, string>
         {
-            [WeaponTypes.Dagger] = "noun_dagger_2431232",
-            [WeaponTypes.Torch] = "",
-            [WeaponTypes.Spear] = "",
-            [WeaponTypes.Machete] = "",
-            [WeaponTypes.Bow] = "",
-            [WeaponTypes.Battleaxe] = "",
-            [WeaponTypes.Sword] = ""
+            [WeaponTypes.Dagger] = "Dagger",
+            [WeaponTypes.Torch] = "Torch",
+            [WeaponTypes.Spear] = "Spear",
+            [WeaponTypes.Machete] = "Machete",
+            [WeaponTypes.Bow] = "Bow",
+            [WeaponTypes.Battleaxe] = "Axe",
+            [WeaponTypes.Sword] = "Sword"
         };
 
         public static int JungleHeight { get; private set; }
@@ -96,7 +95,7 @@ namespace RumbleJungle.Model
             {
                 result = jungleObjectsShape[jungleObjectType];
             }
-            return string.IsNullOrEmpty(result) ? "noun_Axe_688879" : result;
+            return string.IsNullOrEmpty(result) ? "Axe" : result;
         }
 
         internal static string ShapeOf(WeaponTypes weaponType)
@@ -106,7 +105,7 @@ namespace RumbleJungle.Model
             {
                 result = weaponShape[weaponType];
             }
-            return string.IsNullOrEmpty(result) ? "noun_Axe_688879" : result;
+            return string.IsNullOrEmpty(result) ? "Axe" : result;
         }
     }
 }

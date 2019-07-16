@@ -68,6 +68,8 @@ namespace RumbleJungle.ViewModel
             set => Set(ref ramblerViewModel, value);
         }
 
+        public int RamblerHealth => rambler.Health;
+
         public JungleViewModel()
         {
             

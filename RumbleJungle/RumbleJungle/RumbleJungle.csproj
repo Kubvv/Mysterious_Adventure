@@ -169,22 +169,34 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\noun_boar_1046565.svg" />
+    <Resource Include="Images\Boar.svg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\noun_Axe_688879.svg" />
-    <Resource Include="Images\noun_camp_2575719.svg" />
-    <Resource Include="Images\noun_Carnivorous Plant_1837131.svg" />
-    <Resource Include="Images\noun_dagger_2431232.svg" />
-    <Resource Include="Images\noun_Dragonfly_609457.svg" />
-    <Resource Include="Images\noun_explorer_25480.svg" />
-    <Resource Include="Images\noun_hydra_2266443.svg" />
-    <Resource Include="Images\noun_Machete_40574.svg" />
-    <Resource Include="Images\noun_Minotaur_2266437.svg" />
-    <Resource Include="Images\noun_Snake_1998414.svg" />
-    <Resource Include="Images\noun_Spear_33215.svg" />
-    <Resource Include="Images\noun_temple_1942040.svg" />
-    <Resource Include="Images\noun_Torch_2376184.svg" />
+    <Resource Include="Images\Axe.svg" />
+    <Resource Include="Images\Camp.svg" />
+    <Resource Include="Images\CarnivorousPlant.svg" />
+    <Resource Include="Images\Dagger.svg" />
+    <Resource Include="Images\Dragonfly.svg" />
+    <Resource Include="Images\Rambler.svg" />
+    <Resource Include="Images\Hydra.svg" />
+    <Resource Include="Images\Machete.svg" />
+    <Resource Include="Images\Minotaur.svg" />
+    <Resource Include="Images\Snake.svg" />
+    <Resource Include="Images\Spear.svg" />
+    <Resource Include="Images\Temple.svg" />
+    <Resource Include="Images\Torch.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Bow.svg" />
+    <Resource Include="Images\Compass.svg" />
+    <Resource Include="Images\Elixir.svg" />
+    <Resource Include="Images\MagnifyingGlass.svg" />
+    <Resource Include="Images\Map.svg" />
+    <Resource Include="Images\Natives.svg" />
+    <Resource Include="Images\Quicksand.svg" />
+    <Resource Include="Images\Sword.svg" />
+    <Resource Include="Images\Talisman.svg" />
+    <Resource Include="Images\Trap.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

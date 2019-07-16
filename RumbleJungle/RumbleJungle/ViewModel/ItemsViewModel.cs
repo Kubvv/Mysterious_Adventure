@@ -8,6 +8,7 @@ namespace RumbleJungle.ViewModel
     public class ItemsViewModel : ViewModelBase
     {
         private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
+        private JungleObjectTypes itemType;
 
         private string name;
         public string Name
@@ -16,6 +17,8 @@ namespace RumbleJungle.ViewModel
             set => Set(ref name, value);
         }
 
+        public string Shape => $"/RumbleJungle;component/Images/{Configuration.ShapeOf(itemType)}.svg";
+
         private int quantity;
         public int Quantity
         {
@@ -23,10 +26,11 @@ namespace RumbleJungle.ViewModel
             set => Set(ref quantity, value);
         }
 
-        public ItemsViewModel(JungleObjectTypes itemsType)
+        public ItemsViewModel(JungleObjectTypes itemType)
         {
-            Name = Enum.GetName(typeof(JungleObjectTypes), itemsType);
-            Quantity = jungleViewModel.QuantityOf(itemsType);
+            this.itemType = itemType;
+            Name = Enum.GetName(typeof(JungleObjectTypes), itemType);
+            Quantity = jungleViewModel.QuantityOf(itemType);
         }
     }
 }

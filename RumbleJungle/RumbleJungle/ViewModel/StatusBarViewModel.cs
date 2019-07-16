@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CommonServiceLocator;
+using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
 using System.Collections.ObjectModel;
 
@@ -6,6 +7,8 @@ namespace RumbleJungle.ViewModel
 {
     public class StatusBarViewModel : ViewModelBase
     {
+        private JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
+
         public ObservableCollection<BeastViewModel> Beasts { get; set; }
 
         public ObservableCollection<ItemsViewModel> Items { get; set; }
@@ -13,6 +16,8 @@ namespace RumbleJungle.ViewModel
         public ObservableCollection<WeaponViewModel> Weapons { get; set; }
 
         public TreasureViewModel Treasure { get; set; }
+
+        public int RamblerHealth => jungleViewModel.RamblerHealth;
 
         public StatusBarViewModel()
         {
@@ -37,7 +42,6 @@ namespace RumbleJungle.ViewModel
             Items.Add(new ItemsViewModel(JungleObjectTypes.Camp));
             Items.Add(new ItemsViewModel(JungleObjectTypes.Tent));
             Items.Add(new ItemsViewModel(JungleObjectTypes.ForgottenCity));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.DenseJungle));
             Items.Add(new ItemsViewModel(JungleObjectTypes.LostWeapon));
             Items.Add(new ItemsViewModel(JungleObjectTypes.Elixir));
             Items.Add(new ItemsViewModel(JungleObjectTypes.Map));
