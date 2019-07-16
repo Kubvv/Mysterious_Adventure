@@ -52,7 +52,7 @@ namespace RumbleJungle.ViewModel
             Items.Add(new ItemsViewModel(JungleObjectTypes.Quicksand));
             Items.Add(new ItemsViewModel(JungleObjectTypes.Trap));
 
-            Treasure = new TreasureViewModel(JungleObjectTypes.Treasure);
+            Treasure = new TreasureViewModel();
 
         }
     }

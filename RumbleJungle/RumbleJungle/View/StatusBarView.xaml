@@ -25,8 +25,7 @@
             <ProgressBar Value="{Binding RamblerHealth, Mode=OneWay}" />
             <StackPanel Orientation="Horizontal"
                         Grid.Row="1"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+                        HorizontalAlignment="Center">
                 <TextBlock Text="{Binding RamblerHealth, Mode=OneWay}"
                            Foreground="Black"
                            HorizontalAlignment="Center"
@@ -52,7 +51,9 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}" />
+                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center" />
                         <TextBlock Text="{Binding Quantity}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
@@ -77,7 +78,9 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}" />
+                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center" />
                         <TextBlock Text="{Binding Quantity}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
@@ -102,7 +105,9 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}" />
+                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center" />
                         <TextBlock Text="{Binding Quantity}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
@@ -118,11 +123,9 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Treasure.Name}"
-                       Foreground="Black"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center" />
+            <svg:SVGImage Source="{Binding Treasure.Shape, Mode=OneWay}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center" />
             <StackPanel Orientation="Horizontal"
                         Grid.Row="1"
                         HorizontalAlignment="Center"

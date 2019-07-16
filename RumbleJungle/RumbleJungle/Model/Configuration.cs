@@ -1,5 +1,4 @@
-﻿using RumbleJungle.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 
