@@ -29,11 +29,13 @@
                 <TextBlock Text="{Binding RamblerHealth, Mode=OneWay}"
                            Foreground="Black"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center"
+                           Style="{DynamicResource ItemsCounterStyle}" />
                 <TextBlock Text="%"
                            Foreground="Black"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center"
+                           Style="{DynamicResource ItemsCounterStyle}" />
             </StackPanel>
         </Grid>
         <!-- weapons -->
@@ -58,7 +60,8 @@
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
                                    Grid.Row="1"
-                                   VerticalAlignment="Center" />
+                                   VerticalAlignment="Center"
+                                   Style="{DynamicResource ItemsCounterStyle}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -85,7 +88,8 @@
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
                                    Grid.Row="1"
-                                   VerticalAlignment="Center" />
+                                   VerticalAlignment="Center"
+                                   Style="{DynamicResource ItemsCounterStyle}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -112,7 +116,8 @@
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   Grid.Row="1" />
+                                   Grid.Row="1"
+                                   Style="{DynamicResource ItemsCounterStyle}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -133,15 +138,18 @@
                 <TextBlock Text="{Binding Treasure.FoundQuantity}"
                            Foreground="Black"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center"
+                           Style="{DynamicResource ItemsCounterStyle}" />
                 <TextBlock Text="/"
                            Foreground="Black"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center"
+                           Style="{DynamicResource ItemsCounterStyle}" />
                 <TextBlock Text="{Binding Treasure.TotalQuantity}"
                            Foreground="Black"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center"
+                           Style="{DynamicResource ItemsCounterStyle}" />
             </StackPanel>
         </Grid>
     </Grid>

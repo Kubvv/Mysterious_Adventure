@@ -10,13 +10,6 @@
         DataContext="{Binding MainInstance, Mode=Default, Source={StaticResource Locator}}"
         ResizeMode="NoResize"
         SizeToContent="Height">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/RumbleJungle;component/Skins/MainSkin.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <StackPanel>
         <Button Content="Nowa gra"
                 Command="{Binding StartNewGame, Mode=OneWay}"
