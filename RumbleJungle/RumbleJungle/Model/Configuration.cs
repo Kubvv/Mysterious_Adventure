@@ -34,9 +34,9 @@ namespace RumbleJungle.Model
         private static Dictionary<JungleObjectTypes, string> jungleObjectsShape = new Dictionary<JungleObjectTypes, string>
         {
             [JungleObjectTypes.Camp] = "Camp",
-            [JungleObjectTypes.Tent] = "",
+            [JungleObjectTypes.Tent] = "Tent",
             [JungleObjectTypes.ForgottenCity] = "Temple",
-            [JungleObjectTypes.Treasure] = "",
+            [JungleObjectTypes.Treasure] = "Treasure",
             [JungleObjectTypes.CarnivorousPlant] = "CarnivorousPlant",
             [JungleObjectTypes.DragonflySwarm] = "Dragonfly",
             [JungleObjectTypes.Hydra] = "Hydra",

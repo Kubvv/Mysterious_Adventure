@@ -198,5 +198,11 @@
     <Resource Include="Images\Talisman.svg" />
     <Resource Include="Images\Trap.svg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Treasure.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Tent.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
