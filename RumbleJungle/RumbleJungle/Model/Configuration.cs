@@ -6,6 +6,9 @@ namespace RumbleJungle.Model
 {
     public static class Configuration
     {
+        public const byte BEAST = 0x10;
+        public const byte ITEM = 0x20;
+
         private static int defaultJungleHeight = 10, defaultJungleWidth = 16;
         private static Dictionary<JungleObjectTypes, int> defaultJungleObjectsCount = new Dictionary<JungleObjectTypes, int>
         {
@@ -31,8 +34,43 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.Talisman] = 2
         };
 
+        private static Dictionary<JungleObjectTypes, string> jungleObjectsShape = new Dictionary<JungleObjectTypes, string>
+        {
+            [JungleObjectTypes.Camp] = "Camp",
+            [JungleObjectTypes.Tent] = "Tent",
+            [JungleObjectTypes.ForgottenCity] = "Temple",
+            [JungleObjectTypes.Treasure] = "Treasure",
+            [JungleObjectTypes.CarnivorousPlant] = "CarnivorousPlant",
+            [JungleObjectTypes.DragonflySwarm] = "Dragonfly",
+            [JungleObjectTypes.Hydra] = "Hydra",
+            [JungleObjectTypes.Minotaur] = "Minotaur",
+            [JungleObjectTypes.Snakes] = "Snake",
+            [JungleObjectTypes.WildPig] = "Boar",
+            [JungleObjectTypes.Natives] = "Natives",
+            [JungleObjectTypes.Quicksand] = "Quicksand",
+            [JungleObjectTypes.Trap] = "Trap",
+            [JungleObjectTypes.Compass] = "Compass",
+            [JungleObjectTypes.Elixir] = "Elixir",
+            [JungleObjectTypes.LostWeapon] = "",
+            [JungleObjectTypes.MagnifyingGlass] = "MagnifyingGlass",
+            [JungleObjectTypes.Map] = "Map",
+            [JungleObjectTypes.Talisman] = "Talisman"
+        };
+
+        private static Dictionary<WeaponTypes, string> weaponShape = new Dictionary<WeaponTypes, string>
+        {
+            [WeaponTypes.Dagger] = "Dagger",
+            [WeaponTypes.Torch] = "Torch",
+            [WeaponTypes.Spear] = "Spear",
+            [WeaponTypes.Machete] = "Machete",
+            [WeaponTypes.Bow] = "Bow",
+            [WeaponTypes.Battleaxe] = "Axe",
+            [WeaponTypes.Sword] = "Sword"
+        };
+
         public static int JungleHeight { get; private set; }
         public static int JungleWidth { get; private set; }
+        public static int TreasureCount { get; private set; }
 
         public static Dictionary<JungleObjectTypes, int> JungleObjectsCount { get; private set; }
 
@@ -48,6 +86,28 @@ namespace RumbleJungle.Model
             {
                 JungleObjectsCount.Add(objectCount.Key, (int) Math.Round(objectCount.Value * factor));
             }
+
+            TreasureCount = (int)(Math.Round(10 * factor));
+        }
+
+        public static string ShapeOf(JungleObjectTypes jungleObjectType)
+        {
+            string result = "";
+            if (jungleObjectsShape.ContainsKey(jungleObjectType))
+            {
+                result = jungleObjectsShape[jungleObjectType];
+            }
+            return string.IsNullOrEmpty(result) ? "Axe" : result;
+        }
+
+        public static string ShapeOf(WeaponTypes weaponType)
+        {
+            string result = "";
+            if (weaponShape.ContainsKey(weaponType))
+            {
+                result = weaponShape[weaponType];
+            }
+            return string.IsNullOrEmpty(result) ? "Axe" : result;
         }
     }
 }

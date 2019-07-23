@@ -8,8 +8,14 @@
         Title="JungleView"
         Height="800"
         Width="1600"
-        DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}">
+        DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}"
+        MinWidth="200"
+        MinHeight="200">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <ItemsControl x:Name="jungle"
                       ItemsSource="{Binding JungleObjectsViewModel}"
                       SizeChanged="Jungle_SizeChanged">
@@ -41,21 +47,22 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <Border Background="Blue"
-                Margin="{Binding RamblerViewModel.Margin, Mode=OneWay}"
+                Margin="{Binding Rambler.Margin, Mode=OneWay}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Width="{Binding CellWidth}"
                 Height="{Binding CellHeight}">
             <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Center">
-                <TextBlock Text="{Binding RamblerViewModel.Name}"
+                <TextBlock Text="{Binding Rambler.Name}"
                            Foreground="White"
                            HorizontalAlignment="Center"
                            FontWeight="Bold" />
-                <TextBlock Text="{Binding RamblerViewModel.Coordinates}"
+                <TextBlock Text="{Binding Rambler.Coordinates}"
                            Foreground="White"
                            HorizontalAlignment="Center" />
             </StackPanel>
         </Border>
+        <local:StatusBarView Grid.Row="1" />
     </Grid>
 </Window>

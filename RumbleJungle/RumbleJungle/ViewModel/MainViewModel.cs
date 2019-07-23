@@ -2,7 +2,6 @@ using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RumbleJungle.View;
-using System;
 using System.Windows;
 
 namespace RumbleJungle.ViewModel
@@ -13,7 +12,6 @@ namespace RumbleJungle.ViewModel
 
         public MainViewModel()
         {
-
         }
 
         private RelayCommand startNewGame;
