@@ -7,53 +7,29 @@ namespace RumbleJungle.ViewModel
 {
     public class StatusBarViewModel : ViewModelBase
     {
-        private JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
+        private readonly WeaponManager weaponManager = ServiceLocator.Current.GetInstance<WeaponManager>();
+        private readonly JungleManager jungleManager = ServiceLocator.Current.GetInstance<JungleManager>();
 
-        public ObservableCollection<BeastViewModel> Beasts { get; set; }
-
-        public ObservableCollection<ItemsViewModel> Items { get; set; }
-
-        public ObservableCollection<WeaponViewModel> Weapons { get; set; }
-
-        public TreasureViewModel Treasure { get; set; }
-
-        public int RamblerHealth => jungleViewModel.RamblerHealth;
+        public RamblerViewModel Rambler { get; } = ServiceLocator.Current.GetInstance<RamblerViewModel>();
+        public TreasureViewModel Treasure { get; } = ServiceLocator.Current.GetInstance<TreasureViewModel>();
+        public ObservableCollection<WeaponViewModel> Weapons { get; set; } = new ObservableCollection<WeaponViewModel>();
+        public ObservableCollection<JungleObjectViewModel> Beasts { get; set; } = new ObservableCollection<JungleObjectViewModel>();
+        public ObservableCollection<JungleObjectViewModel> Items { get; set; } = new ObservableCollection<JungleObjectViewModel>();
 
         public StatusBarViewModel()
         {
-            Weapons = new ObservableCollection<WeaponViewModel>();
-            Weapons.Add(new WeaponViewModel(WeaponTypes.Dagger));
-            Weapons.Add(new WeaponViewModel(WeaponTypes.Torch));
-            Weapons.Add(new WeaponViewModel(WeaponTypes.Spear));
-            Weapons.Add(new WeaponViewModel(WeaponTypes.Machete));
-            Weapons.Add(new WeaponViewModel(WeaponTypes.Bow));
-            Weapons.Add(new WeaponViewModel(WeaponTypes.Battleaxe));
-            Weapons.Add(new WeaponViewModel(WeaponTypes.Sword));
-
-            Beasts = new ObservableCollection<BeastViewModel>();
-            Beasts.Add(new BeastViewModel(JungleObjectTypes.DragonflySwarm));
-            Beasts.Add(new BeastViewModel(JungleObjectTypes.WildPig));
-            Beasts.Add(new BeastViewModel(JungleObjectTypes.Snakes));
-            Beasts.Add(new BeastViewModel(JungleObjectTypes.CarnivorousPlant));
-            Beasts.Add(new BeastViewModel(JungleObjectTypes.Minotaur));
-            Beasts.Add(new BeastViewModel(JungleObjectTypes.Hydra));
-
-            Items = new ObservableCollection<ItemsViewModel>();
-            Items.Add(new ItemsViewModel(JungleObjectTypes.Camp));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.Tent));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.ForgottenCity));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.LostWeapon));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.Elixir));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.Map));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.Compass));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.MagnifyingGlass));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.Talisman));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.Natives));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.Quicksand));
-            Items.Add(new ItemsViewModel(JungleObjectTypes.Trap));
-
-            Treasure = new TreasureViewModel();
-
+            foreach (Weapon weapon in weaponManager.Weapons)
+            {
+                Weapons.Add(new WeaponViewModel(weapon));
+            }
+            foreach (JungleObject beast in jungleManager.GetJungleObjects(Configuration.BEAST))
+            {
+                Beasts.Add(new JungleObjectViewModel(beast));
+            }
+            foreach (JungleObject item in jungleManager.GetJungleObjects(Configuration.ITEM))
+            {
+                Items.Add(new JungleObjectViewModel(item));
+            }
         }
     }
 }

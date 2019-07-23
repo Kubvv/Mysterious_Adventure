@@ -22,11 +22,11 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <ProgressBar Value="{Binding RamblerHealth, Mode=OneWay}" />
+            <ProgressBar Value="{Binding Rambler.Health, Mode=OneWay}" />
             <StackPanel Orientation="Horizontal"
                         Grid.Row="1"
                         HorizontalAlignment="Center">
-                <TextBlock Text="{Binding RamblerHealth, Mode=OneWay}"
+                <TextBlock Text="{Binding Rambler.Health, Mode=OneWay}"
                            Foreground="Black"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
@@ -56,7 +56,7 @@
                         <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center" />
-                        <TextBlock Text="{Binding Quantity}"
+                        <TextBlock Text="{Binding Count}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
                                    Grid.Row="1"
@@ -84,7 +84,7 @@
                         <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center" />
-                        <TextBlock Text="{Binding Quantity}"
+                        <TextBlock Text="{Binding Count}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
                                    Grid.Row="1"
@@ -112,7 +112,7 @@
                         <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center" />
-                        <TextBlock Text="{Binding Quantity}"
+                        <TextBlock Text="{Binding Count}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
@@ -135,7 +135,7 @@
                         Grid.Row="1"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                <TextBlock Text="{Binding Treasure.FoundQuantity}"
+                <TextBlock Text="{Binding Treasure.Found}"
                            Foreground="Black"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
@@ -145,7 +145,7 @@
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Style="{DynamicResource ItemsCounterStyle}" />
-                <TextBlock Text="{Binding Treasure.TotalQuantity}"
+                <TextBlock Text="{Binding Treasure.Count}"
                            Foreground="Black"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"

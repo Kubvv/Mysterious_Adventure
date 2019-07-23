@@ -47,18 +47,18 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <Border Background="Blue"
-                Margin="{Binding RamblerViewModel.Margin, Mode=OneWay}"
+                Margin="{Binding Rambler.Margin, Mode=OneWay}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Width="{Binding CellWidth}"
                 Height="{Binding CellHeight}">
             <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Center">
-                <TextBlock Text="{Binding RamblerViewModel.Name}"
+                <TextBlock Text="{Binding Rambler.Name}"
                            Foreground="White"
                            HorizontalAlignment="Center"
                            FontWeight="Bold" />
-                <TextBlock Text="{Binding RamblerViewModel.Coordinates}"
+                <TextBlock Text="{Binding Rambler.Coordinates}"
                            Foreground="White"
                            HorizontalAlignment="Center" />
             </StackPanel>

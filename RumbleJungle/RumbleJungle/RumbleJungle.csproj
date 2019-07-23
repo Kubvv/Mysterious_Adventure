@@ -77,17 +77,18 @@
     </ApplicationDefinition>
     <Compile Include="Model\Configuration.cs" />
     <Compile Include="Model\Enums.cs" />
-    <Compile Include="Model\GameState.cs" />
-    <Compile Include="Model\Jungle.cs" />
+    <Compile Include="Model\GameManager.cs" />
+    <Compile Include="Model\JungleManager.cs" />
     <Compile Include="Model\JungleObject.cs" />
     <Compile Include="Model\Rambler.cs" />
+    <Compile Include="Model\Treasure.cs" />
     <Compile Include="Model\Weapon.cs" />
-    <Compile Include="ViewModel\BeastViewModel.cs" />
+    <Compile Include="Model\WeaponManager.cs" />
     <Compile Include="ViewModel\IngameMenuViewModel.cs" />
-    <Compile Include="ViewModel\ItemsViewModel.cs" />
     <Compile Include="ViewModel\JungleViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
+    <Compile Include="ViewModel\RamblerViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
     <Compile Include="ViewModel\TreasureViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

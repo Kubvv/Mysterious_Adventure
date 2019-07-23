@@ -1,16 +1,14 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CommonServiceLocator;
+using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
-using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
     public class JungleViewModel : ViewModelBase
     {
-        private Jungle jungle = new Jungle();
-        private Rambler rambler = new Rambler();
+        private readonly GameManager gameManager = ServiceLocator.Current.GetInstance<GameManager>();
+        private readonly JungleManager jungleManager = ServiceLocator.Current.GetInstance<JungleManager>();
 
         public int JungleHeight => Configuration.JungleHeight;
         public int JungleWidth => Configuration.JungleWidth;
@@ -61,39 +59,20 @@ namespace RumbleJungle.ViewModel
             set => Set(ref jungleObjectsViewModel, value);
         }
 
-        private JungleObjectViewModel ramblerViewModel;
-        public JungleObjectViewModel RamblerViewModel
-        {
-            get => ramblerViewModel;
-            set => Set(ref ramblerViewModel, value);
-        }
-
-        public int RamblerHealth => rambler.Health;
+        public RamblerViewModel Rambler { get; private set; }
 
         public JungleViewModel()
         {
-            
         }
 
         internal void StartGame()
         {
-            jungle.Generate();
-            RamblerViewModel = new JungleObjectViewModel(rambler);
-            rambler.Moved += RamblerMoved;
-            jungle.ReleaseRambler(ref rambler);
-
-            foreach (JungleObject jungleObject in jungle.JungleObjects)
+            Rambler = ServiceLocator.Current.GetInstance<RamblerViewModel>();
+            gameManager.StartGame();
+            foreach (JungleObject jungleObject in jungleManager.JungleObjects)
             {
                 JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
             }
-            //for (int row = 0; row < configuration.jungleheight; row++)
-            //{
-            //    for (int col = 0; col < configuration.junglewidth; col++)
-            //    {
-            //        jungleobject jungleobject = jungle.jungleobjects.firstordefault(jo => jo.coordinates.y == row && jo.coordinates.x == col);
-            //        jungleobjectsviewmodel.add(new jungleobjectviewmodel(jungleobject));
-            //    }
-            //}
         }
 
         private void UpdateJungle()
@@ -102,27 +81,7 @@ namespace RumbleJungle.ViewModel
             {
                 jungleObjectViewModel.Update();
             }
-            RamblerViewModel.Update();
-        }
-
-        private void RamblerMoved(object sender, EventArgs e)
-        {
-            RamblerViewModel.Update();
-        }
-
-        internal void MoveRambler(Point coordinates)
-        {
-            jungle.MoveRambler(ref rambler, coordinates);
-        }
-
-        internal int QuantityOf(JungleObjectTypes jungleObjectType)
-        {
-            return jungle.QuantityOf(jungleObjectType);
-        }
-
-        internal string QuantityOfTreasure(JungleObjectTypes jungleObjectType)
-        {
-            return jungle.QuantityOfTreasure(jungleObjectType);
+            Rambler.Update();
         }
     }
 }

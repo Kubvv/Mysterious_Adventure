@@ -5,16 +5,18 @@ using System.Windows;
 
 namespace RumbleJungle.Model
 {
-    public class Jungle
+    public class JungleManager
     {
         private int emptyFieldsCount;
 
         public List<JungleObject> JungleObjects { get; private set; } = new List<JungleObject>();
-        internal void Generate()
+
+        internal void GenerateJungle()
         {
             Configuration.Read();
             Random random = new Random();
 
+            JungleObjects.Clear();
             foreach (JungleObjectTypes jungleObjectType in Enum.GetValues(typeof(JungleObjectTypes)))
             {
                 if (jungleObjectType == JungleObjectTypes.DenseJungle)
@@ -62,7 +64,7 @@ namespace RumbleJungle.Model
             }
         }
 
-        internal void ReleaseRambler(ref Rambler rambler)
+        internal void ReleaseRambler(Rambler rambler)
         {
             Random random = new Random();
             int ramblerPosition = random.Next(emptyFieldsCount) + 1;
@@ -82,22 +84,22 @@ namespace RumbleJungle.Model
             rambler.SetCoordinates(ramblerJungleObject.Coordinates);
         }
 
-        internal void MoveRambler(ref Rambler rambler, Point point)
-        {
-            if (point.X >= rambler.Coordinates.X - 1 && point.X <= rambler.Coordinates.X + 1 && point.Y >= rambler.Coordinates.Y - 1 && point.Y <= rambler.Coordinates.Y + 1)
-            {
-                rambler.SetCoordinates(point);
-            }
-        }
-
-        internal int QuantityOf(JungleObjectTypes jungleObjectType)
+        internal int CountOf(JungleObjectTypes jungleObjectType)
         {
             return JungleObjects.Count(jo => jo.JungleObjectType == jungleObjectType);
         }
 
-        internal string QuantityOfTreasure(JungleObjectTypes jungleObjectType)
+        public List<JungleObject> GetJungleObjects(byte objectType)
         {
-            return $"{Configuration.TreasureCount - JungleObjects.Count(jo => jo.JungleObjectType == jungleObjectType)}/{Configuration.TreasureCount}";
+            List<JungleObject> result = new List<JungleObject>();
+            foreach (JungleObjectTypes jungleObjectType in Enum.GetValues(typeof(JungleObjectTypes)))
+            {
+                if (((byte)jungleObjectType & objectType) > 0)
+                {
+                    result.Add(new JungleObject(jungleObjectType));
+                }
+            }
+            return result;
         }
     }
 }

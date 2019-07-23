@@ -13,8 +13,8 @@
 */
 
 using CommonServiceLocator;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using RumbleJungle.Model;
 
 namespace RumbleJungle.ViewModel
 {
@@ -42,29 +42,31 @@ namespace RumbleJungle.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
+            SimpleIoc.Default.Register<GameManager>();
+            SimpleIoc.Default.Register<JungleManager>();
+            SimpleIoc.Default.Register<WeaponManager>();
+
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<JungleObjectViewModel>();
-            //SimpleIoc.Default.Register<RamblerViewModel>();
-            SimpleIoc.Default.Register<StatusBarViewModel>();
-            SimpleIoc.Default.Register<JungleViewModel>();
-            SimpleIoc.Default.Register<OptionsViewModel>();
             SimpleIoc.Default.Register<IngameMenuViewModel>();
+            SimpleIoc.Default.Register<OptionsViewModel>();
+
+            SimpleIoc.Default.Register<JungleViewModel>();
+            SimpleIoc.Default.Register<JungleObjectViewModel>();
+            SimpleIoc.Default.Register<StatusBarViewModel>();
+            SimpleIoc.Default.Register<WeaponViewModel>();
+            SimpleIoc.Default.Register<RamblerViewModel>();
+            SimpleIoc.Default.Register<TreasureViewModel>();
         }
 
         public MainViewModel MainInstance => ServiceLocator.Current.GetInstance<MainViewModel>();
-
-        public JungleViewModel JungleInstance => ServiceLocator.Current.GetInstance<JungleViewModel>();
-
-        public JungleObjectViewModel JungleObjectInstance => ServiceLocator.Current.GetInstance<JungleObjectViewModel>();
-
-        public StatusBarViewModel StatusBarInstance => ServiceLocator.Current.GetInstance<StatusBarViewModel>();
-
-        public OptionsViewModel OptionsInstance => ServiceLocator.Current.GetInstance<OptionsViewModel>();
-
         public IngameMenuViewModel IngameMenuInstance => ServiceLocator.Current.GetInstance<IngameMenuViewModel>();
-
-        //public RamblerViewModel RamblerInstance => ServiceLocator.Current.GetInstance<RamblerViewModel>();
-
+        public OptionsViewModel OptionsInstance => ServiceLocator.Current.GetInstance<OptionsViewModel>();
+        public JungleViewModel JungleInstance => ServiceLocator.Current.GetInstance<JungleViewModel>();
+        public JungleObjectViewModel JungleObjectInstance => ServiceLocator.Current.GetInstance<JungleObjectViewModel>();
+        public StatusBarViewModel StatusBarInstance => ServiceLocator.Current.GetInstance<StatusBarViewModel>();
+        public WeaponViewModel WeaponInstance => ServiceLocator.Current.GetInstance<WeaponViewModel>();
+        public RamblerViewModel RamblerInstance => ServiceLocator.Current.GetInstance<RamblerViewModel>();
+        public TreasureViewModel TreasureInstance => ServiceLocator.Current.GetInstance<TreasureViewModel>();
 
         public static void Cleanup()
         {

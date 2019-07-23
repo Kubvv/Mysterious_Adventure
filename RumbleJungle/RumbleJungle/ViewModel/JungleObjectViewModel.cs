@@ -2,22 +2,20 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
-using System;
 using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
     public class JungleObjectViewModel : ViewModelBase
     {
+        private readonly GameManager gameManager = ServiceLocator.Current.GetInstance<GameManager>();
+        private readonly JungleManager jungleManager = ServiceLocator.Current.GetInstance<JungleManager>();
         private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
-        private JungleObject jungleObject;
+        private readonly JungleObject jungleObject;
 
-        private string name = "";
-        public string Name
-        {
-            get => name;
-            set => Set(ref name, value);
-        }
+        public string Name => jungleObject.Name;
+        public string Shape => $"/RumbleJungle;component/Images/{jungleObject.Shape}.svg";
+        public int Count => jungleManager.CountOf(jungleObject.JungleObjectType);
 
         private string coordinates = "";
         public string Coordinates
@@ -38,19 +36,18 @@ namespace RumbleJungle.ViewModel
         }
 
         private RelayCommand moveRamblerCommand;
-        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => jungleViewModel.MoveRambler(jungleObject.Coordinates)));
-
-        internal void Update()
-        {
-            Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
-            RaisePropertyChanged("Margin");
-        }
+        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => gameManager.MoveRambler(jungleObject.Coordinates)));
 
         public JungleObjectViewModel(JungleObject jungleObject)
         {
             this.jungleObject = jungleObject;
-            Name = Enum.GetName(typeof(JungleObjectTypes), jungleObject.JungleObjectType);
             Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
+        }
+
+        public void Update()
+        {
+            Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
+            RaisePropertyChanged("Margin");
         }
     }
 }

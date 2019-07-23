@@ -1,32 +1,16 @@
-﻿using GalaSoft.MvvmLight;
-using RumbleJungle.Model;
+﻿using RumbleJungle.Model;
 
 namespace RumbleJungle.ViewModel
 {
-    public class TreasureViewModel : ViewModelBase
+    public class TreasureViewModel : JungleObjectViewModel
     {
-        private string name;
-        public string Name
+        private readonly Treasure treasure;
+
+        public int Found => treasure.Found;
+
+        public TreasureViewModel(GameManager gameManager) : base(gameManager.Treasure)
         {
-            get => name;
-            set => Set(ref name, value);
-        }
-
-        public string Shape => $"/RumbleJungle;component/Images/{Configuration.ShapeOf(JungleObjectTypes.Treasure)}.svg";
-
-        private int foundQuantity;
-        public int FoundQuantity
-        {
-            get => foundQuantity;
-            set => Set(ref foundQuantity, value);
-        }
-
-        public int TotalQuantity => Configuration.TreasureCount;
-
-        public TreasureViewModel()
-        {
-            Name = "Treasure";
-            FoundQuantity = 0;
+            treasure = gameManager.Treasure;
         }
     }
 }

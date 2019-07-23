@@ -3,16 +3,20 @@ using System.Windows;
 
 namespace RumbleJungle.Model
 {
-    class Rambler : JungleObject
+    public class Rambler : JungleObject
     {
-        public event EventHandler Moved;
-
         public int Health { get; private set; }
 
         public Rambler() : base(JungleObjectTypes.Rambler)
         {
+        }
+
+        public void Reset()
+        {
             Health = 100;
         }
+
+        public event EventHandler Moved;
 
         public override void SetCoordinates(Point point)
         {

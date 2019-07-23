@@ -6,6 +6,9 @@ namespace RumbleJungle.Model
 {
     public static class Configuration
     {
+        public const byte BEAST = 0x10;
+        public const byte ITEM = 0x20;
+
         private static int defaultJungleHeight = 10, defaultJungleWidth = 16;
         private static Dictionary<JungleObjectTypes, int> defaultJungleObjectsCount = new Dictionary<JungleObjectTypes, int>
         {
@@ -87,7 +90,7 @@ namespace RumbleJungle.Model
             TreasureCount = (int)(Math.Round(10 * factor));
         }
 
-        internal static string ShapeOf(JungleObjectTypes jungleObjectType)
+        public static string ShapeOf(JungleObjectTypes jungleObjectType)
         {
             string result = "";
             if (jungleObjectsShape.ContainsKey(jungleObjectType))
@@ -97,7 +100,7 @@ namespace RumbleJungle.Model
             return string.IsNullOrEmpty(result) ? "Axe" : result;
         }
 
-        internal static string ShapeOf(WeaponTypes weaponType)
+        public static string ShapeOf(WeaponTypes weaponType)
         {
             string result = "";
             if (weaponShape.ContainsKey(weaponType))
