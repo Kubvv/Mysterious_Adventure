@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RumbleJungle.View"
+        xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
         mc:Ignorable="d"
         Title="JungleView"
         Height="800"
@@ -21,27 +22,24 @@
                       SizeChanged="Jungle_SizeChanged">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="Green" />
+                    <Canvas />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Background="{x:Null}"
+                    <Button Background="Green"
                             Command="{Binding MoveRamblerCommand, Mode=OneWay}"
                             Margin="{Binding Margin, Mode=OneWay}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Width="{Binding JungleInstance.CellWidth, Source={StaticResource Locator}}"
-                            Height="{Binding JungleInstance.CellHeight, Source={StaticResource Locator}}">
-                        <StackPanel>
-                            <TextBlock Text="{Binding Name}"
-                                       Foreground="White"
-                                       FontWeight="Bold"
-                                       HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding Coordinates}"
-                                       Foreground="White"
-                                       HorizontalAlignment="Center" />
-                        </StackPanel>
+                            Height="{Binding JungleInstance.CellHeight, Source={StaticResource Locator}}"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch">
+                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      Margin="10" />
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

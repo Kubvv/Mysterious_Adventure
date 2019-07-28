@@ -71,6 +71,11 @@ namespace RumbleJungle.Model
             }
         }
 
+        internal JungleObject GetJungleObjectAt(Point point)
+        {
+            return Jungle.First(jo => jo.Coordinates.X == point.X && jo.Coordinates.Y == point.Y);
+        }
+
         /// <summary>
         /// losowe ustawienie wędrowca w dżungli
         /// </summary>

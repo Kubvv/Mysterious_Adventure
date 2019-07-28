@@ -1,4 +1,6 @@
 ﻿using RumbleJungle.Model;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RumbleJungle.ViewModel
 {
@@ -6,7 +8,7 @@ namespace RumbleJungle.ViewModel
     {
         public int Found => Configuration.JungleObjectsCount[JungleObjectTypes.Treasure] - Count;
 
-        public TreasureViewModel() : base(new JungleObject(JungleObjectTypes.Treasure))
+        public TreasureViewModel(JungleModel jungleModel) : base(jungleModel.GetJungleObjects(new List<JungleObjectTypes>() { JungleObjectTypes.Treasure }).FirstOrDefault())
         {
         }
     }

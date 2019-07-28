@@ -20,7 +20,8 @@ namespace RumbleJungle.Model
 
         public void MoveRambler(Point point)
         {
-            if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1)
+            if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1 
+                && jungleModel.GetJungleObjectAt(point).JungleObjectType != JungleObjectTypes.DenseJungle)
             {
                 Rambler.SetCoordinates(point);
             }
