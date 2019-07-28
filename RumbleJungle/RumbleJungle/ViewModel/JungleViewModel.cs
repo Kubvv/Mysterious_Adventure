@@ -7,8 +7,8 @@ namespace RumbleJungle.ViewModel
 {
     public class JungleViewModel : ViewModelBase
     {
-        private readonly GameManager gameManager = ServiceLocator.Current.GetInstance<GameManager>();
-        private readonly JungleManager jungleManager = ServiceLocator.Current.GetInstance<JungleManager>();
+        private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
+        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
 
         public int JungleHeight => Configuration.JungleHeight;
         public int JungleWidth => Configuration.JungleWidth;
@@ -59,7 +59,7 @@ namespace RumbleJungle.ViewModel
             set => Set(ref jungleObjectsViewModel, value);
         }
 
-        public RamblerViewModel Rambler { get; private set; }
+        public RamblerViewModel RamblerViewModel { get; private set; }
 
         public JungleViewModel()
         {
@@ -67,9 +67,9 @@ namespace RumbleJungle.ViewModel
 
         internal void StartGame()
         {
-            Rambler = ServiceLocator.Current.GetInstance<RamblerViewModel>();
-            gameManager.StartGame();
-            foreach (JungleObject jungleObject in jungleManager.JungleObjects)
+            RamblerViewModel = ServiceLocator.Current.GetInstance<RamblerViewModel>();
+            gameModel.StartGame();
+            foreach (JungleObject jungleObject in jungleModel.Jungle)
             {
                 JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
             }
@@ -81,7 +81,7 @@ namespace RumbleJungle.ViewModel
             {
                 jungleObjectViewModel.Update();
             }
-            Rambler.Update();
+            RamblerViewModel.Update();
         }
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace RumbleJungle.Model
 {
-    public class WeaponManager
+    public class WeaponModel
     {
         public List<Weapon> Weapons { get; private set; } = new List<Weapon>();
 
-        public WeaponManager()
+        public WeaponModel()
         {
             foreach (WeaponTypes weaponType in Enum.GetValues(typeof(WeaponTypes)))
             {

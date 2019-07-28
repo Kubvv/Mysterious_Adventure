@@ -5,10 +5,10 @@ namespace RumbleJungle.ViewModel
 {
     public class WeaponViewModel : ViewModelBase
     {
-        private Weapon weapon;
+        private readonly Weapon weapon;
 
         public string Name => weapon.Name;
-        public string Shape => $"/RumbleJungle;component/Images/{weapon.Shape}.svg";
+        public string Shape => $"/RumbleJungle;component/Images/{weapon.Name}.svg";
         public int Count => weapon.Count;
 
         public WeaponViewModel(Weapon weapon)

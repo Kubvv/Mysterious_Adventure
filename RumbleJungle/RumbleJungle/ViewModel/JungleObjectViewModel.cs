@@ -8,14 +8,14 @@ namespace RumbleJungle.ViewModel
 {
     public class JungleObjectViewModel : ViewModelBase
     {
-        private readonly GameManager gameManager = ServiceLocator.Current.GetInstance<GameManager>();
-        private readonly JungleManager jungleManager = ServiceLocator.Current.GetInstance<JungleManager>();
+        private readonly GameModel gameManager = ServiceLocator.Current.GetInstance<GameModel>();
+        private readonly JungleModel jungleManager = ServiceLocator.Current.GetInstance<JungleModel>();
         private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
-        private readonly JungleObject jungleObject;
 
-        public string Name => jungleObject.Name;
-        public string Shape => $"/RumbleJungle;component/Images/{jungleObject.Shape}.svg";
-        public int Count => jungleManager.CountOf(jungleObject.JungleObjectType);
+        public JungleObject JungleObject { get; private set; }
+        public string Name => JungleObject.Name;
+        public string Shape => $"/RumbleJungle;component/Images/{JungleObject.Name}.svg";
+        public int Count => jungleManager.CountOf(JungleObject.JungleObjectType);
 
         private string coordinates = "";
         public string Coordinates
@@ -29,24 +29,24 @@ namespace RumbleJungle.ViewModel
         {
             get
             {
-                margin.Left = jungleObject.Coordinates.X * jungleViewModel.CellWidth;
-                margin.Top = jungleObject.Coordinates.Y * jungleViewModel.CellHeight;
+                margin.Left = JungleObject.Coordinates.X * jungleViewModel.CellWidth;
+                margin.Top = JungleObject.Coordinates.Y * jungleViewModel.CellHeight;
                 return margin;
             }
         }
 
         private RelayCommand moveRamblerCommand;
-        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => gameManager.MoveRambler(jungleObject.Coordinates)));
+        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => gameManager.MoveRambler(JungleObject.Coordinates)));
 
         public JungleObjectViewModel(JungleObject jungleObject)
         {
-            this.jungleObject = jungleObject;
+            JungleObject = jungleObject;
             Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
         }
 
         public void Update()
         {
-            Coordinates = $"{jungleObject.Coordinates.Y}.{jungleObject.Coordinates.X}";
+            Coordinates = $"{JungleObject.Coordinates.Y}.{JungleObject.Coordinates.X}";
             RaisePropertyChanged("Margin");
         }
     }
