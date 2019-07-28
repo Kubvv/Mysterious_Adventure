@@ -7,7 +7,6 @@ namespace RumbleJungle.Model
     {
         public JungleObjectTypes JungleObjectType { get; private set; }
         public string Name { get; private set; }
-        public string Shape => Configuration.ShapeOf(JungleObjectType);
         public Point Coordinates { get; private set; }
 
         public JungleObject(JungleObjectTypes jungleObjectType)

@@ -3,21 +3,19 @@ using System.Windows;
 
 namespace RumbleJungle.Model
 {
-    public class GameManager
+    public class GameModel
     {
-        private readonly JungleManager jungleManager = ServiceLocator.Current.GetInstance<JungleManager>();
-        private readonly WeaponManager weaponManager = ServiceLocator.Current.GetInstance<WeaponManager>();
+        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
+        private readonly WeaponModel weaponModel = ServiceLocator.Current.GetInstance<WeaponModel>();
 
         public Rambler Rambler { get; private set; } = new Rambler();
-        public Treasure Treasure { get; private set; } = new Treasure();
 
         public void StartGame()
         {
-            jungleManager.GenerateJungle();
+            jungleModel.GenerateJungle();
             Rambler.Reset();
-            Treasure.Reset();
-            weaponManager.CollectWeapon();
-            jungleManager.ReleaseRambler(Rambler);
+            weaponModel.CollectWeapon();
+            jungleModel.ReleaseRambler(Rambler);
         }
 
         public void MoveRambler(Point point)

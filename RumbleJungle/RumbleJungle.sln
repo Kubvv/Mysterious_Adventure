@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RumbleJungle", "RumbleJungle\RumbleJungle.csproj", "{A146EBBC-CF88-4EF8-9E69-EE672AF09662}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetProjects.SVGImage", "SVGImage\DotNetProjects.SVGImage.csproj", "{5569522D-5C29-451E-8730-F119F0408BCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A146EBBC-CF88-4EF8-9E69-EE672AF09662}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A146EBBC-CF88-4EF8-9E69-EE672AF09662}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A146EBBC-CF88-4EF8-9E69-EE672AF09662}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5569522D-5C29-451E-8730-F119F0408BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5569522D-5C29-451E-8730-F119F0408BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5569522D-5C29-451E-8730-F119F0408BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5569522D-5C29-451E-8730-F119F0408BCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

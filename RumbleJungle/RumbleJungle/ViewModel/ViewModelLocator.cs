@@ -42,9 +42,9 @@ namespace RumbleJungle.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            SimpleIoc.Default.Register<GameManager>();
-            SimpleIoc.Default.Register<JungleManager>();
-            SimpleIoc.Default.Register<WeaponManager>();
+            SimpleIoc.Default.Register<GameModel>();
+            SimpleIoc.Default.Register<JungleModel>();
+            SimpleIoc.Default.Register<WeaponModel>();
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<IngameMenuViewModel>();

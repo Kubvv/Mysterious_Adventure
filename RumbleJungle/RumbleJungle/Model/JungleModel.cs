@@ -5,48 +5,54 @@ using System.Windows;
 
 namespace RumbleJungle.Model
 {
-    public class JungleManager
+    public class JungleModel
     {
         private int emptyFieldsCount;
 
-        public List<JungleObject> JungleObjects { get; private set; } = new List<JungleObject>();
+        public List<JungleObject> Jungle { get; private set; } = new List<JungleObject>();
 
+        /// <summary>
+        /// losowe ustawienie obiektów w dżungli
+        /// </summary>
         internal void GenerateJungle()
         {
             Configuration.Read();
             Random random = new Random();
 
-            JungleObjects.Clear();
+            Jungle.Clear();
+            // wstawienie wszystkich obiektów
             foreach (JungleObjectTypes jungleObjectType in Enum.GetValues(typeof(JungleObjectTypes)))
             {
                 if (jungleObjectType == JungleObjectTypes.DenseJungle)
                 {
+                    // liczba pól dla gęstej dżungli jest losowa
                     int denseJungleCount = random.Next(Configuration.JungleObjectsCount[JungleObjectTypes.DenseJungle]) + 1;
                     for (int i = 0; i < denseJungleCount; i++)
                     {
-                        JungleObjects.Add(new JungleObject(JungleObjectTypes.DenseJungle));
+                        Jungle.Add(new JungleObject(JungleObjectTypes.DenseJungle));
                     }
-
                 }
                 else if (jungleObjectType == JungleObjectTypes.EmptyField || jungleObjectType == JungleObjectTypes.Rambler)
                 {
-
+                    // puste pola i wędrowiec na końcu
                 }
                 else
                 {
                     for (int i = 0; i < Configuration.JungleObjectsCount[jungleObjectType]; i++)
                     {
-                        JungleObjects.Add(new JungleObject(jungleObjectType));
+                        Jungle.Add(new JungleObject(jungleObjectType));
                     }
                 }
             }
 
-            emptyFieldsCount = Configuration.JungleHeight * Configuration.JungleWidth - JungleObjects.Count;
-            for (int i = JungleObjects.Count; i < Configuration.JungleHeight * Configuration.JungleWidth; i++)
+            // wstawienie pustych pól
+            emptyFieldsCount = Configuration.JungleHeight * Configuration.JungleWidth - Jungle.Count;
+            for (int i = Jungle.Count; i < Configuration.JungleHeight * Configuration.JungleWidth; i++)
             {
-                JungleObjects.Add(new JungleObject(JungleObjectTypes.EmptyField));
+                Jungle.Add(new JungleObject(JungleObjectTypes.EmptyField));
             }
 
+            // wygenerowanie wszystkich możliwych pozycji
             List<Point> coordinates = new List<Point>();
             for(int row = 0; row < Configuration.JungleHeight; row++)
             {
@@ -56,7 +62,8 @@ namespace RumbleJungle.Model
                 }
             }
 
-            foreach (JungleObject jungleObject in JungleObjects)
+            // wylosowanie pozycji każdego obiektu w dżungli
+            foreach (JungleObject jungleObject in Jungle)
             {
                 int coordinate = random.Next(coordinates.Count);
                 jungleObject.SetCoordinates(coordinates[coordinate]);
@@ -64,12 +71,16 @@ namespace RumbleJungle.Model
             }
         }
 
+        /// <summary>
+        /// losowe ustawienie wędrowca w dżungli
+        /// </summary>
+        /// <param name="rambler">wędrowiec</param>
         internal void ReleaseRambler(Rambler rambler)
         {
             Random random = new Random();
             int ramblerPosition = random.Next(emptyFieldsCount) + 1;
             JungleObject ramblerJungleObject = null;
-            foreach (JungleObject jungleObject in JungleObjects)
+            foreach (JungleObject jungleObject in Jungle)
             {
                 if (jungleObject.JungleObjectType == JungleObjectTypes.EmptyField)
                 {
@@ -86,18 +97,15 @@ namespace RumbleJungle.Model
 
         internal int CountOf(JungleObjectTypes jungleObjectType)
         {
-            return JungleObjects.Count(jo => jo.JungleObjectType == jungleObjectType);
+            return Jungle.Count(jo => jo.JungleObjectType == jungleObjectType);
         }
 
-        public List<JungleObject> GetJungleObjects(byte objectType)
+        public List<JungleObject> GetJungleObjects(List<JungleObjectTypes> jungleObjectTypes)
         {
             List<JungleObject> result = new List<JungleObject>();
-            foreach (JungleObjectTypes jungleObjectType in Enum.GetValues(typeof(JungleObjectTypes)))
+            foreach (JungleObjectTypes jungleObjectType in jungleObjectTypes)
             {
-                if (((byte)jungleObjectType & objectType) > 0)
-                {
-                    result.Add(new JungleObject(jungleObjectType));
-                }
+                result.Add(Jungle.FirstOrDefault(jo => jo.JungleObjectType == jungleObjectType));
             }
             return result;
         }

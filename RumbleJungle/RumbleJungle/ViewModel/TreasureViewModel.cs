@@ -4,13 +4,10 @@ namespace RumbleJungle.ViewModel
 {
     public class TreasureViewModel : JungleObjectViewModel
     {
-        private readonly Treasure treasure;
+        public int Found => Configuration.JungleObjectsCount[JungleObjectTypes.Treasure] - Count;
 
-        public int Found => treasure.Found;
-
-        public TreasureViewModel(GameManager gameManager) : base(gameManager.Treasure)
+        public TreasureViewModel() : base(new JungleObject(JungleObjectTypes.Treasure))
         {
-            treasure = gameManager.Treasure;
         }
     }
 }

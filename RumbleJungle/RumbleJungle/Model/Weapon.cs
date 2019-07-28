@@ -4,22 +4,20 @@ namespace RumbleJungle.Model
 {
     public class Weapon
     {
-        private WeaponTypes weaponType;
-
+        public WeaponTypes WeaponType { get; private set; }
         public string Name { get; private set; }
-        public string Shape => Configuration.ShapeOf(weaponType);
         public int Count { get; private set; }
 
         public Weapon(WeaponTypes weaponType)
         {
-            this.weaponType = weaponType;
+            WeaponType = weaponType;
             Name = Enum.GetName(typeof(WeaponTypes), weaponType);
-            Count = weaponType == WeaponTypes.Dagger ? -1 : 1;
+            Reset();
         }
 
         public void Reset()
         {
-            Count = weaponType == WeaponTypes.Dagger ? -1 : 1;
+            Count = WeaponType == WeaponTypes.Dagger ? -1 : 1;
         }
     }
 }

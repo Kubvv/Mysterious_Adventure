@@ -8,7 +8,7 @@ namespace RumbleJungle.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        private JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
+        private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
 
         public MainViewModel()
         {

@@ -5,14 +5,14 @@ namespace RumbleJungle.ViewModel
 {
     public class RamblerViewModel : JungleObjectViewModel
     {
-        private readonly Rambler rambler;
+        private readonly GameModel gameModel;
 
-        public int Health => rambler.Health;
+        public int Health => gameModel.Rambler.Health;
 
-        public RamblerViewModel(GameManager gameManager) : base(gameManager.Rambler)
+        public RamblerViewModel(GameModel gameModel) : base(gameModel.Rambler)
         {
-            rambler = gameManager.Rambler;
-            rambler.Moved += RamblerMoved;
+            this.gameModel = gameModel;
+            gameModel.Rambler.Moved += RamblerMoved;
         }
 
         private void RamblerMoved(object sender, EventArgs e)
