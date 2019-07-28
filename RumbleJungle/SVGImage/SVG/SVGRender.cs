@@ -104,8 +104,10 @@ namespace SVGImage.SVG
                 item.Brush = Brushes.Black;
                 if (OverrideColor != null)
                     item.Brush = new SolidColorBrush(Color.FromArgb((byte)(255 * shape.Opacity), OverrideColor.Value.R, OverrideColor.Value.G, OverrideColor.Value.B));
-                GeometryGroup g = new GeometryGroup();
-                g.FillRule = FillRule.Nonzero;
+                GeometryGroup g = new GeometryGroup
+                {
+                    FillRule = FillRule.Nonzero
+                };
                 g.Children.Add(geometry);
                 geometry = g;
             }
@@ -114,8 +116,10 @@ namespace SVGImage.SVG
                 item.Brush = shape.Fill.FillBrush(this.SVG, this, shape, shape.Opacity, geometry.Bounds);
                 if (OverrideColor != null)
                     item.Brush = new SolidColorBrush(Color.FromArgb((byte)(255 * shape.Opacity), OverrideColor.Value.R, OverrideColor.Value.G, OverrideColor.Value.B));
-                GeometryGroup g = new GeometryGroup();
-                g.FillRule = FillRule.Nonzero;
+                GeometryGroup g = new GeometryGroup
+                {
+                    FillRule = FillRule.Nonzero
+                };
                 if (shape.Fill.FillRule == Fill.eFillRule.evenodd) g.FillRule = FillRule.EvenOdd;
                 g.Children.Add(geometry);
                 geometry = g;
@@ -147,8 +151,10 @@ namespace SVGImage.SVG
             public GeometryDrawing Draw()
             {
                 double size = 0.2;
-                GeometryDrawing item = new GeometryDrawing();
-                item.Brush = Brushes.Red;
+                GeometryDrawing item = new GeometryDrawing
+                {
+                    Brush = Brushes.Red
+                };
                 GeometryGroup g = new GeometryGroup();
 
                 item.Pen = new Pen(Brushes.LightGray, size / 2);
@@ -293,9 +299,11 @@ namespace SVGImage.SVG
                 if (shape is RectangleShape)
                 {
                     RectangleShape r = shape as RectangleShape;
-                    RectangleGeometry rect = new RectangleGeometry(new Rect(r.X < 0 ? 0 : r.X, r.Y < 0 ? 0 : r.Y, r.X < 0 ? r.Width + r.X : r.Width, r.Y < 0 ? r.Height + r.Y : r.Height));
-                    rect.RadiusX = r.RX;
-                    rect.RadiusY = r.RY;
+                    RectangleGeometry rect = new RectangleGeometry(new Rect(r.X < 0 ? 0 : r.X, r.Y < 0 ? 0 : r.Y, r.X < 0 ? r.Width + r.X : r.Width, r.Y < 0 ? r.Height + r.Y : r.Height))
+                    {
+                        RadiusX = r.RX,
+                        RadiusY = r.RY
+                    };
                     if (rect.RadiusX == 0 && rect.RadiusY > 0) rect.RadiusX = rect.RadiusY;
                     var di = this.NewDrawingItem(shape, rect);
                     AddDrawingToGroup(grp, shape, di);
@@ -389,11 +397,11 @@ namespace SVGImage.SVG
                 if (shape is PathShape)
                 {
                     PathShape r = shape as PathShape;
-                    PathFigure p = null;
+                    //PathFigure p = null;
                     Point lastPoint = new Point(0, 0);
 
-                    PathShape.CurveTo lastc = null;
-                    PathShape.QuadraticCurveTo lastq = null;
+                    //PathShape.CurveTo lastc = null;
+                    //PathShape.QuadraticCurveTo lastq = null;
                     Point lastcirPoint = new Point(0, 0);
                     PathGeometry path = PathGeometry.CreateFromGeometry(PathGeometry.Parse(r.Data));
                     //PathGeometry path = new PathGeometry();
