@@ -50,16 +50,10 @@
                 VerticalAlignment="Top"
                 Width="{Binding CellWidth}"
                 Height="{Binding CellHeight}">
-            <StackPanel VerticalAlignment="Center"
-                        HorizontalAlignment="Center">
-                <TextBlock Text="{Binding RamblerViewModel.Name}"
-                           Foreground="White"
-                           HorizontalAlignment="Center"
-                           FontWeight="Bold" />
-                <TextBlock Text="{Binding RamblerViewModel.Coordinates}"
-                           Foreground="White"
-                           HorizontalAlignment="Center" />
-            </StackPanel>
+            <svg:SVGImage Source="{Binding RamblerViewModel.Shape, Mode=OneWay}"
+                          Margin="10"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center" />
         </Border>
         <local:StatusBarView Grid.Row="1" />
     </Grid>
