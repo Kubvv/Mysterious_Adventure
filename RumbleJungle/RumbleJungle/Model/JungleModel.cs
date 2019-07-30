@@ -98,11 +98,17 @@ namespace RumbleJungle.Model
                 }
             }
             rambler.SetCoordinates(ramblerJungleObject.Coordinates);
+            ramblerJungleObject.SetStatus(Statuses.Visited);
         }
 
+        /// <summary>
+        /// counts objects of given type in jungle
+        /// </summary>
+        /// <param name="jungleObjectType">type of the jungle object to count</param>
+        /// <returns>count of objects</returns>
         internal int CountOf(JungleObjectTypes jungleObjectType)
         {
-            return Jungle.Count(jo => jo.JungleObjectType == jungleObjectType);
+            return Jungle.Count(jo => jo.JungleObjectType == jungleObjectType && jo.Status != Statuses.Visited);
         }
 
         public List<JungleObject> GetJungleObjects(List<JungleObjectTypes> jungleObjectTypes)

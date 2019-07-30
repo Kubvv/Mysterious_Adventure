@@ -26,7 +26,7 @@ namespace RumbleJungle.ViewModel
             {
                 Beasts.Add(new JungleObjectViewModel(beast));
             }
-            foreach (JungleObject item in jungleModel.GetJungleObjects(Configuration.Items))
+            foreach (JungleObject item in jungleModel.GetJungleObjects(Configuration.HiddenItems))
             {
                 Items.Add(new JungleObjectViewModel(item));
             }

@@ -42,8 +42,7 @@ namespace RumbleJungle.Model
             JungleObjectTypes.Minotaur,
             JungleObjectTypes.Hydra
         };
-        public static List<JungleObjectTypes> Items { get; } = new List<JungleObjectTypes>() {
-            JungleObjectTypes.ForgottenCity,
+        public static List<JungleObjectTypes> HiddenItems { get; } = new List<JungleObjectTypes>() {
             JungleObjectTypes.LostWeapon,
             JungleObjectTypes.Elixir,
             JungleObjectTypes.Map,
@@ -53,6 +52,25 @@ namespace RumbleJungle.Model
             JungleObjectTypes.Natives,
             JungleObjectTypes.Quicksand,
             JungleObjectTypes.Trap
+        };
+        public static List<JungleObjectTypes> VisibleItems { get; } = new List<JungleObjectTypes>() {
+            JungleObjectTypes.Camp,
+            JungleObjectTypes.Tent,
+            JungleObjectTypes.ForgottenCity,
+            JungleObjectTypes.DenseJungle,
+        };
+        public static List<JungleObjectTypes> BadItems { get; } = new List<JungleObjectTypes>() {
+            JungleObjectTypes.Natives,
+            JungleObjectTypes.Trap,
+            JungleObjectTypes.Quicksand
+        };
+        public static List<JungleObjectTypes> GoodItems { get; } = new List<JungleObjectTypes>() {
+            JungleObjectTypes.LostWeapon,
+            JungleObjectTypes.Elixir,
+            JungleObjectTypes.Map,
+            JungleObjectTypes.Compass,
+            JungleObjectTypes.MagnifyingGlass,
+            JungleObjectTypes.Talisman,
         };
 
         public static void Read()

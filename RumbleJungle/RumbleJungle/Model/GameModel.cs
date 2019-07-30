@@ -20,10 +20,14 @@ namespace RumbleJungle.Model
 
         public void MoveRambler(Point point)
         {
+            JungleObject jungleObject = jungleModel.GetJungleObjectAt(point);
             if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1 
-                && jungleModel.GetJungleObjectAt(point).JungleObjectType != JungleObjectTypes.DenseJungle)
+                && jungleObject.JungleObjectType != JungleObjectTypes.DenseJungle)
             {
+                jungleObject.SetStatus(Statuses.Visited);
+                //Tu wywołamy akcje;
                 Rambler.SetCoordinates(point);
+
             }
         }
     }
