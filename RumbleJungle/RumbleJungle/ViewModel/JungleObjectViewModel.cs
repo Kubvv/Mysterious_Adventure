@@ -19,7 +19,6 @@ namespace RumbleJungle.ViewModel
         public JungleObjectTypes JungleObjectType => jungleObject.JungleObjectType;
         public string Name => jungleObject.Name;
         public string Shape => $"/RumbleJungle;component/Images/{jungleObject.Name}.svg";
-        public int Count => jungleModel.CountOf(jungleObject.JungleObjectType);
         public Statuses Status => jungleObject.Status;
 
         Thickness margin = new Thickness(0);
@@ -49,9 +48,14 @@ namespace RumbleJungle.ViewModel
         private void StatusChanged(object sender, EventArgs e)
         {
             RaisePropertyChanged("Self");
-
-            RaisePropertyChanged("Count");
-            RaisePropertyChanged("Found");
+            if (Status == Statuses.Shown)
+            {
+                jungleViewModel.UpperLayerVisibility = Visibility.Visible;
+            }
+            else if (Status == Statuses.Visited)
+            {
+                jungleViewModel.UpperLayerVisibility = Visibility.Hidden;
+            }
         }
     }
 }

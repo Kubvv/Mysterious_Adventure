@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
@@ -60,6 +61,13 @@ namespace RumbleJungle.ViewModel
         }
 
         public RamblerViewModel RamblerViewModel { get; private set; }
+
+        private Visibility upperLayerVisibility = Visibility.Hidden;
+        public Visibility UpperLayerVisibility
+        {
+            get => upperLayerVisibility;
+            set => Set(ref upperLayerVisibility, value);
+        }
 
         public JungleViewModel()
         {

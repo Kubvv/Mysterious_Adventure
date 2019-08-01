@@ -119,5 +119,15 @@ namespace RumbleJungle.Model
             }
             return result;
         }
+
+        public List<JungleObject> GetJungleObjects(JungleObjectTypes jungleObjectType)
+        {
+            List<JungleObject> result = new List<JungleObject>();
+            foreach (JungleObject jungleObject in Jungle.Where(jo => jo.JungleObjectType == jungleObjectType))
+            {
+                result.Add(jungleObject);
+            }
+            return result;
+        }
     }
 }

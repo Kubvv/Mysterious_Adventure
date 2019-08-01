@@ -31,20 +31,19 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
-                            Command="{Binding MoveRamblerCommand, Mode=OneWay}"
-                            Margin="{Binding Margin, Mode=OneWay}"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Width="{Binding JungleInstance.CellWidth, Source={StaticResource Locator}}"
-                            Height="{Binding JungleInstance.CellHeight, Source={StaticResource Locator}}"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Stretch">
+                    <Grid Margin="{Binding Margin, Mode=OneWay}"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Width="{Binding JungleInstance.CellWidth, Source={StaticResource Locator}}"
+                          Height="{Binding JungleInstance.CellHeight, Source={StaticResource Locator}}"
+                          Background="Green">
                         <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center"
                                       Margin="10" />
-                    </Button>
+                        <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
+                                Command="{Binding MoveRamblerCommand, Mode=OneWay}" />
+                    </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -59,6 +58,10 @@
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center" />
         </Border>
+        <Grid Background="#7FB2AAAA"
+              Visibility="{Binding UpperLayerVisibility}">
+            
+        </Grid>
         <local:StatusBarView Grid.Row="1" />
     </Grid>
 </Window>

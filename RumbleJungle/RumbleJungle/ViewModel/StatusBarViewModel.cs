@@ -11,10 +11,10 @@ namespace RumbleJungle.ViewModel
         private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
 
         public RamblerViewModel Rambler { get; } = ServiceLocator.Current.GetInstance<RamblerViewModel>();
-        public TreasureViewModel Treasure { get; } = ServiceLocator.Current.GetInstance<TreasureViewModel>();
+        public TreasureStatusViewModel Treasure { get; } = ServiceLocator.Current.GetInstance<TreasureStatusViewModel>();
         public ObservableCollection<WeaponViewModel> Weapons { get; private set; } = new ObservableCollection<WeaponViewModel>();
-        public ObservableCollection<JungleObjectViewModel> Beasts { get; private set; } = new ObservableCollection<JungleObjectViewModel>();
-        public ObservableCollection<JungleObjectViewModel> Items { get; private set; } = new ObservableCollection<JungleObjectViewModel>();
+        public ObservableCollection<JungleObjectStatusViewModel> Beasts { get; private set; } = new ObservableCollection<JungleObjectStatusViewModel>();
+        public ObservableCollection<JungleObjectStatusViewModel> Items { get; private set; } = new ObservableCollection<JungleObjectStatusViewModel>();
 
         public StatusBarViewModel()
         {
@@ -24,11 +24,11 @@ namespace RumbleJungle.ViewModel
             }
             foreach (JungleObject beast in jungleModel.GetJungleObjects(Configuration.Beasts))
             {
-                Beasts.Add(new JungleObjectViewModel(beast));
+                Beasts.Add(new JungleObjectStatusViewModel(beast));
             }
             foreach (JungleObject item in jungleModel.GetJungleObjects(Configuration.HiddenItems))
             {
-                Items.Add(new JungleObjectViewModel(item));
+                Items.Add(new JungleObjectStatusViewModel(item));
             }
         }
     }

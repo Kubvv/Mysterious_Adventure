@@ -1,4 +1,5 @@
 ﻿using CommonServiceLocator;
+using System.Threading;
 using System.Windows;
 
 namespace RumbleJungle.Model
@@ -26,6 +27,7 @@ namespace RumbleJungle.Model
             {
                 jungleObject.SetStatus(Statuses.Shown);
                 //Tu wywołamy akcje;
+                Thread.Sleep(2000);
                 Rambler.SetCoordinates(point);
             }
         }

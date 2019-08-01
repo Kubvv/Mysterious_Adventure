@@ -20,13 +20,13 @@ namespace RumbleJungle.Converters
                     result = Brushes.Green;
                     break;
                 case Statuses.Shown:
-                    result = Brushes.Gray;
+                    result = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
                     break;
                 case Statuses.Visible:
-                    result = Brushes.White;
+                    result = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
                     break;
                 case Statuses.Visited:
-                    result = Brushes.LightGray;
+                    result = new SolidColorBrush(Color.FromArgb(128, 0xFF, 0xFF, 0xFF));
                     break;
                 case Statuses.Pointed:
                     if (jungleObject.JungleObjectType == JungleObjectTypes.Treasure)
@@ -51,7 +51,7 @@ namespace RumbleJungle.Converters
                     }
                     break;
                 case Statuses.Marked:
-                    result = Brushes.Black;
+                    result = new SolidColorBrush(Color.FromArgb(128, 0x78, 0x09, 0x0E));
                     break;
                 default:
                     result = Brushes.Yellow;

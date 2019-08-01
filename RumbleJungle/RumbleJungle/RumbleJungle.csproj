@@ -85,12 +85,13 @@
     <Compile Include="Model\Weapon.cs" />
     <Compile Include="Model\WeaponModel.cs" />
     <Compile Include="ViewModel\IngameMenuViewModel.cs" />
+    <Compile Include="ViewModel\JungleObjectStatusViewModel.cs" />
     <Compile Include="ViewModel\JungleViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\RamblerViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
-    <Compile Include="ViewModel\TreasureViewModel.cs" />
+    <Compile Include="ViewModel\TreasureStatusViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\JungleObjectViewModel.cs" />
     <Compile Include="ViewModel\WeaponViewModel.cs" />
