@@ -24,10 +24,9 @@ namespace RumbleJungle.Model
             if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1 
                 && jungleObject.JungleObjectType != JungleObjectTypes.DenseJungle)
             {
-                jungleObject.SetStatus(Statuses.Visited);
+                jungleObject.SetStatus(Statuses.Shown);
                 //Tu wywołamy akcje;
                 Rambler.SetCoordinates(point);
-
             }
         }
     }

@@ -46,6 +46,7 @@
     public enum Statuses
     {
         Hidden,
+        Shown,
         Visible,
         Visited,
         Pointed,

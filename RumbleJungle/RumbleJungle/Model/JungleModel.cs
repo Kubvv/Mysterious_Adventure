@@ -98,7 +98,6 @@ namespace RumbleJungle.Model
                 }
             }
             rambler.SetCoordinates(ramblerJungleObject.Coordinates);
-            ramblerJungleObject.SetStatus(Statuses.Visited);
         }
 
         /// <summary>

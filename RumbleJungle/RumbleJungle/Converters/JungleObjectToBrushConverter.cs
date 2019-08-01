@@ -19,6 +19,9 @@ namespace RumbleJungle.Converters
                 case Statuses.Hidden:
                     result = Brushes.Green;
                     break;
+                case Statuses.Shown:
+                    result = Brushes.Gray;
+                    break;
                 case Statuses.Visible:
                     result = Brushes.White;
                     break;
