@@ -1,8 +1,8 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
+using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
@@ -21,7 +21,7 @@ namespace RumbleJungle.ViewModel
             set
             {
                 Set(ref canvasWidth, value);
-                CellWidth = value / Configuration.JungleWidth;
+                CellWidth = Math.Round(value / Configuration.JungleWidth);
                 UpdateJungle();
             }
         }
@@ -34,7 +34,7 @@ namespace RumbleJungle.ViewModel
             set
             {
                 Set(ref canvasHeight, value);
-                CellHeight = value / Configuration.JungleHeight;
+                CellHeight = Math.Round(value / Configuration.JungleHeight);
                 UpdateJungle();
             }
         }
@@ -61,13 +61,6 @@ namespace RumbleJungle.ViewModel
         }
 
         public RamblerViewModel RamblerViewModel { get; private set; }
-
-        private Visibility upperLayerVisibility = Visibility.Hidden;
-        public Visibility UpperLayerVisibility
-        {
-            get => upperLayerVisibility;
-            set => Set(ref upperLayerVisibility, value);
-        }
 
         public JungleViewModel()
         {

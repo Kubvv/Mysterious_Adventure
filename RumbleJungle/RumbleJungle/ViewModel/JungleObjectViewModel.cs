@@ -12,6 +12,7 @@ namespace RumbleJungle.ViewModel
         private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
         private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
         private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
+        private readonly ActionViewModel actionViewModel = ServiceLocator.Current.GetInstance<ActionViewModel>();
 
         private JungleObject jungleObject;
 
@@ -32,6 +33,9 @@ namespace RumbleJungle.ViewModel
             }
         }
 
+        public double Width => jungleViewModel.CellWidth;
+        public double Height => jungleViewModel.CellHeight;
+
         private RelayCommand moveRamblerCommand;
         public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => gameModel.MoveRambler(jungleObject.Coordinates)));
 
@@ -44,17 +48,20 @@ namespace RumbleJungle.ViewModel
         public void Update()
         {
             RaisePropertyChanged("Margin");
+            RaisePropertyChanged("Width");
+            RaisePropertyChanged("Height");
         }
         private void StatusChanged(object sender, EventArgs e)
         {
             RaisePropertyChanged("Self");
             if (Status == Statuses.Shown)
             {
-                jungleViewModel.UpperLayerVisibility = Visibility.Visible;
+                actionViewModel.JungleObjectViewModel = this;
+                actionViewModel.ActionVisibility = Visibility.Visible;
             }
             else if (Status == Statuses.Visited)
             {
-                jungleViewModel.UpperLayerVisibility = Visibility.Hidden;
+                actionViewModel.ActionVisibility = Visibility.Hidden;
             }
         }
     }

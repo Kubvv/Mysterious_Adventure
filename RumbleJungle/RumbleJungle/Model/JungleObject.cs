@@ -29,5 +29,21 @@ namespace RumbleJungle.Model
             Status = status;
             StatusChanged?.Invoke(this, null);
         }
+
+        internal Point Action()
+        {
+            Point result = Coordinates;
+
+            if (Configuration.Beasts.Contains(JungleObjectType))
+            {
+                // battle
+            }
+            else if (JungleObjectType == JungleObjectTypes.Quicksand)
+            {
+                // result = random hidden empty field
+            }
+
+            return result;
+        }
     }
 }
