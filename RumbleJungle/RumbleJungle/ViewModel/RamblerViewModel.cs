@@ -13,11 +13,16 @@ namespace RumbleJungle.ViewModel
         {
             this.gameModel = gameModel;
             gameModel.Rambler.Moved += RamblerMoved;
+            gameModel.Rambler.HealthChanged += RamblerHealthChanged;
         }
 
         private void RamblerMoved(object sender, EventArgs e)
         {
             Update();
+        }
+        private void RamblerHealthChanged(object sender, EventArgs e)
+        {
+            RaisePropertyChanged("Health");
         }
     }
 }

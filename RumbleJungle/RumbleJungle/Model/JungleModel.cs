@@ -71,9 +71,46 @@ namespace RumbleJungle.Model
             }
         }
 
+        internal void SetPointedAt(Point point, bool beastOnly)
+        {
+            JungleObject jungleObject = GetJungleObjectAt(point);
+            if (jungleObject != null)
+            {
+                if ((jungleObject.Status == Statuses.Hidden || Configuration.DebugMode) && Configuration.Beasts.Contains(jungleObject.JungleObjectType))
+                {
+                    jungleObject.SetStatus(Statuses.Pointed);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Zwraca koordynaty wskazanego wystąpienia określonego typu obiektu
+        /// </summary>
+        /// <param name="jungleObjectType"> typ szukanego obiektu </param>
+        /// <param name="orderNumber"> numer kolejny szukanego obiektu </param>
+        /// <returns></returns>
+        internal Point CoordinatesOf(JungleObjectTypes jungleObjectType, int orderNumber)
+        {
+            Point result = new Point(0,0);
+            int counter = 0;
+            foreach (JungleObject jungleObject in Jungle)
+            {
+                if (jungleObject.JungleObjectType == jungleObjectType && jungleObject.Status != Statuses.Visited)
+                {
+                    counter += 1;
+                    if (counter == orderNumber)
+                    {
+                        result = jungleObject.Coordinates;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
         internal JungleObject GetJungleObjectAt(Point point)
         {
-            return Jungle.First(jo => jo.Coordinates.X == point.X && jo.Coordinates.Y == point.Y);
+            return Jungle.FirstOrDefault(jo => jo.Coordinates.X == point.X && jo.Coordinates.Y == point.Y);
         }
 
         /// <summary>

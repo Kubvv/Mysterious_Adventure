@@ -69,7 +69,6 @@ namespace RumbleJungle.ViewModel
         internal void StartGame()
         {
             RamblerViewModel = ServiceLocator.Current.GetInstance<RamblerViewModel>();
-            gameModel.StartGame();
             foreach (JungleObject jungleObject in jungleModel.Jungle)
             {
                 JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));

@@ -11,9 +11,9 @@ namespace RumbleJungle.Model
         private readonly WeaponModel weaponModel = ServiceLocator.Current.GetInstance<WeaponModel>();
 
         private DispatcherTimer actionTimer = new DispatcherTimer();
-        private JungleObject jungleObject;
-               
-        public Rambler Rambler { get; private set; } = new Rambler();
+        private JungleObject jungleObject = null;
+
+        public Rambler Rambler { get; private set; } = null;
 
         public GameModel()
         {
@@ -23,6 +23,7 @@ namespace RumbleJungle.Model
 
         public void StartGame()
         {
+            Rambler = new Rambler();
             jungleModel.GenerateJungle();
             Rambler.Reset();
             weaponModel.CollectWeapon();
@@ -54,7 +55,11 @@ namespace RumbleJungle.Model
             Point ramblerTarget = jungleObject.Action();
             if (Rambler.Health > 0)
             {
-                Rambler.SetCoordinates(ramblerTarget);
+                Rambler.SetCoordinates(jungleObject.Coordinates);
+                if (!ramblerTarget.Equals(jungleObject.Coordinates))
+                {
+                    Rambler.SetCoordinates(ramblerTarget);
+                }
             }
         }
     }

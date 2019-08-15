@@ -31,6 +31,7 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.DenseJungle] = (int)Math.Round(defaultJungleHeight * defaultJungleWidth * 0.1)
         };
 
+        public static bool DebugMode = true;
         public static int JungleHeight { get; private set; }
         public static int JungleWidth { get; private set; }
         public static Dictionary<JungleObjectTypes, int> JungleObjectsCount { get; private set; }
