@@ -21,5 +21,20 @@ namespace RumbleJungle.Model
                 weapon.Reset();
             }
         }
+
+        public void ChangeRandomWeaponCount(int quantity)
+        {
+            Random random = new Random();
+            int randomWeapon = random.Next(Weapons.Count);
+            Weapons[randomWeapon].ChangeCount(quantity);
+        }
+
+        public void ChangeAllWeaponsCount(int quantity)
+        {
+            foreach (Weapon weapon in Weapons)
+            {
+                weapon.ChangeCount(quantity);
+            }
+        }
     }
 }

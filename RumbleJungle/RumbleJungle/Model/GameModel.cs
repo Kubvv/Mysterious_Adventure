@@ -10,7 +10,7 @@ namespace RumbleJungle.Model
         private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
         private readonly WeaponModel weaponModel = ServiceLocator.Current.GetInstance<WeaponModel>();
 
-        private DispatcherTimer actionTimer = new DispatcherTimer();
+        private readonly DispatcherTimer actionTimer = new DispatcherTimer();
         private JungleObject jungleObject = null;
 
         public Rambler Rambler { get; private set; } = null;

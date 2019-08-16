@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\JungleObjectToBrushConverter.cs" />
+    <Compile Include="Converters\JungleObjectTypeToBrushConverter.cs" />
     <Compile Include="Model\Configuration.cs" />
     <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\GameModel.cs" />

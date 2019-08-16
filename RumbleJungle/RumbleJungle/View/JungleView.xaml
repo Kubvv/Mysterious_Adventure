@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RumbleJungle.View"
         xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
-        xmlns:converters="clr-namespace:RumbleJungle.Converters"
         mc:Ignorable="d"
         Title="JungleView"
         Height="500"
@@ -13,9 +12,6 @@
         DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}"
         MinWidth="200"
         MinHeight="200">
-    <Window.Resources>
-        <converters:JungleObjectToBrushConverter x:Key="JungleObjectToBrushConverter" />
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
@@ -43,7 +39,9 @@
                                       Margin="10" />
                         <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Command="{Binding MoveRamblerCommand, Mode=OneWay}"
-                                BorderThickness="0" />
+                                BorderThickness="2"
+                                BorderBrush="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
+                                Template="{DynamicResource JungleButtonTemplate}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
