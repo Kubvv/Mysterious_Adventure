@@ -1,5 +1,6 @@
 ﻿using CommonServiceLocator;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace RumbleJungle.Model
@@ -94,6 +95,8 @@ namespace RumbleJungle.Model
             else if (JungleObjectType == JungleObjectTypes.MagnifyingGlass)
             {
                 // point everything in 3x3 chosen square
+                var pointNeighbours = jungleModel.FindNeighboursTo(Coordinates, 1).ToList();
+                jungleModel.SetPointedAt(pointNeighbours);
             }
             else if (JungleObjectType == JungleObjectTypes.LostWeapon)
             {

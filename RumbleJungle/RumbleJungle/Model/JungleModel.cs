@@ -79,6 +79,40 @@ namespace RumbleJungle.Model
             throw new NotImplementedException();
         }
 
+
+        /// <summary>
+        /// Finds a list of surrounding points withing a given distance.
+        /// </summary>
+        /// <param name="coordinates">Selected center point.</param>
+        /// <param name="distance">Distance from the selected point.</param>
+        /// <returns>List of Points.</returns>
+        internal IEnumerable<Point> FindNeighboursTo(Point coordinates, int distance)
+        {
+            var neighbours = new List<Point>();
+            for (var x = -distance; x <= distance; x++)
+            {
+                for (var y = -distance; y <= distance; y++)
+                {
+                    neighbours.Add(new Point(coordinates.X + x, coordinates.Y + y));
+                }
+            }
+            return neighbours;
+        }
+
+        /// <summary>
+        /// Changes the status of points to pointed.
+        /// </summary>
+        /// <param name="points">List of points.</param>
+        internal void SetPointedAt(List<Point> points)
+        {
+            points.ForEach(point => SetPointedAt(point, false));
+        }
+
+        /// <summary>
+        /// Changes the status of a point to pointed.
+        /// </summary>
+        /// <param name="point">Point to change a status.</param>
+        /// <param name="beastOnly">Change the status only for the beast points.</param>
         internal void SetPointedAt(Point point, bool beastOnly)
         {
             JungleObject jungleObject = GetJungleObjectAt(point);
