@@ -76,7 +76,17 @@ namespace RumbleJungle.Model
         /// <returns>Found object or null</returns>
         internal JungleObject FindNearestTo(Point coordinates, JungleObjectTypes jungleObjectType)
         {
-            throw new NotImplementedException();
+            int distance = 1;
+            JungleObject jungleObject = null;
+            while ((distance < Configuration.JungleHeight && distance < Configuration.JungleWidth) && jungleObject == null) 
+            {
+                jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, true);
+                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, true);
+                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, false);
+                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, false);
+                distance++;
+            }
+            return jungleObject;
         }
 
         internal void SetPointedAt(Point point, bool beastOnly)
@@ -163,6 +173,32 @@ namespace RumbleJungle.Model
             foreach (JungleObject jungleObject in Jungle.Where(jo => jo.JungleObjectType == jungleObjectType))
             {
                 result.Add(jungleObject);
+            }
+            return result;
+        }
+
+        private JungleObject FindObjectInVector(Point coordinates, int distance, JungleObjectTypes jungleObjectType, bool horizontally)
+        {
+            JungleObject result = null;
+            Point point = new Point();
+
+            if (horizontally)
+                point.Y = coordinates.Y + distance;
+            else
+                point.X = coordinates.X + distance;
+
+            for (int radius = -Math.Abs(distance); radius <= Math.Abs(distance); radius++)
+            {
+                if (horizontally)
+                    point.X = coordinates.X + radius;
+                else
+                    point.Y = coordinates.Y + radius;
+                JungleObject jungleObject = GetJungleObjectAt(point);
+                if (jungleObject != null && jungleObject.JungleObjectType == jungleObjectType && jungleObject.Status != Statuses.Visited)
+                {
+                    result = jungleObject;
+                    break;
+                }
             }
             return result;
         }
