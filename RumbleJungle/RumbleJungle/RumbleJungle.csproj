@@ -93,7 +93,7 @@
     <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\RamblerViewModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
-    <Compile Include="ViewModel\TreasureStatusViewModel.cs" />
+    <Compile Include="ViewModel\TreasureViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\JungleObjectViewModel.cs" />
     <Compile Include="ViewModel\WeaponViewModel.cs" />

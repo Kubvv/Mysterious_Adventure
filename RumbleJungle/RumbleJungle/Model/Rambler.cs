@@ -12,10 +12,6 @@ namespace RumbleJungle.Model
 
         public Rambler() : base(JungleObjectTypes.Rambler)
         {
-        }
-
-        public void Reset()
-        {
             Health = Configuration.DebugMode ? 50 : 100;
         }
 

@@ -33,8 +33,10 @@ namespace RumbleJungle.Model
         {
             foreach (Weapon weapon in Weapons)
             {
-                if(weapon.Name != "Dagger")
-                weapon.ChangeCount(quantity);
+                if (weapon.WeaponType != WeaponTypes.Dagger)
+                {
+                    weapon.ChangeCount(quantity);
+                }
             }
         }
     }

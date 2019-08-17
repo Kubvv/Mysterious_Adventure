@@ -11,7 +11,7 @@ namespace RumbleJungle.ViewModel
         private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
 
         public RamblerViewModel Rambler { get; } = ServiceLocator.Current.GetInstance<RamblerViewModel>();
-        public TreasureStatusViewModel Treasure { get; } = ServiceLocator.Current.GetInstance<TreasureStatusViewModel>();
+        public TreasureViewModel Treasure { get; } = ServiceLocator.Current.GetInstance<TreasureViewModel>();
         public ObservableCollection<WeaponViewModel> Weapons { get; private set; } = new ObservableCollection<WeaponViewModel>();
         public ObservableCollection<JungleObjectStatusViewModel> Beasts { get; private set; } = new ObservableCollection<JungleObjectStatusViewModel>();
         public ObservableCollection<JungleObjectStatusViewModel> Items { get; private set; } = new ObservableCollection<JungleObjectStatusViewModel>();

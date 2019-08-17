@@ -1,6 +1,6 @@
-﻿using System;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
+using System;
 
 namespace RumbleJungle.ViewModel
 {
@@ -15,10 +15,10 @@ namespace RumbleJungle.ViewModel
         public WeaponViewModel(Weapon weapon)
         {
             this.weapon = weapon;
-            weapon.WeaponQuantityChanged += WeaponQuantityChanged;
+            weapon.CountChanged += CountChanged;
         }
 
-        private void WeaponQuantityChanged(object sender, EventArgs e)
+        private void CountChanged(object sender, EventArgs e)
         {
             RaisePropertyChanged("Count");
         }

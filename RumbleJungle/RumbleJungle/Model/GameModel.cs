@@ -25,7 +25,6 @@ namespace RumbleJungle.Model
         {
             Rambler = new Rambler();
             jungleModel.GenerateJungle();
-            Rambler.Reset();
             weaponModel.CollectWeapon();
             jungleModel.ReleaseRambler(Rambler);
         }

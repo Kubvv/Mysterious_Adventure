@@ -56,7 +56,7 @@ namespace RumbleJungle.ViewModel
             SimpleIoc.Default.Register<StatusBarViewModel>();
             SimpleIoc.Default.Register<WeaponViewModel>();
             SimpleIoc.Default.Register<RamblerViewModel>();
-            SimpleIoc.Default.Register<TreasureStatusViewModel>();
+            SimpleIoc.Default.Register<TreasureViewModel>();
         }
 
         public MainViewModel MainInstance => ServiceLocator.Current.GetInstance<MainViewModel>();
@@ -68,7 +68,7 @@ namespace RumbleJungle.ViewModel
         public StatusBarViewModel StatusBarInstance => ServiceLocator.Current.GetInstance<StatusBarViewModel>();
         public WeaponViewModel WeaponInstance => ServiceLocator.Current.GetInstance<WeaponViewModel>();
         public RamblerViewModel RamblerInstance => ServiceLocator.Current.GetInstance<RamblerViewModel>();
-        public TreasureStatusViewModel TreasureInstance => ServiceLocator.Current.GetInstance<TreasureStatusViewModel>();
+        public TreasureViewModel TreasureInstance => ServiceLocator.Current.GetInstance<TreasureViewModel>();
 
         public static void Cleanup()
         {

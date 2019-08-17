@@ -91,7 +91,7 @@ namespace RumbleJungle.Model
 
 
         /// <summary>
-        /// Finds a list of surrounding points withing a given distance.
+        /// Finds a list of surrounding points within a given distance.
         /// </summary>
         /// <param name="coordinates">Selected center point.</param>
         /// <param name="distance">Distance from the selected point.</param>
@@ -129,6 +129,7 @@ namespace RumbleJungle.Model
             if (jungleObject != null)
             {
                 if ((jungleObject.Status == Statuses.Hidden || Configuration.DebugMode) &&
+                    jungleObject.JungleObjectType != JungleObjectTypes.EmptyField &&
                     (Configuration.Beasts.Contains(jungleObject.JungleObjectType) || !beastOnly))
                 {
                     jungleObject.SetStatus(Statuses.Pointed);

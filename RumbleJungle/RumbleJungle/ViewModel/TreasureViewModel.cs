@@ -7,25 +7,24 @@ using System.Linq;
 
 namespace RumbleJungle.ViewModel
 {
-    public class TreasureStatusViewModel : ViewModelBase
+    public class TreasureViewModel : ViewModelBase
     {
         private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
 
-        private JungleObject treasure;
-
-        public string Name => treasure.Name;
-        public string Shape => $"/RumbleJungle;component/Images/{treasure.Name}.svg";
+        public string Name { get; private set; }
+        public string Shape => $"/RumbleJungle;component/Images/{Name}.svg";
         public int Count => jungleModel.CountOf(JungleObjectTypes.Treasure);
         public int Total => Configuration.JungleObjectsCount[JungleObjectTypes.Treasure];
         public int Found => Total - Count;
 
-        public TreasureStatusViewModel()
+        public TreasureViewModel()
         {
-            treasure = jungleModel.GetJungleObjects(new List<JungleObjectTypes>() { JungleObjectTypes.Treasure }).FirstOrDefault();
-            foreach (JungleObject jungleObject in jungleModel.GetJungleObjects(treasure.JungleObjectType))
+            List<JungleObject> treasures = jungleModel.GetJungleObjects(JungleObjectTypes.Treasure);
+            Name = treasures.First().Name;
+            foreach (JungleObject treasure in treasures)
             {
-                jungleObject.StatusChanged += StatusChanged;
-                jungleObject.TypeChanged += TypeChanged;
+                treasure.StatusChanged += StatusChanged;
+                treasure.TypeChanged += TypeChanged;
             }
         }
 
