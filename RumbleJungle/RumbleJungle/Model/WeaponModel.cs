@@ -25,7 +25,7 @@ namespace RumbleJungle.Model
         public void ChangeRandomWeaponCount(int quantity)
         {
             Random random = new Random();
-            int randomWeapon = random.Next(Weapons.Count);
+            int randomWeapon = random.Next(Weapons.Count - 1) + 1;
             Weapons[randomWeapon].ChangeCount(quantity);
         }
 
@@ -33,6 +33,7 @@ namespace RumbleJungle.Model
         {
             foreach (Weapon weapon in Weapons)
             {
+                if(weapon.Name != "Dagger")
                 weapon.ChangeCount(quantity);
             }
         }

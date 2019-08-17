@@ -8,6 +8,8 @@ namespace RumbleJungle.Model
         public string Name { get; private set; }
         public int Count { get; private set; }
 
+        public event EventHandler WeaponQuantityChanged;
+
         public Weapon(WeaponTypes weaponType)
         {
             WeaponType = weaponType;
@@ -23,7 +25,7 @@ namespace RumbleJungle.Model
         internal void ChangeCount(int quantity)
         {
             Count += quantity;
-            // Invoke event...
+            WeaponQuantityChanged?.Invoke(this, null);
         }
     }
 }

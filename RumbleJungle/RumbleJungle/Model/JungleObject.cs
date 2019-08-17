@@ -18,6 +18,8 @@ namespace RumbleJungle.Model
 
         public event EventHandler StatusChanged;
 
+        public event EventHandler TypeChanged;
+
         public JungleObject(JungleObjectTypes jungleObjectType)
         {
             JungleObjectType = jungleObjectType;
@@ -43,7 +45,8 @@ namespace RumbleJungle.Model
         private void ChangeTypeTo(JungleObjectTypes jungleObjectType)
         {
             JungleObjectType = jungleObjectType;
-            // Invoke event...
+            Name = Enum.GetName(typeof(JungleObjectTypes), jungleObjectType);
+            TypeChanged?.Invoke(this, null);
         }
 
         internal Point Action()
@@ -58,11 +61,13 @@ namespace RumbleJungle.Model
             }
             else if (JungleObjectType == JungleObjectTypes.Elixir)
             {
+                // Increase health by 25%-35%
                 int healthAdded = random.Next(11) + 25;
                 gameModel.Rambler.ChangeHealth(healthAdded);
             }
             else if (JungleObjectType == JungleObjectTypes.Compass)
             {
+                // Point all monsters in a 5x5 square around the compass
                 Point point = new Point(Coordinates.X - 2, Coordinates.Y - 2);
                 for (int column = 0; column < 5; column++)
                 {
@@ -111,13 +116,18 @@ namespace RumbleJungle.Model
                 //  Sprawdzenie 4 pól przyległych do obozu
                 //  15 punktów procentowych więcej podczas leczenia w obozie
                 //  Podwójny atak na losowo wybranej broni
+                weaponModel.ChangeAllWeaponsCount(1);
+                int healthAdded = random.Next(6) + 30;
+                gameModel.Rambler.ChangeHealth(healthAdded);
 
             }
             else if (JungleObjectType == JungleObjectTypes.Tent)
             {
                 // add all weapons and 25-35% health
                 weaponModel.ChangeAllWeaponsCount(1);
-                // add health...
+                int healthAdded = random.Next(6) + 25;
+                gameModel.Rambler.ChangeHealth(healthAdded);
+
             }
             else if (JungleObjectType == JungleObjectTypes.ForgottenCity)
             {
@@ -136,6 +146,7 @@ namespace RumbleJungle.Model
             }
             else if (JungleObjectType == JungleObjectTypes.Trap)
             {
+                // decrease health by 25%-35%
                 int healthSubtracted = random.Next(11) + 25;
                 gameModel.Rambler.ChangeHealth(-healthSubtracted);
             }

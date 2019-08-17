@@ -15,7 +15,7 @@ namespace RumbleJungle.ViewModel
 
         public string Name => treasure.Name;
         public string Shape => $"/RumbleJungle;component/Images/{treasure.Name}.svg";
-        public int Count => jungleModel.CountOf(treasure.JungleObjectType);
+        public int Count => jungleModel.CountOf(JungleObjectTypes.Treasure);
         public int Total => Configuration.JungleObjectsCount[JungleObjectTypes.Treasure];
         public int Found => Total - Count;
 
@@ -25,7 +25,13 @@ namespace RumbleJungle.ViewModel
             foreach (JungleObject jungleObject in jungleModel.GetJungleObjects(treasure.JungleObjectType))
             {
                 jungleObject.StatusChanged += StatusChanged;
+                jungleObject.TypeChanged += TypeChanged;
             }
+        }
+
+        private void TypeChanged(object sender, EventArgs e)
+        {
+            RaisePropertyChanged("Found");
         }
 
         private void StatusChanged(object sender, EventArgs e)

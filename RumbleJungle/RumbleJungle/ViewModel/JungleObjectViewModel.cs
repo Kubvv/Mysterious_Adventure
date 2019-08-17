@@ -43,6 +43,14 @@ namespace RumbleJungle.ViewModel
         {
             this.jungleObject = jungleObject;
             jungleObject.StatusChanged += StatusChanged;
+            jungleObject.TypeChanged += TypeChanged;
+        }
+
+        private void TypeChanged(object sender, EventArgs e)
+        {
+            RaisePropertyChanged("Shape");
+            RaisePropertyChanged("JungleObjectType");
+            RaisePropertyChanged("Name");
         }
 
         public void Update()
