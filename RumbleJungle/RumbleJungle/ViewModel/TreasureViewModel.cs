@@ -24,13 +24,21 @@ namespace RumbleJungle.ViewModel
             foreach (JungleObject treasure in treasures)
             {
                 treasure.StatusChanged += StatusChanged;
-                treasure.TypeChanged += TypeChanged;
+            }
+            foreach (JungleObject jungleObject in jungleModel.Jungle)
+            {
+                jungleObject.TypeChanged += TypeChanged;
             }
         }
 
         private void TypeChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("Found");
+            JungleObject jungleObject = (JungleObject)sender;
+            if (jungleObject.JungleObjectType == JungleObjectTypes.Treasure)
+            {
+                jungleObject.StatusChanged += StatusChanged;
+                RaisePropertyChanged("Found");
+            }
         }
 
         private void StatusChanged(object sender, EventArgs e)
