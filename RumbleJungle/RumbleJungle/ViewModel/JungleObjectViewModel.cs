@@ -10,7 +10,6 @@ namespace RumbleJungle.ViewModel
     public class JungleObjectViewModel : ViewModelBase
     {
         private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
-        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
         private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
         private readonly ActionViewModel actionViewModel = ServiceLocator.Current.GetInstance<ActionViewModel>();
 
@@ -21,6 +20,8 @@ namespace RumbleJungle.ViewModel
         public string Name => jungleObject.Name;
         public string Shape => $"/RumbleJungle;component/Images/{jungleObject.Name}.svg";
         public Statuses Status => jungleObject.Status;
+        public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
+        public int Health => IsLivingJungleObject ? (jungleObject as LivingJungleObject).Health : 0;
 
         Thickness margin = new Thickness(0);
         public Thickness Margin
@@ -59,12 +60,13 @@ namespace RumbleJungle.ViewModel
             RaisePropertyChanged("Width");
             RaisePropertyChanged("Height");
         }
+
         private void StatusChanged(object sender, EventArgs e)
         {
             RaisePropertyChanged("Self");
             if (Status == Statuses.Shown)
             {
-                actionViewModel.JungleObjectViewModel = this;
+                actionViewModel.CurrentJungleObject = this;
                 actionViewModel.ActionVisibility = Visibility.Visible;
             }
             else if (Status == Statuses.Visited)

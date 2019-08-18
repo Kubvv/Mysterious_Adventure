@@ -17,6 +17,7 @@
                                  xmlns:vm="clr-namespace:RumbleJungle.ViewModel" />
             <converters:JungleObjectToBrushConverter x:Key="JungleObjectToBrushConverter" />
             <converters:JungleObjectTypeToBrushConverter x:Key="JungleObjectTypeToBrushConverter" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

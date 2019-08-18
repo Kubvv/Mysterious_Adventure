@@ -75,13 +75,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\JungleObjectToBrushConverter.cs" />
     <Compile Include="Converters\JungleObjectTypeToBrushConverter.cs" />
+    <Compile Include="Model\Beast.cs" />
     <Compile Include="Model\Configuration.cs" />
     <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\JungleModel.cs" />
     <Compile Include="Model\JungleObject.cs" />
+    <Compile Include="Model\LivingJungleObject.cs" />
     <Compile Include="Model\Rambler.cs" />
     <Compile Include="Model\Weapon.cs" />
     <Compile Include="Model\WeaponModel.cs" />

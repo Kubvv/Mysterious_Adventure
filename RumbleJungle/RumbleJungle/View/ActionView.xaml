@@ -6,12 +6,14 @@
              xmlns:local="clr-namespace:RumbleJungle.View"
              xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
              mc:Ignorable="d"
-             DataContext="{Binding ActionInstance, Mode=OneWay, Source={StaticResource Locator}}">
+             DataContext="{Binding ActionInstance, Mode=OneWay, Source={StaticResource Locator}}"
+             Visibility="{Binding ActionVisibility}">
     <Grid Background="#7FB2AAAA"
-          Visibility="{Binding ActionVisibility}">
+          DataContext="{Binding CurrentJungleObject}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
             <RowDefinition Height="2*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -25,9 +27,28 @@
                 Padding="10"
                 Grid.Row="1"
                 Grid.Column="1">
-            <svg:SVGImage Source="{Binding Shape}"
+            <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center" />
         </Border>
+        <Grid Grid.Row="2"
+              Grid.Column="1"
+              Margin="10"
+              Visibility="{Binding IsLivingJungleObject, Converter={StaticResource BoolToVisibilityConverter}}">
+            <ProgressBar Value="{Binding Health, Mode=OneWay}" />
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Health, Mode=OneWay}"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Style="{DynamicResource ItemsCounterStyle}" />
+                <TextBlock Text="%"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Style="{DynamicResource ItemsCounterStyle}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

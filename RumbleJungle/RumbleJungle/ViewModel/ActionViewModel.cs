@@ -5,8 +5,7 @@ namespace RumbleJungle.ViewModel
 {
     public class ActionViewModel : ViewModelBase
     {
-        public JungleObjectViewModel JungleObjectViewModel { get; set; }
-        public string Shape => JungleObjectViewModel?.Shape;
+        public JungleObjectViewModel CurrentJungleObject { get; set; }
 
         private Visibility actionVisibility = Visibility.Hidden;
         public Visibility ActionVisibility
@@ -17,7 +16,7 @@ namespace RumbleJungle.ViewModel
                 Set(ref actionVisibility, value);
                 if (value == Visibility.Visible)
                 {
-                    RaisePropertyChanged("Shape");
+                    RaisePropertyChanged("CurrentJungleObject");
                 }
             }
         }

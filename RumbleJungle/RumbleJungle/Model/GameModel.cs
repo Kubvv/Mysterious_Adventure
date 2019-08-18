@@ -51,7 +51,7 @@ namespace RumbleJungle.Model
         private void ActionTimerTick(object sender, EventArgs e)
         {
             actionTimer.Stop();
-            Point ramblerTarget = jungleObject.Action();
+            Point ramblerTarget = jungleObject is Beast ? (jungleObject as Beast).Action() : jungleObject.Action();
             if (Rambler.Health > 0)
             {
                 Rambler.SetCoordinates(jungleObject.Coordinates);

@@ -16,9 +16,8 @@ namespace RumbleJungle.Model
         public Point Coordinates { get; private set; }
         public Statuses Status { get; private set; }
 
-        public event EventHandler StatusChanged;
-
         public event EventHandler TypeChanged;
+        public event EventHandler StatusChanged;
 
         public JungleObject(JungleObjectTypes jungleObjectType)
         {
@@ -49,17 +48,13 @@ namespace RumbleJungle.Model
             TypeChanged?.Invoke(this, null);
         }
 
-        internal Point Action()
+        public Point Action()
         {
             Point result = Coordinates;
 
             Random random = new Random();
 
-            if (Configuration.Beasts.Contains(JungleObjectType))
-            {
-                // battle
-            }
-            else if (JungleObjectType == JungleObjectTypes.Elixir)
+            if (JungleObjectType == JungleObjectTypes.Elixir)
             {
                 // Increase health by 25%-35%
                 int healthAdded = random.Next(11) + 25;
@@ -137,11 +132,15 @@ namespace RumbleJungle.Model
             }
             else if (JungleObjectType == JungleObjectTypes.Natives)
             {
+                // if rambler has some treasure
                 // return one treasure to random empty field in the jungle
-                JungleObject emptyField = jungleModel.GetRandomJungleObject(JungleObjectTypes.EmptyField);
-                if (emptyField != null)
+                if (jungleModel.CountOf(JungleObjectTypes.Treasure) < Configuration.JungleObjectsCount[JungleObjectTypes.Treasure])
                 {
-                    emptyField.ChangeTypeTo(JungleObjectTypes.Treasure);
+                    JungleObject emptyField = jungleModel.GetRandomJungleObject(JungleObjectTypes.EmptyField);
+                    if (emptyField != null)
+                    {
+                        emptyField.ChangeTypeTo(JungleObjectTypes.Treasure);
+                    }
                 }
             }
             else if (JungleObjectType == JungleObjectTypes.Trap)

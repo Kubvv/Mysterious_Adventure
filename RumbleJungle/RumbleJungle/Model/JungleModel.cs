@@ -34,6 +34,13 @@ namespace RumbleJungle.Model
                 {
                     // puste pola i wędrowiec na końcu
                 }
+                else if (Configuration.Beasts.Contains(jungleObjectType))
+                {
+                    for (int i = 0; i < Configuration.JungleObjectsCount[jungleObjectType]; i++)
+                    {
+                        Jungle.Add(new Beast(jungleObjectType));
+                    }
+                }
                 else
                 {
                     for (int i = 0; i < Configuration.JungleObjectsCount[jungleObjectType]; i++)
