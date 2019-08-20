@@ -31,6 +31,17 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.DenseJungle] = (int)Math.Round(defaultJungleHeight * defaultJungleWidth * 0.1)
         };
 
+        public static Random Random = new Random();
+
+        public static Dictionary<JungleObjectTypes, int> BeastsInitialHealth { get; private set; } = new Dictionary<JungleObjectTypes, int>
+        {
+            [JungleObjectTypes.DragonflySwarm] = 35,
+            [JungleObjectTypes.WildPig] = 40,
+            [JungleObjectTypes.Snakes] = 50,
+            [JungleObjectTypes.CarnivorousPlant] = 60,
+            [JungleObjectTypes.Minotaur] = 75,
+            [JungleObjectTypes.Hydra] = 80
+        };
         public static bool DebugMode = true;
         public static int JungleHeight { get; private set; }
         public static int JungleWidth { get; private set; }

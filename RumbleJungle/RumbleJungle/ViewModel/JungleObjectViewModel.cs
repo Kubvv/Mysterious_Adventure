@@ -59,6 +59,7 @@ namespace RumbleJungle.ViewModel
             RaisePropertyChanged("Margin");
             RaisePropertyChanged("Width");
             RaisePropertyChanged("Height");
+            RaisePropertyChanged("Health");
         }
 
         private void StatusChanged(object sender, EventArgs e)
