@@ -29,7 +29,7 @@ namespace RumbleJungle.Model
             jungleModel.ReleaseRambler(Rambler);
         }
 
-        public void MoveRambler(Point point)
+        public void MoveRamblerTo(Point point)
         {
             jungleObject = jungleModel.GetJungleObjectAt(point);
             if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1 
@@ -48,16 +48,51 @@ namespace RumbleJungle.Model
             }
         }
 
+        public void HitBeastWith(Weapon weapon)
+        {
+            if (jungleObject is Beast beast)
+            {
+                // TODO: weapon on beast strength configuration
+                int healthSubtracted = Configuration.Random.Next(11) + 25;
+                beast.ChangeHealth(-healthSubtracted);
+                weapon.ChangeCount(-1);
+                actionTimer.Start();
+            }
+        }
+
         private void ActionTimerTick(object sender, EventArgs e)
         {
             actionTimer.Stop();
-            Point ramblerTarget = jungleObject is Beast ? (jungleObject as Beast).Action() : jungleObject.Action();
-            if (Rambler.Health > 0)
+            Beast beast = jungleObject as Beast;
+            if (beast != null)
             {
-                Rambler.SetCoordinates(jungleObject.Coordinates);
-                if (!ramblerTarget.Equals(jungleObject.Coordinates))
+                if (beast.Health > 0)
                 {
-                    Rambler.SetCoordinates(ramblerTarget);
+                    beast.Action();
+                    if (Rambler.Health <= 0)
+                    {
+                        // TODO: game over
+                    }
+                }
+                else
+                {
+                    Rambler.SetCoordinates(beast.Coordinates);
+                }
+            }
+            else
+            {
+                Point ramblerTarget = jungleObject.Action();
+                if (Rambler.Health <= 0)
+                {
+                    // TODO: game over
+                }
+                else
+                {
+                    Rambler.SetCoordinates(jungleObject.Coordinates);
+                    if (!ramblerTarget.Equals(jungleObject.Coordinates))
+                    {
+                        Rambler.SetCoordinates(ramblerTarget);
+                    }
                 }
             }
         }

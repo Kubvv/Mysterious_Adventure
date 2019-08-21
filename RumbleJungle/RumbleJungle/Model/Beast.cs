@@ -5,6 +5,7 @@ namespace RumbleJungle.Model
 {
     public class Beast : LivingJungleObject
     {
+        private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
         private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
         
         public Beast(JungleObjectTypes beastType) : base(beastType)
@@ -14,7 +15,10 @@ namespace RumbleJungle.Model
 
         public new Point Action()
         {
-            // battle
+            // hit rambler
+            // TODO: beasts strength configuration
+            int healthSubtracted = Configuration.Random.Next(11) + 25;
+            gameModel.Rambler.ChangeHealth(-healthSubtracted);
 
             return Coordinates;
         }

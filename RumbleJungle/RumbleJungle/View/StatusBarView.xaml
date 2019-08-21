@@ -62,6 +62,11 @@
                                    Grid.Row="1"
                                    VerticalAlignment="Center"
                                    Style="{DynamicResource ItemsCounterStyle}" />
+                        <Button Command="{Binding HitBeastCommand, Mode=OneWay}"
+                                Background="#00DDDDDD"
+                                BorderBrush="#00DDDDDD"
+                                BorderThickness="2"
+                                Template="{DynamicResource JungleButtonTemplate}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

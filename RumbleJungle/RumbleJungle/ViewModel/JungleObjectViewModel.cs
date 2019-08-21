@@ -38,20 +38,14 @@ namespace RumbleJungle.ViewModel
         public double Height => jungleViewModel.CellHeight;
 
         private RelayCommand moveRamblerCommand;
-        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => gameModel.MoveRambler(jungleObject.Coordinates)));
+        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => gameModel.MoveRamblerTo(jungleObject.Coordinates)));
 
         public JungleObjectViewModel(JungleObject jungleObject)
         {
             this.jungleObject = jungleObject;
-            jungleObject.StatusChanged += StatusChanged;
             jungleObject.TypeChanged += TypeChanged;
-        }
-
-        private void TypeChanged(object sender, EventArgs e)
-        {
-            RaisePropertyChanged("Shape");
-            RaisePropertyChanged("JungleObjectType");
-            RaisePropertyChanged("Name");
+            jungleObject.StatusChanged += StatusChanged;
+            if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged += HealthChanged;
         }
 
         public void Update()
@@ -60,6 +54,13 @@ namespace RumbleJungle.ViewModel
             RaisePropertyChanged("Width");
             RaisePropertyChanged("Height");
             RaisePropertyChanged("Health");
+        }
+
+        private void TypeChanged(object sender, EventArgs e)
+        {
+            RaisePropertyChanged("Shape");
+            RaisePropertyChanged("JungleObjectType");
+            RaisePropertyChanged("Name");
         }
 
         private void StatusChanged(object sender, EventArgs e)
@@ -74,6 +75,11 @@ namespace RumbleJungle.ViewModel
             {
                 actionViewModel.ActionVisibility = Visibility.Hidden;
             }
+        }
+
+        private void HealthChanged(object sender, EventArgs e)
+        {
+            RaisePropertyChanged("Health");
         }
     }
 }
