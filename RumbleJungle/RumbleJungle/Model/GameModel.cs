@@ -50,7 +50,7 @@ namespace RumbleJungle.Model
 
         public void HitBeastWith(Weapon weapon)
         {
-            if (jungleObject is Beast beast)
+            if (weapon.Count != 0 && jungleObject is Beast beast)
             {
                 // TODO: weapon on beast strength configuration
                 int healthSubtracted = Configuration.Random.Next(11) + 25;
@@ -69,10 +69,6 @@ namespace RumbleJungle.Model
                 if (beast.Health > 0)
                 {
                     beast.Action();
-                    if (Rambler.Health <= 0)
-                    {
-                        // TODO: game over
-                    }
                 }
                 else
                 {
@@ -82,18 +78,25 @@ namespace RumbleJungle.Model
             else
             {
                 Point ramblerTarget = jungleObject.Action();
-                if (Rambler.Health <= 0)
-                {
-                    // TODO: game over
-                }
-                else
-                {
+                if (Rambler.Health > 0)
+                { 
                     Rambler.SetCoordinates(jungleObject.Coordinates);
                     if (!ramblerTarget.Equals(jungleObject.Coordinates))
                     {
                         Rambler.SetCoordinates(ramblerTarget);
                     }
                 }
+            }
+            if (Rambler.Health <= 0)
+            {
+                // TODO: game over (fail)
+                jungleObject.SetStatus(Statuses.Visited);
+                jungleModel.MarkHiddenObjects();
+            }
+            else if (jungleModel.CountOf(JungleObjectTypes.Treasure) == 0)
+            {
+                // TODO: game over (success)
+                jungleModel.MarkHiddenObjects();
             }
         }
     }

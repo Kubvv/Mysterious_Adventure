@@ -18,6 +18,7 @@
             <converters:JungleObjectToBrushConverter x:Key="JungleObjectToBrushConverter" />
             <converters:JungleObjectTypeToBrushConverter x:Key="JungleObjectTypeToBrushConverter" />
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:IntToWeaponCountConverter x:Key="IntToWeaponCountConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

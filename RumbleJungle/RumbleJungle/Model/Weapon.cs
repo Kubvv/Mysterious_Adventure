@@ -24,8 +24,11 @@ namespace RumbleJungle.Model
 
         internal void ChangeCount(int quantity)
         {
-            Count += quantity;
-            CountChanged?.Invoke(this, null);
+            if (WeaponType != WeaponTypes.Dagger)
+            {
+                Count += quantity;
+                CountChanged?.Invoke(this, null);
+            }
         }
     }
 }

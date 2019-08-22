@@ -56,7 +56,7 @@
                         <svg:SVGImage Source="{Binding Shape}"
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center" />
-                        <TextBlock Text="{Binding Count}"
+                        <TextBlock Text="{Binding Count, Converter={StaticResource IntToWeaponCountConverter}}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
                                    Grid.Row="1"

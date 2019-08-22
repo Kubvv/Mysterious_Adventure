@@ -96,7 +96,17 @@ namespace RumbleJungle.Model
             return jungleObject;
         }
 
-
+        internal void MarkHiddenObjects()
+        {
+            foreach (JungleObject jungleObject in Jungle)
+            {
+                if (jungleObject.Status == Statuses.Hidden || Configuration.DebugMode)
+                {
+                    jungleObject.SetStatus(Statuses.Marked);
+                }
+            }
+        }
+        
         /// <summary>
         /// Finds a list of surrounding points within a given distance.
         /// </summary>

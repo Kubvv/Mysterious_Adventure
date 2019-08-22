@@ -94,7 +94,7 @@ namespace RumbleJungle.Model
             }
             else if (JungleObjectType == JungleObjectTypes.MagnifyingGlass)
             {
-                // point everything in 3x3 chosen square
+                // TODO: point everything in 3x3 chosen square
                 var pointNeighbours = jungleModel.FindNeighboursTo(Coordinates, 1).ToList();
                 jungleModel.SetPointedAt(pointNeighbours);
             }
@@ -106,7 +106,7 @@ namespace RumbleJungle.Model
             else if (JungleObjectType == JungleObjectTypes.Camp)
             {
                 // add all weapons and 25-35% health
-                // choose one option:
+                // TODO: choose one option:
                 //  30 % obrażeń w następnej bitwie
                 //  Sprawdzenie 4 pól przyległych do obozu
                 //  15 punktów procentowych więcej podczas leczenia w obozie
@@ -126,7 +126,7 @@ namespace RumbleJungle.Model
             }
             else if (JungleObjectType == JungleObjectTypes.ForgottenCity)
             {
-                // Walka z 2 losowymi typami potworów(jeden po drugim)
+                // TODO: Walka z 2 losowymi typami potworów(jeden po drugim)
                 // Nagroda w postaci dodatkowej broni oraz pokazania lokacji dwóch skarbów
 
             }
