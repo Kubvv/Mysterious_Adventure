@@ -16,10 +16,7 @@ namespace RumbleJungle.Model
         }
         public void CollectWeapon()
         {
-            foreach (Weapon weapon in Weapons)
-            {
-                weapon.Reset();
-            }
+            Weapons.ForEach(weapon => weapon.Reset());
         }
 
         public void ChangeRandomWeaponCount(int quantity)
@@ -31,13 +28,7 @@ namespace RumbleJungle.Model
 
         public void ChangeAllWeaponsCount(int quantity)
         {
-            foreach (Weapon weapon in Weapons)
-            {
-                if (weapon.WeaponType != WeaponTypes.Dagger)
-                {
-                    weapon.ChangeCount(quantity);
-                }
-            }
+            Weapons.ForEach(weapon => weapon.ChangeCount(quantity));
         }
     }
 }

@@ -100,7 +100,7 @@ namespace RumbleJungle.Model
         {
             foreach (JungleObject jungleObject in Jungle)
             {
-                if (jungleObject.Status == Statuses.Hidden || Configuration.DebugMode)
+                if (jungleObject.Status == Statuses.Hidden || jungleObject.Status == Statuses.Pointed || Configuration.DebugMode)
                 {
                     jungleObject.SetStatus(Statuses.Marked);
                 }
