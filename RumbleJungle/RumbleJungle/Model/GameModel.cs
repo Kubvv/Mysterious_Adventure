@@ -12,7 +12,8 @@ namespace RumbleJungle.Model
 
         private readonly DispatcherTimer actionTimer = new DispatcherTimer();
         private JungleObject jungleObject = null;
-
+        private bool inGame = true;
+        private int hitCount = 0;
         public Rambler Rambler { get; private set; } = null;
 
         public GameModel()
@@ -27,10 +28,13 @@ namespace RumbleJungle.Model
             jungleModel.GenerateJungle();
             weaponModel.CollectWeapon();
             jungleModel.ReleaseRambler(Rambler);
+            inGame = true;
         }
 
         public void MoveRamblerTo(Point point)
         {
+            if (!inGame) return;
+
             jungleObject = jungleModel.GetJungleObjectAt(point);
             if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1 
                 && jungleObject.JungleObjectType != JungleObjectTypes.DenseJungle)
@@ -50,6 +54,10 @@ namespace RumbleJungle.Model
 
         public void HitBeastWith(Weapon weapon)
         {
+            if (!inGame) return;
+            if (hitCount <= 0) return;
+            hitCount--;
+
             if (weapon.Count != 0 && jungleObject is Beast beast)
             {
                 // TODO: weapon on beast strength configuration
@@ -69,6 +77,7 @@ namespace RumbleJungle.Model
                 if (beast.Health > 0)
                 {
                     beast.Action();
+                    hitCount = 1;
                 }
                 else
                 {
@@ -92,11 +101,13 @@ namespace RumbleJungle.Model
                 // TODO: game over (fail)
                 jungleObject.SetStatus(Statuses.Visited);
                 jungleModel.MarkHiddenObjects();
+                inGame = false;
             }
             else if (jungleModel.CountOf(JungleObjectTypes.Treasure) == 0)
             {
                 // TODO: game over (success)
                 jungleModel.MarkHiddenObjects();
+                inGame = false;
             }
         }
     }

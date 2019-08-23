@@ -42,6 +42,16 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.Minotaur] = 75,
             [JungleObjectTypes.Hydra] = 80
         };
+
+        public static Dictionary<JungleObjectTypes, BaseDev> BeastStrenght { get; private set; } = new Dictionary<JungleObjectTypes, BaseDev>
+        {
+            [JungleObjectTypes.DragonflySwarm] = new BaseDev { BaseValue = 5, Deviation = 2 },
+            [JungleObjectTypes.WildPig] = new BaseDev { BaseValue = 5, Deviation = 2 },
+            [JungleObjectTypes.Snakes] = new BaseDev { BaseValue = 5, Deviation = 2 },
+            [JungleObjectTypes.CarnivorousPlant] = new BaseDev { BaseValue = 5, Deviation = 2 },
+            [JungleObjectTypes.Minotaur] = new BaseDev { BaseValue = 5, Deviation = 2 },
+            [JungleObjectTypes.Hydra] = new BaseDev { BaseValue = 5, Deviation = 2 }
+        };
         public static bool DebugMode = true;
         public static int JungleHeight { get; private set; }
         public static int JungleWidth { get; private set; }
@@ -98,5 +108,11 @@ namespace RumbleJungle.Model
                 JungleObjectsCount.Add(jungleObjectsCount.Key, (int) Math.Round(jungleObjectsCount.Value * factor));
             }
         }
+    }
+
+    public class BaseDev
+    {
+        public int BaseValue = 0;
+        public int Deviation = 0;
     }
 }

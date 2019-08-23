@@ -139,15 +139,15 @@ namespace RumbleJungle.Model
         /// Changes the status of a point to pointed.
         /// </summary>
         /// <param name="point">Point to change a status.</param>
-        /// <param name="beastOnly">Change the status only for the beast points.</param>
-        internal void SetPointedAt(Point point, bool beastOnly)
+        /// <param name="beastOrBadOnly">Change the status only for the beast points.</param>
+        internal void SetPointedAt(Point point, bool beastOrBadOnly)
         {
             JungleObject jungleObject = GetJungleObjectAt(point);
             if (jungleObject != null)
             {
                 if ((jungleObject.Status == Statuses.Hidden || Configuration.DebugMode) &&
                     jungleObject.JungleObjectType != JungleObjectTypes.EmptyField &&
-                    (Configuration.Beasts.Contains(jungleObject.JungleObjectType) || !beastOnly))
+                    (Configuration.Beasts.Contains(jungleObject.JungleObjectType) || Configuration.BadItems.Contains(jungleObject.JungleObjectType) || !beastOrBadOnly))
                 {
                     jungleObject.SetStatus(Statuses.Pointed);
                 }

@@ -17,7 +17,8 @@ namespace RumbleJungle.Model
         {
             // hit rambler
             // TODO: beasts strength configuration
-            int healthSubtracted = Configuration.Random.Next(11) + 4;
+            int healthSubtracted = Configuration.BeastStrenght[JungleObjectType].BaseValue + Configuration.Random.Next(Configuration.BeastStrenght[JungleObjectType].Deviation * 2 + 1)
+                - Configuration.BeastStrenght[JungleObjectType].Deviation;
             gameModel.Rambler.ChangeHealth(-healthSubtracted);
 
             return Coordinates;
