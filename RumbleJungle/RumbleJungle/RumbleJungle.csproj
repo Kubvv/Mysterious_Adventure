@@ -230,5 +230,11 @@
       <Name>DotNetProjects.SVGImage</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Camp2x.svg" />
+    <Content Include="Images\CampChechAdjacent.svg" />
+    <Content Include="Images\CampHealth.svg" />
+    <Content Include="Images\CampMuscle.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

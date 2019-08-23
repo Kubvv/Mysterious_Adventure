@@ -60,7 +60,7 @@ namespace RumbleJungle.Model
 
             if (weapon.Count != 0 && jungleObject is Beast beast)
             {
-                // TODO: weapon on beast strength configuration
+            // TODO: weapon on beast strength configuration
                 int healthSubtracted = Configuration.Random.Next(11) + 25;
                 beast.ChangeHealth(-healthSubtracted);
                 weapon.ChangeCount(-1);

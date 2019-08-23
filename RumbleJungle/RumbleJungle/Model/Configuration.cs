@@ -45,12 +45,12 @@ namespace RumbleJungle.Model
 
         public static Dictionary<JungleObjectTypes, BaseDev> BeastStrenght { get; private set; } = new Dictionary<JungleObjectTypes, BaseDev>
         {
-            [JungleObjectTypes.DragonflySwarm] = new BaseDev { BaseValue = 5, Deviation = 2 },
-            [JungleObjectTypes.WildPig] = new BaseDev { BaseValue = 5, Deviation = 2 },
-            [JungleObjectTypes.Snakes] = new BaseDev { BaseValue = 5, Deviation = 2 },
-            [JungleObjectTypes.CarnivorousPlant] = new BaseDev { BaseValue = 5, Deviation = 2 },
-            [JungleObjectTypes.Minotaur] = new BaseDev { BaseValue = 5, Deviation = 2 },
-            [JungleObjectTypes.Hydra] = new BaseDev { BaseValue = 5, Deviation = 2 }
+            [JungleObjectTypes.DragonflySwarm] = new BaseDev { BaseValue = 6, Deviation = 2 },
+            [JungleObjectTypes.WildPig] = new BaseDev { BaseValue = 11, Deviation = 3 },
+            [JungleObjectTypes.Snakes] = new BaseDev { BaseValue = 14, Deviation = 1 },
+            [JungleObjectTypes.CarnivorousPlant] = new BaseDev { BaseValue = 15, Deviation = 3 },
+            [JungleObjectTypes.Minotaur] = new BaseDev { BaseValue = 18, Deviation = 8 },
+            [JungleObjectTypes.Hydra] = new BaseDev { BaseValue = 25, Deviation = 7 }
         };
         public static bool DebugMode = true;
         public static int JungleHeight { get; private set; }
@@ -114,5 +114,14 @@ namespace RumbleJungle.Model
     {
         public int BaseValue = 0;
         public int Deviation = 0;
+
+        internal static int DamageDealt(int baseValue, int deviation)
+        {
+            Random random = new Random();
+            int damageDealt;
+            damageDealt = baseValue + random.Next(deviation * 2 + 1) - deviation;
+            return damageDealt;
+        }
+
     }
 }

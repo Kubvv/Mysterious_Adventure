@@ -31,7 +31,7 @@ namespace RumbleJungle.Converters
                 case Statuses.Pointed:
                     if (jungleObject.JungleObjectType == JungleObjectTypes.Treasure)
                     {
-                        result = Brushes.DarkKhaki;
+                        result = Brushes.Gold;
                     }
                     else if (Configuration.Beasts.Contains(jungleObject.JungleObjectType))
                     {
