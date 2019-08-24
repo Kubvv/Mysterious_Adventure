@@ -21,7 +21,7 @@ namespace RumbleJungle.ViewModel
             set
             {
                 Set(ref canvasWidth, value);
-                CellWidth = Math.Round(value / Configuration.JungleWidth);
+                CellWidth = Math.Floor(value / Configuration.JungleWidth);
                 UpdateJungle();
             }
         }
@@ -34,7 +34,7 @@ namespace RumbleJungle.ViewModel
             set
             {
                 Set(ref canvasHeight, value);
-                CellHeight = Math.Round(value / Configuration.JungleHeight);
+                CellHeight = Math.Floor(value / Configuration.JungleHeight);
                 UpdateJungle();
             }
         }

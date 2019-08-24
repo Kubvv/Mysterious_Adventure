@@ -6,18 +6,16 @@ namespace RumbleJungle.Model
     public class Beast : LivingJungleObject
     {
         private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
-        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
         
         public Beast(JungleObjectTypes beastType) : base(beastType)
         {
-            ChangeHealth(Configuration.BeastsInitialHealth[beastType] + Configuration.Random.Next(11) - 5);
+            ChangeHealth(Configuration.BeastsInitialHealth[beastType].RandomValue);
         }
 
         public new Point Action()
         {
             // hit rambler
-            int healthSubtracted = BaseDev.DamageDealt(Configuration.BeastStrenght[JungleObjectType].BaseValue, Configuration.BeastStrenght[JungleObjectType].Deviation);
-            gameModel.Rambler.ChangeHealth(-healthSubtracted);
+            gameModel.Rambler.ChangeHealth(-Configuration.BeastStrenght[JungleObjectType].RandomValue);
 
             return Coordinates;
         }

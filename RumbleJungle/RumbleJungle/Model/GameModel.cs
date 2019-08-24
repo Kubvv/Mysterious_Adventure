@@ -56,13 +56,11 @@ namespace RumbleJungle.Model
         {
             if (!inGame) return;
             if (hitCount <= 0) return;
-            hitCount--;
 
             if (weapon.Count != 0 && jungleObject is Beast beast)
             {
-            // TODO: weapon on beast strength configuration
-                int healthSubtracted = Configuration.Random.Next(11) + 25;
-                beast.ChangeHealth(-healthSubtracted);
+                hitCount--;
+                beast.ChangeHealth(-Configuration.WeaponStrenght[new WeaponToBeast(weapon.WeaponType, beast.JungleObjectType)].RandomValue);
                 weapon.ChangeCount(-1);
                 actionTimer.Start();
             }
@@ -98,14 +96,14 @@ namespace RumbleJungle.Model
             }
             if (Rambler.Health <= 0)
             {
-                // TODO: game over (fail)
+                // game over (fail)
                 jungleObject.SetStatus(Statuses.Visited);
                 jungleModel.MarkHiddenObjects();
                 inGame = false;
             }
             else if (jungleModel.CountOf(JungleObjectTypes.Treasure) == 0)
             {
-                // TODO: game over (success)
+                // game over (success)
                 jungleModel.MarkHiddenObjects();
                 inGame = false;
             }

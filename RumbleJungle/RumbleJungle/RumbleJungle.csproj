@@ -79,6 +79,7 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\JungleObjectToBrushConverter.cs" />
     <Compile Include="Converters\JungleObjectTypeToBrushConverter.cs" />
+    <Compile Include="Model\BaseDev.cs" />
     <Compile Include="Model\Beast.cs" />
     <Compile Include="Model\Configuration.cs" />
     <Compile Include="Model\Enums.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Model\Rambler.cs" />
     <Compile Include="Model\Weapon.cs" />
     <Compile Include="Model\WeaponModel.cs" />
+    <Compile Include="Model\WeaponToBeast.cs" />
     <Compile Include="ViewModel\ActionViewModel.cs" />
     <Compile Include="ViewModel\IngameMenuViewModel.cs" />
     <Compile Include="ViewModel\JungleObjectStatusViewModel.cs" />

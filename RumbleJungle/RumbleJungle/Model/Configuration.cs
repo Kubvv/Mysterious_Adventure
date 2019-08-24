@@ -32,27 +32,7 @@ namespace RumbleJungle.Model
         };
 
         public static Random Random = new Random();
-
-        public static Dictionary<JungleObjectTypes, int> BeastsInitialHealth { get; private set; } = new Dictionary<JungleObjectTypes, int>
-        {
-            [JungleObjectTypes.DragonflySwarm] = 35,
-            [JungleObjectTypes.WildPig] = 40,
-            [JungleObjectTypes.Snakes] = 50,
-            [JungleObjectTypes.CarnivorousPlant] = 60,
-            [JungleObjectTypes.Minotaur] = 75,
-            [JungleObjectTypes.Hydra] = 80
-        };
-
-        public static Dictionary<JungleObjectTypes, BaseDev> BeastStrenght { get; private set; } = new Dictionary<JungleObjectTypes, BaseDev>
-        {
-            [JungleObjectTypes.DragonflySwarm] = new BaseDev { BaseValue = 6, Deviation = 2 },
-            [JungleObjectTypes.WildPig] = new BaseDev { BaseValue = 11, Deviation = 3 },
-            [JungleObjectTypes.Snakes] = new BaseDev { BaseValue = 14, Deviation = 1 },
-            [JungleObjectTypes.CarnivorousPlant] = new BaseDev { BaseValue = 15, Deviation = 3 },
-            [JungleObjectTypes.Minotaur] = new BaseDev { BaseValue = 18, Deviation = 8 },
-            [JungleObjectTypes.Hydra] = new BaseDev { BaseValue = 25, Deviation = 7 }
-        };
-        public static bool DebugMode = true;
+        public static bool DebugMode = false;
         public static int JungleHeight { get; private set; }
         public static int JungleWidth { get; private set; }
         public static Dictionary<JungleObjectTypes, int> JungleObjectsCount { get; private set; }
@@ -94,13 +74,41 @@ namespace RumbleJungle.Model
             JungleObjectTypes.MagnifyingGlass,
             JungleObjectTypes.Talisman,
         };
+        public static Dictionary<JungleObjectTypes, BaseDev> BeastsInitialHealth { get; } = new Dictionary<JungleObjectTypes, BaseDev>
+        {
+            [JungleObjectTypes.DragonflySwarm] = new BaseDev(35, 5),
+            [JungleObjectTypes.WildPig] = new BaseDev(40, 5),
+            [JungleObjectTypes.Snakes] = new BaseDev(50, 5),
+            [JungleObjectTypes.CarnivorousPlant] = new BaseDev(60, 5),
+            [JungleObjectTypes.Minotaur] = new BaseDev(75, 5),
+            [JungleObjectTypes.Hydra] = new BaseDev(80, 5)
+        };
+        public static Dictionary<JungleObjectTypes, BaseDev> BeastStrenght { get; } = new Dictionary<JungleObjectTypes, BaseDev>
+        {
+            [JungleObjectTypes.DragonflySwarm] = new BaseDev(6, 2),
+            [JungleObjectTypes.WildPig] = new BaseDev(11, 3),
+            [JungleObjectTypes.Snakes] = new BaseDev(14, 1),
+            [JungleObjectTypes.CarnivorousPlant] = new BaseDev(15, 3),
+            [JungleObjectTypes.Minotaur] = new BaseDev(18, 8),
+            [JungleObjectTypes.Hydra] = new BaseDev(25, 7)
+        };
+        public static Dictionary<WeaponToBeast, BaseDev> WeaponStrenght { get; } = new Dictionary<WeaponToBeast, BaseDev>
+        {
+            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.DragonflySwarm)] = new BaseDev(5, 2),
+            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.WildPig)] = new BaseDev(5, 2),
+            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.Snakes)] = new BaseDev(5, 2),
+            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.CarnivorousPlant)] = new BaseDev(5, 2),
+            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.Minotaur)] = new BaseDev(5, 2),
+            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.Hydra)] = new BaseDev(5, 2)
+            // TODO: other weapon strength on every beast
+        };
 
         public static void Read()
         {
-            JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings["JungleHeight"]);
             JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings["JungleWidth"]);
+            JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings["JungleHeight"]);
 
-            double factor = (JungleHeight * JungleWidth) / (defaultJungleHeight * defaultJungleWidth);
+            double factor = (double) (JungleHeight * JungleWidth) / (double) (defaultJungleHeight * defaultJungleWidth);
 
             JungleObjectsCount = new Dictionary<JungleObjectTypes, int>();
             foreach (KeyValuePair<JungleObjectTypes, int> jungleObjectsCount in defaultJungleObjectsCount)
@@ -108,20 +116,5 @@ namespace RumbleJungle.Model
                 JungleObjectsCount.Add(jungleObjectsCount.Key, (int) Math.Round(jungleObjectsCount.Value * factor));
             }
         }
-    }
-
-    public class BaseDev
-    {
-        public int BaseValue = 0;
-        public int Deviation = 0;
-
-        internal static int DamageDealt(int baseValue, int deviation)
-        {
-            Random random = new Random();
-            int damageDealt;
-            damageDealt = baseValue + random.Next(deviation * 2 + 1) - deviation;
-            return damageDealt;
-        }
-
     }
 }
