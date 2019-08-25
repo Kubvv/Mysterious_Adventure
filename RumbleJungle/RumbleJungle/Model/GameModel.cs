@@ -60,7 +60,7 @@ namespace RumbleJungle.Model
             if (weapon.Count != 0 && jungleObject is Beast beast)
             {
                 hitCount--;
-                beast.ChangeHealth(-Configuration.WeaponStrenght[new WeaponToBeast(weapon.WeaponType, beast.JungleObjectType)].RandomValue);
+                beast.ChangeHealth(-Configuration.WeaponStrenght[new Tuple<WeaponTypes, JungleObjectTypes>(weapon.WeaponType, beast.JungleObjectType)].RandomValue);
                 weapon.ChangeCount(-1);
                 actionTimer.Start();
             }

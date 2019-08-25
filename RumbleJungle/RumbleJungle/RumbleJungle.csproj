@@ -90,7 +90,6 @@
     <Compile Include="Model\Rambler.cs" />
     <Compile Include="Model\Weapon.cs" />
     <Compile Include="Model\WeaponModel.cs" />
-    <Compile Include="Model\WeaponToBeast.cs" />
     <Compile Include="ViewModel\ActionViewModel.cs" />
     <Compile Include="ViewModel\IngameMenuViewModel.cs" />
     <Compile Include="ViewModel\JungleObjectStatusViewModel.cs" />

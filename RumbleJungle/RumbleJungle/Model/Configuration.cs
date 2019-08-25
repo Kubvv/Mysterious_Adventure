@@ -31,8 +31,8 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.DenseJungle] = (int)Math.Round(defaultJungleHeight * defaultJungleWidth * 0.1)
         };
 
-        public static Random Random = new Random();
-        public static bool DebugMode = false;
+        public static Random Random { get; } = new Random();
+        public static bool DebugMode { get; } = false;
         public static int JungleHeight { get; private set; }
         public static int JungleWidth { get; private set; }
         public static Dictionary<JungleObjectTypes, int> JungleObjectsCount { get; private set; }
@@ -92,14 +92,14 @@ namespace RumbleJungle.Model
             [JungleObjectTypes.Minotaur] = new BaseDev(18, 8),
             [JungleObjectTypes.Hydra] = new BaseDev(25, 7)
         };
-        public static Dictionary<WeaponToBeast, BaseDev> WeaponStrenght { get; } = new Dictionary<WeaponToBeast, BaseDev>
+        public static Dictionary<Tuple<WeaponTypes, JungleObjectTypes>, BaseDev> WeaponStrenght { get; } = new Dictionary<Tuple<WeaponTypes, JungleObjectTypes>, BaseDev>
         {
-            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.DragonflySwarm)] = new BaseDev(5, 2),
-            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.WildPig)] = new BaseDev(5, 2),
-            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.Snakes)] = new BaseDev(5, 2),
-            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.CarnivorousPlant)] = new BaseDev(5, 2),
-            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.Minotaur)] = new BaseDev(5, 2),
-            [new WeaponToBeast(WeaponTypes.Dagger, JungleObjectTypes.Hydra)] = new BaseDev(5, 2)
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.DragonflySwarm)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.WildPig)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.Snakes)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.CarnivorousPlant)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.Minotaur)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.Hydra)] = new BaseDev(35, 2)
             // TODO: other weapon strength on every beast
         };
 

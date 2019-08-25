@@ -51,7 +51,7 @@ namespace RumbleJungle.Converters
                     }
                     break;
                 case Statuses.Marked:
-                    result = new SolidColorBrush(Color.FromArgb(200, 0x78, 0x09, 0x0E));
+                    result = new SolidColorBrush(Color.FromArgb(32, 0x78, 0x09, 0x0E));
                     break;
                 default:
                     result = Brushes.Yellow;
