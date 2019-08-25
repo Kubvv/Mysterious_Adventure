@@ -166,5 +166,13 @@ namespace RumbleJungle.Model
             }
             return result;
         }
+
+        internal void CheckAdjacent()
+        {
+            jungleModel.SetPointedAt(new Point(Coordinates.X - 1, Coordinates.Y), false);
+            jungleModel.SetPointedAt(new Point(Coordinates.X + 1, Coordinates.Y), false);
+            jungleModel.SetPointedAt(new Point(Coordinates.X, Coordinates.Y - 1), false);
+            jungleModel.SetPointedAt(new Point(Coordinates.X, Coordinates.Y + 1), false);
+        }
     }
 }

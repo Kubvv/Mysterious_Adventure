@@ -21,6 +21,7 @@ namespace RumbleJungle.ViewModel
         public string Shape => $"/RumbleJungle;component/Images/{jungleObject.Name}.svg";
         public Statuses Status => jungleObject.Status;
         public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
+        public bool IsCamp => jungleObject.JungleObjectType == JungleObjectTypes.Camp;
         public int Health => IsLivingJungleObject ? (jungleObject as LivingJungleObject).Health : 0;
 
         Thickness margin = new Thickness(0);
@@ -39,6 +40,35 @@ namespace RumbleJungle.ViewModel
 
         private RelayCommand moveRamblerCommand;
         public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => gameModel.MoveRamblerTo(jungleObject.Coordinates)));
+
+        private RelayCommand addStrenghtCommand;
+        public RelayCommand AddStrenghtCommand => addStrenghtCommand ?? (addStrenghtCommand = new RelayCommand(() =>
+        {
+            gameModel.Rambler.SetStrength(1.3);
+            gameModel.Rambler.SetCoordinates(jungleObject.Coordinates);
+        }));
+
+        private RelayCommand checkAdjacentCommand;
+        public RelayCommand CheckAdjacentCommand => checkAdjacentCommand ?? (checkAdjacentCommand = new RelayCommand(() =>
+        {
+            jungleObject.CheckAdjacent();
+            gameModel.Rambler.SetCoordinates(jungleObject.Coordinates);
+        }));
+
+        private RelayCommand addHealthCommand;
+        public RelayCommand AddHealthCommand => addHealthCommand ?? (addHealthCommand = new RelayCommand(() =>
+        {
+            gameModel.Rambler.ChangeHealth(15);
+            gameModel.Rambler.SetCoordinates(jungleObject.Coordinates);
+        }));
+
+        private RelayCommand addDoubleAttackCommand;
+        public RelayCommand AddDoubleAttackCommand => addDoubleAttackCommand ?? (addDoubleAttackCommand = new RelayCommand(() =>
+        {
+            //TODO: Add double attack to random weapon
+            gameModel.Rambler.ChangeHealth(0);
+            gameModel.Rambler.SetCoordinates(jungleObject.Coordinates);
+        }));
 
         public JungleObjectViewModel(JungleObject jungleObject)
         {

@@ -79,6 +79,7 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\JungleObjectToBrushConverter.cs" />
     <Compile Include="Converters\JungleObjectTypeToBrushConverter.cs" />
+    <Compile Include="Converters\StrengthToColorConverter.cs" />
     <Compile Include="Model\BaseDev.cs" />
     <Compile Include="Model\Beast.cs" />
     <Compile Include="Model\Configuration.cs" />
@@ -232,10 +233,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\Camp2x.svg" />
-    <Content Include="Images\CampChechAdjacent.svg" />
-    <Content Include="Images\CampHealth.svg" />
-    <Content Include="Images\CampMuscle.svg" />
+    <Resource Include="Images\Camp2x.svg" />
+    <Resource Include="Images\CampCheckAdjacent.svg" />
+    <Resource Include="Images\CampHealth.svg" />
+    <Resource Include="Images\CampMuscle.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

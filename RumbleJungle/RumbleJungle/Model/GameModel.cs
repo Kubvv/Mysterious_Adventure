@@ -14,6 +14,7 @@ namespace RumbleJungle.Model
         private JungleObject jungleObject = null;
         private bool inGame = true;
         private int hitCount = 0;
+
         public Rambler Rambler { get; private set; } = null;
 
         public GameModel()
@@ -60,7 +61,8 @@ namespace RumbleJungle.Model
             if (weapon.Count != 0 && jungleObject is Beast beast)
             {
                 hitCount--;
-                beast.ChangeHealth(-Configuration.WeaponStrenght[new Tuple<WeaponTypes, JungleObjectTypes>(weapon.WeaponType, beast.JungleObjectType)].RandomValue);
+                beast.ChangeHealth((int)Math.Round(-Configuration.WeaponStrenght[new Tuple<WeaponTypes, JungleObjectTypes>(weapon.WeaponType, beast.JungleObjectType)].RandomValue * 
+                    Rambler.Strength));
                 weapon.ChangeCount(-1);
                 actionTimer.Start();
             }
@@ -80,7 +82,12 @@ namespace RumbleJungle.Model
                 else
                 {
                     Rambler.SetCoordinates(beast.Coordinates);
+                    Rambler.SetStrength(1);
                 }
+            }
+            else if (jungleObject.JungleObjectType == JungleObjectTypes.Camp)
+            {
+                Point ramblerTarget = jungleObject.Action();
             }
             else
             {

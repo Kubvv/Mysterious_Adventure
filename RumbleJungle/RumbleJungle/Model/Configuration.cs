@@ -32,7 +32,7 @@ namespace RumbleJungle.Model
         };
 
         public static Random Random { get; } = new Random();
-        public static bool DebugMode { get; } = false;
+        public static bool DebugMode { get; } = true;
         public static int JungleHeight { get; private set; }
         public static int JungleWidth { get; private set; }
         public static Dictionary<JungleObjectTypes, int> JungleObjectsCount { get; private set; }
@@ -113,7 +113,7 @@ namespace RumbleJungle.Model
             JungleObjectsCount = new Dictionary<JungleObjectTypes, int>();
             foreach (KeyValuePair<JungleObjectTypes, int> jungleObjectsCount in defaultJungleObjectsCount)
             {
-                JungleObjectsCount.Add(jungleObjectsCount.Key, (int) Math.Round(jungleObjectsCount.Value * factor));
+                JungleObjectsCount.Add(jungleObjectsCount.Key, (int) Math.Floor(jungleObjectsCount.Value * factor));
             }
         }
     }

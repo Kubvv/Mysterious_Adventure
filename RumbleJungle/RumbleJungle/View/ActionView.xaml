@@ -50,5 +50,59 @@
                            Style="{DynamicResource ItemsCounterStyle}" />
             </StackPanel>
         </Grid>
+        <Grid Grid.Row="2"
+              Grid.Column="1"
+              Margin="10"
+              Background="White"
+              Visibility="{Binding IsCamp, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <svg:SVGImage Source="/RumbleJungle;component/Images/CampMuscle.svg"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Margin="10"/>
+            <Button Command="{Binding AddStrenghtCommand, Mode=OneWay}"
+                    Background="#00DDDDDD"
+                    BorderBrush="#00DDDDDD"
+                    BorderThickness="2"
+                    Template="{DynamicResource JungleButtonTemplate}" />
+            <svg:SVGImage Source="/RumbleJungle;component/Images/CampCheckAdjacent.svg"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Margin="10"
+                          Grid.Column="1" />
+            <Button Command="{Binding CheckAdjacentCommand, Mode=OneWay}"
+                    Background="#00DDDDDD"
+                    BorderBrush="#00DDDDDD"
+                    BorderThickness="2"
+                    Template="{DynamicResource JungleButtonTemplate}"
+                    Grid.Column="1" />
+            <svg:SVGImage Source="/RumbleJungle;component/Images/CampHealth.svg"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Margin="10"
+                          Grid.Column="2" />
+            <Button Command="{Binding AddHealthCommand, Mode=OneWay}"
+                    Background="#00DDDDDD"
+                    BorderBrush="#00DDDDDD"
+                    BorderThickness="2"
+                    Template="{DynamicResource JungleButtonTemplate}"
+                    Grid.Column="2" />
+            <svg:SVGImage Source="/RumbleJungle;component/Images/Camp2x.svg"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Margin="10"
+                          Grid.Column="3" />
+            <Button Command="{Binding AddDoubleAttackCommand, Mode=OneWay}"
+                    Background="#00DDDDDD"
+                    BorderBrush="#00DDDDDD"
+                    BorderThickness="2"
+                    Template="{DynamicResource JungleButtonTemplate}"
+                    Grid.Column="3" />
+        </Grid>
     </Grid>
 </UserControl>

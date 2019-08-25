@@ -46,7 +46,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Border Background="Blue"
+        <Border Background="{Binding RamblerViewModel.Strength, Converter={StaticResource StrengthToColorConverter}}"
                 Margin="{Binding RamblerViewModel.Margin, Mode=OneWay}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
