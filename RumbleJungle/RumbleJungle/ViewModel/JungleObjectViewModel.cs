@@ -10,6 +10,7 @@ namespace RumbleJungle.ViewModel
     public class JungleObjectViewModel : ViewModelBase
     {
         private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
+        private readonly WeaponModel weaponModel = ServiceLocator.Current.GetInstance<WeaponModel>();
         private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
         private readonly ActionViewModel actionViewModel = ServiceLocator.Current.GetInstance<ActionViewModel>();
 
@@ -65,8 +66,7 @@ namespace RumbleJungle.ViewModel
         private RelayCommand addDoubleAttackCommand;
         public RelayCommand AddDoubleAttackCommand => addDoubleAttackCommand ?? (addDoubleAttackCommand = new RelayCommand(() =>
         {
-            //TODO: Add double attack to random weapon
-            gameModel.Rambler.ChangeHealth(0);
+            weaponModel.SetDoubleAttack();
             gameModel.Rambler.SetCoordinates(jungleObject.Coordinates);
         }));
 
@@ -78,7 +78,7 @@ namespace RumbleJungle.ViewModel
             if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged += HealthChanged;
         }
 
-        public void Update()
+        public virtual void Update()
         {
             RaisePropertyChanged("Margin");
             RaisePropertyChanged("Width");

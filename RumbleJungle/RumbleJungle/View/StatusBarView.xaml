@@ -54,17 +54,22 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <svg:SVGImage Source="{Binding Shape}"
+                                      Margin="7,3,3,7"
+                                      Visibility="{Binding DoubleAttack_, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <svg:SVGImage Source="{Binding Shape}"
                                       HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center" />
+                                      VerticalContentAlignment="Center"
+                                      Margin="2" />
                         <TextBlock Text="{Binding Count, Converter={StaticResource IntToWeaponCountConverter}}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
-                                   Grid.Row="1"
                                    VerticalAlignment="Center"
+                                   Grid.Row="1"
+                                   Margin="3"
                                    Style="{DynamicResource ItemsCounterStyle}" />
                         <Button Command="{Binding HitBeastCommand, Mode=OneWay}"
-                                Background="#00DDDDDD"
-                                BorderBrush="#00DDDDDD"
+                                Background="#00000000"
+                                BorderBrush="#00000000"
                                 BorderThickness="2"
                                 Template="{DynamicResource JungleButtonTemplate}" />
                     </Grid>

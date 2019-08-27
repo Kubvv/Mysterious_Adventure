@@ -13,7 +13,7 @@ namespace RumbleJungle.Model
         private readonly DispatcherTimer actionTimer = new DispatcherTimer();
         private JungleObject jungleObject = null;
         private bool inGame = true;
-        private int hitCount = 0;
+        private bool canHit = false;
 
         public Rambler Rambler { get; private set; } = null;
 
@@ -55,14 +55,13 @@ namespace RumbleJungle.Model
 
         public void HitBeastWith(Weapon weapon)
         {
-            if (!inGame) return;
-            if (hitCount <= 0) return;
+            if (!inGame || !canHit) return;
 
             if (weapon.Count != 0 && jungleObject is Beast beast)
             {
-                hitCount--;
+                canHit = false;
                 beast.ChangeHealth((int)Math.Round(-Configuration.WeaponStrenght[new Tuple<WeaponTypes, JungleObjectTypes>(weapon.WeaponType, beast.JungleObjectType)].RandomValue * 
-                    Rambler.Strength));
+                    Rambler.Strength * (weapon.DoubleAttack ? 2 : 1)));
                 weapon.ChangeCount(-1);
                 actionTimer.Start();
             }
@@ -77,7 +76,7 @@ namespace RumbleJungle.Model
                 if (beast.Health > 0)
                 {
                     beast.Action();
-                    hitCount = 1;
+                    canHit = true;
                 }
                 else
                 {
@@ -85,14 +84,10 @@ namespace RumbleJungle.Model
                     Rambler.SetStrength(1);
                 }
             }
-            else if (jungleObject.JungleObjectType == JungleObjectTypes.Camp)
-            {
-                Point ramblerTarget = jungleObject.Action();
-            }
             else
             {
                 Point ramblerTarget = jungleObject.Action();
-                if (Rambler.Health > 0)
+                if (jungleObject.JungleObjectType != JungleObjectTypes.Camp && Rambler.Health > 0)
                 { 
                     Rambler.SetCoordinates(jungleObject.Coordinates);
                     if (!ramblerTarget.Equals(jungleObject.Coordinates))

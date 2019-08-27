@@ -15,11 +15,13 @@ namespace RumbleJungle.ViewModel
         public string Name => weapon.Name;
         public string Shape => $"/RumbleJungle;component/Images/{weapon.Name}.svg";
         public int Count => weapon.Count;
+        public bool DoubleAttack => weapon.DoubleAttack;
 
         public WeaponViewModel(Weapon weapon)
         {
             this.weapon = weapon;
             weapon.CountChanged += CountChanged;
+            weapon.DoubleAttackChanged += DoubleAttackChanged;
         }
 
         private RelayCommand hitBeastCommand;
@@ -28,6 +30,11 @@ namespace RumbleJungle.ViewModel
         private void CountChanged(object sender, EventArgs e)
         {
             RaisePropertyChanged("Count");
+        }
+
+        private void DoubleAttackChanged(object sender, EventArgs e)
+        {
+            RaisePropertyChanged("DoubleAttack");
         }
     }
 }

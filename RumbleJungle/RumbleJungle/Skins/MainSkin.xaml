@@ -134,21 +134,24 @@
     </Style>
     <ControlTemplate x:Key="JungleButtonTemplate"
                      TargetType="{x:Type Button}">
-        <Border x:Name="border"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                Background="{TemplateBinding Background}"
-                SnapsToDevicePixels="True">
-            <ContentPresenter x:Name="contentPresenter"
-                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                              Content="{TemplateBinding Content}"
-                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                              Focusable="False"
-                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              Margin="{TemplateBinding Padding}"
-                              RecognizesAccessKey="True"
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        <Border BorderBrush="White"
+                BorderThickness="0,0,1,1">
+            <Border x:Name="border"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    SnapsToDevicePixels="True">
+                <ContentPresenter x:Name="contentPresenter"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                  Focusable="False"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}"
+                                  RecognizesAccessKey="True"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsDefaulted"
@@ -164,7 +167,7 @@
                         Value="#FFBEE6FD" />-->
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="#FF3C7FB1" />
+                        Value="White" />
             </Trigger>
             <Trigger Property="IsPressed"
                      Value="True">
@@ -173,7 +176,7 @@
                         Value="#FFC4E5F6" />-->
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="#FF2C628B" />
+                        Value="White" />
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked"
                      Value="True">

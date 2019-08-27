@@ -39,7 +39,7 @@
                                       Margin="10" />
                         <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Command="{Binding MoveRamblerCommand, Mode=OneWay}"
-                                BorderThickness="2"
+                                BorderThickness="3"
                                 BorderBrush="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Template="{DynamicResource JungleButtonTemplate}" />
                     </Grid>
@@ -50,8 +50,8 @@
                 Margin="{Binding RamblerViewModel.Margin, Mode=OneWay}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Width="{Binding CellWidth}"
-                Height="{Binding CellHeight}">
+                Width="{Binding RamblerViewModel.CellWidth}"
+                Height="{Binding RamblerViewModel.CellHeight}">
             <svg:SVGImage Source="{Binding RamblerViewModel.Shape, Mode=OneWay}"
                           Margin="10"
                           HorizontalContentAlignment="Center"

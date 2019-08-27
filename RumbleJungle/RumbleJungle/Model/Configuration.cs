@@ -108,7 +108,7 @@ namespace RumbleJungle.Model
             JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings["JungleWidth"]);
             JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings["JungleHeight"]);
 
-            double factor = (double) (JungleHeight * JungleWidth) / (double) (defaultJungleHeight * defaultJungleWidth);
+            double factor = (double) (JungleHeight * JungleWidth) / (defaultJungleHeight * defaultJungleWidth);
 
             JungleObjectsCount = new Dictionary<JungleObjectTypes, int>();
             foreach (KeyValuePair<JungleObjectTypes, int> jungleObjectsCount in defaultJungleObjectsCount)

@@ -106,11 +106,11 @@ namespace RumbleJungle.Model
             else if (JungleObjectType == JungleObjectTypes.Camp)
             {
                 // add all weapons and 25-35% health
-                // TODO: choose one option:
-                //  30 % obrażeń w następnej bitwie
-                //  Sprawdzenie 4 pól przyległych do obozu
-                //  15 punktów procentowych więcej podczas leczenia w obozie
-                //  Podwójny atak na losowo wybranej broni
+                // choose one option:
+                //  30% more strength in next battle
+                //  check four fields adjacent to camp
+                //  additional 15% health
+                //  double attack with random weapon
                 weaponModel.ChangeAllWeaponsCount(1);
                 int healthAdded = random.Next(6) + 30;
                 gameModel.Rambler.ChangeHealth(healthAdded);

@@ -21,14 +21,19 @@ namespace RumbleJungle.Model
 
         public void ChangeRandomWeaponCount(int quantity)
         {
-            Random random = new Random();
-            int randomWeapon = random.Next(Weapons.Count - 1) + 1;
+            int randomWeapon = Configuration.Random.Next(Weapons.Count - 1) + 1;
             Weapons[randomWeapon].ChangeCount(quantity);
         }
 
         public void ChangeAllWeaponsCount(int quantity)
         {
             Weapons.ForEach(weapon => weapon.ChangeCount(quantity));
+        }
+
+        public void SetDoubleAttack()
+        {
+            int randomWeapon = Configuration.Random.Next(Weapons.Count - 1) + 1;
+            Weapons[randomWeapon].SetDoubleAttack();
         }
     }
 }
