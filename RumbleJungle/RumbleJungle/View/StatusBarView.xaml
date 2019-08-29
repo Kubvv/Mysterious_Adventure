@@ -55,7 +55,7 @@
                         </Grid.RowDefinitions>
                         <svg:SVGImage Source="{Binding Shape}"
                                       Margin="7,3,3,7"
-                                      Visibility="{Binding DoubleAttack_, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                      Visibility="{Binding DoubleAttack, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <svg:SVGImage Source="{Binding Shape}"
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center"
@@ -71,7 +71,7 @@
                                 Background="#00000000"
                                 BorderBrush="#00000000"
                                 BorderThickness="2"
-                                Template="{DynamicResource JungleButtonTemplate}" />
+                                Template="{DynamicResource StatusButtonTemplate}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

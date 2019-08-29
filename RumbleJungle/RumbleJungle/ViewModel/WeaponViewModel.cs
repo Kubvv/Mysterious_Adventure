@@ -25,7 +25,7 @@ namespace RumbleJungle.ViewModel
         }
 
         private RelayCommand hitBeastCommand;
-        public RelayCommand HitBeastCommand => hitBeastCommand ?? (hitBeastCommand = new RelayCommand(() => gameModel.HitBeastWith(weapon)));
+        public RelayCommand HitBeastCommand => hitBeastCommand ?? (hitBeastCommand = new RelayCommand(() => gameModel.HitBeastWith(weapon), () => Count != 0));
 
         private void CountChanged(object sender, EventArgs e)
         {
