@@ -60,9 +60,11 @@ namespace RumbleJungle.Model
             if (weapon.Count != 0 && jungleObject is Beast beast)
             {
                 canHit = false;
+                bool canDoubleAttack = weapon.DoubleAttack && weapon.Count > 1;
                 beast.ChangeHealth((int)Math.Round(-Configuration.WeaponStrenght[new Tuple<WeaponTypes, JungleObjectTypes>(weapon.WeaponType, beast.JungleObjectType)].RandomValue * 
-                    Rambler.Strength * (weapon.DoubleAttack ? 2 : 1)));
-                weapon.ChangeCount(-1);
+                    Rambler.Strength * (canDoubleAttack ? 2 : 1)));
+                weapon.ChangeCount(canDoubleAttack ? -2 : -1);
+                weapon.SetDoubleAttack(false);
                 actionTimer.Start();
             }
         }

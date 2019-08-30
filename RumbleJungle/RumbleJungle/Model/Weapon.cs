@@ -34,11 +34,11 @@ namespace RumbleJungle.Model
             }
         }
 
-        public void SetDoubleAttack()
+        public void SetDoubleAttack(bool value)
         {
             if (WeaponType != WeaponTypes.Dagger)
             {
-                DoubleAttack = true;
+                DoubleAttack = value;
                 DoubleAttackChanged?.Invoke(this, null);
             }
         }

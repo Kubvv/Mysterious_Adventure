@@ -30,6 +30,7 @@ namespace RumbleJungle.ViewModel
         private void CountChanged(object sender, EventArgs e)
         {
             RaisePropertyChanged("Count");
+            HitBeastCommand.RaiseCanExecuteChanged();
         }
 
         private void DoubleAttackChanged(object sender, EventArgs e)

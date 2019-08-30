@@ -33,7 +33,7 @@ namespace RumbleJungle.Model
         public void SetDoubleAttack()
         {
             int randomWeapon = Configuration.Random.Next(Weapons.Count - 1) + 1;
-            Weapons[randomWeapon].SetDoubleAttack();
+            Weapons[randomWeapon].SetDoubleAttack(true);
         }
     }
 }

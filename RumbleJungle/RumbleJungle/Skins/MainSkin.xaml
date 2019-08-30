@@ -134,7 +134,7 @@
     </Style>
     <ControlTemplate x:Key="JungleButtonTemplate"
                      TargetType="{x:Type Button}">
-        <Border BorderBrush="White"
+        <Border BorderBrush="DarkGreen"
                 BorderThickness="0,0,1,1">
             <Border x:Name="border"
                     BorderBrush="{TemplateBinding BorderBrush}"
@@ -202,24 +202,21 @@
     </ControlTemplate>
     <ControlTemplate x:Key="StatusButtonTemplate"
                      TargetType="{x:Type Button}">
-        <Border BorderBrush="White"
-                BorderThickness="0,0,1,1">
-            <Border x:Name="border"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    Background="{TemplateBinding Background}"
-                    SnapsToDevicePixels="True">
-                <ContentPresenter x:Name="contentPresenter"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                  Focusable="False"
-                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  Margin="{TemplateBinding Padding}"
-                                  RecognizesAccessKey="True"
-                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-            </Border>
+        <Border x:Name="border"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                Focusable="False"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsDefaulted"

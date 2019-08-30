@@ -94,13 +94,49 @@ namespace RumbleJungle.Model
         };
         public static Dictionary<Tuple<WeaponTypes, JungleObjectTypes>, BaseDev> WeaponStrenght { get; } = new Dictionary<Tuple<WeaponTypes, JungleObjectTypes>, BaseDev>
         {
+            // TODO: weapon strength values
             [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.DragonflySwarm)] = new BaseDev(35, 2),
             [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.WildPig)] = new BaseDev(35, 2),
             [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.Snakes)] = new BaseDev(35, 2),
             [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.CarnivorousPlant)] = new BaseDev(35, 2),
             [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.Minotaur)] = new BaseDev(35, 2),
-            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.Hydra)] = new BaseDev(35, 2)
-            // TODO: other weapon strength on every beast
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.Hydra)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Torch, JungleObjectTypes.DragonflySwarm)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Torch, JungleObjectTypes.WildPig)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Torch, JungleObjectTypes.Snakes)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Torch, JungleObjectTypes.CarnivorousPlant)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Torch, JungleObjectTypes.Minotaur)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Torch, JungleObjectTypes.Hydra)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Spear, JungleObjectTypes.DragonflySwarm)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Spear, JungleObjectTypes.WildPig)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Spear, JungleObjectTypes.Snakes)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Spear, JungleObjectTypes.CarnivorousPlant)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Spear, JungleObjectTypes.Minotaur)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Spear, JungleObjectTypes.Hydra)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Machete, JungleObjectTypes.DragonflySwarm)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Machete, JungleObjectTypes.WildPig)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Machete, JungleObjectTypes.Snakes)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Machete, JungleObjectTypes.CarnivorousPlant)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Machete, JungleObjectTypes.Minotaur)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Machete, JungleObjectTypes.Hydra)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Bow, JungleObjectTypes.DragonflySwarm)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Bow, JungleObjectTypes.WildPig)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Bow, JungleObjectTypes.Snakes)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Bow, JungleObjectTypes.CarnivorousPlant)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Bow, JungleObjectTypes.Minotaur)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Bow, JungleObjectTypes.Hydra)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Battleaxe, JungleObjectTypes.DragonflySwarm)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Battleaxe, JungleObjectTypes.WildPig)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Battleaxe, JungleObjectTypes.Snakes)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Battleaxe, JungleObjectTypes.CarnivorousPlant)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Battleaxe, JungleObjectTypes.Minotaur)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Battleaxe, JungleObjectTypes.Hydra)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Sword, JungleObjectTypes.DragonflySwarm)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Sword, JungleObjectTypes.WildPig)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Sword, JungleObjectTypes.Snakes)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Sword, JungleObjectTypes.CarnivorousPlant)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Sword, JungleObjectTypes.Minotaur)] = new BaseDev(35, 2),
+            [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Sword, JungleObjectTypes.Hydra)] = new BaseDev(35, 2)
         };
 
         public static void Read()

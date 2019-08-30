@@ -69,7 +69,7 @@
                     Background="#00000000"
                     BorderBrush="#00000000"
                     BorderThickness="2"
-                    Template="{DynamicResource JungleButtonTemplate}" />
+                    Template="{DynamicResource StatusButtonTemplate}" />
             <svg:SVGImage Source="/RumbleJungle;component/Images/CampCheckAdjacent.svg"
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
@@ -79,7 +79,7 @@
                     Background="#00000000"
                     BorderBrush="#00000000"
                     BorderThickness="2"
-                    Template="{DynamicResource JungleButtonTemplate}"
+                    Template="{DynamicResource StatusButtonTemplate}"
                     Grid.Column="1" />
             <svg:SVGImage Source="/RumbleJungle;component/Images/CampHealth.svg"
                           HorizontalContentAlignment="Center"
@@ -90,7 +90,7 @@
                     Background="#00000000"
                     BorderBrush="#00000000"
                     BorderThickness="2"
-                    Template="{DynamicResource JungleButtonTemplate}"
+                    Template="{DynamicResource StatusButtonTemplate}"
                     Grid.Column="2" />
             <svg:SVGImage Source="/RumbleJungle;component/Images/Camp2x.svg"
                           HorizontalContentAlignment="Center"
@@ -101,7 +101,7 @@
                     Background="#00000000"
                     BorderBrush="#00000000"
                     BorderThickness="2"
-                    Template="{DynamicResource JungleButtonTemplate}"
+                    Template="{DynamicResource StatusButtonTemplate}"
                     Grid.Column="3" />
         </Grid>
     </Grid>

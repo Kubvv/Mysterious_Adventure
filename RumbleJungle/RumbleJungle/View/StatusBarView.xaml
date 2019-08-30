@@ -60,6 +60,11 @@
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center"
                                       Margin="2" />
+                        <Button Command="{Binding HitBeastCommand, Mode=OneWay}"
+                                Background="#00000000"
+                                BorderBrush="#00000000"
+                                BorderThickness="2"
+                                Template="{DynamicResource StatusButtonTemplate}" />
                         <TextBlock Text="{Binding Count, Converter={StaticResource IntToWeaponCountConverter}}"
                                    Foreground="Black"
                                    HorizontalAlignment="Center"
@@ -67,11 +72,6 @@
                                    Grid.Row="1"
                                    Margin="3"
                                    Style="{DynamicResource ItemsCounterStyle}" />
-                        <Button Command="{Binding HitBeastCommand, Mode=OneWay}"
-                                Background="#00000000"
-                                BorderBrush="#00000000"
-                                BorderThickness="2"
-                                Template="{DynamicResource StatusButtonTemplate}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
