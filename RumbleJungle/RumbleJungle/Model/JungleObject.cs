@@ -112,7 +112,7 @@ namespace RumbleJungle.Model
                 //  additional 15% health
                 //  double attack with random weapon
                 weaponModel.ChangeAllWeaponsCount(1);
-                int healthAdded = random.Next(6) + 30;
+                int healthAdded = random.Next(6) + 40;
                 gameModel.Rambler.ChangeHealth(healthAdded);
 
             }
@@ -120,7 +120,7 @@ namespace RumbleJungle.Model
             {
                 // add all weapons and 25-35% health
                 weaponModel.ChangeAllWeaponsCount(1);
-                int healthAdded = random.Next(6) + 25;
+                int healthAdded = random.Next(6) + 35;
                 gameModel.Rambler.ChangeHealth(healthAdded);
 
             }
