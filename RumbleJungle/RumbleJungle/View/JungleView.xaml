@@ -56,7 +56,17 @@
             <svg:SVGImage Source="{Binding RamblerViewModel.Shape, Mode=OneWay}"
                           Margin="10"
                           HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center" />
+                          VerticalContentAlignment="Center"
+                          RenderTransformOrigin="0.5,0.5">
+                <svg:SVGImage.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform />
+                        <RotateTransform Angle="{Binding RamblerViewModel.Health, Converter={StaticResource HealthToAngleConverter}}" />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </svg:SVGImage.RenderTransform>
+            </svg:SVGImage>
         </Border>
         <local:ActionView />
         <local:StatusBarView Grid.Row="1" />

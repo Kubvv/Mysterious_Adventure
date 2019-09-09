@@ -20,6 +20,7 @@
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:IntToWeaponCountConverter x:Key="IntToWeaponCountConverter" />
             <converters:StrengthToColorConverter x:Key="StrengthToColorConverter" />
+            <converters:HealthToAngleConverter x:Key="HealthToAngleConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

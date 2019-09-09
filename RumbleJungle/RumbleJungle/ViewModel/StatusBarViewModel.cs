@@ -30,6 +30,10 @@ namespace RumbleJungle.ViewModel
             {
                 Items.Add(new JungleObjectStatusViewModel(item));
             }
+            foreach (JungleObject item in jungleModel.GetJungleObjects(Configuration.VisibleItems))
+            {
+                Items.Add(new JungleObjectStatusViewModel(item));
+            }
         }
     }
 }
