@@ -145,9 +145,16 @@ namespace RumbleJungle.Model
             JungleObject jungleObject = GetJungleObjectAt(point);
             if (jungleObject != null)
             {
-                if ((jungleObject.Status == Statuses.Hidden || Configuration.DebugMode) &&
-                    jungleObject.JungleObjectType != JungleObjectTypes.EmptyField &&
-                    (Configuration.Beasts.Contains(jungleObject.JungleObjectType) || Configuration.BadItems.Contains(jungleObject.JungleObjectType) || !beastOrBadOnly))
+                bool canPointField = jungleObject.JungleObjectType != JungleObjectTypes.EmptyField &&
+                    (Configuration.Beasts.Contains(jungleObject.JungleObjectType) || Configuration.BadItems.Contains(jungleObject.JungleObjectType) || !beastOrBadOnly);
+                if (Configuration.DebugMode)
+                {
+                    if (canPointField && jungleObject.Status == Statuses.Visible && !Configuration.VisibleItems.Contains(jungleObject.JungleObjectType))
+                    {
+                        jungleObject.SetStatus(Statuses.Pointed);
+                    }
+                }
+                else if (canPointField && jungleObject.Status == Statuses.Hidden)
                 {
                     jungleObject.SetStatus(Statuses.Pointed);
                 }

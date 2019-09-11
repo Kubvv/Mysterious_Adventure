@@ -32,7 +32,7 @@ namespace RumbleJungle.Model
         };
 
         public static Random Random { get; } = new Random();
-        public static bool DebugMode { get; } = true;
+        public static bool DebugMode { get; } = false;
         public static int JungleHeight { get; private set; }
         public static int JungleWidth { get; private set; }
         public static Dictionary<JungleObjectTypes, int> JungleObjectsCount { get; private set; }
@@ -94,7 +94,6 @@ namespace RumbleJungle.Model
         };
         public static Dictionary<Tuple<WeaponTypes, JungleObjectTypes>, BaseDev> WeaponStrenght { get; } = new Dictionary<Tuple<WeaponTypes, JungleObjectTypes>, BaseDev>
         {
-            // TODO: weapon strength values
             [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.DragonflySwarm)] = new BaseDev(7, 3),
             [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.WildPig)] = new BaseDev(7, 3),
             [new Tuple<WeaponTypes, JungleObjectTypes>(WeaponTypes.Dagger, JungleObjectTypes.Snakes)] = new BaseDev(7, 3),

@@ -10,6 +10,7 @@ namespace RumbleJungle.ViewModel
         private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
 
         public double Strength => gameModel.Rambler.Strength;
+        public bool Visible => gameModel.Rambler.Visible;
         public double CellWidth => jungleViewModel.CellWidth - 1;
         public double CellHeight => jungleViewModel.CellHeight - 1;
 
@@ -18,6 +19,7 @@ namespace RumbleJungle.ViewModel
             gameModel.Rambler.Moved += RamblerMoved;
             gameModel.Rambler.HealthChanged += RamblerHealthChanged;
             gameModel.Rambler.StrengthChanged += RamblerStrengthChanged;
+            gameModel.Rambler.VisibleChanged += RamblerVisibleChanged;
         }
 
         private void RamblerMoved(object sender, EventArgs e)
@@ -32,6 +34,11 @@ namespace RumbleJungle.ViewModel
         private void RamblerStrengthChanged(object sender, EventArgs e)
         {
             RaisePropertyChanged("Strength");
+        }
+
+        private void RamblerVisibleChanged(object sender, EventArgs e)
+        {
+            RaisePropertyChanged("Visible");
         }
 
         public override void Update()

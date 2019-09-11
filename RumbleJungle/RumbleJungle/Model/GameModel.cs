@@ -1,5 +1,7 @@
 ﻿using CommonServiceLocator;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -14,6 +16,7 @@ namespace RumbleJungle.Model
         private JungleObject jungleObject = null;
         private bool inGame = true;
         private bool canHit = false;
+        private bool magnifyingGlassMode = false;
 
         public Rambler Rambler { get; private set; } = null;
 
@@ -36,19 +39,31 @@ namespace RumbleJungle.Model
         {
             if (!inGame) return;
 
-            jungleObject = jungleModel.GetJungleObjectAt(point);
-            if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1 
-                && jungleObject.JungleObjectType != JungleObjectTypes.DenseJungle)
+            if (magnifyingGlassMode)
             {
-                if (jungleObject.JungleObjectType == JungleObjectTypes.EmptyField ||
-                    jungleObject.Status == Statuses.Visited)
+                JungleObject pointedObject = jungleModel.GetJungleObjectAt(point);
+                List<Point> pointNeighbours = jungleModel.FindNeighboursTo(pointedObject.Coordinates, 1).ToList();
+                jungleModel.SetPointedAt(pointNeighbours);
+                Rambler.SetCoordinates(jungleObject.Coordinates);
+                magnifyingGlassMode = false;
+                Rambler.SetVisible(true);
+            }
+            else
+            {
+                jungleObject = jungleModel.GetJungleObjectAt(point);
+                if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1
+                    && jungleObject.JungleObjectType != JungleObjectTypes.DenseJungle)
                 {
-                    Rambler.SetCoordinates(point);
-                }
-                else
-                {
-                    jungleObject.SetStatus(Statuses.Shown);
-                    actionTimer.Start();
+                    if (jungleObject.JungleObjectType == JungleObjectTypes.EmptyField ||
+                        jungleObject.Status == Statuses.Visited)
+                    {
+                        Rambler.SetCoordinates(point);
+                    }
+                    else
+                    {
+                        jungleObject.SetStatus(Statuses.Shown);
+                        actionTimer.Start();
+                    }
                 }
             }
         }
@@ -88,13 +103,22 @@ namespace RumbleJungle.Model
             }
             else
             {
-                Point ramblerTarget = jungleObject.Action();
-                if (jungleObject.JungleObjectType != JungleObjectTypes.Camp && Rambler.Health > 0)
-                { 
-                    Rambler.SetCoordinates(jungleObject.Coordinates);
-                    if (!ramblerTarget.Equals(jungleObject.Coordinates))
+                if (jungleObject.JungleObjectType == JungleObjectTypes.MagnifyingGlass)
+                {
+                    jungleObject.SetStatus(Statuses.Visited);
+                    magnifyingGlassMode = true;
+                    Rambler.SetVisible(false);
+                }
+                else
+                {
+                    Point ramblerTarget = jungleObject.Action();
+                    if (jungleObject.JungleObjectType != JungleObjectTypes.Camp && Rambler.Health > 0)
                     {
-                        Rambler.SetCoordinates(ramblerTarget);
+                        Rambler.SetCoordinates(jungleObject.Coordinates);
+                        if (!ramblerTarget.Equals(jungleObject.Coordinates))
+                        {
+                            Rambler.SetCoordinates(ramblerTarget);
+                        }
                     }
                 }
             }

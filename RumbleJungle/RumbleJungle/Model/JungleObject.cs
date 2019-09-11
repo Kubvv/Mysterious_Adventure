@@ -92,12 +92,6 @@ namespace RumbleJungle.Model
                     hydra.SetStatus(Statuses.Marked);
                 }
             }
-            else if (JungleObjectType == JungleObjectTypes.MagnifyingGlass)
-            {
-                // TODO: point everything in 3x3 chosen square
-                var pointNeighbours = jungleModel.FindNeighboursTo(Coordinates, 1).ToList();
-                jungleModel.SetPointedAt(pointNeighbours);
-            }
             else if (JungleObjectType == JungleObjectTypes.LostWeapon)
             {
                 // add random weapon

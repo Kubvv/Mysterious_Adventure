@@ -10,9 +10,12 @@ namespace RumbleJungle.Model
 
         public double Strength { get; private set; } = 1;
 
+        public bool Visible { get; private set; }
+
         public Rambler() : base(JungleObjectTypes.Rambler)
         {
             ChangeHealth(Configuration.DebugMode ? 50 : 100);
+            SetVisible(true);
         }
 
         public event EventHandler Moved;
@@ -33,5 +36,12 @@ namespace RumbleJungle.Model
             StrengthChanged?.Invoke(this, null);
         }
 
+        public event EventHandler VisibleChanged;
+
+        public void SetVisible(bool visible)
+        {
+            Visible = visible;
+            VisibleChanged?.Invoke(this, null);
+        }
     }
 }
