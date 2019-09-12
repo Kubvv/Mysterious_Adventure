@@ -24,6 +24,7 @@ namespace RumbleJungle.ViewModel
         public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
         public bool IsCamp => jungleObject.JungleObjectType == JungleObjectTypes.Camp;
         public int Health => IsLivingJungleObject ? (jungleObject as LivingJungleObject).Health : 0;
+        public bool IsMagnifyingGlassMode => gameModel.IsMagnifyingGlassMode;
 
         Thickness margin = new Thickness(0);
         public Thickness Margin
@@ -76,6 +77,7 @@ namespace RumbleJungle.ViewModel
             jungleObject.TypeChanged += TypeChanged;
             jungleObject.StatusChanged += StatusChanged;
             if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged += HealthChanged;
+            gameModel.ModeChanged += GameModeChanged;
         }
 
         public virtual void Update()
@@ -110,6 +112,11 @@ namespace RumbleJungle.ViewModel
         private void HealthChanged(object sender, EventArgs e)
         {
             RaisePropertyChanged("Health");
+        }
+
+        private void GameModeChanged(object sender, EventArgs e)
+        {
+            RaisePropertyChanged("IsMagnifyingGlassMode");
         }
     }
 }

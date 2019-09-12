@@ -42,7 +42,8 @@
                                 Command="{Binding MoveRamblerCommand, Mode=OneWay}"
                                 BorderThickness="3"
                                 BorderBrush="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
-                                Template="{DynamicResource JungleButtonTemplate}" />
+                                Template="{DynamicResource JungleButtonTemplate}"
+                                IsManipulationEnabled="{Binding IsMagnifyingGlassMode}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

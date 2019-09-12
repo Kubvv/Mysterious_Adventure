@@ -16,7 +16,20 @@ namespace RumbleJungle.Model
         private JungleObject jungleObject = null;
         private bool inGame = true;
         private bool canHit = false;
-        private bool magnifyingGlassMode = false;
+
+        private bool isMagnifyingGlassMode = false;
+        public bool IsMagnifyingGlassMode
+        {
+            get => isMagnifyingGlassMode;
+            private set
+            {
+                isMagnifyingGlassMode = value;
+                Rambler.SetVisible(!value);
+                ModeChanged?.Invoke(this, null);
+            }
+        }
+
+        public event EventHandler ModeChanged;
 
         public Rambler Rambler { get; private set; } = null;
 
@@ -39,14 +52,13 @@ namespace RumbleJungle.Model
         {
             if (!inGame) return;
 
-            if (magnifyingGlassMode)
+            if (IsMagnifyingGlassMode)
             {
                 JungleObject pointedObject = jungleModel.GetJungleObjectAt(point);
                 List<Point> pointNeighbours = jungleModel.FindNeighboursTo(pointedObject.Coordinates, 1).ToList();
                 jungleModel.SetPointedAt(pointNeighbours);
                 Rambler.SetCoordinates(jungleObject.Coordinates);
-                magnifyingGlassMode = false;
-                Rambler.SetVisible(true);
+                IsMagnifyingGlassMode = false;
             }
             else
             {
@@ -106,8 +118,7 @@ namespace RumbleJungle.Model
                 if (jungleObject.JungleObjectType == JungleObjectTypes.MagnifyingGlass)
                 {
                     jungleObject.SetStatus(Statuses.Visited);
-                    magnifyingGlassMode = true;
-                    Rambler.SetVisible(false);
+                    IsMagnifyingGlassMode = true;
                 }
                 else
                 {

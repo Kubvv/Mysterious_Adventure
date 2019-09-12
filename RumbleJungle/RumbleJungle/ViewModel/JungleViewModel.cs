@@ -62,11 +62,7 @@ namespace RumbleJungle.ViewModel
 
         public RamblerViewModel RamblerViewModel { get; private set; }
 
-        public JungleViewModel()
-        {
-        }
-
-        internal void StartGame()
+        public void StartGame()
         {
             RamblerViewModel = ServiceLocator.Current.GetInstance<RamblerViewModel>();
             foreach (JungleObject jungleObject in jungleModel.Jungle)
