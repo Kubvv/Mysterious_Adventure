@@ -43,7 +43,7 @@
                                 BorderThickness="3"
                                 BorderBrush="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Template="{DynamicResource JungleButtonTemplate}"
-                                IsManipulationEnabled="{Binding IsMagnifyingGlassMode}" />
+                                IsCancel="{Binding IsMagnifyingGlassMode}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -143,12 +143,6 @@
                     Background="{TemplateBinding Background}"
                     SnapsToDevicePixels="True">
                 <Grid>
-                    <svg:SVGImage x:Name="magnifyingGlass"
-                                  Source="/RumbleJungle;component/Images/MagnifyingGlass.svg"
-                                  HorizontalContentAlignment="Center"
-                                  VerticalContentAlignment="Center"
-                                  Margin="10"
-                                  Visibility="Hidden" />
                     <ContentPresenter x:Name="contentPresenter"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
                                       Content="{TemplateBinding Content}"
@@ -159,6 +153,12 @@
                                       RecognizesAccessKey="True"
                                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    <svg:SVGImage x:Name="magnifyingGlass"
+                                  Source="/RumbleJungle;component/Images/MagnifyingGlass.svg"
+                                  HorizontalContentAlignment="Center"
+                                  VerticalContentAlignment="Center"
+                                  Margin="10"
+                                  Visibility="Hidden" />
                 </Grid>
             </Border>
         </Border>
@@ -171,7 +171,7 @@
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsManipulationEnabled"
+                    <Condition Property="IsCancel"
                                Value="True" />
                     <Condition Property="IsMouseOver"
                                Value="True" />
