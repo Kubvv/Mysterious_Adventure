@@ -1,19 +1,21 @@
-﻿using System;
+﻿using CommonServiceLocator;
+using System;
 using System.Windows;
 
 namespace RumbleJungle.Model
 {
-    public class Rambler : JungleObject
+    public class Rambler : LivingJungleObject
     {
-        public int Health { get; private set; }
+        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
+
+        public double Strength { get; private set; } = 1;
+
+        public bool Visible { get; private set; }
 
         public Rambler() : base(JungleObjectTypes.Rambler)
         {
-        }
-
-        public void Reset()
-        {
-            Health = 100;
+            ChangeHealth(Configuration.DebugMode ? 50 : 100);
+            SetVisible(true);
         }
 
         public event EventHandler Moved;
@@ -22,6 +24,24 @@ namespace RumbleJungle.Model
         {
             base.SetCoordinates(point);
             Moved?.Invoke(this, null);
+            JungleObject jungleObject = jungleModel.GetJungleObjectAt(point);
+            jungleObject.SetStatus(Statuses.Visited);
+        }
+
+        public event EventHandler StrengthChanged;
+
+        public void SetStrength(double newStrength)
+        {
+            Strength = newStrength;
+            StrengthChanged?.Invoke(this, null);
+        }
+
+        public event EventHandler VisibleChanged;
+
+        public void SetVisible(bool visible)
+        {
+            Visible = visible;
+            VisibleChanged?.Invoke(this, null);
         }
     }
 }

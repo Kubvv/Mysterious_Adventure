@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RumbleJungle.View"
+        xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
         mc:Ignorable="d"
         Title="JungleView"
-        Height="800"
-        Width="1600"
+        Height="500"
+        Width="800"
         DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}"
         MinWidth="200"
-        MinHeight="200">
+        MinHeight="200"
+        WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
@@ -21,48 +23,54 @@
                       SizeChanged="Jungle_SizeChanged">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="Green" />
+                    <Canvas />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Background="{x:Null}"
-                            Command="{Binding MoveRamblerCommand, Mode=OneWay}"
-                            Margin="{Binding Margin, Mode=OneWay}"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Width="{Binding JungleInstance.CellWidth, Source={StaticResource Locator}}"
-                            Height="{Binding JungleInstance.CellHeight, Source={StaticResource Locator}}">
-                        <StackPanel>
-                            <TextBlock Text="{Binding Name}"
-                                       Foreground="White"
-                                       FontWeight="Bold"
-                                       HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding Coordinates}"
-                                       Foreground="White"
-                                       HorizontalAlignment="Center" />
-                        </StackPanel>
-                    </Button>
+                    <Grid Margin="{Binding Margin, Mode=OneWay}"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Width="{Binding Width}"
+                          Height="{Binding Height}"
+                          Background="Green">
+                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      Margin="10" />
+                        <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
+                                Command="{Binding MoveRamblerCommand, Mode=OneWay}"
+                                BorderThickness="3"
+                                BorderBrush="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
+                                Template="{DynamicResource JungleButtonTemplate}"
+                                IsCancel="{Binding IsMagnifyingGlassMode}" />
+                    </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Border Background="Blue"
+        <Border Background="{Binding RamblerViewModel.Strength, Converter={StaticResource StrengthToColorConverter}}"
                 Margin="{Binding RamblerViewModel.Margin, Mode=OneWay}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Width="{Binding CellWidth}"
-                Height="{Binding CellHeight}">
-            <StackPanel VerticalAlignment="Center"
-                        HorizontalAlignment="Center">
-                <TextBlock Text="{Binding RamblerViewModel.Name}"
-                           Foreground="White"
-                           HorizontalAlignment="Center"
-                           FontWeight="Bold" />
-                <TextBlock Text="{Binding RamblerViewModel.Coordinates}"
-                           Foreground="White"
-                           HorizontalAlignment="Center" />
-            </StackPanel>
+                Width="{Binding RamblerViewModel.CellWidth}"
+                Height="{Binding RamblerViewModel.CellHeight}"
+                Visibility="{Binding RamblerViewModel.Visible, Converter={StaticResource BoolToVisibilityConverter}}">
+            <svg:SVGImage Source="{Binding RamblerViewModel.Shape, Mode=OneWay}"
+                          Margin="10"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          RenderTransformOrigin="0.5,0.5">
+                <svg:SVGImage.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform />
+                        <RotateTransform Angle="{Binding RamblerViewModel.Health, Converter={StaticResource HealthToAngleConverter}}" />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </svg:SVGImage.RenderTransform>
+            </svg:SVGImage>
         </Border>
+        <local:ActionView />
         <local:StatusBarView Grid.Row="1" />
     </Grid>
 </Window>

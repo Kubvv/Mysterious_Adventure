@@ -1,6 +1,7 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
+using System;
 using System.Collections.ObjectModel;
 
 namespace RumbleJungle.ViewModel
@@ -20,7 +21,7 @@ namespace RumbleJungle.ViewModel
             set
             {
                 Set(ref canvasWidth, value);
-                CellWidth = value / Configuration.JungleWidth;
+                CellWidth = Math.Floor(value / Configuration.JungleWidth);
                 UpdateJungle();
             }
         }
@@ -33,7 +34,7 @@ namespace RumbleJungle.ViewModel
             set
             {
                 Set(ref canvasHeight, value);
-                CellHeight = value / Configuration.JungleHeight;
+                CellHeight = Math.Floor(value / Configuration.JungleHeight);
                 UpdateJungle();
             }
         }
@@ -61,14 +62,9 @@ namespace RumbleJungle.ViewModel
 
         public RamblerViewModel RamblerViewModel { get; private set; }
 
-        public JungleViewModel()
-        {
-        }
-
-        internal void StartGame()
+        public void StartGame()
         {
             RamblerViewModel = ServiceLocator.Current.GetInstance<RamblerViewModel>();
-            gameModel.StartGame();
             foreach (JungleObject jungleObject in jungleModel.Jungle)
             {
                 JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));

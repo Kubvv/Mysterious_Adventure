@@ -16,10 +16,24 @@ namespace RumbleJungle.Model
         }
         public void CollectWeapon()
         {
-            foreach (Weapon weapon in Weapons)
-            {
-                weapon.Reset();
-            }
+            Weapons.ForEach(weapon => weapon.Reset());
+        }
+
+        public void ChangeRandomWeaponCount(int quantity)
+        {
+            int randomWeapon = Configuration.Random.Next(Weapons.Count - 1) + 1;
+            Weapons[randomWeapon].ChangeCount(quantity);
+        }
+
+        public void ChangeAllWeaponsCount(int quantity)
+        {
+            Weapons.ForEach(weapon => weapon.ChangeCount(quantity));
+        }
+
+        public void SetDoubleAttack()
+        {
+            int randomWeapon = Configuration.Random.Next(Weapons.Count - 1) + 1;
+            Weapons[randomWeapon].SetDoubleAttack(true);
         }
     }
 }

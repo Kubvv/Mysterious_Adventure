@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="RumbleJungle.View.ActionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RumbleJungle.View"
+             xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
+             mc:Ignorable="d"
+             DataContext="{Binding ActionInstance, Mode=OneWay, Source={StaticResource Locator}}"
+             Visibility="{Binding ActionVisibility}">
+    <Grid Background="#7FB2AAAA"
+          DataContext="{Binding CurrentJungleObject}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border Background="White"
+                BorderThickness="5"
+                BorderBrush="Black"
+                Padding="10"
+                Grid.Row="1"
+                Grid.Column="1">
+            <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center" />
+        </Border>
+        <Grid Grid.Row="2"
+              Grid.Column="1"
+              Margin="10"
+              Visibility="{Binding IsLivingJungleObject, Converter={StaticResource BoolToVisibilityConverter}}">
+            <ProgressBar Value="{Binding Health, Mode=OneWay}" />
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Health, Mode=OneWay}"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Style="{DynamicResource ItemsCounterStyle}" />
+                <TextBlock Text="%"
+                           Foreground="Black"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Style="{DynamicResource ItemsCounterStyle}" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2"
+              Grid.Column="1"
+              Margin="10"
+              Background="White"
+              Visibility="{Binding IsCamp, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <svg:SVGImage Source="/RumbleJungle;component/Images/CampMuscle.svg"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Margin="10"/>
+            <Button Command="{Binding AddStrenghtCommand, Mode=OneWay}"
+                    Background="#00000000"
+                    BorderBrush="#00000000"
+                    BorderThickness="2"
+                    Template="{DynamicResource StatusButtonTemplate}" />
+            <svg:SVGImage Source="/RumbleJungle;component/Images/CampCheckAdjacent.svg"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Margin="10"
+                          Grid.Column="1" />
+            <Button Command="{Binding CheckAdjacentCommand, Mode=OneWay}"
+                    Background="#00000000"
+                    BorderBrush="#00000000"
+                    BorderThickness="2"
+                    Template="{DynamicResource StatusButtonTemplate}"
+                    Grid.Column="1" />
+            <svg:SVGImage Source="/RumbleJungle;component/Images/CampHealth.svg"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Margin="10"
+                          Grid.Column="2" />
+            <Button Command="{Binding AddHealthCommand, Mode=OneWay}"
+                    Background="#00000000"
+                    BorderBrush="#00000000"
+                    BorderThickness="2"
+                    Template="{DynamicResource StatusButtonTemplate}"
+                    Grid.Column="2" />
+            <svg:SVGImage Source="/RumbleJungle;component/Images/Camp2x.svg"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Margin="10"
+                          Grid.Column="3" />
+            <Button Command="{Binding AddDoubleAttackCommand, Mode=OneWay}"
+                    Background="#00000000"
+                    BorderBrush="#00000000"
+                    BorderThickness="2"
+                    Template="{DynamicResource StatusButtonTemplate}"
+                    Grid.Column="3" />
+        </Grid>
+    </Grid>
+</UserControl>

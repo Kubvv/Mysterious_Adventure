@@ -13,7 +13,6 @@
         Hydra,
 
         // hidden items
-        ForgottenCity,
         LostWeapon,
         Elixir,
         Map,
@@ -29,6 +28,7 @@
         // visible items
         Camp,
         Tent,
+        ForgottenCity,
         DenseJungle
     }
 
@@ -41,5 +41,15 @@
         Bow,
         Battleaxe,
         Sword
+    }
+
+    public enum Statuses
+    {
+        Hidden,
+        Shown,
+        Visible,
+        Visited,
+        Pointed,
+        Marked
     }
 }

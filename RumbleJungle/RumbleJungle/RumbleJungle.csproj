@@ -24,6 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -73,15 +75,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\HealthToAngleConverter.cs" />
+    <Compile Include="Converters\IntToWeaponCountConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\JungleObjectToBrushConverter.cs" />
+    <Compile Include="Converters\JungleObjectTypeToBrushConverter.cs" />
+    <Compile Include="Converters\StrengthToColorConverter.cs" />
+    <Compile Include="Model\BaseDev.cs" />
+    <Compile Include="Model\Beast.cs" />
     <Compile Include="Model\Configuration.cs" />
     <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\JungleModel.cs" />
     <Compile Include="Model\JungleObject.cs" />
+    <Compile Include="Model\LivingJungleObject.cs" />
     <Compile Include="Model\Rambler.cs" />
     <Compile Include="Model\Weapon.cs" />
     <Compile Include="Model\WeaponModel.cs" />
+    <Compile Include="ViewModel\ActionViewModel.cs" />
     <Compile Include="ViewModel\IngameMenuViewModel.cs" />
+    <Compile Include="ViewModel\JungleObjectStatusViewModel.cs" />
     <Compile Include="ViewModel\JungleViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
@@ -96,6 +109,9 @@
     </Compile>
     <Compile Include="View\OptionsView.xaml.cs">
       <DependentUpon>OptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ActionView.xaml.cs">
+      <DependentUpon>ActionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
@@ -130,6 +146,10 @@
     <Page Include="View\OptionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\StatusBarView.xaml">
       <SubType>Designer</SubType>
@@ -212,6 +232,12 @@
       <Project>{5569522d-5c29-451e-8730-f119f0408bca}</Project>
       <Name>DotNetProjects.SVGImage</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Camp2x.svg" />
+    <Resource Include="Images\CampCheckAdjacent.svg" />
+    <Resource Include="Images\CampHealth.svg" />
+    <Resource Include="Images\CampMuscle.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,16 +1,23 @@
 ﻿using CommonServiceLocator;
+using System.Windows;
 
 namespace RumbleJungle.Model
 {
-    public class Beast : JungleObject
+    public class Beast : LivingJungleObject
     {
-        private readonly JungleManager jungleManager = ServiceLocator.Current.GetInstance<JungleManager>();
-
-        public int Count { get; private set; }
-
+        private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
+        
         public Beast(JungleObjectTypes beastType) : base(beastType)
         {
-            Count = jungleManager.CountOf(beastType);
+            ChangeHealth(Configuration.BeastsInitialHealth[beastType].RandomValue);
+        }
+
+        public new Point Action()
+        {
+            // hit rambler
+            gameModel.Rambler.ChangeHealth(-Configuration.BeastStrenght[JungleObjectType].RandomValue);
+
+            return Coordinates;
         }
     }
 }

@@ -5,7 +5,8 @@
              StartupUri="View/MainWindow.xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              d1p1:Ignorable="d"
-             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:RumbleJungle.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,6 +15,12 @@
             <vm:ViewModelLocator x:Key="Locator"
                                  d:IsDataSource="True"
                                  xmlns:vm="clr-namespace:RumbleJungle.ViewModel" />
+            <converters:JungleObjectToBrushConverter x:Key="JungleObjectToBrushConverter" />
+            <converters:JungleObjectTypeToBrushConverter x:Key="JungleObjectTypeToBrushConverter" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:IntToWeaponCountConverter x:Key="IntToWeaponCountConverter" />
+            <converters:StrengthToColorConverter x:Key="StrengthToColorConverter" />
+            <converters:HealthToAngleConverter x:Key="HealthToAngleConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
