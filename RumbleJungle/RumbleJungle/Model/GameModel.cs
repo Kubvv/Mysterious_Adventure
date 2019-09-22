@@ -76,8 +76,11 @@ namespace RumbleJungle.Model
                     }
                     else
                     {
+                        if (!Configuration.Beasts.Contains(jungleObject.JungleObjectType))
+                        {
+                            PlaySound(jungleObject.Name);
+                        }
                         jungleObject.SetStatus(Statuses.Shown);
-                        PlaySound(jungleObject.Name);
                         actionTimer.Start();
                     }
                 }
