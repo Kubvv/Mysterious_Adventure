@@ -1,8 +1,10 @@
 ﻿using CommonServiceLocator;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace RumbleJungle.Model
@@ -14,6 +16,7 @@ namespace RumbleJungle.Model
 
         private readonly DispatcherTimer actionTimer = new DispatcherTimer();
         private JungleObject jungleObject = null;
+        private readonly MediaPlayer mediaPlayer = new MediaPlayer();
         private bool inGame = true;
         private bool canHit = false;
 
@@ -74,9 +77,25 @@ namespace RumbleJungle.Model
                     else
                     {
                         jungleObject.SetStatus(Statuses.Shown);
+                        PlaySound(jungleObject.Name);
                         actionTimer.Start();
                     }
                 }
+            }
+        }
+
+        private void PlaySound(string soundName)
+        {
+            string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Sounds\{soundName}.wav");
+            if (!File.Exists(fileName))
+            {
+                fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Sounds\{soundName}.mp3");
+            }
+            if (File.Exists(fileName))
+            {
+                mediaPlayer.Stop();
+                mediaPlayer.Open(new Uri(fileName));
+                mediaPlayer.Play();
             }
         }
 
@@ -88,6 +107,7 @@ namespace RumbleJungle.Model
             {
                 canHit = false;
                 bool canDoubleAttack = weapon.DoubleAttack && weapon.Count > 1;
+                PlaySound(weapon.Name);
                 beast.ChangeHealth((int)Math.Round(-Configuration.WeaponStrenght[new Tuple<WeaponTypes, JungleObjectTypes>(weapon.WeaponType, beast.JungleObjectType)].RandomValue * 
                     Rambler.Strength * (canDoubleAttack ? 2 : 1)));
                 weapon.ChangeCount(canDoubleAttack ? -2 : -1);
@@ -104,6 +124,7 @@ namespace RumbleJungle.Model
             {
                 if (beast.Health > 0)
                 {
+                    PlaySound(beast.Name);
                     beast.Action();
                     canHit = true;
                 }
@@ -136,6 +157,7 @@ namespace RumbleJungle.Model
             if (Rambler.Health <= 0)
             {
                 // game over (fail)
+                PlaySound("Fail");
                 jungleObject.SetStatus(Statuses.Visited);
                 jungleModel.MarkHiddenObjects();
                 inGame = false;
@@ -143,6 +165,7 @@ namespace RumbleJungle.Model
             else if (jungleModel.CountOf(JungleObjectTypes.Treasure) == 0)
             {
                 // game over (success)
+                PlaySound("Sucess");
                 jungleModel.MarkHiddenObjects();
                 inGame = false;
             }
