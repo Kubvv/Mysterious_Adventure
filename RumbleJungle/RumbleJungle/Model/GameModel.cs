@@ -168,7 +168,7 @@ namespace RumbleJungle.Model
             else if (jungleModel.CountOf(JungleObjectTypes.Treasure) == 0)
             {
                 // game over (success)
-                PlaySound("Sucess");
+                PlaySound("Success");
                 jungleModel.MarkHiddenObjects();
                 inGame = false;
             }
