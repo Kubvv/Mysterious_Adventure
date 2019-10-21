@@ -85,7 +85,7 @@ namespace RumbleJungle.Model
         {
             int distance = 1;
             JungleObject jungleObject = null;
-            while ((distance < Configuration.JungleHeight && distance < Configuration.JungleWidth) && jungleObject == null) 
+            while ((distance < Configuration.JungleHeight || distance < Configuration.JungleWidth) && jungleObject == null) 
             {
                 jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, true);
                 if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, true);
