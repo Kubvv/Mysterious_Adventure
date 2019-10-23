@@ -81,16 +81,16 @@ namespace RumbleJungle.Model
         /// <param name="coordinates">coordinates</param>
         /// <param name="jungleObjectType">Jungle object type</param>
         /// <returns>Found object or null</returns>
-        internal JungleObject FindNearestTo(Point coordinates, JungleObjectTypes jungleObjectType)
+        internal JungleObject FindNearestTo(Point coordinates, JungleObjectTypes jungleObjectType, Statuses statuses)
         {
             int distance = 1;
             JungleObject jungleObject = null;
             while ((distance < Configuration.JungleHeight || distance < Configuration.JungleWidth) && jungleObject == null) 
             {
-                jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, true);
-                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, true);
-                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, false);
-                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, false);
+                jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, statuses, true);
+                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, statuses, true);
+                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, statuses, false);
+                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, statuses, false);
                 distance++;
             }
             return jungleObject;
@@ -236,7 +236,7 @@ namespace RumbleJungle.Model
             return result;
         }
 
-        private JungleObject FindObjectInVector(Point coordinates, int distance, JungleObjectTypes jungleObjectType, bool horizontally)
+        private JungleObject FindObjectInVector(Point coordinates, int distance, JungleObjectTypes jungleObjectType, Statuses statuses, bool horizontally)
         {
             JungleObject result = null;
             Point point = new Point();
@@ -253,7 +253,7 @@ namespace RumbleJungle.Model
                 else
                     point.Y = coordinates.Y + radius;
                 JungleObject jungleObject = GetJungleObjectAt(point);
-                if (jungleObject != null && jungleObject.JungleObjectType == jungleObjectType && jungleObject.Status != Statuses.Visited)
+                if (jungleObject != null && jungleObject.JungleObjectType == jungleObjectType && (jungleObject.Status & statuses) > 0)
                 {
                     result = jungleObject;
                     break;

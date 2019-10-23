@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RumbleJungle.View"
         xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
         mc:Ignorable="d"
-        Title="JungleView"
+        Title="Jungle"
         Height="500"
         Width="800"
         DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}"
