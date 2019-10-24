@@ -120,8 +120,8 @@ namespace RumbleJungle.Model
             }
             else if (JungleObjectType == JungleObjectTypes.ForgottenCity)
             {
-                // TODO: fight with two random beasts, one after another
-                // random weapon and two treasures pointed as a reward
+                // after fight with two random beasts, one after another
+                // give random weapon and two treasures pointed as a reward
 
                 // add random weapon
                 weaponModel.ChangeRandomWeaponCount(1);
