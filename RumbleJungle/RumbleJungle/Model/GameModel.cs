@@ -15,10 +15,13 @@ namespace RumbleJungle.Model
         private readonly WeaponModel weaponModel = ServiceLocator.Current.GetInstance<WeaponModel>();
 
         private readonly DispatcherTimer actionTimer = new DispatcherTimer();
-        private JungleObject jungleObject = null;
+        private JungleObject forgottenCity = null;
+        private int forgottenCityBeastCount;
         private readonly MediaPlayer mediaPlayer = new MediaPlayer();
         private bool inGame = true;
         private bool canHit = false;
+
+        public JungleObject CurrentJungleObject { get; private set; }
 
         private bool isMagnifyingGlassMode = false;
         public bool IsMagnifyingGlassMode
@@ -28,11 +31,23 @@ namespace RumbleJungle.Model
             {
                 isMagnifyingGlassMode = value;
                 Rambler.SetVisible(!value);
-                ModeChanged?.Invoke(this, null);
+                MagnifyingGlassModeChanged?.Invoke(this, null);
+            }
+        }
+        public event EventHandler MagnifyingGlassModeChanged;
+
+        private bool isForgottenCityMode = false;
+        public bool IsForgottenCityMode
+        {
+            get => isForgottenCityMode;
+            private set
+            {
+                isForgottenCityMode = value;
+                ForgottenCityModeChanged?.Invoke(this, null);
             }
         }
 
-        public event EventHandler ModeChanged;
+        public event EventHandler ForgottenCityModeChanged;
 
         public Rambler Rambler { get; private set; } = null;
 
@@ -60,27 +75,27 @@ namespace RumbleJungle.Model
                 JungleObject pointedObject = jungleModel.GetJungleObjectAt(point);
                 List<Point> pointNeighbours = jungleModel.FindNeighboursTo(pointedObject.Coordinates, 1).ToList();
                 jungleModel.SetPointedAt(pointNeighbours);
-                Rambler.SetCoordinates(jungleObject.Coordinates);
+                Rambler.SetCoordinates(CurrentJungleObject.Coordinates);
                 IsMagnifyingGlassMode = false;
             }
             else
             {
-                jungleObject = jungleModel.GetJungleObjectAt(point);
+                CurrentJungleObject = jungleModel.GetJungleObjectAt(point);
                 if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1
-                    && jungleObject.JungleObjectType != JungleObjectTypes.DenseJungle)
+                    && CurrentJungleObject.JungleObjectType != JungleObjectTypes.DenseJungle)
                 {
-                    if (jungleObject.JungleObjectType == JungleObjectTypes.EmptyField ||
-                        jungleObject.Status == Statuses.Visited)
+                    if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.EmptyField ||
+                        CurrentJungleObject.Status == Statuses.Visited)
                     {
                         Rambler.SetCoordinates(point);
                     }
                     else
                     {
-                        if (!Configuration.Beasts.Contains(jungleObject.JungleObjectType))
+                        if (!Configuration.Beasts.Contains(CurrentJungleObject.JungleObjectType))
                         {
-                            PlaySound(jungleObject.Name);
+                            PlaySound(CurrentJungleObject.Name);
                         }
-                        jungleObject.SetStatus(Statuses.Shown);
+                        CurrentJungleObject.SetStatus(Statuses.Shown);
                         actionTimer.Start();
                     }
                 }
@@ -106,7 +121,7 @@ namespace RumbleJungle.Model
         {
             if (!inGame || !canHit) return;
 
-            if (weapon.Count != 0 && jungleObject is Beast beast)
+            if (weapon.Count != 0 && CurrentJungleObject is Beast beast)
             {
                 canHit = false;
                 bool canDoubleAttack = weapon.DoubleAttack && weapon.Count > 1;
@@ -122,35 +137,63 @@ namespace RumbleJungle.Model
         private void ActionTimerTick(object sender, EventArgs e)
         {
             actionTimer.Stop();
-            Beast beast = jungleObject as Beast;
-            if (beast != null)
+            if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.ForgottenCity)
             {
+                forgottenCity = CurrentJungleObject;
+                CurrentJungleObject = new Beast(Configuration.Beasts[Configuration.Random.Next(Configuration.Beasts.Count)]);
+                IsForgottenCityMode = true;
+                forgottenCityBeastCount = 2;
+            }
+            if (CurrentJungleObject is Beast)
+            {
+                Beast beast = CurrentJungleObject as Beast;
+                if (IsForgottenCityMode && beast.Health <= 0)
+                {
+                    Rambler.SetStrength(1);
+                    forgottenCityBeastCount--;
+                    if (forgottenCityBeastCount > 0)
+                    {
+                        CurrentJungleObject = new Beast(Configuration.Beasts[Configuration.Random.Next(Configuration.Beasts.Count)]);
+                        beast = CurrentJungleObject as Beast;
+                        ForgottenCityModeChanged?.Invoke(this, null);
+                    }
+                }
                 if (beast.Health > 0)
                 {
                     PlaySound(beast.Name);
-                    beast.Action();
+                    _ = beast.Action();
                     canHit = true;
                 }
                 else
                 {
-                    Rambler.SetCoordinates(beast.Coordinates);
-                    Rambler.SetStrength(1);
+                    if (IsForgottenCityMode)
+                    {
+                        CurrentJungleObject = forgottenCity;
+                        IsForgottenCityMode = false;
+                        CurrentJungleObject.Action();
+                        Rambler.SetCoordinates(CurrentJungleObject.Coordinates);
+                    }
+                    else
+                    {
+                        Rambler.SetCoordinates(beast.Coordinates);
+                        Rambler.SetStrength(1);
+                    }
                 }
             }
             else
             {
-                if (jungleObject.JungleObjectType == JungleObjectTypes.MagnifyingGlass)
+                if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.MagnifyingGlass)
                 {
-                    jungleObject.SetStatus(Statuses.Visited);
+                    CurrentJungleObject.SetStatus(Statuses.Visited);
                     IsMagnifyingGlassMode = true;
                 }
                 else
                 {
-                    Point ramblerTarget = jungleObject.Action();
-                    if (jungleObject.JungleObjectType != JungleObjectTypes.Camp && Rambler.Health > 0)
+                    Point ramblerTarget = CurrentJungleObject.Action();
+                    if (CurrentJungleObject.JungleObjectType != JungleObjectTypes.Camp && Rambler.Health > 0)
                     {
-                        Rambler.SetCoordinates(jungleObject.Coordinates);
-                        if (!ramblerTarget.Equals(jungleObject.Coordinates))
+                        Rambler.SetCoordinates(CurrentJungleObject.Coordinates);
+                        if (!ramblerTarget.Equals(CurrentJungleObject.Coordinates))
                         {
                             Rambler.SetCoordinates(ramblerTarget);
                         }
@@ -161,7 +204,7 @@ namespace RumbleJungle.Model
             {
                 // game over (fail)
                 PlaySound("Fail");
-                jungleObject.SetStatus(Statuses.Visited);
+                CurrentJungleObject.SetStatus(Statuses.Visited);
                 jungleModel.MarkHiddenObjects();
                 inGame = false;
             }

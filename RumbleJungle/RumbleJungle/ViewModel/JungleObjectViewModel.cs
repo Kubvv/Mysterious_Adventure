@@ -77,7 +77,7 @@ namespace RumbleJungle.ViewModel
             jungleObject.TypeChanged += TypeChanged;
             jungleObject.StatusChanged += StatusChanged;
             if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged += HealthChanged;
-            gameModel.ModeChanged += GameModeChanged;
+            gameModel.MagnifyingGlassModeChanged += MagnifyingGlassModeChanged;
         }
 
         public virtual void Update()
@@ -114,7 +114,7 @@ namespace RumbleJungle.ViewModel
             RaisePropertyChanged("Health");
         }
 
-        private void GameModeChanged(object sender, EventArgs e)
+        private void MagnifyingGlassModeChanged(object sender, EventArgs e)
         {
             RaisePropertyChanged("IsMagnifyingGlassMode");
         }

@@ -1,4 +1,6 @@
-﻿namespace RumbleJungle.Model
+﻿using System;
+
+namespace RumbleJungle.Model
 {
     public enum JungleObjectTypes
     {
@@ -43,13 +45,15 @@
         Sword
     }
 
+    [Flags]
     public enum Statuses
     {
-        Hidden,
-        Shown,
-        Visible,
-        Visited,
-        Pointed,
-        Marked
+        Hidden = 1,
+        Shown = 2,
+        Visible = 4,
+        Visited = 8,
+        Pointed = 16,
+        Marked = 32,
+        NotVisited = Hidden | Shown | Visible | Pointed | Marked
     }
 }

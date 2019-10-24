@@ -77,7 +77,7 @@ namespace RumbleJungle.Model
             else if (JungleObjectType == JungleObjectTypes.Map)
             {
                 // point nearest treasure
-                JungleObject treasure = jungleModel.FindNearestTo(Coordinates, JungleObjectTypes.Treasure);
+                JungleObject treasure = jungleModel.FindNearestTo(Coordinates, JungleObjectTypes.Treasure, Statuses.NotVisited);
                 if (treasure != null)
                 {
                     treasure.SetStatus(Statuses.Pointed);
@@ -86,7 +86,7 @@ namespace RumbleJungle.Model
             else if (JungleObjectType == JungleObjectTypes.Talisman)
             {
                 // mark nearest hydra
-                JungleObject hydra = jungleModel.FindNearestTo(Coordinates, JungleObjectTypes.Hydra);
+                JungleObject hydra = jungleModel.FindNearestTo(Coordinates, JungleObjectTypes.Hydra, Statuses.NotVisited);
                 if (hydra != null)
                 {
                     hydra.SetStatus(Statuses.Marked);
@@ -120,9 +120,24 @@ namespace RumbleJungle.Model
             }
             else if (JungleObjectType == JungleObjectTypes.ForgottenCity)
             {
-                // TODO: Walka z 2 losowymi typami potworów(jeden po drugim)
-                // Nagroda w postaci dodatkowej broni oraz pokazania lokacji dwóch skarbów
+                // after fight with two random beasts, one after another
+                // give random weapon and two treasures pointed as a reward
 
+                // add random weapon
+                weaponModel.ChangeRandomWeaponCount(1);
+
+                // point first treasure
+                JungleObject treasure = jungleModel.FindNearestTo(Coordinates, JungleObjectTypes.Treasure, Statuses.Hidden);
+                if (treasure != null)
+                {
+                    treasure.SetStatus(Statuses.Pointed);
+                    // point second treasure
+                    treasure = jungleModel.FindNearestTo(Coordinates, JungleObjectTypes.Treasure, Statuses.Hidden);
+                    if (treasure != null)
+                    {
+                        treasure.SetStatus(Statuses.Pointed);
+                    }
+                }
             }
             else if (JungleObjectType == JungleObjectTypes.Natives)
             {
