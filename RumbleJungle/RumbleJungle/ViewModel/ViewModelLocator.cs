@@ -47,7 +47,6 @@ namespace RumbleJungle.ViewModel
             SimpleIoc.Default.Register<WeaponModel>();
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<IngameMenuViewModel>();
             SimpleIoc.Default.Register<OptionsViewModel>();
 
             SimpleIoc.Default.Register<JungleViewModel>();
@@ -60,7 +59,6 @@ namespace RumbleJungle.ViewModel
         }
 
         public MainViewModel MainInstance => ServiceLocator.Current.GetInstance<MainViewModel>();
-        public IngameMenuViewModel IngameMenuInstance => ServiceLocator.Current.GetInstance<IngameMenuViewModel>();
         public OptionsViewModel OptionsInstance => ServiceLocator.Current.GetInstance<OptionsViewModel>();
         public JungleViewModel JungleInstance => ServiceLocator.Current.GetInstance<JungleViewModel>();
         public ActionViewModel ActionInstance => ServiceLocator.Current.GetInstance<ActionViewModel>();

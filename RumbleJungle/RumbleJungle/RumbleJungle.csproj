@@ -96,7 +96,6 @@
     <Compile Include="Model\Weapon.cs" />
     <Compile Include="Model\WeaponModel.cs" />
     <Compile Include="ViewModel\ActionViewModel.cs" />
-    <Compile Include="ViewModel\IngameMenuViewModel.cs" />
     <Compile Include="ViewModel\JungleObjectStatusViewModel.cs" />
     <Compile Include="ViewModel\JungleViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -107,9 +106,6 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\JungleObjectViewModel.cs" />
     <Compile Include="ViewModel\WeaponViewModel.cs" />
-    <Compile Include="View\IngameMenuView.xaml.cs">
-      <DependentUpon>IngameMenuView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\OptionsView.xaml.cs">
       <DependentUpon>OptionsView.xaml</DependentUpon>
     </Compile>
@@ -122,10 +118,6 @@
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\IngameMenuView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\JungleView.xaml">
       <SubType>Designer</SubType>
@@ -246,18 +238,42 @@
     <Content Include="Sounds\Camp.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\Dagger.wav" />
-    <Content Include="Sounds\Elixir.wav" />
-    <Content Include="Sounds\ForgottenCity.wav" />
-    <Content Include="Sounds\Hydra.wav" />
-    <Content Include="Sounds\LostWeapon.wav" />
-    <Content Include="Sounds\MagnifyingGlass.wav" />
-    <Content Include="Sounds\Minotaur.wav" />
-    <Content Include="Sounds\Natives.wav" />
-    <Content Include="Sounds\Snakes.wav" />
-    <Content Include="Sounds\Talisman.wav" />
-    <Content Include="Sounds\Tent.wav" />
-    <Content Include="Sounds\Trap.wav" />
+    <Content Include="Sounds\Dagger.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Elixir.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\ForgottenCity.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Hydra.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\LostWeapon.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\MagnifyingGlass.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Minotaur.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Natives.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Snakes.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Talisman.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Tent.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Trap.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\WildPig.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

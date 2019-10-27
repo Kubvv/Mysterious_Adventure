@@ -9,5 +9,6 @@ namespace RumbleJungle.ViewModel
 {
     public class OptionsViewModel : ViewModelBase
     {
+        // TODO: options
     }
 }
