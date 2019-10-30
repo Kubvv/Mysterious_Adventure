@@ -6,13 +6,15 @@ namespace RumbleJungle.Model
 {
     public class Rambler : LivingJungleObject
     {
-        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
-
         public double Strength { get; private set; } = 1;
 
         public bool Visible { get; private set; }
 
         public Rambler() : base(JungleObjectTypes.Rambler)
+        {
+        }
+
+        public new void Reset()
         {
             ChangeHealth(Configuration.DebugMode ? 50 : 100);
             SetVisible(true);
@@ -24,6 +26,7 @@ namespace RumbleJungle.Model
         {
             base.SetCoordinates(point);
             Moved?.Invoke(this, null);
+            JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
             JungleObject jungleObject = jungleModel.GetJungleObjectAt(point);
             jungleObject.SetStatus(Statuses.Visited);
         }

@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
 using System.Collections.ObjectModel;
 
@@ -7,17 +6,17 @@ namespace RumbleJungle.ViewModel
 {
     public class StatusBarViewModel : ViewModelBase
     {
-        private readonly WeaponModel weaponModel = ServiceLocator.Current.GetInstance<WeaponModel>();
-        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
-
-        public RamblerViewModel Rambler { get; } = ServiceLocator.Current.GetInstance<RamblerViewModel>();
-        public TreasureViewModel Treasure { get; } = ServiceLocator.Current.GetInstance<TreasureViewModel>();
+        public RamblerViewModel Rambler { get; private set; }
+        public TreasureViewModel Treasure { get; private set; }
         public ObservableCollection<WeaponViewModel> Weapons { get; private set; } = new ObservableCollection<WeaponViewModel>();
         public ObservableCollection<JungleObjectStatusViewModel> Beasts { get; private set; } = new ObservableCollection<JungleObjectStatusViewModel>();
         public ObservableCollection<JungleObjectStatusViewModel> Items { get; private set; } = new ObservableCollection<JungleObjectStatusViewModel>();
 
-        public StatusBarViewModel()
+        public StatusBarViewModel(JungleModel jungleModel, WeaponModel weaponModel, RamblerViewModel ramblerViewModel, TreasureViewModel treasureViewModel)
         {
+            Rambler = ramblerViewModel;
+            Treasure = treasureViewModel;
+
             foreach (Weapon weapon in weaponModel.Weapons)
             {
                 Weapons.Add(new WeaponViewModel(weapon));
@@ -26,11 +25,11 @@ namespace RumbleJungle.ViewModel
             {
                 Beasts.Add(new JungleObjectStatusViewModel(beast));
             }
-            foreach (JungleObject item in jungleModel.GetJungleObjects(Configuration.HiddenItems))
+            foreach (JungleObject item in jungleModel.GetJungleObjects(Configuration.VisibleItems))
             {
                 Items.Add(new JungleObjectStatusViewModel(item));
             }
-            foreach (JungleObject item in jungleModel.GetJungleObjects(Configuration.VisibleItems))
+            foreach (JungleObject item in jungleModel.GetJungleObjects(Configuration.HiddenItems))
             {
                 Items.Add(new JungleObjectStatusViewModel(item));
             }

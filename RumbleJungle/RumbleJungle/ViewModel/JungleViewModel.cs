@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
 using System;
 using System.Collections.ObjectModel;
@@ -8,11 +7,7 @@ namespace RumbleJungle.ViewModel
 {
     public class JungleViewModel : ViewModelBase
     {
-        private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
-        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
-
-        public int JungleHeight => Configuration.JungleHeight;
-        public int JungleWidth => Configuration.JungleWidth;
+        private double cellWidth, cellHeight;
 
         private double canvasWidth;
         public double CanvasWidth
@@ -21,36 +16,21 @@ namespace RumbleJungle.ViewModel
             set
             {
                 Set(ref canvasWidth, value);
-                CellWidth = Math.Floor(value / Configuration.JungleWidth);
+                cellWidth = Math.Floor(value / Configuration.JungleWidth);
                 UpdateJungle();
             }
         }
 
         private double canvasHeight;
-
         public double CanvasHeight
         {
             get => canvasHeight;
             set
             {
                 Set(ref canvasHeight, value);
-                CellHeight = Math.Floor(value / Configuration.JungleHeight);
+                cellHeight = Math.Floor(value / Configuration.JungleHeight);
                 UpdateJungle();
             }
-        }
-
-        private double cellWidth;
-        public double CellWidth
-        {
-            get => cellWidth;
-            set => Set(ref cellWidth, value);
-        }
-
-        private double cellHeight;
-        public double CellHeight
-        {
-            get => cellHeight;
-            set => Set(ref cellHeight, value);
         }
 
         private ObservableCollection<JungleObjectViewModel> jungleObjectsViewModel = new ObservableCollection<JungleObjectViewModel>();
@@ -62,9 +42,9 @@ namespace RumbleJungle.ViewModel
 
         public RamblerViewModel RamblerViewModel { get; private set; }
 
-        public void StartGame()
+        public JungleViewModel(JungleModel jungleModel, RamblerViewModel ramblerViewModel)
         {
-            RamblerViewModel = ServiceLocator.Current.GetInstance<RamblerViewModel>();
+            RamblerViewModel = ramblerViewModel;
             foreach (JungleObject jungleObject in jungleModel.Jungle)
             {
                 JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
@@ -75,9 +55,9 @@ namespace RumbleJungle.ViewModel
         {
             foreach (JungleObjectViewModel jungleObjectViewModel in jungleObjectsViewModel)
             {
-                jungleObjectViewModel.Update();
+                jungleObjectViewModel.SetSize(cellWidth, cellHeight);
             }
-            RamblerViewModel.Update();
+            RamblerViewModel.SetSize(cellWidth, cellHeight);
         }
     }
 }

@@ -1,4 +1,3 @@
-using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
@@ -9,11 +8,11 @@ namespace RumbleJungle.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
-        private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
+        private readonly GameModel gameModel;
 
-        public MainViewModel()
+        public MainViewModel(GameModel gameModel)
         {
+            this.gameModel = gameModel;
         }
 
         private RelayCommand startNewGame;
@@ -22,7 +21,6 @@ namespace RumbleJungle.ViewModel
         private void ExecuteStartNewGame()
         {
             gameModel.StartGame();
-            jungleViewModel.StartGame();
             JungleView jungleView = new JungleView();
             jungleView.ShowDialog();
         }

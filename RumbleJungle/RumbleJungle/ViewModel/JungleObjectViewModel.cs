@@ -10,8 +10,6 @@ namespace RumbleJungle.ViewModel
     public class JungleObjectViewModel : ViewModelBase
     {
         private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
-        private readonly WeaponModel weaponModel = ServiceLocator.Current.GetInstance<WeaponModel>();
-        private readonly JungleViewModel jungleViewModel = ServiceLocator.Current.GetInstance<JungleViewModel>();
         private readonly ActionViewModel actionViewModel = ServiceLocator.Current.GetInstance<ActionViewModel>();
 
         private JungleObject jungleObject;
@@ -31,45 +29,29 @@ namespace RumbleJungle.ViewModel
         {
             get
             {
-                margin.Left = jungleObject.Coordinates.X * jungleViewModel.CellWidth;
-                margin.Top = jungleObject.Coordinates.Y * jungleViewModel.CellHeight;
+                margin.Left = jungleObject.Coordinates.X * Width;
+                margin.Top = jungleObject.Coordinates.Y * Height;
                 return margin;
             }
         }
 
-        public double Width => jungleViewModel.CellWidth;
-        public double Height => jungleViewModel.CellHeight;
+        public double Width { get; private set; }
+        public double Height { get; private set; }
 
         private RelayCommand moveRamblerCommand;
         public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => gameModel.MoveRamblerTo(jungleObject.Coordinates)));
 
         private RelayCommand addStrenghtCommand;
-        public RelayCommand AddStrenghtCommand => addStrenghtCommand ?? (addStrenghtCommand = new RelayCommand(() =>
-        {
-            gameModel.Rambler.SetStrength(1.3);
-            gameModel.Rambler.SetCoordinates(jungleObject.Coordinates);
-        }));
+        public RelayCommand AddStrenghtCommand => addStrenghtCommand ?? (addStrenghtCommand = new RelayCommand(() => gameModel.CampBonus(CampBonuses.Strenght)));
 
         private RelayCommand checkAdjacentCommand;
-        public RelayCommand CheckAdjacentCommand => checkAdjacentCommand ?? (checkAdjacentCommand = new RelayCommand(() =>
-        {
-            jungleObject.CheckAdjacent();
-            gameModel.Rambler.SetCoordinates(jungleObject.Coordinates);
-        }));
+        public RelayCommand CheckAdjacentCommand => checkAdjacentCommand ?? (checkAdjacentCommand = new RelayCommand(() => gameModel.CampBonus(CampBonuses.Adjacency)));
 
         private RelayCommand addHealthCommand;
-        public RelayCommand AddHealthCommand => addHealthCommand ?? (addHealthCommand = new RelayCommand(() =>
-        {
-            gameModel.Rambler.ChangeHealth(15);
-            gameModel.Rambler.SetCoordinates(jungleObject.Coordinates);
-        }));
+        public RelayCommand AddHealthCommand => addHealthCommand ?? (addHealthCommand = new RelayCommand(() => gameModel.CampBonus(CampBonuses.Health)));
 
         private RelayCommand addDoubleAttackCommand;
-        public RelayCommand AddDoubleAttackCommand => addDoubleAttackCommand ?? (addDoubleAttackCommand = new RelayCommand(() =>
-        {
-            weaponModel.SetDoubleAttack();
-            gameModel.Rambler.SetCoordinates(jungleObject.Coordinates);
-        }));
+        public RelayCommand AddDoubleAttackCommand => addDoubleAttackCommand ?? (addDoubleAttackCommand = new RelayCommand(() => gameModel.CampBonus(CampBonuses.DoubleAttack)));
 
         public JungleObjectViewModel(JungleObject jungleObject)
         {
@@ -78,6 +60,13 @@ namespace RumbleJungle.ViewModel
             jungleObject.StatusChanged += StatusChanged;
             if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged += HealthChanged;
             gameModel.MagnifyingGlassModeChanged += MagnifyingGlassModeChanged;
+        }
+
+        public void SetSize(double width, double height)
+        {
+            Width = width;
+            Height = height;
+            Update();
         }
 
         public virtual void Update()

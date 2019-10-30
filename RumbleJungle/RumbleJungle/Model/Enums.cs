@@ -56,4 +56,12 @@ namespace RumbleJungle.Model
         Marked = 32,
         NotVisited = Hidden | Shown | Visible | Pointed | Marked
     }
+
+    public enum CampBonuses
+    {
+        Strenght,
+        Health,
+        Adjacency,
+        DoubleAttack
+    }
 }

@@ -9,22 +9,17 @@ namespace RumbleJungle.Model
     {
         public List<JungleObject> Jungle { get; private set; } = new List<JungleObject>();
 
-        /// <summary>
-        /// Puts jungle objects at random positions
-        /// </summary>
-        public void GenerateJungle()
+        public JungleModel()
         {
             Configuration.Read();
-            Random random = new Random();
 
-            Jungle.Clear();
             // wstawienie wszystkich obiektów
             foreach (JungleObjectTypes jungleObjectType in Enum.GetValues(typeof(JungleObjectTypes)))
             {
                 if (jungleObjectType == JungleObjectTypes.DenseJungle)
                 {
                     // liczba pól dla gęstej dżungli jest losowa
-                    int denseJungleCount = random.Next(Configuration.JungleObjectsCount[JungleObjectTypes.DenseJungle]) + 1;
+                    int denseJungleCount = Configuration.Random.Next(Configuration.JungleObjectsCount[JungleObjectTypes.DenseJungle]) + 1;
                     for (int i = 0; i < denseJungleCount; i++)
                     {
                         Jungle.Add(new JungleObject(JungleObjectTypes.DenseJungle));
@@ -55,6 +50,15 @@ namespace RumbleJungle.Model
             {
                 Jungle.Add(new JungleObject(JungleObjectTypes.EmptyField));
             }
+        }
+
+        /// <summary>
+        /// Puts jungle objects at random positions
+        /// </summary>
+        public void GenerateJungle()
+        {
+            // TODO: przebudowa dżungli po wylosowaniu liczby gęstwin
+            // TODO: przebudowa dżungli po zmianie wymiarów
 
             // wygenerowanie wszystkich możliwych pozycji
             List<Point> coordinates = new List<Point>();
@@ -69,7 +73,8 @@ namespace RumbleJungle.Model
             // wylosowanie pozycji każdego obiektu w dżungli
             foreach (JungleObject jungleObject in Jungle)
             {
-                int coordinate = random.Next(coordinates.Count);
+                jungleObject.Reset();
+                int coordinate = Configuration.Random.Next(coordinates.Count);
                 jungleObject.SetCoordinates(coordinates[coordinate]);
                 coordinates.RemoveAt(coordinate);
             }
@@ -167,16 +172,6 @@ namespace RumbleJungle.Model
         }
 
         /// <summary>
-        /// Places rambler on random empty field in the jungle
-        /// </summary>
-        /// <param name="rambler">The rambler</param>
-        internal void ReleaseRambler(Rambler rambler)
-        {
-            JungleObject emptyField = GetRandomJungleObject(JungleObjectTypes.EmptyField);
-            rambler.SetCoordinates(emptyField.Coordinates);
-        }
-
-        /// <summary>
         /// Finds random unvisited jungle object of given type
         /// </summary>
         /// <param name="jungleObjectType">Type of the searched jungle object</param>
@@ -187,8 +182,7 @@ namespace RumbleJungle.Model
             int jungleObjectCount = CountOf(jungleObjectType);
             if (jungleObjectCount > 0)
             {
-                Random random = new Random();
-                int randomJungleObject = random.Next(jungleObjectCount) + 1;
+                int randomJungleObject = Configuration.Random.Next(jungleObjectCount) + 1;
                 int counter = 0;
                 foreach (JungleObject jungleObject in Jungle)
                 {

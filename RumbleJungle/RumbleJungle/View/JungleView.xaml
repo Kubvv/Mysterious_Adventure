@@ -52,8 +52,8 @@
                 Margin="{Binding RamblerViewModel.Margin, Mode=OneWay}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Width="{Binding RamblerViewModel.CellWidth}"
-                Height="{Binding RamblerViewModel.CellHeight}"
+                Width="{Binding RamblerViewModel.Width}"
+                Height="{Binding RamblerViewModel.Height}"
                 Visibility="{Binding RamblerViewModel.Visible, Converter={StaticResource BoolToVisibilityConverter}}">
             <svg:SVGImage Source="{Binding RamblerViewModel.Shape, Mode=OneWay}"
                           Margin="10"

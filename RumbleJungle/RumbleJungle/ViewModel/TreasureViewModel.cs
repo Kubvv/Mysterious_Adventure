@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace RumbleJungle.ViewModel
 {
     public class TreasureViewModel : ViewModelBase
     {
-        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
+        private readonly JungleModel jungleModel;
 
         public string Name { get; private set; }
         public string Shape => $"/RumbleJungle;component/Images/{Name}.svg";
@@ -17,8 +16,10 @@ namespace RumbleJungle.ViewModel
         public int Total => Configuration.JungleObjectsCount[JungleObjectTypes.Treasure];
         public int Found => Total - Count;
 
-        public TreasureViewModel()
+        public TreasureViewModel(JungleModel jungleModel)
         {
+            this.jungleModel = jungleModel;
+
             List<JungleObject> treasures = jungleModel.GetJungleObjects(JungleObjectTypes.Treasure);
             Name = treasures.First().Name;
             foreach (JungleObject treasure in treasures)
