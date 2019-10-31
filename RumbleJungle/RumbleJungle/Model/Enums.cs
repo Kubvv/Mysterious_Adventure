@@ -2,7 +2,7 @@
 
 namespace RumbleJungle.Model
 {
-    public enum JungleObjectTypes
+    public enum JungleObjectType
     {
         Rambler,
 
@@ -34,7 +34,7 @@ namespace RumbleJungle.Model
         DenseJungle
     }
 
-    public enum WeaponTypes
+    public enum WeaponType
     {
         Dagger,
         Torch,
@@ -57,7 +57,10 @@ namespace RumbleJungle.Model
         NotVisited = Hidden | Shown | Visible | Pointed | Marked
     }
 
-    public enum CampBonuses
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming",
+        "CA1717:Tylko wyliczenia z atrybutem FlagsAttribute powinny mieć nazwy w liczbie mnogiej",
+        Justification = "Mylnie zidentyfikowana liczba mnoga")]
+    public enum CampBonus
     {
         Strenght,
         Health,

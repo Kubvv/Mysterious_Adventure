@@ -10,13 +10,13 @@ namespace RumbleJungle.Model
 
         public bool Visible { get; private set; }
 
-        public Rambler() : base(JungleObjectTypes.Rambler)
+        public Rambler() : base(JungleObjectType.Rambler)
         {
         }
 
         public new void Reset()
         {
-            ChangeHealth(Configuration.DebugMode ? 50 : 100);
+            SetHealth(Config.DebugMode ? 50 : 100);
             SetVisible(true);
         }
 

@@ -2,9 +2,17 @@
 {
     public class Beast : LivingJungleObject
     {
-        public Beast(JungleObjectTypes beastType) : base(beastType)
+        private readonly JungleObjectType beastType;
+
+        public Beast(JungleObjectType beastType) : base(beastType)
         {
-            ChangeHealth(Configuration.BeastsInitialHealth[beastType].RandomValue);
+            this.beastType = beastType;
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
+            SetHealth(Config.BeastsInitialHealth[beastType].RandomValue);
         }
     }
 }

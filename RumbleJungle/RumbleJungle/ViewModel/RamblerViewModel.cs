@@ -25,17 +25,17 @@ namespace RumbleJungle.ViewModel
         }
         private void RamblerHealthChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("Health");
+            RaisePropertyChanged(nameof(Health));
         }
 
         private void RamblerStrengthChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("Strength");
+            RaisePropertyChanged(nameof(Strength));
         }
 
         private void RamblerVisibleChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("Visible");
+            RaisePropertyChanged(nameof(Visible));
         }
     }
 }

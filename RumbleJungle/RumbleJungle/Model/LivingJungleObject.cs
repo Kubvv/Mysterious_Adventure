@@ -6,9 +6,8 @@ namespace RumbleJungle.Model
     {
         public int Health { get; private set; }
 
-        public LivingJungleObject(JungleObjectTypes livingJungleObjectType) : base(livingJungleObjectType)
+        public LivingJungleObject(JungleObjectType livingJungleObjectType) : base(livingJungleObjectType)
         {
-            Health = 0;
         }
 
         public event EventHandler HealthChanged;
@@ -24,6 +23,12 @@ namespace RumbleJungle.Model
             {
                 Health = 0;
             }
+            HealthChanged?.Invoke(this, null);
+        }
+
+        public void SetHealth(int health)
+        {
+            Health = health;
             HealthChanged?.Invoke(this, null);
         }
     }

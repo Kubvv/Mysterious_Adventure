@@ -26,7 +26,7 @@ namespace RumbleJungle.ViewModel
                 Set(ref actionVisibility, value);
                 if (value == Visibility.Visible)
                 {
-                    RaisePropertyChanged("CurrentJungleObject");
+                    RaisePropertyChanged(nameof(CurrentJungleObject));
                 }
             }
         }

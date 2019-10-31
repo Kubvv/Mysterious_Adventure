@@ -18,15 +18,18 @@ namespace RumbleJungle.ViewModel
         public JungleObjectStatusViewModel(JungleObject firstJungleObject)
         {
             this.jungleObject = firstJungleObject;
-            foreach (JungleObject jungleObject in jungleModel.GetJungleObjects(firstJungleObject.JungleObjectType))
+            if (firstJungleObject != null)
             {
-                jungleObject.StatusChanged += StatusChanged;
+                foreach (JungleObject jungleObject in jungleModel.GetJungleObjects(firstJungleObject.JungleObjectType))
+                {
+                    jungleObject.StatusChanged += StatusChanged;
+                }
             }
         }
 
         private void StatusChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("Count");
+            RaisePropertyChanged(nameof(Count));
         }
     }
 }

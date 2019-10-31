@@ -58,14 +58,49 @@ namespace RumbleJungle.ViewModel
             SimpleIoc.Default.Register<TreasureViewModel>();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
         public MainViewModel MainInstance => ServiceLocator.Current.GetInstance<MainViewModel>();
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
         public OptionsViewModel OptionsInstance => ServiceLocator.Current.GetInstance<OptionsViewModel>();
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
         public JungleViewModel JungleInstance => ServiceLocator.Current.GetInstance<JungleViewModel>();
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
         public ActionViewModel ActionInstance => ServiceLocator.Current.GetInstance<ActionViewModel>();
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
         public JungleObjectViewModel JungleObjectInstance => ServiceLocator.Current.GetInstance<JungleObjectViewModel>();
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
         public StatusBarViewModel StatusBarInstance => ServiceLocator.Current.GetInstance<StatusBarViewModel>();
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
         public WeaponViewModel WeaponInstance => ServiceLocator.Current.GetInstance<WeaponViewModel>();
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
         public RamblerViewModel RamblerInstance => ServiceLocator.Current.GetInstance<RamblerViewModel>();
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
         public TreasureViewModel TreasureInstance => ServiceLocator.Current.GetInstance<TreasureViewModel>();
 
         public static void Cleanup()

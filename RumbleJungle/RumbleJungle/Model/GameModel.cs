@@ -61,11 +61,12 @@ namespace RumbleJungle.Model
 
         public void StartGame()
         {
-            jungleModel.GenerateJungle();
             weaponModel.CollectWeapon();
-            // reset rambler and place him on a random empty field in the jungle
+            jungleModel.GenerateJungle();
             Rambler.Reset();
-            Rambler.SetCoordinates(jungleModel.GetRandomJungleObject(JungleObjectTypes.EmptyField).Coordinates);
+            // place rambler on a random empty field in the jungle
+            Rambler.SetCoordinates(jungleModel.GetRandomJungleObject(JungleObjectType.EmptyField).Coordinates);
+            
             inGame = true;
             isMagnifyingGlassMode = false;
             isForgottenCityMode = false;
@@ -78,7 +79,7 @@ namespace RumbleJungle.Model
             if (IsMagnifyingGlassMode)
             {
                 JungleObject pointedObject = jungleModel.GetJungleObjectAt(point);
-                List<Point> pointNeighbours = jungleModel.FindNeighboursTo(pointedObject.Coordinates, 1).ToList();
+                List<Point> pointNeighbours = JungleModel.FindNeighboursTo(pointedObject.Coordinates, 1).ToList();
                 jungleModel.SetPointedAt(pointNeighbours);
                 Rambler.SetCoordinates(CurrentJungleObject.Coordinates);
                 IsMagnifyingGlassMode = false;
@@ -87,16 +88,16 @@ namespace RumbleJungle.Model
             {
                 CurrentJungleObject = jungleModel.GetJungleObjectAt(point);
                 if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1
-                    && CurrentJungleObject.JungleObjectType != JungleObjectTypes.DenseJungle)
+                    && CurrentJungleObject.JungleObjectType != JungleObjectType.DenseJungle)
                 {
-                    if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.EmptyField ||
+                    if (CurrentJungleObject.JungleObjectType == JungleObjectType.EmptyField ||
                         CurrentJungleObject.Status == Statuses.Visited)
                     {
                         Rambler.SetCoordinates(point);
                     }
                     else
                     {
-                        if (!Configuration.Beasts.Contains(CurrentJungleObject.JungleObjectType))
+                        if (!Config.Beasts.Contains(CurrentJungleObject.JungleObjectType))
                         {
                             PlaySound(CurrentJungleObject.Name);
                         }
@@ -131,7 +132,7 @@ namespace RumbleJungle.Model
                 canHit = false;
                 bool canDoubleAttack = weapon.DoubleAttack && weapon.Count > 1;
                 PlaySound(weapon.Name);
-                beast.ChangeHealth((int)Math.Round(-Configuration.WeaponStrenght[new Tuple<WeaponTypes, JungleObjectTypes>(weapon.WeaponType, beast.JungleObjectType)].RandomValue * 
+                beast.ChangeHealth((int)Math.Round(-Config.WeaponStrenght[new Tuple<WeaponType, JungleObjectType>(weapon.WeaponType, beast.JungleObjectType)].RandomValue * 
                     Rambler.Strength * (canDoubleAttack ? 2 : 1)));
                 weapon.ChangeCount(canDoubleAttack ? -2 : -1);
                 weapon.SetDoubleAttack(false);
@@ -142,10 +143,10 @@ namespace RumbleJungle.Model
         private void ActionTimerTick(object sender, EventArgs e)
         {
             actionTimer.Stop();
-            if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.ForgottenCity)
+            if (CurrentJungleObject.JungleObjectType == JungleObjectType.ForgottenCity)
             {
                 forgottenCity = CurrentJungleObject;
-                CurrentJungleObject = new Beast(Configuration.Beasts[Configuration.Random.Next(Configuration.Beasts.Count)]);
+                CurrentJungleObject = new Beast(Config.Beasts[Config.Random.Next(Config.Beasts.Count)]);
                 IsForgottenCityMode = true;
                 forgottenCityBeastCount = 2;
             }
@@ -158,7 +159,7 @@ namespace RumbleJungle.Model
                     forgottenCityBeastCount--;
                     if (forgottenCityBeastCount > 0)
                     {
-                        CurrentJungleObject = new Beast(Configuration.Beasts[Configuration.Random.Next(Configuration.Beasts.Count)]);
+                        CurrentJungleObject = new Beast(Config.Beasts[Config.Random.Next(Config.Beasts.Count)]);
                         beast = CurrentJungleObject as Beast;
                         ForgottenCityModeChanged?.Invoke(this, null);
                     }
@@ -187,7 +188,7 @@ namespace RumbleJungle.Model
             }
             else
             {
-                if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.MagnifyingGlass)
+                if (CurrentJungleObject.JungleObjectType == JungleObjectType.MagnifyingGlass)
                 {
                     CurrentJungleObject.SetStatus(Statuses.Visited);
                     IsMagnifyingGlassMode = true;
@@ -195,7 +196,7 @@ namespace RumbleJungle.Model
                 else
                 {
                     Point ramblerTarget = Action();
-                    if (CurrentJungleObject.JungleObjectType != JungleObjectTypes.Camp && Rambler.Health > 0)
+                    if (CurrentJungleObject.JungleObjectType != JungleObjectType.Camp && Rambler.Health > 0)
                     {
                         Rambler.SetCoordinates(CurrentJungleObject.Coordinates);
                         if (!ramblerTarget.Equals(CurrentJungleObject.Coordinates))
@@ -213,7 +214,7 @@ namespace RumbleJungle.Model
                 jungleModel.MarkHiddenObjects();
                 inGame = false;
             }
-            else if (jungleModel.CountOf(JungleObjectTypes.Treasure) == 0)
+            else if (jungleModel.CountOf(JungleObjectType.Treasure) == 0)
             {
                 // game over (success)
                 PlaySound("Success");
@@ -226,18 +227,18 @@ namespace RumbleJungle.Model
         {
             Point result = CurrentJungleObject.Coordinates;
 
-            if (Configuration.Beasts.Contains(CurrentJungleObject.JungleObjectType))
+            if (Config.Beasts.Contains(CurrentJungleObject.JungleObjectType))
             {
                 // Hit rambler
-                Rambler.ChangeHealth(-Configuration.BeastStrenght[CurrentJungleObject.JungleObjectType].RandomValue);
+                Rambler.ChangeHealth(-Config.BeastStrenght[CurrentJungleObject.JungleObjectType].RandomValue);
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.Elixir)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Elixir)
             {
                 // Increase health by 25%-35%
-                int healthAdded = Configuration.Random.Next(11) + 25;
+                int healthAdded = Config.Random.Next(11) + 25;
                 Rambler.ChangeHealth(healthAdded);
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.Compass)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Compass)
             {
                 // Point all monsters in a 5x5 square around the compass
                 Point point = new Point(CurrentJungleObject.Coordinates.X - 2, CurrentJungleObject.Coordinates.Y - 2);
@@ -251,34 +252,34 @@ namespace RumbleJungle.Model
                     }
                 }
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.Map)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Map)
             {
                 // point nearest treasure
-                JungleObject treasure = jungleModel.FindNearestTo(CurrentJungleObject.Coordinates, JungleObjectTypes.Treasure, Statuses.NotVisited);
+                JungleObject treasure = jungleModel.FindNearestTo(CurrentJungleObject.Coordinates, JungleObjectType.Treasure, Statuses.NotVisited);
                 if (treasure != null)
                 {
                     treasure.SetStatus(Statuses.Pointed);
                 }
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.Talisman)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Talisman)
             {
                 // mark nearest hydra
-                JungleObject hydra = jungleModel.FindNearestTo(CurrentJungleObject.Coordinates, JungleObjectTypes.Hydra, Statuses.NotVisited);
+                JungleObject hydra = jungleModel.FindNearestTo(CurrentJungleObject.Coordinates, JungleObjectType.Hydra, Statuses.NotVisited);
                 if (hydra != null)
                 {
                     hydra.SetStatus(Statuses.Marked);
                 }
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.LostWeapon)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.LostWeapon)
             {
                 // add random weapon
                 weaponModel.ChangeRandomWeaponCount(1);
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.Camp)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Camp)
             {
                 // add all weapons and 25-35% health
                 weaponModel.ChangeAllWeaponsCount(1);
-                int healthAdded = Configuration.Random.Next(6) + 40;
+                int healthAdded = Config.Random.Next(6) + 40;
                 Rambler.ChangeHealth(healthAdded);
                 // choose one option:
                 //  30% more strength in next battle
@@ -286,15 +287,15 @@ namespace RumbleJungle.Model
                 //  additional 15% health
                 //  double attack with random weapon
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.Tent)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Tent)
             {
                 // add all weapons and 25-35% health
                 weaponModel.ChangeAllWeaponsCount(1);
-                int healthAdded = Configuration.Random.Next(6) + 35;
+                int healthAdded = Config.Random.Next(6) + 35;
                 Rambler.ChangeHealth(healthAdded);
 
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.ForgottenCity)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.ForgottenCity)
             {
                 // after fight with two random beasts, one after another
                 // give random weapon and two treasures pointed as a reward
@@ -303,41 +304,41 @@ namespace RumbleJungle.Model
                 weaponModel.ChangeRandomWeaponCount(1);
 
                 // point first treasure
-                JungleObject treasure = jungleModel.FindNearestTo(CurrentJungleObject.Coordinates, JungleObjectTypes.Treasure, Statuses.Hidden);
+                JungleObject treasure = jungleModel.FindNearestTo(CurrentJungleObject.Coordinates, JungleObjectType.Treasure, Statuses.Hidden);
                 if (treasure != null)
                 {
                     treasure.SetStatus(Statuses.Pointed);
                     // point second treasure
-                    treasure = jungleModel.FindNearestTo(CurrentJungleObject.Coordinates, JungleObjectTypes.Treasure, Statuses.Hidden);
+                    treasure = jungleModel.FindNearestTo(CurrentJungleObject.Coordinates, JungleObjectType.Treasure, Statuses.Hidden);
                     if (treasure != null)
                     {
                         treasure.SetStatus(Statuses.Pointed);
                     }
                 }
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.Natives)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Natives)
             {
                 // if rambler has some treasure
                 // return one treasure to random empty field in the jungle
-                if (jungleModel.CountOf(JungleObjectTypes.Treasure) < Configuration.JungleObjectsCount[JungleObjectTypes.Treasure])
+                if (jungleModel.CountOf(JungleObjectType.Treasure) < Config.JungleObjectsCount[JungleObjectType.Treasure])
                 {
-                    JungleObject emptyField = jungleModel.GetRandomJungleObject(JungleObjectTypes.EmptyField);
+                    JungleObject emptyField = jungleModel.GetRandomJungleObject(JungleObjectType.EmptyField);
                     if (emptyField != null)
                     {
-                        emptyField.ChangeTypeTo(JungleObjectTypes.Treasure);
+                        emptyField.ChangeTypeTo(JungleObjectType.Treasure);
                     }
                 }
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.Trap)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Trap)
             {
                 // decrease health by 25%-35%
-                int healthSubtracted = Configuration.Random.Next(11) + 25;
+                int healthSubtracted = Config.Random.Next(11) + 25;
                 Rambler.ChangeHealth(-healthSubtracted);
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.Quicksand)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Quicksand)
             {
                 // jump to random hidden empty field
-                JungleObject emptyField = jungleModel.GetRandomJungleObject(JungleObjectTypes.EmptyField);
+                JungleObject emptyField = jungleModel.GetRandomJungleObject(JungleObjectType.EmptyField);
                 if (emptyField != null)
                 {
                     result = emptyField.Coordinates;
@@ -345,27 +346,27 @@ namespace RumbleJungle.Model
                 // decrease health by 10
                 Rambler.ChangeHealth(-10);
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectTypes.Treasure)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Treasure)
             {
                 // do nothing
             }
             return result;
         }
 
-        internal void CampBonus(CampBonuses bonus)
+        internal void CampBonus(CampBonus bonus)
         {
             switch (bonus)
             {
-                case CampBonuses.Strenght:
+                case Model.CampBonus.Strenght:
                     Rambler.SetStrength(1.3);
                     break;
-                case CampBonuses.Health:
+                case Model.CampBonus.Health:
                     Rambler.ChangeHealth(15);
                     break;
-                case CampBonuses.Adjacency:
+                case Model.CampBonus.Adjacency:
                     CheckAdjacent(CurrentJungleObject);
                     break;
-                case CampBonuses.DoubleAttack:
+                case Model.CampBonus.DoubleAttack:
                     weaponModel.SetDoubleAttack();
                     break;
             }

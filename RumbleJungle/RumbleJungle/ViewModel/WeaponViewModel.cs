@@ -29,13 +29,13 @@ namespace RumbleJungle.ViewModel
 
         private void CountChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("Count");
+            RaisePropertyChanged(nameof(Count));
             HitBeastCommand.RaiseCanExecuteChanged();
         }
 
         private void DoubleAttackChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("DoubleAttack");
+            RaisePropertyChanged(nameof(DoubleAttack));
         }
     }
 }

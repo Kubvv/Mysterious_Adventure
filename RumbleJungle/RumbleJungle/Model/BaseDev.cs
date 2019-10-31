@@ -11,6 +11,6 @@
             this.deviation = deviation;
         }
 
-        public int RandomValue => baseValue + Configuration.Random.Next(deviation * 2 + 1) - deviation;
+        public int RandomValue => baseValue + Config.Random.Next(deviation * 2 + 1) - deviation;
     }
 }

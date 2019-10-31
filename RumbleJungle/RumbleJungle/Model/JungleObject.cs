@@ -5,7 +5,7 @@ namespace RumbleJungle.Model
 {
     public class JungleObject
     {
-        public JungleObjectTypes JungleObjectType { get; private set; }
+        public JungleObjectType JungleObjectType { get; private set; }
         public string Name { get; private set; }
         public Point Coordinates { get; private set; }
         public Statuses Status { get; private set; }
@@ -13,15 +13,15 @@ namespace RumbleJungle.Model
         public event EventHandler TypeChanged;
         public event EventHandler StatusChanged;
 
-        public JungleObject(JungleObjectTypes jungleObjectType)
+        public JungleObject(JungleObjectType jungleObjectType)
         {
             JungleObjectType = jungleObjectType;
-            Name = Enum.GetName(typeof(JungleObjectTypes), jungleObjectType);
+            Name = Enum.GetName(typeof(JungleObjectType), jungleObjectType);
         }
 
-        public void Reset()
+        public virtual void Reset()
         {
-            Status = Configuration.VisibleItems.Contains(JungleObjectType) || Configuration.DebugMode ? Statuses.Visible : Statuses.Hidden;
+            Status = Config.VisibleItems.Contains(JungleObjectType) || Config.DebugMode ? Statuses.Visible : Statuses.Hidden;
         }
 
         public virtual void SetCoordinates(Point point)
@@ -39,10 +39,10 @@ namespace RumbleJungle.Model
         /// Changes the type of the jungle object to given type
         /// </summary>
         /// <param name="jungleObjectType">New type of jungle object</param>
-        public void ChangeTypeTo(JungleObjectTypes jungleObjectType)
+        public void ChangeTypeTo(JungleObjectType jungleObjectType)
         {
             JungleObjectType = jungleObjectType;
-            Name = Enum.GetName(typeof(JungleObjectTypes), jungleObjectType);
+            Name = Enum.GetName(typeof(JungleObjectType), jungleObjectType);
             TypeChanged?.Invoke(this, null);
         }
     }

@@ -21,15 +21,15 @@ namespace RumbleJungle.ViewModel
             {
                 Weapons.Add(new WeaponViewModel(weapon));
             }
-            foreach (JungleObject beast in jungleModel.GetJungleObjects(Configuration.Beasts))
+            foreach (JungleObject beast in jungleModel.GetJungleObjects(Config.Beasts))
             {
                 Beasts.Add(new JungleObjectStatusViewModel(beast));
             }
-            foreach (JungleObject item in jungleModel.GetJungleObjects(Configuration.VisibleItems))
+            foreach (JungleObject item in jungleModel.GetJungleObjects(Config.VisibleItems))
             {
                 Items.Add(new JungleObjectStatusViewModel(item));
             }
-            foreach (JungleObject item in jungleModel.GetJungleObjects(Configuration.HiddenItems))
+            foreach (JungleObject item in jungleModel.GetJungleObjects(Config.HiddenItems))
             {
                 Items.Add(new JungleObjectStatusViewModel(item));
             }

@@ -2,12 +2,14 @@
 using RumbleJungle.Model;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
 
 namespace RumbleJungle.ViewModel
 {
     public class JungleViewModel : ViewModelBase
     {
         private double cellWidth, cellHeight;
+        private readonly DispatcherTimer updateTimer = new DispatcherTimer();
 
         private double canvasWidth;
         public double CanvasWidth
@@ -16,8 +18,9 @@ namespace RumbleJungle.ViewModel
             set
             {
                 Set(ref canvasWidth, value);
-                cellWidth = Math.Floor(value / Configuration.JungleWidth);
-                UpdateJungle();
+                cellWidth = Math.Floor(value / Config.JungleWidth);
+                updateTimer.Stop();
+                updateTimer.Start();
             }
         }
 
@@ -28,32 +31,35 @@ namespace RumbleJungle.ViewModel
             set
             {
                 Set(ref canvasHeight, value);
-                cellHeight = Math.Floor(value / Configuration.JungleHeight);
-                UpdateJungle();
+                cellHeight = Math.Floor(value / Config.JungleHeight);
+                updateTimer.Stop();
+                updateTimer.Start();
             }
         }
 
-        private ObservableCollection<JungleObjectViewModel> jungleObjectsViewModel = new ObservableCollection<JungleObjectViewModel>();
-        public ObservableCollection<JungleObjectViewModel> JungleObjectsViewModel
-        {
-            get => jungleObjectsViewModel;
-            set => Set(ref jungleObjectsViewModel, value);
-        }
+        public ObservableCollection<JungleObjectViewModel> JungleObjectsViewModel { get; } = new ObservableCollection<JungleObjectViewModel>();
 
         public RamblerViewModel RamblerViewModel { get; private set; }
 
         public JungleViewModel(JungleModel jungleModel, RamblerViewModel ramblerViewModel)
         {
             RamblerViewModel = ramblerViewModel;
-            foreach (JungleObject jungleObject in jungleModel.Jungle)
+            if (jungleModel != null)
             {
-                JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
+                foreach (JungleObject jungleObject in jungleModel.Jungle)
+                {
+                    JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
+                }
             }
+
+            updateTimer.Tick += UpdateTimerTick;
+            updateTimer.Interval = new TimeSpan(0, 0, 0, 0, 300);
         }
 
-        private void UpdateJungle()
+        private void UpdateTimerTick(object sender, EventArgs e)
         {
-            foreach (JungleObjectViewModel jungleObjectViewModel in jungleObjectsViewModel)
+            updateTimer.Stop();
+            foreach (JungleObjectViewModel jungleObjectViewModel in JungleObjectsViewModel)
             {
                 jungleObjectViewModel.SetSize(cellWidth, cellHeight);
             }
