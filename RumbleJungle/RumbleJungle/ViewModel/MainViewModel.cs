@@ -39,7 +39,7 @@ namespace RumbleJungle.ViewModel
         private RelayCommand loadGame;
         public RelayCommand LoadGame => loadGame ?? (loadGame = new RelayCommand(() => ExecuteLoadGame(), () => CanLoadGame));
 
-        private void ExecuteLoadGame()
+        private static void ExecuteLoadGame()
         {
             // TODO: load game
         }
@@ -58,7 +58,7 @@ namespace RumbleJungle.ViewModel
         private RelayCommand saveGame;
         public RelayCommand SaveGame => saveGame ?? (saveGame = new RelayCommand(() => ExecuteSaveGame(), () => CanSaveGame));
 
-        private void ExecuteSaveGame()
+        private static void ExecuteSaveGame()
         {
             // TODO: save game
         }
@@ -77,7 +77,7 @@ namespace RumbleJungle.ViewModel
         private RelayCommand openOptions;
         public RelayCommand OpenOptions => openOptions ?? (openOptions = new RelayCommand(() => ExecuteOpenOptions(), () => CanOpenOptions));
 
-        private void ExecuteOpenOptions()
+        private static void ExecuteOpenOptions()
         {
             OptionsView optionsView = new OptionsView();
             optionsView.ShowDialog();

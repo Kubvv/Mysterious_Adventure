@@ -17,21 +17,28 @@ namespace RumbleJungle.ViewModel
             Rambler = ramblerViewModel;
             Treasure = treasureViewModel;
 
-            foreach (Weapon weapon in weaponModel.Weapons)
+            if (weaponModel != null)
             {
-                Weapons.Add(new WeaponViewModel(weapon));
+                foreach (Weapon weapon in weaponModel.Weapons)
+                {
+                    Weapons.Add(new WeaponViewModel(weapon));
+                }
             }
-            foreach (JungleObject beast in jungleModel.GetJungleObjects(Config.Beasts))
+
+            if (jungleModel != null)
             {
-                Beasts.Add(new JungleObjectStatusViewModel(beast));
-            }
-            foreach (JungleObject item in jungleModel.GetJungleObjects(Config.VisibleItems))
-            {
-                Items.Add(new JungleObjectStatusViewModel(item));
-            }
-            foreach (JungleObject item in jungleModel.GetJungleObjects(Config.HiddenItems))
-            {
-                Items.Add(new JungleObjectStatusViewModel(item));
+                foreach (JungleObject beast in jungleModel.GetJungleObjects(Config.Beasts))
+                {
+                    Beasts.Add(new JungleObjectStatusViewModel(beast));
+                }
+                foreach (JungleObject item in jungleModel.GetJungleObjects(Config.VisibleItems))
+                {
+                    Items.Add(new JungleObjectStatusViewModel(item));
+                }
+                foreach (JungleObject item in jungleModel.GetJungleObjects(Config.HiddenItems))
+                {
+                    Items.Add(new JungleObjectStatusViewModel(item));
+                }
             }
         }
     }

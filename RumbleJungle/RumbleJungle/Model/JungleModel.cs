@@ -11,23 +11,15 @@ namespace RumbleJungle.Model
 
         public JungleModel()
         {
+            // TODO: przebudowa dżungli po zmianie wymiarów
             Config.Read();
 
             // wstawienie wszystkich obiektów
             foreach (JungleObjectType jungleObjectType in Enum.GetValues(typeof(JungleObjectType)))
             {
-                if (jungleObjectType == JungleObjectType.DenseJungle)
+                if (jungleObjectType == JungleObjectType.DenseJungle || jungleObjectType == JungleObjectType.EmptyField || jungleObjectType == JungleObjectType.Rambler)
                 {
-                    // liczba pól dla gęstej dżungli jest losowa
-                    int denseJungleCount = Config.Random.Next(Config.JungleObjectsCount[JungleObjectType.DenseJungle]) + 1;
-                    for (int i = 0; i < denseJungleCount; i++)
-                    {
-                        Jungle.Add(new JungleObject(JungleObjectType.DenseJungle));
-                    }
-                }
-                else if (jungleObjectType == JungleObjectType.EmptyField || jungleObjectType == JungleObjectType.Rambler)
-                {
-                    // puste pola i wędrowiec na końcu
+                    // gęstwina, puste pola i wędrowiec na końcu
                 }
                 else if (Config.Beasts.Contains(jungleObjectType))
                 {
@@ -57,8 +49,16 @@ namespace RumbleJungle.Model
         /// </summary>
         public void GenerateJungle()
         {
-            // TODO: przebudowa dżungli po wylosowaniu liczby gęstwin
-            // TODO: przebudowa dżungli po zmianie wymiarów
+            // convert all dense jungle to empty fields
+            GetJungleObjects(JungleObjectType.DenseJungle).ForEach(dj => dj.ChangeTypeTo(JungleObjectType.EmptyField));
+
+            // convert random amount of empty fields to dense jungle
+            int denseJungleCount = Config.Random.Next(Config.JungleObjectsCount[JungleObjectType.DenseJungle]) + 1;
+            List<JungleObject> emptyFields = GetJungleObjects(JungleObjectType.EmptyField);
+            for (int index = 0; index < denseJungleCount && index < emptyFields.Count; index++)
+            {
+                emptyFields[index].ChangeTypeTo(JungleObjectType.DenseJungle);
+            }
 
             // wygenerowanie wszystkich możliwych pozycji
             List<Point> coordinates = new List<Point>();

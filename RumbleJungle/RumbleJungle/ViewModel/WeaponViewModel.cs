@@ -20,8 +20,11 @@ namespace RumbleJungle.ViewModel
         public WeaponViewModel(Weapon weapon)
         {
             this.weapon = weapon;
-            weapon.CountChanged += CountChanged;
-            weapon.DoubleAttackChanged += DoubleAttackChanged;
+            if (weapon != null)
+            {
+                weapon.CountChanged += CountChanged;
+                weapon.DoubleAttackChanged += DoubleAttackChanged;
+            }
         }
 
         private RelayCommand hitBeastCommand;

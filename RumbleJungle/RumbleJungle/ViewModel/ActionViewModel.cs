@@ -34,7 +34,10 @@ namespace RumbleJungle.ViewModel
         public ActionViewModel(GameModel gameModel)
         {
             this.gameModel = gameModel;
-            this.gameModel.ForgottenCityModeChanged += ForgottenCityModeChanged;
+            if (gameModel != null)
+            {
+                gameModel.ForgottenCityModeChanged += ForgottenCityModeChanged;
+            }
         }
 
         private void ForgottenCityModeChanged(object sender, EventArgs e)

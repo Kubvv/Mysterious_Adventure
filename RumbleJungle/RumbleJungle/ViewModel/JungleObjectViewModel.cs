@@ -56,9 +56,12 @@ namespace RumbleJungle.ViewModel
         public JungleObjectViewModel(JungleObject jungleObject)
         {
             this.jungleObject = jungleObject;
-            jungleObject.TypeChanged += TypeChanged;
-            jungleObject.StatusChanged += StatusChanged;
-            if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged += HealthChanged;
+            if (jungleObject != null)
+            {
+                jungleObject.TypeChanged += TypeChanged;
+                jungleObject.StatusChanged += StatusChanged;
+                if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged += HealthChanged;
+            }
             gameModel.MagnifyingGlassModeChanged += MagnifyingGlassModeChanged;
         }
 

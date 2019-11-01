@@ -125,7 +125,7 @@ namespace RumbleJungle.Model
 
         public void HitBeastWith(Weapon weapon)
         {
-            if (!inGame || !canHit) return;
+            if (!inGame || !canHit || weapon == null) return;
 
             if (weapon.Count != 0 && CurrentJungleObject is Beast beast)
             {
