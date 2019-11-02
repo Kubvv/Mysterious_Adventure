@@ -12,6 +12,7 @@ namespace RumbleJungle.Model
 
         public Rambler() : base(JungleObjectType.Rambler)
         {
+            Reset();
         }
 
         public new void Reset()

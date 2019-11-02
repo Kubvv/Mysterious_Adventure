@@ -18,25 +18,15 @@
         </Grid.ColumnDefinitions>
         <!-- rambler -->
         <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
             <ProgressBar Value="{Binding Rambler.Health, Mode=OneWay}" />
-            <StackPanel Orientation="Horizontal"
-                        Grid.Row="1"
-                        HorizontalAlignment="Center">
-                <TextBlock Text="{Binding Rambler.Health, Mode=OneWay}"
-                           Foreground="Black"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Style="{DynamicResource ItemsCounterStyle}" />
-                <TextBlock Text="%"
-                           Foreground="Black"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Style="{DynamicResource ItemsCounterStyle}" />
-            </StackPanel>
+            <Viewbox Margin="-10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Rambler.Health, Mode=OneWay}"
+                               Style="{DynamicResource ItemsCounterStyle}" />
+                    <TextBlock Text="%"
+                               Style="{DynamicResource ItemsCounterStyle}" />
+                </StackPanel>
+            </Viewbox>
         </Grid>
         <!-- weapons -->
         <ItemsControl Grid.Column="1"
@@ -49,10 +39,10 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                        <Viewbox Margin="-10">
+                            <TextBlock Text="{Binding Count, Converter={StaticResource IntToWeaponCountConverter}}"
+                                       Style="{DynamicResource ItemsCounterStyle}" />
+                        </Viewbox>
                         <svg:SVGImage Source="{Binding Shape}"
                                       Margin="7,3,3,7"
                                       Visibility="{Binding DoubleAttack, Converter={StaticResource BoolToVisibilityConverter}}" />
@@ -65,13 +55,6 @@
                                 BorderBrush="#00000000"
                                 BorderThickness="2"
                                 Template="{DynamicResource StatusButtonTemplate}" />
-                        <TextBlock Text="{Binding Count, Converter={StaticResource IntToWeaponCountConverter}}"
-                                   Foreground="Black"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Grid.Row="1"
-                                   Margin="3"
-                                   Style="{DynamicResource ItemsCounterStyle}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -87,19 +70,14 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                        <Viewbox Margin="-10">
+                            <TextBlock Text="{Binding Count}"
+                                       Style="{DynamicResource ItemsCounterStyle}" />
+                        </Viewbox>
                         <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
                                       HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center" />
-                        <TextBlock Text="{Binding Count}"
-                                   Foreground="Black"
-                                   HorizontalAlignment="Center"
-                                   Grid.Row="1"
-                                   VerticalAlignment="Center"
-                                   Style="{DynamicResource ItemsCounterStyle}" />
+                                      VerticalContentAlignment="Center"
+                                      Margin="2" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -115,52 +93,34 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                        <Viewbox Margin="-10">
+                            <TextBlock Text="{Binding Count}"
+                                       Style="{DynamicResource ItemsCounterStyle}" />
+                        </Viewbox>
                         <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
                                       HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center" />
-                        <TextBlock Text="{Binding Count}"
-                                   Foreground="Black"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Grid.Row="1"
-                                   Style="{DynamicResource ItemsCounterStyle}" />
+                                      VerticalContentAlignment="Center"
+                                      Margin="2" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <!-- treasures -->
         <Grid Grid.Column="4">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+            <Viewbox Margin="-10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Treasure.Found}"
+                               Style="{DynamicResource ItemsCounterStyle}" />
+                    <TextBlock Text="/"
+                               Style="{DynamicResource ItemsCounterStyle}" />
+                    <TextBlock Text="{Binding Treasure.Total}"
+                               Style="{DynamicResource ItemsCounterStyle}" />
+                </StackPanel>
+            </Viewbox>
             <svg:SVGImage Source="{Binding Treasure.Shape, Mode=OneWay}"
                           HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center" />
-            <StackPanel Orientation="Horizontal"
-                        Grid.Row="1"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                <TextBlock Text="{Binding Treasure.Found}"
-                           Foreground="Black"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Style="{DynamicResource ItemsCounterStyle}" />
-                <TextBlock Text="/"
-                           Foreground="Black"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Style="{DynamicResource ItemsCounterStyle}" />
-                <TextBlock Text="{Binding Treasure.Total}"
-                           Foreground="Black"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Style="{DynamicResource ItemsCounterStyle}" />
-            </StackPanel>
+                          VerticalContentAlignment="Center"
+                          Margin="2" />
         </Grid>
     </Grid>
 </UserControl>

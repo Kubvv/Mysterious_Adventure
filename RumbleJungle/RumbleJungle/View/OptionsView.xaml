@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RumbleJungle.View"
         mc:Ignorable="d"
-        Title="OptionsView" Height="450" Width="800"
+        Title="Opcje"
+        Height="450"
+        Width="800"
         DataContext="{Binding OptionsInstance, Mode=OneWay, Source={StaticResource Locator}}">
     <Grid>
-        
+
     </Grid>
 </Window>

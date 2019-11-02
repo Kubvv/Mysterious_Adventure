@@ -7,6 +7,7 @@
         public Beast(JungleObjectType beastType) : base(beastType)
         {
             this.beastType = beastType;
+            Reset();
         }
 
         public override void Reset()
