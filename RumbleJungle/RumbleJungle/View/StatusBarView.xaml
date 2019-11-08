@@ -44,13 +44,15 @@
                                        Style="{DynamicResource ItemsCounterStyle}" />
                         </Viewbox>
                         <svg:SVGImage Source="{Binding Shape}"
-                                      Margin="7,3,3,7"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      Margin="15,15,2,2"
                                       Visibility="{Binding DoubleAttack, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <svg:SVGImage Source="{Binding Shape}"
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center"
                                       Margin="2" />
-                        <Button Command="{Binding HitBeastCommand, Mode=OneWay}"
+                        <Button Command="{Binding HitBeast, Mode=OneWay}"
                                 Background="#00000000"
                                 BorderBrush="#00000000"
                                 BorderThickness="2"
@@ -121,6 +123,11 @@
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
                           Margin="2" />
+            <Button Command="{Binding SaveGame, Mode=OneWay}"
+                    Background="#00000000"
+                    BorderBrush="#00000000"
+                    BorderThickness="2"
+                    Template="{DynamicResource StatusButtonTemplate}" />
         </Grid>
     </Grid>
 </UserControl>

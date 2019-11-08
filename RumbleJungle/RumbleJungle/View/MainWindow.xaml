@@ -16,14 +16,13 @@
                 Command="{Binding StartNewGame, Mode=OneWay}"
                 Style="{DynamicResource MenuButton}" />
         <Button Content="Wczytaj grę"
-                Style="{DynamicResource MenuButton}" />
-        <Button Content="Zapisz grę"
-                Style="{DynamicResource MenuButton}" />
+                Style="{DynamicResource MenuButton}"
+                Command="{Binding LoadGame}" />
         <Button Content="Opcje"
                 Command="{Binding OpenOptions, Mode=OneWay}"
                 Style="{DynamicResource MenuButton}" />
         <Button Content="Wyjście"
-                Command="{Binding CloseAppCommand, Mode=OneWay}"
+                Command="{Binding CloseApp, Mode=OneWay}"
                 Style="{DynamicResource MenuButton}" />
     </StackPanel>
 </Window>

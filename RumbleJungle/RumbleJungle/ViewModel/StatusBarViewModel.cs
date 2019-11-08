@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
 using System.Collections.ObjectModel;
 
@@ -39,6 +40,25 @@ namespace RumbleJungle.ViewModel
                 {
                     Items.Add(new JungleObjectStatusViewModel(item));
                 }
+            }
+        }
+
+        private RelayCommand saveGame;
+        public RelayCommand SaveGame => saveGame ?? (saveGame = new RelayCommand(() => ExecuteSaveGame(), () => CanSaveGame));
+
+        private static void ExecuteSaveGame()
+        {
+            // TODO: save game
+        }
+
+        private bool canSaveGame = true;
+        public bool CanSaveGame
+        {
+            get => canSaveGame;
+            set
+            {
+                canSaveGame = value;
+                SaveGame.RaiseCanExecuteChanged();
             }
         }
     }

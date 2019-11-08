@@ -49,6 +49,17 @@ namespace RumbleJungle.Model
         /// </summary>
         public void GenerateJungle()
         {
+            // convert stolen treasure back to empty field
+            int stolenTreasureCount = CountOf(JungleObjectType.Treasure) - Config.JungleObjectsCount[JungleObjectType.Treasure];
+            if (stolenTreasureCount > 0)
+            {
+                List<JungleObject> treasure = GetJungleObjects(JungleObjectType.Treasure);
+                for (int index = 0; index < stolenTreasureCount; index++)
+                {
+                    treasure[index].ChangeTypeTo(JungleObjectType.EmptyField);
+                }
+            }
+
             // convert all dense jungle to empty fields
             GetJungleObjects(JungleObjectType.DenseJungle).ForEach(dj => dj.ChangeTypeTo(JungleObjectType.EmptyField));
 

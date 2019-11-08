@@ -55,25 +55,6 @@ namespace RumbleJungle.ViewModel
             }
         }
 
-        private RelayCommand saveGame;
-        public RelayCommand SaveGame => saveGame ?? (saveGame = new RelayCommand(() => ExecuteSaveGame(), () => CanSaveGame));
-
-        private static void ExecuteSaveGame()
-        {
-            // TODO: save game
-        }
-
-        private bool canSaveGame = true;
-        public bool CanSaveGame
-        {
-            get => canSaveGame;
-            set
-            {
-                canSaveGame = value;
-                SaveGame.RaiseCanExecuteChanged();
-            }
-        }
-
         private RelayCommand openOptions;
         public RelayCommand OpenOptions => openOptions ?? (openOptions = new RelayCommand(() => ExecuteOpenOptions(), () => CanOpenOptions));
 
@@ -94,7 +75,7 @@ namespace RumbleJungle.ViewModel
             }
         }
 
-        private RelayCommand closeAppCommand;
-        public RelayCommand CloseAppCommand => closeAppCommand ?? (closeAppCommand = new RelayCommand(() => Application.Current.Shutdown()));
+        private RelayCommand closeApp;
+        public RelayCommand CloseApp => closeApp ?? (closeApp = new RelayCommand(() => Application.Current.Shutdown()));
     }
 }
