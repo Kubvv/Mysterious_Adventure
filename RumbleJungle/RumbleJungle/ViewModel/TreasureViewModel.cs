@@ -19,20 +19,34 @@ namespace RumbleJungle.ViewModel
         public TreasureViewModel(JungleModel jungleModel)
         {
             this.jungleModel = jungleModel;
-
             if (jungleModel != null)
             {
-                List<JungleObject> treasures = jungleModel.GetJungleObjects(JungleObjectType.Treasure);
-                Name = treasures.First().Name;
-                foreach (JungleObject treasure in treasures)
-                {
-                    treasure.StatusChanged += StatusChanged;
-                }
-                foreach (JungleObject jungleObject in jungleModel.Jungle)
-                {
-                    jungleObject.TypeChanged += TypeChanged;
-                }
+                jungleModel.JungleGenerated += JungleGenerated;
+                Load();
             }
+        }
+
+        private void Load()
+        {
+            if (jungleModel == null) return;
+
+            List<JungleObject> treasures = jungleModel.GetJungleObjects(JungleObjectType.Treasure);
+            Name = treasures.First().Name;
+            foreach (JungleObject treasure in treasures)
+            {
+                treasure.StatusChanged += StatusChanged;
+            }
+            foreach (JungleObject jungleObject in jungleModel.Jungle)
+            {
+                jungleObject.TypeChanged += TypeChanged;
+            }
+        }
+
+        // TODO: odpiąć zdarzenia
+
+        private void JungleGenerated(object sender, EventArgs e)
+        {
+            Load();
         }
 
         private void TypeChanged(object sender, EventArgs e)

@@ -7,7 +7,6 @@ namespace RumbleJungle.Model
     public static class Config
     {
         private const int defaultJungleHeight = 10, defaultJungleWidth = 16;
-
         private static readonly Dictionary<JungleObjectType, int> defaultJungleObjectsCount = new Dictionary<JungleObjectType, int>
         {
             [JungleObjectType.DragonflySwarm] = 5,
@@ -32,11 +31,6 @@ namespace RumbleJungle.Model
             [JungleObjectType.DenseJungle] = (int)Math.Round(defaultJungleHeight * defaultJungleWidth * 0.1)
         };
 
-        public static Random Random { get; } = new Random();
-        public static bool DebugMode { get; } = false;
-        public static int JungleHeight { get; private set; }
-        public static int JungleWidth { get; private set; }
-        public static Dictionary<JungleObjectType, int> JungleObjectsCount { get; private set; }
         public static List<JungleObjectType> Beasts { get; } = new List<JungleObjectType>() {
             JungleObjectType.DragonflySwarm,
             JungleObjectType.WildPig,
@@ -139,11 +133,33 @@ namespace RumbleJungle.Model
             [new Tuple<WeaponType, JungleObjectType>(WeaponType.Sword, JungleObjectType.Hydra)] = new BaseDev(57, 3)
         };
 
+        public static Random Random { get; } = new Random();
+        public static bool DebugMode { get; } = false;
+        public static int JungleHeight { get; private set; }
+        public static int JungleWidth { get; private set; }
+        public static Dictionary<JungleObjectType, int> JungleObjectsCount { get; private set; }
+
         public static void Read()
         {
             JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings["JungleWidth"]);
             JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings["JungleHeight"]);
+            RecalculateJungle();
+        }
 
+        public static void SetJungleSize(int width, int height, bool save = true)
+        {
+            JungleWidth = width;
+            JungleHeight = height;
+            if (save)
+            {
+                UpdateSetting("JungleWidth", JungleWidth.ToString());
+                UpdateSetting("JungleHeight", JungleHeight.ToString());
+            }
+            RecalculateJungle();
+        }
+
+        private static void RecalculateJungle()
+        {
             double factor = (double) (JungleHeight * JungleWidth) / (defaultJungleHeight * defaultJungleWidth);
 
             JungleObjectsCount = new Dictionary<JungleObjectType, int>();
@@ -151,6 +167,31 @@ namespace RumbleJungle.Model
             {
                 JungleObjectsCount.Add(jungleObjectsCount.Key, (int) Math.Floor(jungleObjectsCount.Value * factor));
             }
+        }
+
+        private static bool UpdateSetting(string key, string value)
+        {
+            bool result = true;
+            try
+            {
+                Configuration configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                KeyValueConfigurationCollection settings = configFile.AppSettings.Settings;
+                if (settings[key] == null)
+                {
+                    settings.Add(key, value);
+                }
+                else
+                {
+                    settings[key].Value = value;
+                }
+                configFile.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }

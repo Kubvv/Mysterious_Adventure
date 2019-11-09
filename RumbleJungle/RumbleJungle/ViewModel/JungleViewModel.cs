@@ -8,6 +8,7 @@ namespace RumbleJungle.ViewModel
 {
     public class JungleViewModel : ViewModelBase
     {
+        private readonly JungleModel jungleModel;
         private double cellWidth, cellHeight;
         private readonly DispatcherTimer updateTimer = new DispatcherTimer();
 
@@ -43,14 +44,13 @@ namespace RumbleJungle.ViewModel
 
         public JungleViewModel(JungleModel jungleModel, RamblerViewModel ramblerViewModel)
         {
-            RamblerViewModel = ramblerViewModel;
+            this.jungleModel = jungleModel;
             if (jungleModel != null)
             {
-                foreach (JungleObject jungleObject in jungleModel.Jungle)
-                {
-                    JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
-                }
+                jungleModel.JungleGenerated += JungleGenerated;
+                Load();
             }
+            RamblerViewModel = ramblerViewModel;
 
             updateTimer.Tick += UpdateTimerTick;
             updateTimer.Interval = new TimeSpan(0, 0, 0, 0, 300);
@@ -64,6 +64,22 @@ namespace RumbleJungle.ViewModel
                 jungleObjectViewModel.SetSize(cellWidth, cellHeight);
             }
             RamblerViewModel.SetSize(cellWidth, cellHeight);
+        }
+
+        private void JungleGenerated(object sender, EventArgs e)
+        {
+            Load();
+        }
+
+        private void Load()
+        {
+            if (jungleModel == null) return;
+
+            JungleObjectsViewModel.Clear();
+            foreach (JungleObject jungleObject in jungleModel.Jungle)
+            {
+                JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
+            }
         }
     }
 }

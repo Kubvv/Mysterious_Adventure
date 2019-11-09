@@ -51,6 +51,7 @@ namespace RumbleJungle.Model
 
         public GameModel(JungleModel jungleModel, WeaponModel weaponModel)
         {
+            Config.Read();
             this.jungleModel = jungleModel;
             this.weaponModel = weaponModel;
             Rambler = new Rambler();

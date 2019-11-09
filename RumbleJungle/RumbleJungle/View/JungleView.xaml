@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RumbleJungle.View"
         xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
         mc:Ignorable="d"
-        Title="Jungle"
+        Title="RumbleJungle"
         Height="500"
         Width="800"
         DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}"
@@ -37,7 +37,7 @@
                         <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center"
-                                      Margin="10" />
+                                      Margin="4" />
                         <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Command="{Binding MoveRamblerCommand, Mode=OneWay}"
                                 BorderThickness="3"
@@ -56,7 +56,7 @@
                 Height="{Binding RamblerViewModel.Height}"
                 Visibility="{Binding RamblerViewModel.Visible, Converter={StaticResource BoolToVisibilityConverter}}">
             <svg:SVGImage Source="{Binding RamblerViewModel.Shape, Mode=OneWay}"
-                          Margin="10"
+                          Margin="4"
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
                           RenderTransformOrigin="0.5,0.5">

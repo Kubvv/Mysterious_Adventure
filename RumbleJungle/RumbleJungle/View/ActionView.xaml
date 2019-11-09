@@ -39,9 +39,9 @@
             <Viewbox>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Health, Mode=OneWay}"
-                               Style="{DynamicResource ItemsCounterStyle}" />
+                               Style="{DynamicResource HealthCounterStyle}" />
                     <TextBlock Text="%"
-                               Style="{DynamicResource ItemsCounterStyle}" />
+                               Style="{DynamicResource HealthCounterStyle}" />
                 </StackPanel>
             </Viewbox>
         </Grid>

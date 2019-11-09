@@ -1,12 +1,15 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
+using System;
 using System.Collections.ObjectModel;
 
 namespace RumbleJungle.ViewModel
 {
     public class StatusBarViewModel : ViewModelBase
     {
+        private readonly JungleModel jungleModel;
+
         public RamblerViewModel Rambler { get; private set; }
         public TreasureViewModel Treasure { get; private set; }
         public ObservableCollection<WeaponViewModel> Weapons { get; private set; } = new ObservableCollection<WeaponViewModel>();
@@ -18,27 +21,18 @@ namespace RumbleJungle.ViewModel
             Rambler = ramblerViewModel;
             Treasure = treasureViewModel;
 
+            this.jungleModel = jungleModel;
+            if (jungleModel != null)
+            {
+                jungleModel.JungleGenerated += JungleGenerated;
+                Load();
+            }
+
             if (weaponModel != null)
             {
                 foreach (Weapon weapon in weaponModel.Weapons)
                 {
                     Weapons.Add(new WeaponViewModel(weapon));
-                }
-            }
-
-            if (jungleModel != null)
-            {
-                foreach (JungleObject beast in jungleModel.GetJungleObjects(Config.Beasts))
-                {
-                    Beasts.Add(new JungleObjectStatusViewModel(beast));
-                }
-                foreach (JungleObject item in jungleModel.GetJungleObjects(Config.VisibleItems))
-                {
-                    Items.Add(new JungleObjectStatusViewModel(item));
-                }
-                foreach (JungleObject item in jungleModel.GetJungleObjects(Config.HiddenItems))
-                {
-                    Items.Add(new JungleObjectStatusViewModel(item));
                 }
             }
         }
@@ -59,6 +53,32 @@ namespace RumbleJungle.ViewModel
             {
                 canSaveGame = value;
                 SaveGame.RaiseCanExecuteChanged();
+            }
+        }
+
+        private void JungleGenerated(object sender, EventArgs e)
+        {
+            Load();
+        }
+
+        private void Load()
+        {
+            if (jungleModel == null) return;
+
+            Beasts.Clear();
+            foreach (JungleObject beast in jungleModel.GetJungleObjects(Config.Beasts))
+            {
+                Beasts.Add(new JungleObjectStatusViewModel(beast));
+            }
+
+            Items.Clear();
+            foreach (JungleObject item in jungleModel.GetJungleObjects(Config.VisibleItems))
+            {
+                Items.Add(new JungleObjectStatusViewModel(item));
+            }
+            foreach (JungleObject item in jungleModel.GetJungleObjects(Config.HiddenItems))
+            {
+                Items.Add(new JungleObjectStatusViewModel(item));
             }
         }
     }

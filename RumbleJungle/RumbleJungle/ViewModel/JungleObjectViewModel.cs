@@ -65,6 +65,8 @@ namespace RumbleJungle.ViewModel
             gameModel.MagnifyingGlassModeChanged += MagnifyingGlassModeChanged;
         }
 
+        // TODO: odpiąć zdarzenia
+
         public void SetSize(double width, double height)
         {
             Width = width;

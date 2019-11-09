@@ -11,15 +11,30 @@ namespace RumbleJungle.Model
 
         public JungleModel()
         {
-            // TODO: przebudowa dżungli po zmianie wymiarów
-            Config.Read();
+        }
 
-            // wstawienie wszystkich obiektów
+        public event EventHandler JungleGenerated;
+
+        /// <summary>
+        /// Puts jungle objects at random positions
+        /// </summary>
+        public void GenerateJungle()
+        {
+            Jungle.Clear();
+
+            // insert all objects
             foreach (JungleObjectType jungleObjectType in Enum.GetValues(typeof(JungleObjectType)))
             {
-                if (jungleObjectType == JungleObjectType.DenseJungle || jungleObjectType == JungleObjectType.EmptyField || jungleObjectType == JungleObjectType.Rambler)
+                if (jungleObjectType == JungleObjectType.EmptyField || jungleObjectType == JungleObjectType.Rambler)
                 {
-                    // gęstwina, puste pola i wędrowiec na końcu
+                    // empty fields and rambler are last to insert
+                }
+                else if (jungleObjectType == JungleObjectType.DenseJungle)
+                {
+                    for (int i = 0; i <= Config.Random.Next(Config.JungleObjectsCount[JungleObjectType.DenseJungle]); i++)
+                    {
+                        Jungle.Add(new JungleObject(jungleObjectType));
+                    }
                 }
                 else if (Config.Beasts.Contains(jungleObjectType))
                 {
@@ -37,41 +52,13 @@ namespace RumbleJungle.Model
                 }
             }
 
-            // wstawienie pustych pól
+            // fill the rest with empty fields
             for (int i = Jungle.Count; i < Config.JungleHeight * Config.JungleWidth; i++)
             {
                 Jungle.Add(new JungleObject(JungleObjectType.EmptyField));
             }
-        }
 
-        /// <summary>
-        /// Puts jungle objects at random positions
-        /// </summary>
-        public void GenerateJungle()
-        {
-            // convert stolen treasure back to empty field
-            int stolenTreasureCount = CountOf(JungleObjectType.Treasure) - Config.JungleObjectsCount[JungleObjectType.Treasure];
-            if (stolenTreasureCount > 0)
-            {
-                List<JungleObject> treasure = GetJungleObjects(JungleObjectType.Treasure);
-                for (int index = 0; index < stolenTreasureCount; index++)
-                {
-                    treasure[index].ChangeTypeTo(JungleObjectType.EmptyField);
-                }
-            }
-
-            // convert all dense jungle to empty fields
-            GetJungleObjects(JungleObjectType.DenseJungle).ForEach(dj => dj.ChangeTypeTo(JungleObjectType.EmptyField));
-
-            // convert random amount of empty fields to dense jungle
-            int denseJungleCount = Config.Random.Next(Config.JungleObjectsCount[JungleObjectType.DenseJungle]) + 1;
-            List<JungleObject> emptyFields = GetJungleObjects(JungleObjectType.EmptyField);
-            for (int index = 0; index < denseJungleCount && index < emptyFields.Count; index++)
-            {
-                emptyFields[index].ChangeTypeTo(JungleObjectType.DenseJungle);
-            }
-
-            // wygenerowanie wszystkich możliwych pozycji
+            // generate all possible locations
             List<Point> coordinates = new List<Point>();
             for(int row = 0; row < Config.JungleHeight; row++)
             {
@@ -81,7 +68,7 @@ namespace RumbleJungle.Model
                 }
             }
 
-            // wylosowanie pozycji każdego obiektu w dżungli
+            // choose random location for every jungle object
             foreach (JungleObject jungleObject in Jungle)
             {
                 if (jungleObject is Beast)
@@ -96,6 +83,8 @@ namespace RumbleJungle.Model
                 jungleObject.SetCoordinates(coordinates[coordinate]);
                 coordinates.RemoveAt(coordinate);
             }
+
+            JungleGenerated?.Invoke(this, null);
         }
 
         /// <summary>
@@ -235,7 +224,11 @@ namespace RumbleJungle.Model
             {
                 foreach (JungleObjectType jungleObjectType in jungleObjectTypes)
                 {
-                    result.Add(Jungle.FirstOrDefault(jo => jo.JungleObjectType == jungleObjectType));
+                    JungleObject jungleObject = Jungle.FirstOrDefault(jo => jo.JungleObjectType == jungleObjectType);
+                    if (jungleObject != null)
+                    {
+                        result.Add(jungleObject);
+                    }
                 }
             }
             return result;
