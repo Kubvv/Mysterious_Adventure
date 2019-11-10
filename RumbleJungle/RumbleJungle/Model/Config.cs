@@ -135,27 +135,48 @@ namespace RumbleJungle.Model
 
         public static Random Random { get; } = new Random();
         public static bool DebugMode { get; } = false;
+
+        public const int MINJUNGLEWIDTH = 4, MAXJUNGLEWIDTH = 50, MINJUNGLEHEIGHT = 4, MAXJUNGLEHEIGHT = 50;
+
+        private const string JUNGLEWIDTH = "JungleWidth";
         public static int JungleHeight { get; private set; }
+
+        private const string JUNGLEHEIGHT = "JungleHeight";
         public static int JungleWidth { get; private set; }
+
+        private const string KEEPRATIO = "KeepRatio";
+        public static bool KeepRatio { get; private set; } = true;
+
         public static Dictionary<JungleObjectType, int> JungleObjectsCount { get; private set; }
 
         public static void Read()
         {
-            JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings["JungleWidth"]);
-            JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings["JungleHeight"]);
+            JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEWIDTH]);
+            JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEHEIGHT]);
+            KeepRatio = Convert.ToBoolean(ConfigurationManager.AppSettings[KEEPRATIO]);
             RecalculateJungle();
         }
 
-        public static void SetJungleSize(int width, int height, bool save = true)
+        public static void SetJungleSize(int newWidth, int newHeight, bool save = true)
         {
-            JungleWidth = width;
-            JungleHeight = height;
+            if (JungleWidth == newWidth && JungleHeight == newHeight) return;
+
+            JungleWidth = newWidth;
+            JungleHeight = newHeight;
             if (save)
             {
-                UpdateSetting("JungleWidth", JungleWidth.ToString());
-                UpdateSetting("JungleHeight", JungleHeight.ToString());
+                UpdateSetting(JUNGLEWIDTH, JungleWidth.ToString());
+                UpdateSetting(JUNGLEHEIGHT, JungleHeight.ToString());
             }
             RecalculateJungle();
+        }
+
+        public static void SetKeepRatio(bool newKeepRatio)
+        {
+            if (KeepRatio == newKeepRatio) return;
+
+            KeepRatio = newKeepRatio;
+            UpdateSetting(KEEPRATIO, KeepRatio.ToString());
         }
 
         private static void RecalculateJungle()

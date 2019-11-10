@@ -20,8 +20,9 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock Text="Szerokość dżungli"
+        <TextBlock Text="szerokość dżungli"
                     Margin="3" />
         <TextBlock Text="{Binding JungleWidth}"
                     Margin="3"
@@ -30,11 +31,11 @@
         <Slider Margin="3"
                 LargeChange="5"
                 SmallChange="1"
-                Minimum="4"
-                Maximum="50"
+                Minimum="{Binding MinJungleWidth}"
+                Maximum="{Binding MaxJungleWidth}"
                 Value="{Binding JungleWidth}"
                 Grid.Column="2" />
-        <TextBlock Text="Wysokość dżungli"
+        <TextBlock Text="wysokość dżungli"
                     Margin="3"
                    Grid.Row="1" />
         <TextBlock Text="{Binding JungleHeight}"
@@ -45,17 +46,27 @@
         <Slider Margin="3"
                 LargeChange="5"
                 SmallChange="1"
-                Minimum="4"
-                Maximum="50"
+                Minimum="{Binding MinJungleHeight}"
+                Maximum="{Binding MaxJungleHeight}"
                 Value="{Binding JungleHeight}"
                 Grid.Row="1"
                 Grid.Column="2" />
-        <Button Content="Ustaw"
+        <CheckBox Grid.Row="2"
+                  Grid.Column="2"
+                  Margin="3"
+                  Content="zachowaj proporcje"
+                  IsChecked="{Binding KeepRatio}" />
+        <Button Content="anuluj"
                 Margin="3"
-                Grid.Row="2"
-                Grid.Column="2"
+                Click="Button_Click"
+                Grid.Row="3"
+                Grid.ColumnSpan="2" />
+        <Button Content="ustaw"
+                Margin="3"
                 IsDefault="True"
                 Command="{Binding SaveOptions}"
-                Click="Button_Click" />
+                Click="Button_Click"
+                Grid.Row="3"
+                Grid.Column="2" />
     </Grid>
 </Window>
