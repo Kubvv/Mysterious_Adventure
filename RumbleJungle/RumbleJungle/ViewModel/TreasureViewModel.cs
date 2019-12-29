@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
 using System;
 using System.Collections.Generic;
@@ -9,17 +8,29 @@ namespace RumbleJungle.ViewModel
 {
     public class TreasureViewModel : ViewModelBase
     {
-        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
+        private readonly JungleModel jungleModel;
 
         public string Name { get; private set; }
         public string Shape => $"/RumbleJungle;component/Images/{Name}.svg";
-        public int Count => jungleModel.CountOf(JungleObjectTypes.Treasure);
-        public int Total => Configuration.JungleObjectsCount[JungleObjectTypes.Treasure];
+        public int Count => jungleModel.CountOf(JungleObjectType.Treasure);
+        public static int Total => Config.JungleObjectsCount[JungleObjectType.Treasure];
         public int Found => Total - Count;
 
-        public TreasureViewModel()
+        public TreasureViewModel(JungleModel jungleModel)
         {
-            List<JungleObject> treasures = jungleModel.GetJungleObjects(JungleObjectTypes.Treasure);
+            this.jungleModel = jungleModel;
+            if (jungleModel != null)
+            {
+                jungleModel.JungleGenerated += JungleGenerated;
+                Load();
+            }
+        }
+
+        private void Load()
+        {
+            if (jungleModel == null) return;
+
+            List<JungleObject> treasures = jungleModel.GetJungleObjects(JungleObjectType.Treasure);
             Name = treasures.First().Name;
             foreach (JungleObject treasure in treasures)
             {
@@ -31,19 +42,26 @@ namespace RumbleJungle.ViewModel
             }
         }
 
+        // TODO: odpiąć zdarzenia
+
+        private void JungleGenerated(object sender, EventArgs e)
+        {
+            Load();
+        }
+
         private void TypeChanged(object sender, EventArgs e)
         {
             JungleObject jungleObject = (JungleObject)sender;
-            if (jungleObject.JungleObjectType == JungleObjectTypes.Treasure)
+            if (jungleObject.JungleObjectType == JungleObjectType.Treasure)
             {
                 jungleObject.StatusChanged += StatusChanged;
-                RaisePropertyChanged("Found");
+                RaisePropertyChanged(nameof(Found));
             }
         }
 
         private void StatusChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("Found");
+            RaisePropertyChanged(nameof(Found));
         }
     }
 }

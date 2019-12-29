@@ -11,7 +11,7 @@ namespace SVGImage.SVG
 	{
 		public static Transform ParseTransform(string value)
 		{
-            //todo, increase perf. and object creation of this code (check with acid after)
+            // increase perf. and object creation of this code (check with acid after)
 		    var transforms = value.Split(')');
 		    if (transforms.Length == 2)
 		        return ParseTransformInternal(value);

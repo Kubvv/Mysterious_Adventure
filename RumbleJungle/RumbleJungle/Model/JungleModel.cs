@@ -9,70 +9,82 @@ namespace RumbleJungle.Model
     {
         public List<JungleObject> Jungle { get; private set; } = new List<JungleObject>();
 
+        public JungleModel()
+        {
+        }
+
+        public event EventHandler JungleGenerated;
+
         /// <summary>
         /// Puts jungle objects at random positions
         /// </summary>
         public void GenerateJungle()
         {
-            Configuration.Read();
-            Random random = new Random();
-
             Jungle.Clear();
-            // wstawienie wszystkich obiektów
-            foreach (JungleObjectTypes jungleObjectType in Enum.GetValues(typeof(JungleObjectTypes)))
+
+            // insert all objects
+            foreach (JungleObjectType jungleObjectType in Enum.GetValues(typeof(JungleObjectType)))
             {
-                if (jungleObjectType == JungleObjectTypes.DenseJungle)
+                if (jungleObjectType == JungleObjectType.EmptyField || jungleObjectType == JungleObjectType.Rambler)
                 {
-                    // liczba pól dla gęstej dżungli jest losowa
-                    int denseJungleCount = random.Next(Configuration.JungleObjectsCount[JungleObjectTypes.DenseJungle]) + 1;
-                    for (int i = 0; i < denseJungleCount; i++)
+                    // empty fields and rambler are last to insert
+                }
+                else if (jungleObjectType == JungleObjectType.DenseJungle)
+                {
+                    for (int i = 0; i <= Config.Random.Next(Config.JungleObjectsCount[JungleObjectType.DenseJungle]); i++)
                     {
-                        Jungle.Add(new JungleObject(JungleObjectTypes.DenseJungle));
+                        Jungle.Add(new JungleObject(jungleObjectType));
                     }
                 }
-                else if (jungleObjectType == JungleObjectTypes.EmptyField || jungleObjectType == JungleObjectTypes.Rambler)
+                else if (Config.Beasts.Contains(jungleObjectType))
                 {
-                    // puste pola i wędrowiec na końcu
-                }
-                else if (Configuration.Beasts.Contains(jungleObjectType))
-                {
-                    for (int i = 0; i < Configuration.JungleObjectsCount[jungleObjectType]; i++)
+                    for (int i = 0; i < Config.JungleObjectsCount[jungleObjectType]; i++)
                     {
                         Jungle.Add(new Beast(jungleObjectType));
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < Configuration.JungleObjectsCount[jungleObjectType]; i++)
+                    for (int i = 0; i < Config.JungleObjectsCount[jungleObjectType]; i++)
                     {
                         Jungle.Add(new JungleObject(jungleObjectType));
                     }
                 }
             }
 
-            // wstawienie pustych pól
-            for (int i = Jungle.Count; i < Configuration.JungleHeight * Configuration.JungleWidth; i++)
+            // fill the rest with empty fields
+            for (int i = Jungle.Count; i < Config.JungleHeight * Config.JungleWidth; i++)
             {
-                Jungle.Add(new JungleObject(JungleObjectTypes.EmptyField));
+                Jungle.Add(new JungleObject(JungleObjectType.EmptyField));
             }
 
-            // wygenerowanie wszystkich możliwych pozycji
+            // generate all possible locations
             List<Point> coordinates = new List<Point>();
-            for(int row = 0; row < Configuration.JungleHeight; row++)
+            for(int row = 0; row < Config.JungleHeight; row++)
             {
-                for (int col = 0; col < Configuration.JungleWidth; col++)
+                for (int col = 0; col < Config.JungleWidth; col++)
                 {
                     coordinates.Add(new Point(col, row));
                 }
             }
 
-            // wylosowanie pozycji każdego obiektu w dżungli
+            // choose random location for every jungle object
             foreach (JungleObject jungleObject in Jungle)
             {
-                int coordinate = random.Next(coordinates.Count);
+                if (jungleObject is Beast)
+                {
+                    (jungleObject as Beast).Reset();
+                }
+                else
+                {
+                    jungleObject.Reset();
+                }
+                int coordinate = Config.Random.Next(coordinates.Count);
                 jungleObject.SetCoordinates(coordinates[coordinate]);
                 coordinates.RemoveAt(coordinate);
             }
+
+            JungleGenerated?.Invoke(this, null);
         }
 
         /// <summary>
@@ -81,11 +93,11 @@ namespace RumbleJungle.Model
         /// <param name="coordinates">coordinates</param>
         /// <param name="jungleObjectType">Jungle object type</param>
         /// <returns>Found object or null</returns>
-        internal JungleObject FindNearestTo(Point coordinates, JungleObjectTypes jungleObjectType, Statuses statuses)
+        internal JungleObject FindNearestTo(Point coordinates, JungleObjectType jungleObjectType, Statuses statuses)
         {
             int distance = 1;
             JungleObject jungleObject = null;
-            while ((distance < Configuration.JungleHeight || distance < Configuration.JungleWidth) && jungleObject == null) 
+            while ((distance < Config.JungleHeight || distance < Config.JungleWidth) && jungleObject == null) 
             {
                 jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, statuses, true);
                 if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, statuses, true);
@@ -100,7 +112,7 @@ namespace RumbleJungle.Model
         {
             foreach (JungleObject jungleObject in Jungle)
             {
-                if (jungleObject.Status == Statuses.Hidden || jungleObject.Status == Statuses.Pointed || Configuration.DebugMode)
+                if (jungleObject.Status == Statuses.Hidden || jungleObject.Status == Statuses.Pointed || Config.DebugMode)
                 {
                     jungleObject.SetStatus(Statuses.Marked);
                 }
@@ -113,7 +125,7 @@ namespace RumbleJungle.Model
         /// <param name="coordinates">Selected center point.</param>
         /// <param name="distance">Distance from the selected point.</param>
         /// <returns>List of Points.</returns>
-        internal IEnumerable<Point> FindNeighboursTo(Point coordinates, int distance)
+        internal static IEnumerable<Point> FindNeighboursTo(Point coordinates, int distance)
         {
             var neighbours = new List<Point>();
             for (var x = -distance; x <= distance; x++)
@@ -145,11 +157,11 @@ namespace RumbleJungle.Model
             JungleObject jungleObject = GetJungleObjectAt(point);
             if (jungleObject != null)
             {
-                bool canPointField = jungleObject.JungleObjectType != JungleObjectTypes.EmptyField &&
-                    (Configuration.Beasts.Contains(jungleObject.JungleObjectType) || Configuration.BadItems.Contains(jungleObject.JungleObjectType) || !beastOrBadOnly);
-                if (Configuration.DebugMode)
+                bool canPointField = jungleObject.JungleObjectType != JungleObjectType.EmptyField &&
+                    (Config.Beasts.Contains(jungleObject.JungleObjectType) || Config.BadItems.Contains(jungleObject.JungleObjectType) || !beastOrBadOnly);
+                if (Config.DebugMode)
                 {
-                    if (canPointField && jungleObject.Status == Statuses.Visible && !Configuration.VisibleItems.Contains(jungleObject.JungleObjectType))
+                    if (canPointField && jungleObject.Status == Statuses.Visible && !Config.VisibleItems.Contains(jungleObject.JungleObjectType))
                     {
                         jungleObject.SetStatus(Statuses.Pointed);
                     }
@@ -167,28 +179,17 @@ namespace RumbleJungle.Model
         }
 
         /// <summary>
-        /// Places rambler on random empty field in the jungle
-        /// </summary>
-        /// <param name="rambler">The rambler</param>
-        internal void ReleaseRambler(Rambler rambler)
-        {
-            JungleObject emptyField = GetRandomJungleObject(JungleObjectTypes.EmptyField);
-            rambler.SetCoordinates(emptyField.Coordinates);
-        }
-
-        /// <summary>
         /// Finds random unvisited jungle object of given type
         /// </summary>
         /// <param name="jungleObjectType">Type of the searched jungle object</param>
         /// <returns>Found object or null</returns>
-        public JungleObject GetRandomJungleObject(JungleObjectTypes jungleObjectType)
+        public JungleObject GetRandomJungleObject(JungleObjectType jungleObjectType)
         {
             JungleObject result = null;
             int jungleObjectCount = CountOf(jungleObjectType);
             if (jungleObjectCount > 0)
             {
-                Random random = new Random();
-                int randomJungleObject = random.Next(jungleObjectCount) + 1;
+                int randomJungleObject = Config.Random.Next(jungleObjectCount) + 1;
                 int counter = 0;
                 foreach (JungleObject jungleObject in Jungle)
                 {
@@ -211,22 +212,29 @@ namespace RumbleJungle.Model
         /// </summary>
         /// <param name="jungleObjectType">type of the jungle object to count</param>
         /// <returns>count of objects</returns>
-        internal int CountOf(JungleObjectTypes jungleObjectType)
+        internal int CountOf(JungleObjectType jungleObjectType)
         {
             return Jungle.Count(jo => jo.JungleObjectType == jungleObjectType && jo.Status != Statuses.Visited);
         }
 
-        public List<JungleObject> GetJungleObjects(List<JungleObjectTypes> jungleObjectTypes)
+        public List<JungleObject> GetJungleObjects(List<JungleObjectType> jungleObjectTypes)
         {
             List<JungleObject> result = new List<JungleObject>();
-            foreach (JungleObjectTypes jungleObjectType in jungleObjectTypes)
+            if (jungleObjectTypes != null)
             {
-                result.Add(Jungle.FirstOrDefault(jo => jo.JungleObjectType == jungleObjectType));
+                foreach (JungleObjectType jungleObjectType in jungleObjectTypes)
+                {
+                    JungleObject jungleObject = Jungle.FirstOrDefault(jo => jo.JungleObjectType == jungleObjectType);
+                    if (jungleObject != null)
+                    {
+                        result.Add(jungleObject);
+                    }
+                }
             }
             return result;
         }
 
-        public List<JungleObject> GetJungleObjects(JungleObjectTypes jungleObjectType)
+        public List<JungleObject> GetJungleObjects(JungleObjectType jungleObjectType)
         {
             List<JungleObject> result = new List<JungleObject>();
             foreach (JungleObject jungleObject in Jungle.Where(jo => jo.JungleObjectType == jungleObjectType))
@@ -236,7 +244,7 @@ namespace RumbleJungle.Model
             return result;
         }
 
-        private JungleObject FindObjectInVector(Point coordinates, int distance, JungleObjectTypes jungleObjectType, Statuses statuses, bool horizontally)
+        private JungleObject FindObjectInVector(Point coordinates, int distance, JungleObjectType jungleObjectType, Statuses statuses, bool horizontally)
         {
             JungleObject result = null;
             Point point = new Point();

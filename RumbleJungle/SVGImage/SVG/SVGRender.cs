@@ -219,7 +219,7 @@ namespace SVGImage.SVG
                         {
                             var target = this.SVG.GetShape(animate.hRef);
                             var g = target.geometryElement;
-                            //todo : rework this all, generalize it!
+                            // rework this all, generalize it!
                             if (animate.AttributeName == "r")
                             {
                                 var animation = new DoubleAnimationUsingKeyFrames() { Duration = animate.Duration };

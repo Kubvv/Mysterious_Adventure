@@ -8,8 +8,7 @@ namespace RumbleJungle.ViewModel
     public class JungleObjectStatusViewModel : ViewModelBase
     {
         private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
-
-        private JungleObject jungleObject;
+        private readonly JungleObject jungleObject;
 
         public string Name => jungleObject.Name;
         public string Shape => $"/RumbleJungle;component/Images/{jungleObject.Name}.svg";
@@ -17,16 +16,21 @@ namespace RumbleJungle.ViewModel
 
         public JungleObjectStatusViewModel(JungleObject firstJungleObject)
         {
-            this.jungleObject = firstJungleObject;
-            foreach (JungleObject jungleObject in jungleModel.GetJungleObjects(firstJungleObject.JungleObjectType))
+            jungleObject = firstJungleObject;
+            if (firstJungleObject != null)
             {
-                jungleObject.StatusChanged += StatusChanged;
+                foreach (JungleObject jungleObject in jungleModel.GetJungleObjects(firstJungleObject.JungleObjectType))
+                {
+                    jungleObject.StatusChanged += StatusChanged;
+                }
             }
         }
 
+        // TODO: odpiąć zdarzenia
+
         private void StatusChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("Count");
+            RaisePropertyChanged(nameof(Count));
         }
     }
 }

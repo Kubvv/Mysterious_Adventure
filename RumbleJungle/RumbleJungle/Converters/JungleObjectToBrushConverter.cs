@@ -29,19 +29,19 @@ namespace RumbleJungle.Converters
                     result = new SolidColorBrush(Color.FromArgb(128, 0xFF, 0xFF, 0xFF));
                     break;
                 case Statuses.Pointed:
-                    if (jungleObject.JungleObjectType == JungleObjectTypes.Treasure)
+                    if (jungleObject.JungleObjectType == JungleObjectType.Treasure)
                     {
                         result = Brushes.Gold;
                     }
-                    else if (Configuration.Beasts.Contains(jungleObject.JungleObjectType))
+                    else if (Config.Beasts.Contains(jungleObject.JungleObjectType))
                     {
                         result = Brushes.Red;
                     }
-                    else if (Configuration.BadItems.Contains(jungleObject.JungleObjectType))
+                    else if (Config.BadItems.Contains(jungleObject.JungleObjectType))
                     {
                         result = Brushes.LightBlue;
                     }
-                    else if (Configuration.GoodItems.Contains(jungleObject.JungleObjectType))
+                    else if (Config.GoodItems.Contains(jungleObject.JungleObjectType))
                     {
                         result = Brushes.Purple;
                     }

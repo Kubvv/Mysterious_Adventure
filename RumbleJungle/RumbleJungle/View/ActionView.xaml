@@ -36,19 +36,14 @@
               Margin="10"
               Visibility="{Binding IsLivingJungleObject, Converter={StaticResource BoolToVisibilityConverter}}">
             <ProgressBar Value="{Binding Health, Mode=OneWay}" />
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <TextBlock Text="{Binding Health, Mode=OneWay}"
-                           Foreground="Black"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Style="{DynamicResource ItemsCounterStyle}" />
-                <TextBlock Text="%"
-                           Foreground="Black"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Style="{DynamicResource ItemsCounterStyle}" />
-            </StackPanel>
+            <Viewbox>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Health, Mode=OneWay}"
+                               Style="{DynamicResource HealthCounterStyle}" />
+                    <TextBlock Text="%"
+                               Style="{DynamicResource HealthCounterStyle}" />
+                </StackPanel>
+            </Viewbox>
         </Grid>
         <Grid Grid.Row="2"
               Grid.Column="1"

@@ -1,23 +1,19 @@
-﻿using CommonServiceLocator;
-using System.Windows;
-
-namespace RumbleJungle.Model
+﻿namespace RumbleJungle.Model
 {
     public class Beast : LivingJungleObject
     {
-        private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
-        
-        public Beast(JungleObjectTypes beastType) : base(beastType)
+        private readonly JungleObjectType beastType;
+
+        public Beast(JungleObjectType beastType) : base(beastType)
         {
-            ChangeHealth(Configuration.BeastsInitialHealth[beastType].RandomValue);
+            this.beastType = beastType;
+            Reset();
         }
 
-        public new Point Action()
+        public override void Reset()
         {
-            // hit rambler
-            gameModel.Rambler.ChangeHealth(-Configuration.BeastStrenght[JungleObjectType].RandomValue);
-
-            return Coordinates;
+            base.Reset();
+            SetHealth(Config.BeastsInitialHealth[beastType].RandomValue);
         }
     }
 }

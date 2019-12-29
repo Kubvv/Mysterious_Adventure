@@ -20,22 +20,25 @@ namespace RumbleJungle.ViewModel
         public WeaponViewModel(Weapon weapon)
         {
             this.weapon = weapon;
-            weapon.CountChanged += CountChanged;
-            weapon.DoubleAttackChanged += DoubleAttackChanged;
+            if (weapon != null)
+            {
+                weapon.CountChanged += CountChanged;
+                weapon.DoubleAttackChanged += DoubleAttackChanged;
+            }
         }
 
-        private RelayCommand hitBeastCommand;
-        public RelayCommand HitBeastCommand => hitBeastCommand ?? (hitBeastCommand = new RelayCommand(() => gameModel.HitBeastWith(weapon), () => Count != 0));
+        private RelayCommand hitBeast;
+        public RelayCommand HitBeast => hitBeast ?? (hitBeast = new RelayCommand(() => gameModel.HitBeastWith(weapon), () => Count != 0));
 
         private void CountChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("Count");
-            HitBeastCommand.RaiseCanExecuteChanged();
+            RaisePropertyChanged(nameof(Count));
+            HitBeast.RaiseCanExecuteChanged();
         }
 
         private void DoubleAttackChanged(object sender, EventArgs e)
         {
-            RaisePropertyChanged("DoubleAttack");
+            RaisePropertyChanged(nameof(DoubleAttack));
         }
     }
 }

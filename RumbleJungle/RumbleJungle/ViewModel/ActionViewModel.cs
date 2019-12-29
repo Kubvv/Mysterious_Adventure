@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
 using System;
 using System.Windows;
@@ -8,7 +7,7 @@ namespace RumbleJungle.ViewModel
 {
     public class ActionViewModel : ViewModelBase
     {
-        private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
+        private readonly GameModel gameModel;
         private JungleObjectViewModel forgottenCityViewModel = null;
 
         private JungleObjectViewModel currentJungleObject;
@@ -27,14 +26,18 @@ namespace RumbleJungle.ViewModel
                 Set(ref actionVisibility, value);
                 if (value == Visibility.Visible)
                 {
-                    RaisePropertyChanged("CurrentJungleObject");
+                    RaisePropertyChanged(nameof(CurrentJungleObject));
                 }
             }
         }
 
-        public ActionViewModel()
+        public ActionViewModel(GameModel gameModel)
         {
-            gameModel.ForgottenCityModeChanged += ForgottenCityModeChanged;
+            this.gameModel = gameModel;
+            if (gameModel != null)
+            {
+                gameModel.ForgottenCityModeChanged += ForgottenCityModeChanged;
+            }
         }
 
         private void ForgottenCityModeChanged(object sender, EventArgs e)

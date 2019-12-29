@@ -9,7 +9,7 @@ namespace RumbleJungle.Model
 
         public WeaponModel()
         {
-            foreach (WeaponTypes weaponType in Enum.GetValues(typeof(WeaponTypes)))
+            foreach (WeaponType weaponType in Enum.GetValues(typeof(WeaponType)))
             {
                 Weapons.Add(new Weapon(weaponType));
             }
@@ -21,7 +21,7 @@ namespace RumbleJungle.Model
 
         public void ChangeRandomWeaponCount(int quantity)
         {
-            int randomWeapon = Configuration.Random.Next(Weapons.Count - 1) + 1;
+            int randomWeapon = Config.Random.Next(Weapons.Count - 1) + 1;
             Weapons[randomWeapon].ChangeCount(quantity);
         }
 
@@ -32,7 +32,7 @@ namespace RumbleJungle.Model
 
         public void SetDoubleAttack()
         {
-            int randomWeapon = Configuration.Random.Next(Weapons.Count - 1) + 1;
+            int randomWeapon = Config.Random.Next(Weapons.Count - 1) + 1;
             Weapons[randomWeapon].SetDoubleAttack(true);
         }
     }
