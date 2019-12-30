@@ -12,8 +12,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="7*" />
-            <ColumnDefinition Width="6*" />
-            <ColumnDefinition Width="13*" />
+            <ColumnDefinition Width="{Binding BeastsCount}" />
+            <ColumnDefinition Width="{Binding ItemsCount}" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <!-- rambler -->
@@ -28,6 +28,10 @@
                 </StackPanel>
             </Viewbox>
         </Grid>
+        <!-- exploration progress -->
+        <ProgressBar Value="{Binding ExplorationProgress, Mode=OneWay}"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="3" />
         <!-- weapons -->
         <ItemsControl Grid.Column="1"
                       ItemsSource="{Binding Weapons}">
@@ -42,17 +46,28 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Viewbox Grid.Row="1"
-                                 Grid.Column="1">
+                                 Grid.Column="1"
+                                 Grid.RowSpan="3"
+                                 Grid.ColumnSpan="3"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom"
+                                 Margin="0,0,2,2">
                             <TextBlock Text="{Binding Count, Converter={StaticResource IntToWeaponCountConverter}}"
                                        Style="{DynamicResource ItemsCounterStyle}" />
                         </Viewbox>
                         <svg:SVGImage Source="{Binding Shape}"
+                                      Grid.RowSpan="3"
+                                      Grid.ColumnSpan="3"
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center"
                                       Visibility="{Binding DoubleAttack, Converter={StaticResource BoolToVisibilityConverter}}" />
@@ -60,14 +75,14 @@
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center"
                                       Margin="2"
-                                      Grid.RowSpan="2"
-                                      Grid.ColumnSpan="2" />
+                                      Grid.RowSpan="4"
+                                      Grid.ColumnSpan="4" />
                         <Button Command="{Binding HitBeast, Mode=OneWay}"
                                 Background="#00000000"
                                 BorderBrush="#00000000"
                                 BorderThickness="2"
-                                Grid.RowSpan="2"
-                                Grid.ColumnSpan="2"
+                                Grid.RowSpan="4"
+                                Grid.ColumnSpan="4"
                                 Template="{DynamicResource StatusButtonTemplate}" />
                     </Grid>
                 </DataTemplate>
@@ -87,13 +102,22 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Viewbox Grid.Row="1"
-                                 Grid.Column="1">
+                                 Grid.Column="1"
+                                 Grid.RowSpan="3"
+                                 Grid.ColumnSpan="3"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom"
+                                 Margin="0,0,2,2">
                             <TextBlock Text="{Binding Count}"
                                        Style="{DynamicResource ItemsCounterStyle}" />
                         </Viewbox>
@@ -101,8 +125,8 @@
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center"
                                       Margin="2"
-                                      Grid.RowSpan="2"
-                                      Grid.ColumnSpan="2" />
+                                      Grid.RowSpan="4"
+                                      Grid.ColumnSpan="4" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -121,13 +145,22 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Viewbox Grid.Row="1"
-                                 Grid.Column="1">
+                                 Grid.Column="1"
+                                 Grid.RowSpan="3"
+                                 Grid.ColumnSpan="3"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom"
+                                 Margin="0,0,2,2">
                             <TextBlock Text="{Binding Count}"
                                        Style="{DynamicResource ItemsCounterStyle}" />
                         </Viewbox>
@@ -135,8 +168,8 @@
                                       HorizontalContentAlignment="Center"
                                       VerticalContentAlignment="Center"
                                       Margin="2"
-                                      Grid.RowSpan="2"
-                                      Grid.ColumnSpan="2" />
+                                      Grid.RowSpan="4"
+                                      Grid.ColumnSpan="4" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -146,29 +179,41 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <ProgressBar Value="{Binding Treasure.Found, Mode=OneWay}"
                          Maximum="{Binding Treasure.Total, Mode=OneWay}"
-                         Grid.RowSpan="2"
-                         Grid.ColumnSpan="2" />
-            <Viewbox Grid.RowSpan="2"
-                     Grid.ColumnSpan="2">
+                         Grid.RowSpan="4"
+                         Grid.ColumnSpan="4" />
+            <Viewbox Grid.RowSpan="4"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="3">
                 <TextBlock Text="{Binding Treasure.Found, Mode=OneWay}"
-                            Style="{DynamicResource ItemsCounterStyle}" />
+                           Style="{DynamicResource ItemsCounterStyle}" />
             </Viewbox>
-            <Viewbox Grid.Row="1"
-                     Grid.Column="1">
+            <Viewbox Grid.Row="2"
+                     Grid.RowSpan="2"
+                     Grid.Column="2"
+                     Grid.ColumnSpan="2"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Bottom"
+                     Margin="0,0,2,2">
                 <TextBlock Text="{Binding Treasure.Total, Mode=OneWay}"
-                            Style="{DynamicResource ItemsCounterStyle}" />
+                           Style="{DynamicResource ItemsCounterStyle}" />
             </Viewbox>
             <svg:SVGImage Source="{Binding Treasure.Shape, Mode=OneWay}"
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          Grid.Row="1" />
+                          Margin="2"
+                          Grid.RowSpan="4"
+                          Grid.ColumnSpan="2" />
             <Button Command="{Binding SaveGame, Mode=OneWay}"
                     Background="#00000000"
                     BorderBrush="#00000000"

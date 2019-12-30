@@ -88,6 +88,18 @@ namespace RumbleJungle.Model
         }
 
         /// <summary>
+        /// Calculates, how much of the jungle is explored.
+        /// Explored fields (visited, marked or pointed) to all fields minus dense jungle
+        /// </summary>
+        /// <returns>Percent (0-100), showing explored fields to all visitable fields ratio.</returns>
+        public double ExplorationProgress()
+        {
+            int visitableFields = Config.JungleWidth * Config.JungleHeight - Jungle.Count(jo => jo.JungleObjectType == JungleObjectType.DenseJungle);
+            int exploredFields = Jungle.Count(jo => Statuses.Explored.HasFlag(jo.Status));
+            return exploredFields * 100.0 / visitableFields;
+        }
+
+        /// <summary>
         /// Finds object of given type nearest to given coordinates
         /// </summary>
         /// <param name="coordinates">coordinates</param>

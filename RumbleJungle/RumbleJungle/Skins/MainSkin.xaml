@@ -330,7 +330,7 @@
                         Value="#FFF4F4F4" />-->
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="White" />
+                        Value="Transparent" />
                 <Setter Property="Foreground"
                         Value="#FF838383" />
             </Trigger>

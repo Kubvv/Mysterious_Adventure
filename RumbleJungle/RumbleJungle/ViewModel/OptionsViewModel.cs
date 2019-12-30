@@ -7,7 +7,7 @@ namespace RumbleJungle.ViewModel
 {
     public class OptionsViewModel : ViewModelBase
     {
-        private double currentRatio = Config.JungleWidth / Config.JungleHeight;
+        private double currentRatio = (double)Config.JungleWidth / Config.JungleHeight;
 
         public static int MinJungleWidth => Config.MINJUNGLEWIDTH;
         public static int MaxJungleWidth => Config.MAXJUNGLEWIDTH;
@@ -27,10 +27,6 @@ namespace RumbleJungle.ViewModel
                     {
                         Set(nameof(JungleHeight), ref jungleHeight, (int)Math.Round(value / currentRatio));
                         Set(ref jungleWidth, value);
-                    }
-                    else
-                    {
-                        Set(ref jungleWidth, jungleWidth);
                     }
                 }
                 else
@@ -54,10 +50,6 @@ namespace RumbleJungle.ViewModel
                     {
                         Set(nameof(JungleWidth), ref jungleWidth, (int)Math.Round(value * currentRatio));
                         Set(ref jungleHeight, value);
-                    }
-                    else
-                    {
-                        Set(ref jungleHeight, jungleHeight);
                     }
                 }
                 else

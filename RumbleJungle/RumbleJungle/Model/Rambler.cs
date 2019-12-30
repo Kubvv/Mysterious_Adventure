@@ -26,10 +26,10 @@ namespace RumbleJungle.Model
         public override void SetCoordinates(Point point)
         {
             base.SetCoordinates(point);
-            Moved?.Invoke(this, null);
             JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
             JungleObject jungleObject = jungleModel.GetJungleObjectAt(point);
             jungleObject.SetStatus(Statuses.Visited);
+            Moved?.Invoke(this, null);
         }
 
         public event EventHandler StrengthChanged;
