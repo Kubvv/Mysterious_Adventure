@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
-    public class JungleObjectViewModel : ViewModelBase
+    public class JungleObjectViewModel : ViewModelBase, IDisposable
     {
         private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
         private readonly ActionViewModel actionViewModel = ServiceLocator.Current.GetInstance<ActionViewModel>();
@@ -65,7 +65,25 @@ namespace RumbleJungle.ViewModel
             gameModel.MagnifyingGlassModeChanged += MagnifyingGlassModeChanged;
         }
 
-        // TODO: odpiąć zdarzenia
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (jungleObject != null)
+                {
+                    jungleObject.TypeChanged -= TypeChanged;
+                    jungleObject.StatusChanged -= StatusChanged;
+                    if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged -= HealthChanged;
+                }
+                gameModel.MagnifyingGlassModeChanged -= MagnifyingGlassModeChanged;
+            }
+        }
 
         public void SetSize(double width, double height)
         {

@@ -11,14 +11,22 @@ namespace RumbleJungle.ViewModel
         private readonly JungleModel jungleModel;
 
         public RamblerViewModel Rambler { get; private set; }
+        public double ExplorationProgress => jungleModel.ExplorationProgress();
         public TreasureViewModel Treasure { get; private set; }
         public ObservableCollection<WeaponViewModel> Weapons { get; private set; } = new ObservableCollection<WeaponViewModel>();
         public ObservableCollection<JungleObjectStatusViewModel> Beasts { get; private set; } = new ObservableCollection<JungleObjectStatusViewModel>();
+        public string BeastsCount => $"{Beasts.Count}*";
         public ObservableCollection<JungleObjectStatusViewModel> Items { get; private set; } = new ObservableCollection<JungleObjectStatusViewModel>();
+        public string ItemsCount => $"{Items.Count}*";
 
         public StatusBarViewModel(JungleModel jungleModel, WeaponModel weaponModel, RamblerViewModel ramblerViewModel, TreasureViewModel treasureViewModel)
         {
             Rambler = ramblerViewModel;
+            if (Rambler != null)
+            {
+                Rambler.Moved += RamblerMoved;
+            }
+
             Treasure = treasureViewModel;
 
             this.jungleModel = jungleModel;
@@ -35,6 +43,11 @@ namespace RumbleJungle.ViewModel
                     Weapons.Add(new WeaponViewModel(weapon));
                 }
             }
+        }
+
+        private void RamblerMoved(object sender, EventArgs e)
+        {
+            RaisePropertyChanged(nameof(ExplorationProgress));
         }
 
         private RelayCommand saveGame;
@@ -59,6 +72,7 @@ namespace RumbleJungle.ViewModel
         private void JungleGenerated(object sender, EventArgs e)
         {
             Load();
+            RaisePropertyChanged(nameof(ExplorationProgress));
         }
 
         private void Load()
@@ -80,6 +94,7 @@ namespace RumbleJungle.ViewModel
             {
                 Items.Add(new JungleObjectStatusViewModel(item));
             }
+            RaisePropertyChanged(nameof(ItemsCount));
         }
     }
 }

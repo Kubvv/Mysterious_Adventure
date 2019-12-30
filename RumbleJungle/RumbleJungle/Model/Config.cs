@@ -51,10 +51,10 @@ namespace RumbleJungle.Model
             JungleObjectType.Trap
         };
         public static List<JungleObjectType> VisibleItems { get; } = new List<JungleObjectType>() {
-            JungleObjectType.Camp,
-            JungleObjectType.Tent,
             JungleObjectType.ForgottenCity,
             JungleObjectType.DenseJungle,
+            JungleObjectType.Camp,
+            JungleObjectType.Tent
         };
         public static List<JungleObjectType> BadItems { get; } = new List<JungleObjectType>() {
             JungleObjectType.Natives,

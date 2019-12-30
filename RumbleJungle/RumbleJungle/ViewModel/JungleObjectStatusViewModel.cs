@@ -5,7 +5,7 @@ using System;
 
 namespace RumbleJungle.ViewModel
 {
-    public class JungleObjectStatusViewModel : ViewModelBase
+    public class JungleObjectStatusViewModel : ViewModelBase, IDisposable
     {
         private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
         private readonly JungleObject jungleObject;
@@ -19,14 +19,29 @@ namespace RumbleJungle.ViewModel
             jungleObject = firstJungleObject;
             if (firstJungleObject != null)
             {
-                foreach (JungleObject jungleObject in jungleModel.GetJungleObjects(firstJungleObject.JungleObjectType))
+                foreach (JungleObject jungleObject in jungleModel.GetJungleObjects(jungleObject.JungleObjectType))
                 {
                     jungleObject.StatusChanged += StatusChanged;
                 }
             }
         }
 
-        // TODO: odpiąć zdarzenia
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                foreach (JungleObject jungleObject in jungleModel.GetJungleObjects(jungleObject.JungleObjectType))
+                {
+                    jungleObject.StatusChanged -= StatusChanged;
+                }
+            }
+        }
 
         private void StatusChanged(object sender, EventArgs e)
         {

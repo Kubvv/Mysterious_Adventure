@@ -48,13 +48,14 @@ namespace RumbleJungle.Model
     [Flags]
     public enum Statuses
     {
-        Hidden = 1,
-        Shown = 2,
-        Visible = 4,
-        Visited = 8,
-        Pointed = 16,
-        Marked = 32,
-        NotVisited = Hidden | Shown | Visible | Pointed | Marked
+        Hidden = 1, // pole zakryte
+        Shown = 2, // pole właśnie odwiedzane
+        Visible = 4, // pole zawierające obiekt widzialny
+        Visited = 8, // pole odwiedzone
+        Pointed = 16, // pole wskazane przez mapę, kompas lub lupę
+        Marked = 32, // pole odkryte przez talizman lub po zakończeniu gry
+        NotVisited = Hidden | Shown | Visible | Pointed | Marked,
+        Explored = Visited | Marked | Pointed
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming",

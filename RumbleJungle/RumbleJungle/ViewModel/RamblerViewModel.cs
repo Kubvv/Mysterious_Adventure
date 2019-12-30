@@ -24,9 +24,12 @@ namespace RumbleJungle.ViewModel
             }
         }
 
+        public event EventHandler Moved;
+
         private void RamblerMoved(object sender, EventArgs e)
         {
             Update();
+            Moved?.Invoke(this, null);
         }
         private void RamblerHealthChanged(object sender, EventArgs e)
         {
