@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RumbleJungle.Model.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -14,6 +15,7 @@ namespace RumbleJungle.Model
         }
 
         public event EventHandler JungleGenerated;
+
 
         /// <summary>
         /// Puts jungle objects at random positions
@@ -31,7 +33,8 @@ namespace RumbleJungle.Model
                 }
                 else if (jungleObjectType == JungleObjectType.DenseJungle)
                 {
-                    for (int i = 0; i <= Config.Random.Next(Config.JungleObjectsCount[JungleObjectType.DenseJungle]); i++)
+                    int denseJungleCount = Config.Random.Next(Config.JungleObjectsCount[jungleObjectType]) + 1;
+                    for (int i = 0; i < denseJungleCount; i++)
                     {
                         Jungle.Add(new JungleObject(jungleObjectType));
                     }
@@ -58,18 +61,38 @@ namespace RumbleJungle.Model
                 Jungle.Add(new JungleObject(JungleObjectType.EmptyField));
             }
 
-            // generate all possible locations
-            List<Point> coordinates = new List<Point>();
-            for(int row = 0; row < Config.JungleHeight; row++)
+            List<Point> coordinates = new List<Point>(), denseJungleLocations = new List<Point>();
+
+            bool everyFieldIsReachable = false;
+            while (!everyFieldIsReachable)
             {
-                for (int col = 0; col < Config.JungleWidth; col++)
+                // generate all possible locations
+                coordinates.Clear();
+                for (int row = 0; row < Config.JungleHeight; row++)
                 {
-                    coordinates.Add(new Point(col, row));
+                    for (int col = 0; col < Config.JungleWidth; col++)
+                    {
+                        coordinates.Add(new Point(col, row));
+                    }
                 }
+
+                // choose random location for dense jungle
+                denseJungleLocations.Clear();
+                foreach (JungleObject jungleObject in Jungle.Where(jo => jo.JungleObjectType == JungleObjectType.DenseJungle))
+                {
+                    jungleObject.Reset();
+                    int coordinate = Config.Random.Next(coordinates.Count);
+                    jungleObject.SetCoordinates(coordinates[coordinate]);
+                    denseJungleLocations.Add(coordinates[coordinate]);
+                    coordinates.RemoveAt(coordinate);
+                }
+
+                List<Point> filledJungle = SmithsFill.FloodFill(Config.JungleWidth, Config.JungleHeight, denseJungleLocations, coordinates[0]);
+                everyFieldIsReachable = filledJungle.Count == Config.JungleWidth * Config.JungleHeight;
             }
 
-            // choose random location for every jungle object
-            foreach (JungleObject jungleObject in Jungle)
+            // choose random location for every jungle object but dense jungle
+            foreach (JungleObject jungleObject in Jungle.Where(jo => jo.JungleObjectType != JungleObjectType.DenseJungle))
             {
                 if (jungleObject is Beast)
                 {
@@ -109,7 +132,7 @@ namespace RumbleJungle.Model
         {
             int distance = 1;
             JungleObject jungleObject = null;
-            while ((distance < Config.JungleHeight || distance < Config.JungleWidth) && jungleObject == null) 
+            while ((distance < Config.JungleHeight || distance < Config.JungleWidth) && jungleObject == null)
             {
                 jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, statuses, true);
                 if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, statuses, true);
@@ -130,7 +153,7 @@ namespace RumbleJungle.Model
                 }
             }
         }
-        
+
         /// <summary>
         /// Finds a list of surrounding points within a given distance.
         /// </summary>
