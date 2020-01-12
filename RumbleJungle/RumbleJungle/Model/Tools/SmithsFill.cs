@@ -9,6 +9,8 @@ namespace RumbleJungle.Model.Tools
         public const int OUTLINEPOINT = 1;
         public const int FILLEDPOINT = 2;
 
+        private static readonly Stack<Segment> stack = new Stack<Segment>();
+
         /// <summary>
         /// Wypełnienie powodziowe prostokątnego obszaru, zaczynając od punktu startowego.
         /// Wypełnienie jest ograniczone przez ośmio-spójne kontury (wypełnienie nie "wycieka" po skosie).
@@ -76,7 +78,7 @@ namespace RumbleJungle.Model.Tools
 
             while (stack.Count > 0)
             {
-                Segment segment = Pop();
+                Segment segment = stack.Pop();
                 if (segment != null)
                 {
                     for (int i = segment.X; i < segment.X + segment.Length; i++)
@@ -111,7 +113,7 @@ namespace RumbleJungle.Model.Tools
             {
                 x2++;
             }
-            Push(new Segment(x1, y, x2 - x1));
+            stack.Push(new Segment(x1, y, x2 - x1));
             return x2 + 1;
         }
 
@@ -135,24 +137,6 @@ namespace RumbleJungle.Model.Tools
                     x1 = FindSegment(rectangle, x1, y);
                 }
             }
-        }
-
-        private static readonly List<Segment> stack = new List<Segment>();
-
-        private static void Push(Segment segment)
-        {
-            stack.Add(segment);
-        }
-
-        private static Segment Pop()
-        {
-            Segment segment = null;
-            if (stack.Count > 0)
-            {
-                segment = stack[stack.Count - 1];
-                stack.RemoveAt(stack.Count - 1);
-            }
-            return segment;
         }
     }
 
