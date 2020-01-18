@@ -15,11 +15,11 @@ namespace RumbleJungle.Model.Tools
         /// Wypełnienie powodziowe prostokątnego obszaru, zaczynając od punktu startowego.
         /// Wypełnienie jest ograniczone przez ośmio-spójne kontury (wypełnienie nie "wycieka" po skosie).
         /// </summary>
-        /// <param name="width">Szerokość obszaru</param>
-        /// <param name="height">Wysokość obszaru</param>
-        /// <param name="outline">Współrzędne punktów, tworzących kontury</param>
-        /// <param name="start">Współrzędne punktu startowego</param>
-        /// <returns>Współrzędne punktów, tworzących kontury oraz punktów wypełnionych</returns>
+        /// <param name="width">Szerokość obszaru.</param>
+        /// <param name="height">Wysokość obszaru.</param>
+        /// <param name="outline">Współrzędne punktów, tworzących kontury.</param>
+        /// <param name="start">Współrzędne punktu startowego.</param>
+        /// <returns>Współrzędne punktów, tworzących kontury oraz punktów wypełnionych.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
             Justification = "Tablica z konturem jest zawsze prostokątna")]
         public static List<Point> FloodFill(int width, int height, List<Point> outline, Point start)
@@ -63,9 +63,9 @@ namespace RumbleJungle.Model.Tools
         /// W wyniku działania funkcji, punkty EMPTYPOINT, do których można dojść od punktu startowego,
         /// poruszając się w lewo, prawo, górę lub dół, zamieniane są na FILLEDPOINT.
         /// </summary>
-        /// <param name="rectangle">Obszar do wypełnienia (EMPTYPOINT), zawierający kontury (OUTLINEPOINT)</param>
-        /// <param name="startX">Współrzędna X punktu startowego</param>
-        /// <param name="startY">Współrzędna Y punktu startowego</param>
+        /// <param name="rectangle">Obszar do wypełnienia (EMPTYPOINT), zawierający kontury (OUTLINEPOINT).</param>
+        /// <param name="startX">Współrzędna X punktu startowego.</param>
+        /// <param name="startY">Współrzędna Y punktu startowego.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
             Justification = "Tablica z konturem jest zawsze prostokątna")]
         public static void FloodFill(ref int[,] rectangle, int startX, int startY)
@@ -99,24 +99,40 @@ namespace RumbleJungle.Model.Tools
             }
         }
 
+        /// <summary>
+        /// Odnalezienie początku i długości niewypełnionego, poziomego segmentu,
+        /// zawierającego podany punkt startowy.
+        /// </summary>
+        /// <param name="rectangle">Wypełniany obszar.</param>
+        /// <param name="startX">Współrzędna X punktu startowego.</param>
+        /// <param name="startY">Współrzędna Y punktu startowego.</param>
+        /// <returns>Współrzędna X punktu, należącego do potencjalnego, następnego segmentu.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
             Justification = "Tablica z konturem jest zawsze prostokątna")]
-        private static int FindSegment(int[,] rectangle, int x, int y)
+        private static int FindSegment(int[,] rectangle, int startX, int startY)
         {
-            int x1 = x, x2 = x;
-            while (x1 >= 0 && rectangle[x1, y] == EMPTYPOINT)
+            int x1 = startX, x2 = startX;
+            while (x1 >= 0 && rectangle[x1, startY] == EMPTYPOINT)
             {
                 x1--;
             }
             x1++;
-            while (x2 < rectangle.GetLength(0) && rectangle[x2, y] == EMPTYPOINT)
+            while (x2 < rectangle.GetLength(0) && rectangle[x2, startY] == EMPTYPOINT)
             {
                 x2++;
             }
-            stack.Push(new Segment(x1, y, x2 - x1));
+            stack.Push(new Segment(x1, startY, x2 - x1));
             return x2 + 1;
         }
 
+        /// <summary>
+        /// Odnalezienie początku i długości niewypełnionego, poziomego segmentu,
+        /// zawierającego podany punkt startowy.
+        /// </summary>
+        /// <param name="rectangle">Wypełniany obszar.</param>
+        /// <param name="x">Współrzędna X początku segmentu.</param>
+        /// <param name="y">Współrzędna Y początku segmentu.</param>
+        /// <param name="lenght">Długość segmentu.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
             Justification = "Tablica z konturem jest zawsze prostokątna")]
         private static void SearchSegment(int[,] rectangle, int x, int y, int lenght)
