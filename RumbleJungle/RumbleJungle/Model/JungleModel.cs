@@ -1,6 +1,7 @@
 ﻿using RumbleJungle.Model.Tools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 
@@ -128,19 +129,60 @@ namespace RumbleJungle.Model
         /// <param name="coordinates">coordinates</param>
         /// <param name="jungleObjectType">Jungle object type</param>
         /// <returns>Found object or null</returns>
+        [SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
+            Justification = "Tablica wielowymiarowa jest tu najlepszym rozwiązaniem")]
         internal JungleObject FindNearestTo(Point coordinates, JungleObjectType jungleObjectType, Statuses statuses)
         {
+            int[,] nearestObjects = { { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } };
+            int[,] nearObjects = { { -1, -1 }, { 1, -1 }, { 1, -1 }, { 1, 1 }, { 1, 1 }, { -1, 1 }, { -1, 1 }, { -1, -1 } };
             int distance = 1;
             JungleObject jungleObject = null;
             while ((distance < Config.JungleHeight || distance < Config.JungleWidth) && jungleObject == null)
             {
-                jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, statuses, true);
-                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, statuses, true);
-                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, -distance, jungleObjectType, statuses, false);
-                if (jungleObject == null) jungleObject = FindObjectInVector(coordinates, distance, jungleObjectType, statuses, false);
+                int[,] factors = new int[nearestObjects.GetUpperBound(0) + 1, 2];
+                for (int index = 0; index <= factors.GetUpperBound(0); index++)
+                {
+                    factors[index, 0] = nearestObjects[index, 0] * distance;
+                    factors[index, 1] = nearestObjects[index, 1] * distance;
+                }
+                jungleObject = FindObjectByFactors(coordinates, factors, jungleObjectType, statuses);
+
+                int deviation = 1;
+                while (deviation <= distance && jungleObject == null)
+                {
+                    factors = new int[nearObjects.GetUpperBound(0) + 1, 2];
+                    for (int index = 0; index <= factors.GetUpperBound(0); index++)
+                    {
+                        bool distanceFirst = index == 2 || index == 3 || index == 6 || index == 7;
+                        factors[index, 0] = nearObjects[index, 0] * (distanceFirst ? distance : deviation);
+                        factors[index, 1] = nearObjects[index, 1] * (distanceFirst ? deviation : distance);
+                    }
+                    jungleObject = FindObjectByFactors(coordinates, factors, jungleObjectType, statuses);
+                    deviation++;
+                }
+
                 distance++;
             }
             return jungleObject;
+        }
+
+        [SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
+            Justification = "Tablica wielowymiarowa jest tu najlepszym rozwiązaniem")]
+        private JungleObject FindObjectByFactors(Point coordinates, int[,] factors, JungleObjectType jungleObjectType, Statuses statuses)
+        {
+            JungleObject result = null;
+            int index = 0;
+            while (index <= factors.GetUpperBound(0) && result == null)
+            {
+                Point point = new Point(coordinates.X + factors[index, 0], coordinates.Y + factors[index, 1]);
+                JungleObject jungleObject = GetJungleObjectAt(point);
+                if (jungleObject != null && jungleObject.JungleObjectType == jungleObjectType && (jungleObject.Status & statuses) > 0)
+                {
+                    result = jungleObject;
+                }
+                index++;
+            }
+            return result;
         }
 
         internal void MarkHiddenObjects()
@@ -275,32 +317,6 @@ namespace RumbleJungle.Model
             foreach (JungleObject jungleObject in Jungle.Where(jo => jo.JungleObjectType == jungleObjectType))
             {
                 result.Add(jungleObject);
-            }
-            return result;
-        }
-
-        private JungleObject FindObjectInVector(Point coordinates, int distance, JungleObjectType jungleObjectType, Statuses statuses, bool horizontally)
-        {
-            JungleObject result = null;
-            Point point = new Point();
-
-            if (horizontally)
-                point.Y = coordinates.Y + distance;
-            else
-                point.X = coordinates.X + distance;
-
-            for (int radius = -Math.Abs(distance); radius <= Math.Abs(distance); radius++)
-            {
-                if (horizontally)
-                    point.X = coordinates.X + radius;
-                else
-                    point.Y = coordinates.Y + radius;
-                JungleObject jungleObject = GetJungleObjectAt(point);
-                if (jungleObject != null && jungleObject.JungleObjectType == jungleObjectType && (jungleObject.Status & statuses) > 0)
-                {
-                    result = jungleObject;
-                    break;
-                }
             }
             return result;
         }
