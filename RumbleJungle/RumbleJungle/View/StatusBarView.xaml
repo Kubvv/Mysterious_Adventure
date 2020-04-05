@@ -55,16 +55,6 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Viewbox Grid.Row="1"
-                                 Grid.Column="1"
-                                 Grid.RowSpan="3"
-                                 Grid.ColumnSpan="3"
-                                 HorizontalAlignment="Right"
-                                 VerticalAlignment="Bottom"
-                                 Margin="0,0,2,2">
-                            <TextBlock Text="{Binding Count, Converter={StaticResource IntToWeaponCountConverter}}"
-                                       Style="{DynamicResource ItemsCounterStyle}" />
-                        </Viewbox>
                         <svg:SVGImage Source="{Binding Shape}"
                                       Grid.RowSpan="3"
                                       Grid.ColumnSpan="3"
@@ -77,6 +67,16 @@
                                       Margin="2"
                                       Grid.RowSpan="4"
                                       Grid.ColumnSpan="4" />
+                        <Viewbox Grid.Row="1"
+                                 Grid.Column="1"
+                                 Grid.RowSpan="3"
+                                 Grid.ColumnSpan="3"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom"
+                                 Margin="0,0,2,2">
+                            <TextBlock Text="{Binding Count, Converter={StaticResource IntToWeaponCountConverter}}"
+                                       Style="{DynamicResource ItemsCounterStyle}" />
+                        </Viewbox>
                         <Button Command="{Binding HitBeast, Mode=OneWay}"
                                 Background="#00000000"
                                 BorderBrush="#00000000"
@@ -111,6 +111,12 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
+                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      Margin="2"
+                                      Grid.RowSpan="4"
+                                      Grid.ColumnSpan="4" />
                         <Viewbox Grid.Row="1"
                                  Grid.Column="1"
                                  Grid.RowSpan="3"
@@ -121,12 +127,6 @@
                             <TextBlock Text="{Binding Count}"
                                        Style="{DynamicResource ItemsCounterStyle}" />
                         </Viewbox>
-                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
-                                      HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center"
-                                      Margin="2"
-                                      Grid.RowSpan="4"
-                                      Grid.ColumnSpan="4" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -154,6 +154,12 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
+                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      Margin="2"
+                                      Grid.RowSpan="4"
+                                      Grid.ColumnSpan="4" />
                         <Viewbox Grid.Row="1"
                                  Grid.Column="1"
                                  Grid.RowSpan="3"
@@ -164,12 +170,6 @@
                             <TextBlock Text="{Binding Count}"
                                        Style="{DynamicResource ItemsCounterStyle}" />
                         </Viewbox>
-                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
-                                      HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center"
-                                      Margin="2"
-                                      Grid.RowSpan="4"
-                                      Grid.ColumnSpan="4" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -192,6 +192,12 @@
                          Maximum="{Binding Treasure.Total, Mode=OneWay}"
                          Grid.RowSpan="4"
                          Grid.ColumnSpan="4" />
+            <svg:SVGImage Source="{Binding Treasure.Shape, Mode=OneWay}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Margin="2"
+                          Grid.RowSpan="4"
+                          Grid.ColumnSpan="2" />
             <Viewbox Grid.RowSpan="4"
                      Grid.Column="1"
                      Grid.ColumnSpan="3">
@@ -208,12 +214,6 @@
                 <TextBlock Text="{Binding Treasure.Total, Mode=OneWay}"
                            Style="{DynamicResource ItemsCounterStyle}" />
             </Viewbox>
-            <svg:SVGImage Source="{Binding Treasure.Shape, Mode=OneWay}"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          Margin="2"
-                          Grid.RowSpan="4"
-                          Grid.ColumnSpan="2" />
             <Button Command="{Binding SaveGame, Mode=OneWay}"
                     Background="#00000000"
                     BorderBrush="#00000000"
