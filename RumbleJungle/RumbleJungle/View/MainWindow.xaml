@@ -17,7 +17,8 @@
                 Style="{DynamicResource MenuButton}" />
         <Button Content="Wczytaj grę"
                 Style="{DynamicResource MenuButton}"
-                Command="{Binding LoadGame}" />
+                Command="{Binding LoadGame}"
+                Visibility="Collapsed" />
         <Button Content="Opcje"
                 Command="{Binding OpenOptions, Mode=OneWay}"
                 Style="{DynamicResource MenuButton}" />
