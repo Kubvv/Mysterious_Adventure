@@ -17,11 +17,10 @@ namespace RumbleJungle.Model
 
         public event EventHandler JungleGenerated;
 
-
         /// <summary>
-        /// Puts jungle objects at random positions
+        /// Fills jungle with objects
         /// </summary>
-        public void GenerateJungle()
+        public void PrepareJungle()
         {
             Jungle.Clear();
 
@@ -61,7 +60,13 @@ namespace RumbleJungle.Model
             {
                 Jungle.Add(new JungleObject(JungleObjectType.EmptyField));
             }
+        }
 
+        /// <summary>
+        /// Puts jungle objects at random positions
+        /// </summary>
+        public void GenerateJungle()
+        {
             List<Point> coordinates = new List<Point>(), denseJungleLocations = new List<Point>();
 
             bool everyFieldIsReachable = false;

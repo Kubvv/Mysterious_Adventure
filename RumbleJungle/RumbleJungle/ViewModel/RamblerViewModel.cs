@@ -9,8 +9,8 @@ namespace RumbleJungle.ViewModel
 
         public double Strength => rambler.Strength;
         public bool Visible => rambler.Visible;
-        public new double Width => base.Width - 1;
-        public new double Height => base.Height - 1;
+        public new double Width => Math.Max(base.Width - 1, 0);
+        public new double Height => Math.Max(base.Height - 1, 0);
 
         public RamblerViewModel(GameModel gameModel) : base(gameModel?.Rambler)
         {
