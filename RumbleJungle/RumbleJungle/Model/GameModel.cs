@@ -60,14 +60,19 @@ namespace RumbleJungle.Model
             actionTimer.Interval = new TimeSpan(0, 0, 1);
         }
 
-        public void StartGame()
+        public void PrepareGame()
         {
             weaponModel.CollectWeapon();
-            jungleModel.GenerateJungle();
+            jungleModel.PrepareJungle();
             Rambler.Reset();
+        }
+
+        public void StartGame()
+        {
+            jungleModel.GenerateJungle();
             // place rambler on a random empty field in the jungle
             Rambler.SetCoordinates(jungleModel.GetRandomJungleObject(JungleObjectType.EmptyField).Coordinates);
-            
+
             inGame = true;
             isMagnifyingGlassMode = false;
             isForgottenCityMode = false;
@@ -133,7 +138,7 @@ namespace RumbleJungle.Model
                 canHit = false;
                 bool canDoubleAttack = weapon.DoubleAttack && weapon.Count > 1;
                 PlaySound(weapon.Name);
-                beast.ChangeHealth((int)Math.Round(-Config.WeaponStrenght[new Tuple<WeaponType, JungleObjectType>(weapon.WeaponType, beast.JungleObjectType)].RandomValue * 
+                beast.ChangeHealth((int)Math.Round(-Config.WeaponStrenght[new Tuple<WeaponType, JungleObjectType>(weapon.WeaponType, beast.JungleObjectType)].RandomValue *
                     Rambler.Strength * (canDoubleAttack ? 2 : 1)));
                 weapon.ChangeCount(canDoubleAttack ? -2 : -1);
                 weapon.SetDoubleAttack(false);

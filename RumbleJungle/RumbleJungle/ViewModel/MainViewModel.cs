@@ -20,6 +20,8 @@ namespace RumbleJungle.ViewModel
 
         private void ExecuteStartNewGame()
         {
+            gameModel.PrepareGame();
+            //Task startGameTask = Task.Run(() => gameModel.StartGame());
             gameModel.StartGame();
             JungleView jungleView = new JungleView();
             jungleView.ShowDialog();

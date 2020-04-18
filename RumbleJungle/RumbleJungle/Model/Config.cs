@@ -136,7 +136,7 @@ namespace RumbleJungle.Model
         public static Random Random { get; } = new Random();
         public static bool DebugMode { get; } = false;
 
-        public const int MINJUNGLEWIDTH = 4, MAXJUNGLEWIDTH = 50, MINJUNGLEHEIGHT = 4, MAXJUNGLEHEIGHT = 50;
+        public const int MINJUNGLEWIDTH = 4, MAXJUNGLEWIDTH = 30, MINJUNGLEHEIGHT = 4, MAXJUNGLEHEIGHT = 30;
 
         private const string JUNGLEWIDTH = "JungleWidth";
         public static int JungleHeight { get; private set; }
