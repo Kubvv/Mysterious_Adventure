@@ -64,12 +64,12 @@ namespace RumbleJungle.Model
         {
             weaponModel.CollectWeapon();
             jungleModel.PrepareJungle();
+            Rambler.Reset();
         }
 
         public void StartGame()
         {
             jungleModel.GenerateJungle();
-            Rambler.Reset();
             // place rambler on a random empty field in the jungle
             Rambler.SetCoordinates(jungleModel.GetRandomJungleObject(JungleObjectType.EmptyField).Coordinates);
 

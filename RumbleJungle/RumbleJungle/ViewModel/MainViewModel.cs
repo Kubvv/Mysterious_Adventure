@@ -2,7 +2,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
 using RumbleJungle.View;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace RumbleJungle.ViewModel
@@ -22,8 +21,8 @@ namespace RumbleJungle.ViewModel
         private void ExecuteStartNewGame()
         {
             gameModel.PrepareGame();
-            Task startGameTask = Task.Run(() => gameModel.StartGame());
-            //gameModel.StartGame();
+            //Task startGameTask = Task.Run(() => gameModel.StartGame());
+            gameModel.StartGame();
             JungleView jungleView = new JungleView();
             jungleView.ShowDialog();
         }
