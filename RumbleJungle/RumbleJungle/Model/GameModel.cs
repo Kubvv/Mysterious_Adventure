@@ -244,9 +244,9 @@ namespace RumbleJungle.Model
                 int healthAdded = Config.Random.Next(11) + 25;
                 Rambler.ChangeHealth(healthAdded);
             }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Compass)
+            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Radar)
             {
-                // Point all monsters in a 5x5 square around the compass
+                // Point all monsters in a 5x5 square around the radar
                 Point point = new Point(CurrentJungleObject.Coordinates.X - 2, CurrentJungleObject.Coordinates.Y - 2);
                 for (int column = 0; column < 5; column++)
                 {

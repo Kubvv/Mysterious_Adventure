@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RumbleJungle.View"
-             xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
+             xmlns:images="clr-namespace:RumbleJungle.Images"
              mc:Ignorable="d"
              MinWidth="200"
              DataContext="{Binding StatusBarInstance, Mode=OneWay, Source={StaticResource Locator}}">
@@ -55,18 +55,18 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <svg:SVGImage Source="{Binding Shape}"
-                                      Grid.RowSpan="3"
-                                      Grid.ColumnSpan="3"
-                                      HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center"
-                                      Visibility="{Binding DoubleAttack, Converter={StaticResource BoolToVisibilityConverter}}" />
-                        <svg:SVGImage Source="{Binding Shape}"
-                                      HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center"
-                                      Margin="2"
-                                      Grid.RowSpan="4"
-                                      Grid.ColumnSpan="4" />
+                        <ContentControl Content="{Binding Shape}"
+                                        Grid.RowSpan="3"
+                                        Grid.ColumnSpan="3"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Visibility="{Binding DoubleAttack, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <ContentControl Content="{Binding Shape}"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Margin="2"
+                                        Grid.RowSpan="4"
+                                        Grid.ColumnSpan="4" />
                         <Viewbox Grid.Row="1"
                                  Grid.Column="1"
                                  Grid.RowSpan="3"
@@ -111,12 +111,12 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
-                                      HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center"
-                                      Margin="2"
-                                      Grid.RowSpan="4"
-                                      Grid.ColumnSpan="4" />
+                        <ContentControl Content="{Binding Shape}"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Margin="2"
+                                        Grid.RowSpan="4"
+                                        Grid.ColumnSpan="4" />
                         <Viewbox Grid.Row="1"
                                  Grid.Column="1"
                                  Grid.RowSpan="3"
@@ -154,12 +154,12 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
-                                      HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center"
-                                      Margin="2"
-                                      Grid.RowSpan="4"
-                                      Grid.ColumnSpan="4" />
+                        <ContentControl Content="{Binding Shape}"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Margin="2"
+                                        Grid.RowSpan="4"
+                                        Grid.ColumnSpan="4" />
                         <Viewbox Grid.Row="1"
                                  Grid.Column="1"
                                  Grid.RowSpan="3"
@@ -192,12 +192,11 @@
                          Maximum="{Binding Treasure.Total, Mode=OneWay}"
                          Grid.RowSpan="4"
                          Grid.ColumnSpan="4" />
-            <svg:SVGImage Source="{Binding Treasure.Shape, Mode=OneWay}"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          Margin="2"
-                          Grid.RowSpan="4"
-                          Grid.ColumnSpan="2" />
+            <images:Treasure HorizontalContentAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             Margin="2"
+                             Grid.RowSpan="4"
+                             Grid.ColumnSpan="2" />
             <Viewbox Grid.RowSpan="4"
                      Grid.Column="1"
                      Grid.ColumnSpan="3">

@@ -18,7 +18,7 @@ namespace RumbleJungle.Model
         LostWeapon,
         Elixir,
         Map,
-        Compass,
+        Radar,
         MagnifyingGlass,
         Talisman,
         Natives,

@@ -11,7 +11,6 @@ namespace RumbleJungle.ViewModel
         private readonly JungleModel jungleModel;
 
         public string Name { get; private set; }
-        public string Shape => $"/RumbleJungle;component/Images/{Name}.svg";
         public int Count => jungleModel.CountOf(JungleObjectType.Treasure);
         public static int Total => Config.JungleObjectsCount[JungleObjectType.Treasure];
         public int Found => Total - Count;

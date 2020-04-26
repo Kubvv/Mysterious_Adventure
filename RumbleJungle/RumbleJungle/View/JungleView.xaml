@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RumbleJungle.View"
-        xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
+        xmlns:images="clr-namespace:RumbleJungle.Images"
         mc:Ignorable="d"
         Title="RumbleJungle"
         Height="500"
@@ -34,10 +34,10 @@
                           Width="{Binding Width}"
                           Height="{Binding Height}"
                           Background="Green">
-                        <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
-                                      HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center"
-                                      Margin="4" />
+                        <ContentControl Content="{Binding Shape}" 
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Margin="4" />
                         <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Command="{Binding MoveRamblerCommand, Mode=OneWay}"
                                 BorderThickness="3"
@@ -55,20 +55,19 @@
                 Width="{Binding RamblerViewModel.Width}"
                 Height="{Binding RamblerViewModel.Height}"
                 Visibility="{Binding RamblerViewModel.Visible, Converter={StaticResource BoolToVisibilityConverter}}">
-            <svg:SVGImage Source="{Binding RamblerViewModel.Shape, Mode=OneWay}"
-                          Margin="4"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          RenderTransformOrigin="0.5,0.5">
-                <svg:SVGImage.RenderTransform>
+            <images:Rambler Margin="4"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            RenderTransformOrigin="0.5,0.5">
+                <images:Rambler.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform />
                         <SkewTransform />
                         <RotateTransform Angle="{Binding RamblerViewModel.Health, Converter={StaticResource HealthToAngleConverter}}" />
                         <TranslateTransform />
                     </TransformGroup>
-                </svg:SVGImage.RenderTransform>
-            </svg:SVGImage>
+                </images:Rambler.RenderTransform>
+            </images:Rambler>
         </Border>
         <local:ActionView />
         <local:StatusBarView Grid.Row="1" />

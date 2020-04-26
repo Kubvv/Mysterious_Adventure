@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RumbleJungle.View"
-             xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
+             xmlns:images="clr-namespace:RumbleJungle.Images"
              mc:Ignorable="d"
              DataContext="{Binding ActionInstance, Mode=OneWay, Source={StaticResource Locator}}"
              Visibility="{Binding ActionVisibility}">
@@ -27,9 +27,9 @@
                 Padding="10"
                 Grid.Row="1"
                 Grid.Column="1">
-            <svg:SVGImage Source="{Binding Shape, Mode=OneWay}"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center" />
+            <ContentControl Content="{Binding Shape}" 
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" />
         </Border>
         <Grid Grid.Row="2"
               Grid.Column="1"
@@ -56,42 +56,38 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <svg:SVGImage Source="/RumbleJungle;component/Images/CampMuscle.svg"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          Margin="10"/>
+            <images:CampMuscle HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Center"
+                               Margin="10"/>
             <Button Command="{Binding AddStrenghtCommand, Mode=OneWay}"
                     Background="#00000000"
                     BorderBrush="#00000000"
                     BorderThickness="2"
                     Template="{DynamicResource StatusButtonTemplate}" />
-            <svg:SVGImage Source="/RumbleJungle;component/Images/CampCheckAdjacent.svg"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          Margin="10"
-                          Grid.Column="1" />
+            <images:CampCheckAdjacent HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      Margin="10"
+                                      Grid.Column="1" />
             <Button Command="{Binding CheckAdjacentCommand, Mode=OneWay}"
                     Background="#00000000"
                     BorderBrush="#00000000"
                     BorderThickness="2"
                     Template="{DynamicResource StatusButtonTemplate}"
                     Grid.Column="1" />
-            <svg:SVGImage Source="/RumbleJungle;component/Images/CampHealth.svg"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          Margin="10"
-                          Grid.Column="2" />
+            <images:CampHealth HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Center"
+                               Margin="10"
+                               Grid.Column="2" />
             <Button Command="{Binding AddHealthCommand, Mode=OneWay}"
                     Background="#00000000"
                     BorderBrush="#00000000"
                     BorderThickness="2"
                     Template="{DynamicResource StatusButtonTemplate}"
                     Grid.Column="2" />
-            <svg:SVGImage Source="/RumbleJungle;component/Images/Camp2x.svg"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          Margin="10"
-                          Grid.Column="3" />
+            <images:Camp2x HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center"
+                           Margin="10"
+                           Grid.Column="3" />
             <Button Command="{Binding AddDoubleAttackCommand, Mode=OneWay}"
                     Background="#00000000"
                     BorderBrush="#00000000"

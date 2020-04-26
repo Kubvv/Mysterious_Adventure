@@ -108,6 +108,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\RamblerViewModel.cs" />
+    <Compile Include="Model\ShapesModel.cs" />
     <Compile Include="ViewModel\StatusBarViewModel.cs" />
     <Compile Include="ViewModel\TreasureViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -122,6 +123,134 @@
     <Compile Include="View\StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Images\Battleaxe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Bow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Camp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Camp2x.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\CampCheckAdjacent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\CampHealth.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\CampMuscle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\CarnivorousPlant.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Radar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Dagger.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\DenseJungle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\DragonflySwarm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Elixir.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\ForgottenCity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Hydra.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\LostWeapon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Machete.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\MagnifyingGlass.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Map.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Minotaur.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Natives.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Quicksand.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Rambler.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Snakes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Spear.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Sword.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Talisman.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Tent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Torch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Trap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Treasure.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\WildPig.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -176,7 +305,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include=".editorconfig" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -188,59 +316,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\WildPig.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Battleaxe.svg" />
-    <Resource Include="Images\Camp.svg" />
-    <Resource Include="Images\CarnivorousPlant.svg" />
-    <Resource Include="Images\Dagger.svg" />
-    <Resource Include="Images\DragonflySwarm.svg" />
-    <Resource Include="Images\Rambler.svg" />
-    <Resource Include="Images\Hydra.svg" />
-    <Resource Include="Images\Machete.svg" />
-    <Resource Include="Images\Minotaur.svg" />
-    <Resource Include="Images\Snakes.svg" />
-    <Resource Include="Images\Spear.svg" />
-    <Resource Include="Images\ForgottenCity.svg" />
-    <Resource Include="Images\Torch.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Bow.svg" />
-    <Resource Include="Images\Compass.svg" />
-    <Resource Include="Images\Elixir.svg" />
-    <Resource Include="Images\MagnifyingGlass.svg" />
-    <Resource Include="Images\Map.svg" />
-    <Resource Include="Images\Natives.svg" />
-    <Resource Include="Images\Quicksand.svg" />
-    <Resource Include="Images\Sword.svg" />
-    <Resource Include="Images\Talisman.svg" />
-    <Resource Include="Images\Trap.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Treasure.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Tent.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\DenseJungle.svg" />
-    <Resource Include="Images\EmptyField.svg" />
-    <Resource Include="Images\LostWeapon.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SVGImage\DotNetProjects.SVGImage.csproj">
-      <Project>{5569522d-5c29-451e-8730-f119f0408bca}</Project>
-      <Name>DotNetProjects.SVGImage</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Camp2x.svg" />
-    <Resource Include="Images\CampCheckAdjacent.svg" />
-    <Resource Include="Images\CampHealth.svg" />
-    <Resource Include="Images\CampMuscle.svg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sounds\Camp.wav">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 
 namespace RumbleJungle.Model
 {
@@ -19,7 +20,7 @@ namespace RumbleJungle.Model
             [JungleObjectType.LostWeapon] = 3,
             [JungleObjectType.Elixir] = 3,
             [JungleObjectType.Map] = 4,
-            [JungleObjectType.Compass] = 4,
+            [JungleObjectType.Radar] = 4,
             [JungleObjectType.MagnifyingGlass] = 4,
             [JungleObjectType.Talisman] = 2,
             [JungleObjectType.Natives] = 2,
@@ -43,7 +44,7 @@ namespace RumbleJungle.Model
             JungleObjectType.LostWeapon,
             JungleObjectType.Elixir,
             JungleObjectType.Map,
-            JungleObjectType.Compass,
+            JungleObjectType.Radar,
             JungleObjectType.MagnifyingGlass,
             JungleObjectType.Talisman,
             JungleObjectType.Natives,
@@ -65,7 +66,7 @@ namespace RumbleJungle.Model
             JungleObjectType.LostWeapon,
             JungleObjectType.Elixir,
             JungleObjectType.Map,
-            JungleObjectType.Compass,
+            JungleObjectType.Radar,
             JungleObjectType.MagnifyingGlass,
             JungleObjectType.Talisman,
         };
@@ -151,9 +152,9 @@ namespace RumbleJungle.Model
 
         public static void Read()
         {
-            JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEWIDTH]);
-            JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEHEIGHT]);
-            KeepRatio = Convert.ToBoolean(ConfigurationManager.AppSettings[KEEPRATIO]);
+            JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEWIDTH], CultureInfo.CurrentCulture);
+            JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEHEIGHT], CultureInfo.CurrentCulture);
+            KeepRatio = Convert.ToBoolean(ConfigurationManager.AppSettings[KEEPRATIO], CultureInfo.CurrentCulture);
             RecalculateJungle();
         }
 
@@ -165,8 +166,8 @@ namespace RumbleJungle.Model
             JungleHeight = newHeight;
             if (save)
             {
-                UpdateSetting(JUNGLEWIDTH, JungleWidth.ToString());
-                UpdateSetting(JUNGLEHEIGHT, JungleHeight.ToString());
+                UpdateSetting(JUNGLEWIDTH, JungleWidth.ToString(CultureInfo.CurrentCulture));
+                UpdateSetting(JUNGLEHEIGHT, JungleHeight.ToString(CultureInfo.CurrentCulture));
             }
             RecalculateJungle();
         }
@@ -176,17 +177,17 @@ namespace RumbleJungle.Model
             if (KeepRatio == newKeepRatio) return;
 
             KeepRatio = newKeepRatio;
-            UpdateSetting(KEEPRATIO, KeepRatio.ToString());
+            UpdateSetting(KEEPRATIO, KeepRatio.ToString(CultureInfo.CurrentCulture));
         }
 
         private static void RecalculateJungle()
         {
-            double factor = (double) (JungleHeight * JungleWidth) / (defaultJungleHeight * defaultJungleWidth);
+            double factor = (double)(JungleHeight * JungleWidth) / (defaultJungleHeight * defaultJungleWidth);
 
             JungleObjectsCount = new Dictionary<JungleObjectType, int>();
             foreach (KeyValuePair<JungleObjectType, int> jungleObjectsCount in defaultJungleObjectsCount)
             {
-                JungleObjectsCount.Add(jungleObjectsCount.Key, (int) Math.Floor(jungleObjectsCount.Value * factor));
+                JungleObjectsCount.Add(jungleObjectsCount.Key, (int)Math.Floor(jungleObjectsCount.Value * factor));
             }
         }
 
