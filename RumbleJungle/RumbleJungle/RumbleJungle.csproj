@@ -123,7 +123,103 @@
     <Compile Include="View\StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Images\Battleaxe.xaml">
+    <Compile Include="Images\Battleaxe.xaml.cs">
+      <DependentUpon>Battleaxe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Bow.xaml.cs">
+      <DependentUpon>Bow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Camp.xaml.cs">
+      <DependentUpon>Camp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Camp2x.xaml.cs">
+      <DependentUpon>Camp2x.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\CampCheckAdjacent.xaml.cs">
+      <DependentUpon>CampCheckAdjacent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\CampHealth.xaml.cs">
+      <DependentUpon>CampHealth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\CampMuscle.xaml.cs">
+      <DependentUpon>CampMuscle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\CarnivorousPlant.xaml.cs">
+      <DependentUpon>CarnivorousPlant.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Radar.xaml.cs">
+      <DependentUpon>Radar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Dagger.xaml.cs">
+      <DependentUpon>Dagger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\DenseJungle.xaml.cs">
+      <DependentUpon>DenseJungle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\DragonflySwarm.xaml.cs">
+      <DependentUpon>DragonflySwarm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Elixir.xaml.cs">
+      <DependentUpon>Elixir.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\ForgottenCity.xaml.cs">
+      <DependentUpon>ForgottenCity.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Hydra.xaml.cs">
+      <DependentUpon>Hydra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\LostWeapon.xaml.cs">
+      <DependentUpon>LostWeapon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Machete.xaml.cs">
+      <DependentUpon>Machete.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\MagnifyingGlass.xaml.cs">
+      <DependentUpon>MagnifyingGlass.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Map.xaml.cs">
+      <DependentUpon>Map.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Minotaur.xaml.cs">
+      <DependentUpon>Minotaur.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Natives.xaml.cs">
+      <DependentUpon>Natives.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Quicksand.xaml.cs">
+      <DependentUpon>Quicksand.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Rambler.xaml.cs">
+      <DependentUpon>Rambler.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Snakes.xaml.cs">
+      <DependentUpon>Snakes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Spear.xaml.cs">
+      <DependentUpon>Spear.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Sword.xaml.cs">
+      <DependentUpon>Sword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Talisman.xaml.cs">
+      <DependentUpon>Talisman.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Tent.xaml.cs">
+      <DependentUpon>Tent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Torch.xaml.cs">
+      <DependentUpon>Torch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Trap.xaml.cs">
+      <DependentUpon>Trap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\Treasure.xaml.cs">
+      <DependentUpon>Treasure.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Images\WildPig.xaml.cs">
+      <DependentUpon>WildPig.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Images\BattleAxe.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -244,8 +340,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Images\Treasure.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Images\WildPig.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -345,6 +441,9 @@
     <Content Include="Sounds\Natives.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sounds\Radar.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\Snakes.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -365,9 +464,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\CarnivorousPlant.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Compass.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\BattleAxe.wav">
