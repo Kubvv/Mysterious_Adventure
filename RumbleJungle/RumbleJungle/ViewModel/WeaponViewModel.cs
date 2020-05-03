@@ -3,17 +3,19 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
 using System;
+using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
     public class WeaponViewModel : ViewModelBase
     {
+        private readonly ShapesModel shapesModel = ServiceLocator.Current.GetInstance<ShapesModel>();
         private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
 
         private readonly Weapon weapon;
 
         public string Name => weapon.Name;
-        public string Shape => $"/RumbleJungle;component/Images/{weapon.Name}.svg";
+        public FrameworkElement Shape => shapesModel.GetWeaponShape(weapon.WeaponType);
         public int Count => weapon.Count;
         public bool DoubleAttack => weapon.DoubleAttack;
 

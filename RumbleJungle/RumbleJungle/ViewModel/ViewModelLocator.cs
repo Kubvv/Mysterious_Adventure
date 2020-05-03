@@ -45,6 +45,7 @@ namespace RumbleJungle.ViewModel
             SimpleIoc.Default.Register<GameModel>();
             SimpleIoc.Default.Register<JungleModel>();
             SimpleIoc.Default.Register<WeaponModel>();
+            SimpleIoc.Default.Register<ShapesModel>();
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<OptionsViewModel>();

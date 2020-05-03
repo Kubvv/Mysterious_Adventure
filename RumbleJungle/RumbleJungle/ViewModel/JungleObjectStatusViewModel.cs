@@ -2,16 +2,18 @@
 using GalaSoft.MvvmLight;
 using RumbleJungle.Model;
 using System;
+using System.Windows;
 
 namespace RumbleJungle.ViewModel
 {
     public class JungleObjectStatusViewModel : ViewModelBase, IDisposable
     {
+        private readonly ShapesModel shapesModel = ServiceLocator.Current.GetInstance<ShapesModel>();
         private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
         private readonly JungleObject jungleObject;
 
         public string Name => jungleObject.Name;
-        public string Shape => $"/RumbleJungle;component/Images/{jungleObject.Name}.svg";
+        public FrameworkElement Shape => shapesModel.GetJungleShape(jungleObject.JungleObjectType);
         public int Count => jungleModel.CountOf(jungleObject.JungleObjectType);
 
         public JungleObjectStatusViewModel(JungleObject firstJungleObject)
