@@ -170,18 +170,7 @@
         <Setter Property="VerticalAlignment"
                 Value="Stretch" />
         <Setter Property="Foreground"
-                Value="#80008000" />
-        <Setter Property="FontWeight"
-                Value="ExtraBold" />
-    </Style>
-    <Style x:Key="HealthCounterStyle"
-           TargetType="{x:Type TextBlock}">
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="VerticalAlignment"
-                Value="Stretch" />
-        <Setter Property="Foreground"
-                Value="#80008000" />
+                Value="#D0008000" />
         <Setter Property="FontWeight"
                 Value="ExtraBold" />
     </Style>

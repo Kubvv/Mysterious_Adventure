@@ -2,7 +2,7 @@
 
 namespace RumbleJungle.Model
 {
-    public class ShapesModel
+    public static class ShapesModel
     {
         //private readonly Dictionary<JungleObjectType, FrameworkElement> jungleShapes;
         //private readonly Dictionary<WeaponType, FrameworkElement> weaponShapes;
@@ -26,11 +26,11 @@ namespace RumbleJungle.Model
 
         //public FrameworkElement GetWeaponShape(WeaponType weaponType) => weaponShapes[weaponType];
 
-        public FrameworkElement GetJungleShape(JungleObjectType jungleObjectType) => NewJungleShape(jungleObjectType);
+        public static FrameworkElement GetJungleShape(JungleObjectType jungleObjectType) => NewJungleShape(jungleObjectType);
 
-        public FrameworkElement GetWeaponShape(WeaponType weaponType) => NewWeaponShape(weaponType);
+        public static FrameworkElement GetWeaponShape(WeaponType weaponType) => NewWeaponShape(weaponType);
 
-        private FrameworkElement NewJungleShape(JungleObjectType jungleObjectType)
+        private static FrameworkElement NewJungleShape(JungleObjectType jungleObjectType)
         {
             FrameworkElement result = null;
             switch (jungleObjectType)
@@ -107,7 +107,7 @@ namespace RumbleJungle.Model
             return result;
         }
 
-        private FrameworkElement NewWeaponShape(WeaponType weaponType)
+        private static FrameworkElement NewWeaponShape(WeaponType weaponType)
         {
             FrameworkElement result = null;
             switch (weaponType)

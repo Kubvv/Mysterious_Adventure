@@ -9,7 +9,6 @@ namespace RumbleJungle.ViewModel
 {
     public class JungleObjectViewModel : ViewModelBase, IDisposable
     {
-        private readonly ShapesModel shapesModel = ServiceLocator.Current.GetInstance<ShapesModel>();
         private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
         private readonly ActionViewModel actionViewModel = ServiceLocator.Current.GetInstance<ActionViewModel>();
 
@@ -18,7 +17,7 @@ namespace RumbleJungle.ViewModel
         public JungleObjectViewModel Self => this;
         public JungleObjectType JungleObjectType => jungleObject.JungleObjectType;
         public string Name => jungleObject.Name;
-        public FrameworkElement Shape => shapesModel.GetJungleShape(jungleObject.JungleObjectType);
+        public FrameworkElement Shape => ShapesModel.GetJungleShape(jungleObject.JungleObjectType);
         public Statuses Status => jungleObject.Status;
         public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
         public bool IsCamp => jungleObject.JungleObjectType == JungleObjectType.Camp;
