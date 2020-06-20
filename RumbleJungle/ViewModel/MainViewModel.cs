@@ -16,7 +16,7 @@ namespace RumbleJungle.ViewModel
         }
 
         private RelayCommand startNewGame;
-        public RelayCommand StartNewGame => startNewGame ?? (startNewGame = new RelayCommand(() => ExecuteStartNewGame(), () => CanStartNewGame));
+        public RelayCommand StartNewGame => startNewGame ??= new RelayCommand(() => ExecuteStartNewGame(), () => CanStartNewGame);
 
         private void ExecuteStartNewGame()
         {
@@ -39,7 +39,7 @@ namespace RumbleJungle.ViewModel
         }
 
         private RelayCommand loadGame;
-        public RelayCommand LoadGame => loadGame ?? (loadGame = new RelayCommand(() => ExecuteLoadGame(), () => CanLoadGame));
+        public RelayCommand LoadGame => loadGame ??= new RelayCommand(() => ExecuteLoadGame(), () => CanLoadGame);
 
         private static void ExecuteLoadGame()
         {
@@ -58,7 +58,7 @@ namespace RumbleJungle.ViewModel
         }
 
         private RelayCommand openOptions;
-        public RelayCommand OpenOptions => openOptions ?? (openOptions = new RelayCommand(() => ExecuteOpenOptions(), () => CanOpenOptions));
+        public RelayCommand OpenOptions => openOptions ??= new RelayCommand(() => ExecuteOpenOptions(), () => CanOpenOptions);
 
         private static void ExecuteOpenOptions()
         {
@@ -78,6 +78,6 @@ namespace RumbleJungle.ViewModel
         }
 
         private RelayCommand closeApp;
-        public RelayCommand CloseApp => closeApp ?? (closeApp = new RelayCommand(() => Application.Current.Shutdown()));
+        public RelayCommand CloseApp => closeApp ??= new RelayCommand(() => Application.Current.Shutdown());
     }
 }

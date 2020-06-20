@@ -51,7 +51,7 @@ namespace RumbleJungle.ViewModel
         }
 
         private RelayCommand saveGame;
-        public RelayCommand SaveGame => saveGame ?? (saveGame = new RelayCommand(() => ExecuteSaveGame(), () => CanSaveGame));
+        public RelayCommand SaveGame => saveGame ??= new RelayCommand(() => ExecuteSaveGame(), () => CanSaveGame);
 
         private static void ExecuteSaveGame()
         {

@@ -39,19 +39,19 @@ namespace RumbleJungle.ViewModel
         public double Height { get; private set; }
 
         private RelayCommand moveRamblerCommand;
-        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => gameModel.MoveRamblerTo(jungleObject.Coordinates)));
+        public RelayCommand MoveRamblerCommand => moveRamblerCommand ??= new RelayCommand(() => gameModel.MoveRamblerTo(jungleObject.Coordinates));
 
         private RelayCommand addStrenghtCommand;
-        public RelayCommand AddStrenghtCommand => addStrenghtCommand ?? (addStrenghtCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Strenght)));
+        public RelayCommand AddStrenghtCommand => addStrenghtCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.Strenght));
 
         private RelayCommand checkAdjacentCommand;
-        public RelayCommand CheckAdjacentCommand => checkAdjacentCommand ?? (checkAdjacentCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Adjacency)));
+        public RelayCommand CheckAdjacentCommand => checkAdjacentCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.Adjacency));
 
         private RelayCommand addHealthCommand;
-        public RelayCommand AddHealthCommand => addHealthCommand ?? (addHealthCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Health)));
+        public RelayCommand AddHealthCommand => addHealthCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.Health));
 
         private RelayCommand addDoubleAttackCommand;
-        public RelayCommand AddDoubleAttackCommand => addDoubleAttackCommand ?? (addDoubleAttackCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.DoubleAttack)));
+        public RelayCommand AddDoubleAttackCommand => addDoubleAttackCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.DoubleAttack));
 
         public JungleObjectViewModel(JungleObject jungleObject)
         {
