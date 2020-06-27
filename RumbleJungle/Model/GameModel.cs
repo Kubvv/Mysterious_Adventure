@@ -63,7 +63,7 @@ namespace RumbleJungle.Model
         public void PrepareGame()
         {
             weaponModel.CollectWeapon();
-            jungleModel.PrepareJungle();
+            jungleModel.PrepareJungle(weaponModel);
             Rambler.Reset();
         }
 
@@ -278,8 +278,8 @@ namespace RumbleJungle.Model
             }
             else if (CurrentJungleObject.JungleObjectType == JungleObjectType.LostWeapon)
             {
-                // add random weapon
-                weaponModel.ChangeRandomWeaponCount(1);
+                // add found weapon
+                (CurrentJungleObject.BackingObject as Weapon).ChangeCount(1);
             }
             else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Camp)
             {

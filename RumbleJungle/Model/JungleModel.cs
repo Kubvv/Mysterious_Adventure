@@ -20,7 +20,7 @@ namespace RumbleJungle.Model
         /// <summary>
         /// Fills jungle with objects
         /// </summary>
-        public void PrepareJungle()
+        public void PrepareJungle(WeaponModel weaponModel)
         {
             Jungle.Clear();
 
@@ -37,6 +37,15 @@ namespace RumbleJungle.Model
                     for (int i = 0; i < denseJungleCount; i++)
                     {
                         Jungle.Add(new JungleObject(jungleObjectType));
+                    }
+                }
+                else if (jungleObjectType == JungleObjectType.LostWeapon)
+                {
+                    if (weaponModel == null) throw new NullReferenceException();
+                    for (int i = 0; i < Config.JungleObjectsCount[jungleObjectType]; i++)
+                    {
+                        Weapon randomWeapon = weaponModel.RandomWeapon();
+                        Jungle.Add(new JungleObject(jungleObjectType, randomWeapon, randomWeapon.Name));
                     }
                 }
                 else if (Config.Beasts.Contains(jungleObjectType))

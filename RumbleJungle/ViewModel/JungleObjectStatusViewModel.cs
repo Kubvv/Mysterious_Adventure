@@ -12,7 +12,7 @@ namespace RumbleJungle.ViewModel
         private readonly JungleObject jungleObject;
 
         public string Name => jungleObject.Name;
-        public FrameworkElement Shape => ShapesModel.GetJungleShape(jungleObject.JungleObjectType);
+        public FrameworkElement Shape => ShapesModel.GetJungleShape(jungleObject.JungleObjectType, null);
         public int Count => jungleModel.CountOf(jungleObject.JungleObjectType);
 
         public JungleObjectStatusViewModel(JungleObject firstJungleObject)

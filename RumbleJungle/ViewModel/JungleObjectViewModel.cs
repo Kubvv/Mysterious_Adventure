@@ -17,7 +17,7 @@ namespace RumbleJungle.ViewModel
         public JungleObjectViewModel Self => this;
         public JungleObjectType JungleObjectType => jungleObject.JungleObjectType;
         public string Name => jungleObject.Name;
-        public FrameworkElement Shape => ShapesModel.GetJungleShape(jungleObject.JungleObjectType);
+        public FrameworkElement Shape => ShapesModel.GetJungleShape(jungleObject.JungleObjectType, jungleObject.BackingObject);
         public Statuses Status => jungleObject.Status;
         public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
         public bool IsCamp => jungleObject.JungleObjectType == JungleObjectType.Camp;

@@ -4,29 +4,27 @@ namespace RumbleJungle.Model
 {
     public static class ShapesModel
     {
-        //private readonly Dictionary<JungleObjectType, FrameworkElement> jungleShapes;
-        //private readonly Dictionary<WeaponType, FrameworkElement> weaponShapes;
-
-        //public ShapesModel()
-        //{
-        //    jungleShapes = new Dictionary<JungleObjectType, FrameworkElement>();
-        //    foreach (JungleObjectType jungleObjectType in Enum.GetValues(typeof(JungleObjectType)))
-        //    {
-        //        jungleShapes.Add(jungleObjectType, NewJungleShape(jungleObjectType));
-        //    }
-
-        //    weaponShapes = new Dictionary<WeaponType, FrameworkElement>();
-        //    foreach (WeaponType weaponType in Enum.GetValues(typeof(WeaponType)))
-        //    {
-        //        weaponShapes.Add(weaponType, NewWeaponShape(weaponType));
-        //    }
-        //}
-
-        //public FrameworkElement GetJungleShape(JungleObjectType jungleObjectType) => jungleShapes[jungleObjectType];
-
-        //public FrameworkElement GetWeaponShape(WeaponType weaponType) => weaponShapes[weaponType];
-
-        public static FrameworkElement GetJungleShape(JungleObjectType jungleObjectType) => NewJungleShape(jungleObjectType);
+        public static FrameworkElement GetJungleShape(JungleObjectType jungleObjectType, object backingObject)
+        {
+            FrameworkElement result;
+            if (backingObject == null)
+            {
+                result = NewJungleShape(jungleObjectType);
+            }
+            else if (backingObject is JungleObject)
+            {
+                result = NewJungleShape((backingObject as JungleObject).JungleObjectType);
+            }
+            else if (backingObject is Weapon)
+            {
+                result = NewWeaponShape((backingObject as Weapon).WeaponType);
+            }
+            else
+            {
+                result = null;
+            }
+            return result;
+        }
 
         public static FrameworkElement GetWeaponShape(WeaponType weaponType) => NewWeaponShape(weaponType);
 
