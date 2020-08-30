@@ -9,6 +9,7 @@ namespace RumbleJungle.Model
         public string Name { get; private set; }
         public Point Coordinates { get; private set; }
         public Statuses Status { get; private set; }
+        public object BackingObject { get; private set; }
 
         public event EventHandler TypeChanged;
         public event EventHandler StatusChanged;
@@ -16,7 +17,15 @@ namespace RumbleJungle.Model
         public JungleObject(JungleObjectType jungleObjectType)
         {
             JungleObjectType = jungleObjectType;
+            BackingObject = null;
             Name = Enum.GetName(typeof(JungleObjectType), jungleObjectType);
+        }
+
+        public JungleObject(JungleObjectType jungleObjectType, object backingObject, string name)
+        {
+            JungleObjectType = jungleObjectType;
+            BackingObject = backingObject;
+            Name = name;
         }
 
         public virtual void Reset()

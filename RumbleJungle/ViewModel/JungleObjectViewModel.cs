@@ -9,7 +9,6 @@ namespace RumbleJungle.ViewModel
 {
     public class JungleObjectViewModel : ViewModelBase, IDisposable
     {
-        private readonly ShapesModel shapesModel = ServiceLocator.Current.GetInstance<ShapesModel>();
         private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
         private readonly ActionViewModel actionViewModel = ServiceLocator.Current.GetInstance<ActionViewModel>();
 
@@ -18,7 +17,7 @@ namespace RumbleJungle.ViewModel
         public JungleObjectViewModel Self => this;
         public JungleObjectType JungleObjectType => jungleObject.JungleObjectType;
         public string Name => jungleObject.Name;
-        public FrameworkElement Shape => shapesModel.GetJungleShape(jungleObject.JungleObjectType);
+        public FrameworkElement Shape => ShapesModel.GetJungleShape(jungleObject.JungleObjectType, jungleObject.BackingObject);
         public Statuses Status => jungleObject.Status;
         public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
         public bool IsCamp => jungleObject.JungleObjectType == JungleObjectType.Camp;
@@ -40,19 +39,19 @@ namespace RumbleJungle.ViewModel
         public double Height { get; private set; }
 
         private RelayCommand moveRamblerCommand;
-        public RelayCommand MoveRamblerCommand => moveRamblerCommand ?? (moveRamblerCommand = new RelayCommand(() => gameModel.MoveRamblerTo(jungleObject.Coordinates)));
+        public RelayCommand MoveRamblerCommand => moveRamblerCommand ??= new RelayCommand(() => gameModel.MoveRamblerTo(jungleObject.Coordinates));
 
         private RelayCommand addStrenghtCommand;
-        public RelayCommand AddStrenghtCommand => addStrenghtCommand ?? (addStrenghtCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Strenght)));
+        public RelayCommand AddStrenghtCommand => addStrenghtCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.Strenght));
 
         private RelayCommand checkAdjacentCommand;
-        public RelayCommand CheckAdjacentCommand => checkAdjacentCommand ?? (checkAdjacentCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Adjacency)));
+        public RelayCommand CheckAdjacentCommand => checkAdjacentCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.Adjacency));
 
         private RelayCommand addHealthCommand;
-        public RelayCommand AddHealthCommand => addHealthCommand ?? (addHealthCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Health)));
+        public RelayCommand AddHealthCommand => addHealthCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.Health));
 
         private RelayCommand addDoubleAttackCommand;
-        public RelayCommand AddDoubleAttackCommand => addDoubleAttackCommand ?? (addDoubleAttackCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.DoubleAttack)));
+        public RelayCommand AddDoubleAttackCommand => addDoubleAttackCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.DoubleAttack));
 
         public JungleObjectViewModel(JungleObject jungleObject)
         {

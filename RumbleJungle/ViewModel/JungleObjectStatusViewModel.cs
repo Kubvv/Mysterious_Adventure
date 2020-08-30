@@ -8,12 +8,11 @@ namespace RumbleJungle.ViewModel
 {
     public class JungleObjectStatusViewModel : ViewModelBase, IDisposable
     {
-        private readonly ShapesModel shapesModel = ServiceLocator.Current.GetInstance<ShapesModel>();
         private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
         private readonly JungleObject jungleObject;
 
         public string Name => jungleObject.Name;
-        public FrameworkElement Shape => shapesModel.GetJungleShape(jungleObject.JungleObjectType);
+        public FrameworkElement Shape => ShapesModel.GetJungleShape(jungleObject.JungleObjectType, null);
         public int Count => jungleModel.CountOf(jungleObject.JungleObjectType);
 
         public JungleObjectStatusViewModel(JungleObject firstJungleObject)

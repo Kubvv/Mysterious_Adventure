@@ -9,13 +9,12 @@ namespace RumbleJungle.ViewModel
 {
     public class WeaponViewModel : ViewModelBase
     {
-        private readonly ShapesModel shapesModel = ServiceLocator.Current.GetInstance<ShapesModel>();
         private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
 
         private readonly Weapon weapon;
 
         public string Name => weapon.Name;
-        public FrameworkElement Shape => shapesModel.GetWeaponShape(weapon.WeaponType);
+        public FrameworkElement Shape => ShapesModel.GetWeaponShape(weapon.WeaponType);
         public int Count => weapon.Count;
         public bool DoubleAttack => weapon.DoubleAttack;
 
@@ -30,7 +29,7 @@ namespace RumbleJungle.ViewModel
         }
 
         private RelayCommand hitBeast;
-        public RelayCommand HitBeast => hitBeast ?? (hitBeast = new RelayCommand(() => gameModel.HitBeastWith(weapon), () => Count != 0));
+        public RelayCommand HitBeast => hitBeast ??= new RelayCommand(() => gameModel.HitBeastWith(weapon), () => Count != 0);
 
         private void CountChanged(object sender, EventArgs e)
         {

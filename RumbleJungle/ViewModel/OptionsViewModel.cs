@@ -68,7 +68,7 @@ namespace RumbleJungle.ViewModel
         }
 
         private RelayCommand saveOptions;
-        public RelayCommand SaveOptions => saveOptions ?? (saveOptions = new RelayCommand(() => ExecuteSaveOptions()));
+        public RelayCommand SaveOptions => saveOptions ??= new RelayCommand(() => ExecuteSaveOptions());
 
         private void ExecuteSaveOptions()
         {
