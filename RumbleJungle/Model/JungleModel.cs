@@ -132,13 +132,13 @@ namespace RumbleJungle.Model
         /// <returns>Percent (0-100), showing explored fields to all visitable fields ratio.</returns>
         public double ExplorationProgress()
         {
-            int explorableFields = Config.JungleWidth * Config.JungleHeight -
-                Jungle.Count(jo => jo.JungleObjectType == JungleObjectType.DenseJungle) -
-                Jungle.Count(jo => jo.JungleObjectType == JungleObjectType.Tent) -
-                Jungle.Count(jo => jo.JungleObjectType == JungleObjectType.Camp);
+            int explorableFields = Config.JungleWidth * Config.JungleHeight;
+            foreach (JungleObjectType jungleObjectType in Config.VisibleItems)
+            {
+                explorableFields -= Jungle.Count(jo => jo.JungleObjectType == jungleObjectType);
+            }
             int exploredFields = Jungle.Count(jo => Statuses.Explored.HasFlag(jo.Status) &&
-                jo.JungleObjectType != JungleObjectType.Tent &&
-                jo.JungleObjectType != JungleObjectType.Camp);
+                !Config.VisibleItems.Contains(jo.JungleObjectType));
             return exploredFields * 100.0 / explorableFields;
         }
 
