@@ -22,7 +22,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Border Background="White"
-                BorderThickness="5"
+                BorderThickness="1"
                 BorderBrush="Black"
                 Padding="10"
                 Grid.Row="1"

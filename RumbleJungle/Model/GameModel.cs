@@ -10,14 +10,19 @@ namespace RumbleJungle.Model
 {
     public class GameModel
     {
+        private const int MaxSteps = 50;
+
         private readonly JungleModel jungleModel;
         private readonly WeaponModel weaponModel;
         private readonly DispatcherTimer actionTimer = new DispatcherTimer();
+        private readonly DispatcherTimer walkTimer = new DispatcherTimer();
         private JungleObject forgottenCity = null;
         private int forgottenCityBeastCount;
         private readonly MediaPlayer mediaPlayer = new MediaPlayer();
         private bool inGame = true;
         private bool canHit = false;
+        private int stepCount;
+        private int alternateStep = 1;
 
         public JungleObject CurrentJungleObject { get; private set; }
 
@@ -58,6 +63,9 @@ namespace RumbleJungle.Model
 
             actionTimer.Tick += ActionTimerTick;
             actionTimer.Interval = new TimeSpan(0, 0, 1);
+
+            walkTimer.Tick += WalkTimerTick;
+            walkTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
         }
 
         public void PrepareGame()
@@ -93,25 +101,112 @@ namespace RumbleJungle.Model
             else
             {
                 CurrentJungleObject = jungleModel.GetJungleObjectAt(point);
-                if (point.X >= Rambler.Coordinates.X - 1 && point.X <= Rambler.Coordinates.X + 1 && point.Y >= Rambler.Coordinates.Y - 1 && point.Y <= Rambler.Coordinates.Y + 1
-                    && CurrentJungleObject.JungleObjectType != JungleObjectType.DenseJungle)
+                if (CurrentJungleObject.JungleObjectType != JungleObjectType.DenseJungle)
                 {
-                    if (CurrentJungleObject.JungleObjectType == JungleObjectType.EmptyField ||
-                        CurrentJungleObject.Status == Statuses.Visited)
+                    if (point.X >= Rambler.Coordinates.X - 1 &&
+                        point.X <= Rambler.Coordinates.X + 1 &&
+                        point.Y >= Rambler.Coordinates.Y - 1 &&
+                        point.Y <= Rambler.Coordinates.Y + 1)
                     {
-                        Rambler.SetCoordinates(point);
-                    }
-                    else
-                    {
-                        if (!Config.Beasts.Contains(CurrentJungleObject.JungleObjectType))
+                        if (CurrentJungleObject.JungleObjectType == JungleObjectType.EmptyField ||
+                            CurrentJungleObject.Status == Statuses.Visited)
                         {
-                            PlaySound(CurrentJungleObject.Name);
+                            Rambler.SetCoordinates(point);
                         }
-                        CurrentJungleObject.SetStatus(Statuses.Shown);
-                        actionTimer.Start();
+                        else
+                        {
+                            if (!Config.Beasts.Contains(CurrentJungleObject.JungleObjectType))
+                            {
+                                PlaySound(CurrentJungleObject.Name);
+                            }
+                            CurrentJungleObject.SetStatus(Statuses.Shown);
+                            actionTimer.Start();
+                        }
+                    }
+                    else if (CurrentJungleObject.Status.HasFlag(Statuses.Visited))
+                    {
+                        // walk the rambler to the point over visited cells
+
+                        // check if destination point is reachable
+                        // List<Point> fill = SmithsFill.FloodFill(Config.JungleWidth, Config.JungleHeight, denseJungleLocations, coordinates[0]);
+                        // everyFieldIsReachable = filledJungle.Count == Config.JungleWidth * Config.JungleHeight;
+
+                        stepCount = 0;
+                        walkTimer.Start();
                     }
                 }
             }
+        }
+
+        private void WalkTimerTick(object sender, EventArgs e)
+        {
+            Point nextStep = FindNextStep(Rambler.Coordinates, CurrentJungleObject.Coordinates);
+            JungleObject nextStepObject = jungleModel.GetJungleObjectAt(nextStep);
+            if (nextStepObject == null || !nextStepObject.Status.HasFlag(Statuses.Visited))
+            {
+                nextStep = FindNextStep(Rambler.Coordinates, CurrentJungleObject.Coordinates, alternateStep);
+                nextStepObject = jungleModel.GetJungleObjectAt(nextStep);
+                if (nextStepObject == null || !nextStepObject.Status.HasFlag(Statuses.Visited))
+                {
+                    alternateStep = -alternateStep;
+                    nextStep = FindNextStep(Rambler.Coordinates, CurrentJungleObject.Coordinates, alternateStep);
+                    nextStepObject = jungleModel.GetJungleObjectAt(nextStep);
+                }
+            }
+            bool endOfWalk;
+            if (nextStepObject != null && nextStepObject.Status.HasFlag(Statuses.Visited))
+            {
+                Rambler.SetCoordinates(nextStep);
+                endOfWalk = Rambler.Coordinates.X == CurrentJungleObject.Coordinates.X &&
+                    Rambler.Coordinates.Y == CurrentJungleObject.Coordinates.Y;
+            }
+            else
+            {
+                endOfWalk = true;
+            }
+            stepCount++;
+            if (stepCount > MaxSteps)
+            {
+                endOfWalk = true;
+            }
+            if (endOfWalk)
+            {
+                walkTimer.Stop();
+            }
+        }
+
+        private static Point FindNextStep(Point from, Point to, int alternateStep = 0)
+        {
+            int deltaX = 0, deltaY = 0;
+            double angle = from.X == to.X ? 90 : Math.Abs(Math.Atan((from.Y - to.Y) / (from.X - to.X)) * (180 / Math.PI));
+            if (angle < 67.5)
+            {
+                deltaX = from.X > to.X ? -1 : 1;
+            }
+            if (angle > 22.5)
+            {
+                deltaY = from.Y > to.Y ? -1 : 1;
+            }
+            if (alternateStep != 0)
+            {
+                if (deltaX == 0)
+                {
+                    deltaX = alternateStep;
+                }
+                else if (deltaY == 0)
+                {
+                    deltaY = alternateStep;
+                }
+                else if (alternateStep == 1)
+                {
+                    deltaX = 0;
+                }
+                else
+                {
+                    deltaY = 0;
+                }
+            }
+            return new Point(from.X + deltaX, from.Y + deltaY);
         }
 
         private void PlaySound(string soundName)
