@@ -22,7 +22,6 @@ namespace RumbleJungle.Model
         private bool inGame = true;
         private bool canHit = false;
         private int stepCount;
-        private int alternateStep = 1;
 
         public JungleObject CurrentJungleObject { get; private set; }
 
@@ -93,8 +92,9 @@ namespace RumbleJungle.Model
             if (IsMagnifyingGlassMode)
             {
                 JungleObject pointedObject = jungleModel.GetJungleObjectAt(point);
-                List<Point> pointNeighbours = JungleModel.FindNeighboursTo(pointedObject.Coordinates, 1).ToList();
-                jungleModel.SetPointedAt(pointNeighbours);
+                List<Point> neighbours = JungleModel.FindNeighboursTo(pointedObject.Coordinates, 1).ToList();
+                neighbours.Add(point);
+                jungleModel.SetPointedAt(neighbours);
                 Rambler.SetCoordinates(CurrentJungleObject.Coordinates);
                 IsMagnifyingGlassMode = false;
             }
@@ -140,42 +140,49 @@ namespace RumbleJungle.Model
 
         private void WalkTimerTick(object sender, EventArgs e)
         {
-            Point nextStep = FindNextStep(Rambler.Coordinates, CurrentJungleObject.Coordinates);
-            JungleObject nextStepObject = jungleModel.GetJungleObjectAt(nextStep);
-            if (nextStepObject == null || !nextStepObject.Status.HasFlag(Statuses.Visited))
+            walkTimer.Stop();
+            JungleObject nextStepObject = FindNextStepJungleObject(Rambler.Coordinates, CurrentJungleObject.Coordinates);
+            if (nextStepObject != null)
             {
-                nextStep = FindNextStep(Rambler.Coordinates, CurrentJungleObject.Coordinates, alternateStep);
-                nextStepObject = jungleModel.GetJungleObjectAt(nextStep);
-                if (nextStepObject == null || !nextStepObject.Status.HasFlag(Statuses.Visited))
-                {
-                    alternateStep = -alternateStep;
-                    nextStep = FindNextStep(Rambler.Coordinates, CurrentJungleObject.Coordinates, alternateStep);
-                    nextStepObject = jungleModel.GetJungleObjectAt(nextStep);
-                }
-            }
-            bool endOfWalk;
-            if (nextStepObject != null && nextStepObject.Status.HasFlag(Statuses.Visited))
-            {
-                Rambler.SetCoordinates(nextStep);
-                endOfWalk = Rambler.Coordinates.X == CurrentJungleObject.Coordinates.X &&
+                Rambler.SetCoordinates(nextStepObject.Coordinates);
+                stepCount++;
+                bool endOfWalk = stepCount > MaxSteps ||
+                    Rambler.Coordinates.X == CurrentJungleObject.Coordinates.X &&
                     Rambler.Coordinates.Y == CurrentJungleObject.Coordinates.Y;
-            }
-            else
-            {
-                endOfWalk = true;
-            }
-            stepCount++;
-            if (stepCount > MaxSteps)
-            {
-                endOfWalk = true;
-            }
-            if (endOfWalk)
-            {
-                walkTimer.Stop();
+                if (!endOfWalk)
+                {
+                    walkTimer.Start();
+                }
             }
         }
 
-        private static Point FindNextStep(Point from, Point to, int alternateStep = 0)
+        private JungleObject FindNextStepJungleObject(Point from, Point to)
+        {
+            JungleObject result = jungleModel.GetJungleObjectAt(FindNextStep(from, to));
+            if (!CanMakeStepTo(result))
+            {
+                result = null;
+                double minDistance = Config.JungleWidth * Config.JungleHeight;
+                foreach (Point neighbour in JungleModel.FindNeighboursTo(from, 1))
+                {
+                    JungleObject nextStepObject = jungleModel.GetJungleObjectAt(neighbour);
+                    double nextStepDistance = Point.Subtract(neighbour, to).Length;
+                    if (nextStepDistance < minDistance && CanMakeStepTo(nextStepObject))
+                    {
+                        result = nextStepObject;
+                        minDistance = nextStepDistance;
+                    }
+                }
+            }
+            return result;
+        }
+
+        private static bool CanMakeStepTo(JungleObject jungleObject)
+        {
+            return jungleObject != null && jungleObject.Status.HasFlag(Statuses.Visited);
+        }
+
+        private static Point FindNextStep(Point from, Point to)
         {
             int deltaX = 0, deltaY = 0;
             double angle = from.X == to.X ? 90 : Math.Abs(Math.Atan((from.Y - to.Y) / (from.X - to.X)) * (180 / Math.PI));
@@ -187,25 +194,27 @@ namespace RumbleJungle.Model
             {
                 deltaY = from.Y > to.Y ? -1 : 1;
             }
-            if (alternateStep != 0)
-            {
-                if (deltaX == 0)
-                {
-                    deltaX = alternateStep;
-                }
-                else if (deltaY == 0)
-                {
-                    deltaY = alternateStep;
-                }
-                else if (alternateStep == 1)
-                {
-                    deltaX = 0;
-                }
-                else
-                {
-                    deltaY = 0;
-                }
-            }
+
+            //if (alternateStep != 0)
+            //{
+            //    if (deltaX == 0)
+            //    {
+            //        deltaX = alternateStep;
+            //    }
+            //    else if (deltaY == 0)
+            //    {
+            //        deltaY = alternateStep;
+            //    }
+            //    else if (alternateStep == 1)
+            //    {
+            //        deltaX = 0;
+            //    }
+            //    else
+            //    {
+            //        deltaY = 0;
+            //    }
+            //}
+
             return new Point(from.X + deltaX, from.Y + deltaY);
         }
 

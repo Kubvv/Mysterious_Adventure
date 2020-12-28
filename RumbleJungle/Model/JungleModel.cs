@@ -216,7 +216,7 @@ namespace RumbleJungle.Model
         }
 
         /// <summary>
-        /// Finds a list of surrounding points within a given distance.
+        /// Finds a list of surrounding points at a given distance.
         /// </summary>
         /// <param name="coordinates">Selected center point.</param>
         /// <param name="distance">Distance from the selected point.</param>
@@ -228,7 +228,10 @@ namespace RumbleJungle.Model
             {
                 for (var y = -distance; y <= distance; y++)
                 {
-                    neighbours.Add(new Point(coordinates.X + x, coordinates.Y + y));
+                    if (Math.Abs(x) == distance || Math.Abs(y) == distance)
+                    {
+                        neighbours.Add(new Point(coordinates.X + x, coordinates.Y + y));
+                    }
                 }
             }
             return neighbours;
