@@ -10,8 +10,6 @@ namespace RumbleJungle.Model
 {
     public class GameModel
     {
-        private const int MaxSteps = 50;
-
         private readonly JungleModel jungleModel;
         private readonly WeaponModel weaponModel;
         private readonly DispatcherTimer actionTimer = new DispatcherTimer();
@@ -21,7 +19,7 @@ namespace RumbleJungle.Model
         private readonly MediaPlayer mediaPlayer = new MediaPlayer();
         private bool inGame = true;
         private bool canHit = false;
-        private int stepCount;
+        private readonly List<Point> visitedPoints = new List<Point>();
 
         public JungleObject CurrentJungleObject { get; private set; }
 
@@ -131,7 +129,8 @@ namespace RumbleJungle.Model
                         // List<Point> fill = SmithsFill.FloodFill(Config.JungleWidth, Config.JungleHeight, denseJungleLocations, coordinates[0]);
                         // everyFieldIsReachable = filledJungle.Count == Config.JungleWidth * Config.JungleHeight;
 
-                        stepCount = 0;
+                        visitedPoints.Clear();
+                        visitedPoints.Add(Rambler.Coordinates);
                         walkTimer.Start();
                     }
                 }
@@ -145,9 +144,8 @@ namespace RumbleJungle.Model
             if (nextStepObject != null)
             {
                 Rambler.SetCoordinates(nextStepObject.Coordinates);
-                stepCount++;
-                bool endOfWalk = stepCount > MaxSteps ||
-                    Rambler.Coordinates.X == CurrentJungleObject.Coordinates.X &&
+                visitedPoints.Add(nextStepObject.Coordinates);
+                bool endOfWalk = Rambler.Coordinates.X == CurrentJungleObject.Coordinates.X &&
                     Rambler.Coordinates.Y == CurrentJungleObject.Coordinates.Y;
                 if (!endOfWalk)
                 {
@@ -177,9 +175,9 @@ namespace RumbleJungle.Model
             return result;
         }
 
-        private static bool CanMakeStepTo(JungleObject jungleObject)
+        private bool CanMakeStepTo(JungleObject jungleObject)
         {
-            return jungleObject != null && jungleObject.Status.HasFlag(Statuses.Visited);
+            return jungleObject != null && jungleObject.Status.HasFlag(Statuses.Visited) && !visitedPoints.Contains(jungleObject.Coordinates);
         }
 
         private static Point FindNextStep(Point from, Point to)
