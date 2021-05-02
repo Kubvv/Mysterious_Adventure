@@ -35,16 +35,35 @@
                           Width="{Binding Width}"
                           Height="{Binding Height}"
                           Background="Green">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
                         <ContentControl Content="{Binding Shape}" 
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"
-                                        Margin="4" />
+                                        Margin="4"
+                                        Grid.RowSpan="2" />
+                        <ItemsControl ItemsSource="{Binding ArsenalWeapons}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Rows="1" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding Shape}"
+                                                    Margin="4" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                         <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Command="{Binding MoveRamblerCommand, Mode=OneWay}"
                                 BorderThickness="3"
                                 BorderBrush="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Template="{DynamicResource JungleButtonTemplate}"
-                                IsCancel="{Binding IsMagnifyingGlassMode}" />
+                                IsCancel="{Binding IsMagnifyingGlassMode}"
+                                Grid.RowSpan="2" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

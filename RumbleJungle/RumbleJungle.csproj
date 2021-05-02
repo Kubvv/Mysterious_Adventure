@@ -100,6 +100,7 @@
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\JungleModel.cs" />
     <Compile Include="Model\JungleObject.cs" />
+    <Compile Include="Model\JungleArsenal.cs" />
     <Compile Include="Model\LivingJungleObject.cs" />
     <Compile Include="Model\Rambler.cs" />
     <Compile Include="Model\Tools\SmithsFill.cs" />

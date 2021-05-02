@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RumbleJungle.Model;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace RumbleJungle.ViewModel
@@ -23,6 +24,9 @@ namespace RumbleJungle.ViewModel
         public bool IsCamp => jungleObject.JungleObjectType == JungleObjectType.Camp;
         public int Health => IsLivingJungleObject ? (jungleObject as LivingJungleObject).Health : 0;
         public bool IsMagnifyingGlassMode => gameModel.IsMagnifyingGlassMode;
+        public bool IsArsenal => Config.Arsenals.Contains(jungleObject.JungleObjectType);
+        public ObservableCollection<WeaponViewModel> ArsenalWeapons { get; } = new ObservableCollection<WeaponViewModel>();
+
 
         Thickness margin = new Thickness(0);
         public Thickness Margin
@@ -61,6 +65,14 @@ namespace RumbleJungle.ViewModel
                 jungleObject.TypeChanged += TypeChanged;
                 jungleObject.StatusChanged += StatusChanged;
                 if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged += HealthChanged;
+                if (IsArsenal)
+                {
+                    ArsenalWeapons.Clear();
+                    foreach (Weapon weapon in (jungleObject as JungleArsenal).Weapons)
+                    {
+                        ArsenalWeapons.Add(new WeaponViewModel(weapon));
+                    }
+                }
             }
             gameModel.MagnifyingGlassModeChanged += MagnifyingGlassModeChanged;
         }

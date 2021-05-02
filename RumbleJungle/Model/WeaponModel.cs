@@ -5,6 +5,8 @@ namespace RumbleJungle.Model
 {
     public class WeaponModel
     {
+        private readonly List<int> weaponsLeftForDraw = new List<int>();
+
         public List<Weapon> Weapons { get; private set; } = new List<Weapon>();
 
         public WeaponModel()
@@ -19,15 +21,36 @@ namespace RumbleJungle.Model
             Weapons.ForEach(weapon => weapon.Reset());
         }
 
-        public Weapon RandomWeapon()
+        public Weapon ExclusiveRandomWeapon()
         {
-            int randomWeapon = Config.Random.Next(Weapons.Count - 1) + 1;
-            return Weapons[randomWeapon];
+            if (weaponsLeftForDraw.Count <= 0)
+            {
+                ResetRandomWeapons();
+            }
+            int index = Config.Random.Next(weaponsLeftForDraw.Count);
+            int randomWeaponIndex = weaponsLeftForDraw[index];
+            weaponsLeftForDraw.RemoveAt(index);
+            return Weapons[randomWeaponIndex];
+        }
+
+        public void ResetRandomWeapons()
+        {
+            weaponsLeftForDraw.Clear();
+
+            int index = 0;
+            foreach (WeaponType weaponType in Enum.GetValues(typeof(WeaponType)))
+            {
+                if (weaponType != WeaponType.Dagger)
+                {
+                    weaponsLeftForDraw.Add(index);
+                }
+                index++;
+            }
         }
 
         public void ChangeRandomWeaponCount(int quantity)
         {
-            RandomWeapon().ChangeCount(quantity);
+            ExclusiveRandomWeapon().ChangeCount(quantity);
         }
 
         public void ChangeAllWeaponsCount(int quantity)
@@ -37,7 +60,7 @@ namespace RumbleJungle.Model
 
         public void SetDoubleAttack()
         {
-            RandomWeapon().SetDoubleAttack(true);
+            ExclusiveRandomWeapon().SetDoubleAttack(true);
         }
     }
 }
