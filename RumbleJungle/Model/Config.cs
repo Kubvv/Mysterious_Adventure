@@ -68,7 +68,10 @@ namespace RumbleJungle.Model
             JungleObjectType.Map,
             JungleObjectType.Radar,
             JungleObjectType.MagnifyingGlass,
-            JungleObjectType.Talisman,
+            JungleObjectType.Talisman
+        };
+        public static List<JungleObjectType> Arsenals { get; } = new List<JungleObjectType>() {
+            JungleObjectType.Tent
         };
         public static Dictionary<JungleObjectType, BaseDev> BeastsInitialHealth { get; } = new Dictionary<JungleObjectType, BaseDev>
         {
@@ -138,6 +141,7 @@ namespace RumbleJungle.Model
         public static bool DebugMode { get; } = false;
 
         public const int MINJUNGLEWIDTH = 4, MAXJUNGLEWIDTH = 50, MINJUNGLEHEIGHT = 4, MAXJUNGLEHEIGHT = 50;
+        public const int JUNGLEARSENALWEAPONCOUNT = 3;
 
         private const string JUNGLEWIDTH = "JungleWidth";
         public static int JungleHeight { get; private set; }

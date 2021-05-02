@@ -22,6 +22,11 @@ namespace RumbleJungle.Model
         /// </summary>
         public void PrepareJungle(WeaponModel weaponModel)
         {
+            if (weaponModel == null)
+            {
+                throw new ArgumentNullException(nameof(weaponModel));
+            }
+
             Jungle.Clear();
 
             // insert all objects
@@ -44,7 +49,7 @@ namespace RumbleJungle.Model
                     if (weaponModel == null) throw new NullReferenceException();
                     for (int i = 0; i < Config.JungleObjectsCount[jungleObjectType]; i++)
                     {
-                        Weapon randomWeapon = weaponModel.RandomWeapon();
+                        Weapon randomWeapon = weaponModel.ExclusiveRandomWeapon();
                         Jungle.Add(new JungleObject(jungleObjectType, randomWeapon, randomWeapon.Name));
                     }
                 }
@@ -53,6 +58,18 @@ namespace RumbleJungle.Model
                     for (int i = 0; i < Config.JungleObjectsCount[jungleObjectType]; i++)
                     {
                         Jungle.Add(new Beast(jungleObjectType));
+                    }
+                }
+                else if (Config.Arsenals.Contains(jungleObjectType))
+                {
+                    for (int i = 0; i < Config.JungleObjectsCount[jungleObjectType]; i++)
+                    {
+                        JungleArsenal jungleArsenal = new JungleArsenal(jungleObjectType);
+                        for (int j = 0; j < Config.JUNGLEARSENALWEAPONCOUNT; j++)
+                        {
+                            jungleArsenal.AddWeapon(weaponModel.ExclusiveRandomWeapon());
+                        }
+                        Jungle.Add(jungleArsenal);
                     }
                 }
                 else

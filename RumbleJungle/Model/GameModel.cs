@@ -69,6 +69,7 @@ namespace RumbleJungle.Model
         {
             weaponModel.CollectWeapon();
             jungleModel.PrepareJungle(weaponModel);
+            weaponModel.ResetRandomWeapons();
             Rambler.Reset();
         }
 
@@ -340,6 +341,17 @@ namespace RumbleJungle.Model
                 // Hit rambler
                 Rambler.ChangeHealth(-Config.BeastStrenght[CurrentJungleObject.JungleObjectType].RandomValue);
             }
+            else if (Config.Arsenals.Contains(CurrentJungleObject.JungleObjectType))
+            {
+                // Give weapon from arsenal and 25-35% health
+                JungleArsenal jungleArsenal = CurrentJungleObject as JungleArsenal;
+                foreach (Weapon weapon in jungleArsenal.Weapons)
+                {
+                    weapon.ChangeCount(1);
+                }
+                int healthAdded = Config.Random.Next(6) + 35;
+                Rambler.ChangeHealth(healthAdded);
+            }
             else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Elixir)
             {
                 // Increase health by 25%-35%
@@ -394,14 +406,6 @@ namespace RumbleJungle.Model
                 //  check four fields adjacent to camp
                 //  additional 15% health
                 //  double attack with random weapon
-            }
-            else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Tent)
-            {
-                // add all weapons and 25-35% health
-                weaponModel.ChangeAllWeaponsCount(1);
-                int healthAdded = Config.Random.Next(6) + 35;
-                Rambler.ChangeHealth(healthAdded);
-
             }
             else if (CurrentJungleObject.JungleObjectType == JungleObjectType.ForgottenCity)
             {
