@@ -77,6 +77,8 @@ namespace RumbleJungle.Model
         public void StartGame()
         {
             jungleModel.GenerateJungle();
+            // refresh Rambler image in case of config change
+            Rambler.ChangeTypeTo(JungleObjectType.Rambler);
             // place rambler on a random empty field in the jungle
             Rambler.SetCoordinates(jungleModel.GetRandomJungleObject(JungleObjectType.EmptyField).Coordinates);
 

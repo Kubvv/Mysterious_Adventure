@@ -34,7 +34,14 @@ namespace RumbleJungle.Model
             switch (jungleObjectType)
             {
                 case JungleObjectType.Rambler:
-                    result = new Images.Rambler();
+                    if (Config.SuperRambler)
+                    {
+                        result = new Images.SuperRambler();
+                    }
+                    else
+                    {
+                        result = new Images.Rambler();
+                    }
                     break;
                 case JungleObjectType.DragonflySwarm:
                     result = new Images.DragonflySwarm();

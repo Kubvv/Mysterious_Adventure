@@ -93,6 +93,9 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\JungleObjectToBrushConverter.cs" />
     <Compile Include="Converters\StrengthToColorConverter.cs" />
+    <Compile Include="Images\SuperRambler.xaml.cs">
+      <DependentUpon>SuperRambler.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\BaseDev.cs" />
     <Compile Include="Model\Beast.cs" />
     <Compile Include="Model\Config.cs" />
@@ -320,6 +323,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Images\Spear.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\SuperRambler.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
