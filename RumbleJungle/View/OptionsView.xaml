@@ -21,6 +21,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Text="szerokość dżungli"
                     Margin="3" />
@@ -56,17 +57,22 @@
                   Margin="3"
                   Content="zachowaj proporcje"
                   IsChecked="{Binding KeepRatio}" />
+        <CheckBox Grid.Row="3"
+                  Grid.Column="2"
+                  Margin="3"
+                  Content="tryb SuperRambler"
+                  IsChecked="{Binding SuperRambler}" />
         <Button Content="anuluj"
                 Margin="3"
                 Click="Button_Click"
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.ColumnSpan="2" />
         <Button Content="ustaw"
                 Margin="3"
                 IsDefault="True"
                 Command="{Binding SaveOptions}"
                 Click="Button_Click"
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.Column="2" />
     </Grid>
 </Window>
