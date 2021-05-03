@@ -20,6 +20,7 @@ namespace RumbleJungle.Model
         private bool inGame = true;
         private bool canHit = false;
         private readonly List<Point> visitedPoints = new List<Point>();
+        private bool isSuperRamblerMode = false;
 
         public JungleObject CurrentJungleObject { get; private set; }
 
@@ -80,6 +81,7 @@ namespace RumbleJungle.Model
             Rambler.SetCoordinates(jungleModel.GetRandomJungleObject(JungleObjectType.EmptyField).Coordinates);
 
             inGame = true;
+            isSuperRamblerMode = false;
             isMagnifyingGlassMode = false;
             isForgottenCityMode = false;
         }
@@ -111,6 +113,7 @@ namespace RumbleJungle.Model
                             CurrentJungleObject.Status == Statuses.Visited)
                         {
                             Rambler.SetCoordinates(point);
+                            CheckIfGameIsOver();
                         }
                         else
                         {
@@ -193,27 +196,6 @@ namespace RumbleJungle.Model
             {
                 deltaY = from.Y > to.Y ? -1 : 1;
             }
-
-            //if (alternateStep != 0)
-            //{
-            //    if (deltaX == 0)
-            //    {
-            //        deltaX = alternateStep;
-            //    }
-            //    else if (deltaY == 0)
-            //    {
-            //        deltaY = alternateStep;
-            //    }
-            //    else if (alternateStep == 1)
-            //    {
-            //        deltaX = 0;
-            //    }
-            //    else
-            //    {
-            //        deltaY = 0;
-            //    }
-            //}
-
             return new Point(from.X + deltaX, from.Y + deltaY);
         }
 
@@ -315,18 +297,40 @@ namespace RumbleJungle.Model
                     }
                 }
             }
+
+            CheckIfGameIsOver();
+        }
+
+        private void CheckIfGameIsOver()
+        {
+            bool gameOver = false, gameSuccess = true;
             if (Rambler.Health <= 0)
             {
-                // game over (fail)
-                PlaySound("Fail");
+                gameOver = true;
+                gameSuccess = false;
                 CurrentJungleObject.SetStatus(Statuses.Visited);
-                jungleModel.MarkHiddenObjects();
-                inGame = false;
             }
             else if (jungleModel.CountOf(JungleObjectType.Treasure) == 0)
             {
-                // game over (success)
-                PlaySound("Success");
+                if (!Config.SuperRambler)
+                {
+                    gameOver = true;
+                    jungleModel.MarkHiddenObjects();
+                    inGame = false;
+                }
+                else if (!isSuperRamblerMode)
+                {
+                    jungleModel.PointHiddenGoodItems();
+                    isSuperRamblerMode = true;
+                }
+                else
+                {
+                    gameOver = jungleModel.CountOf(JungleObjectType.EmptyField) == 0;
+                }
+            }
+            if (gameOver)
+            {
+                PlaySound(gameSuccess ? "Success" : "Fail");
                 jungleModel.MarkHiddenObjects();
                 inGame = false;
             }

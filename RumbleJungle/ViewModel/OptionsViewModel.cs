@@ -67,6 +67,13 @@ namespace RumbleJungle.ViewModel
             set => Set(ref keepRatio, value);
         }
 
+        private bool superRambler = Config.SuperRambler;
+        public bool SuperRambler
+        {
+            get => superRambler;
+            set => Set(ref superRambler, value);
+        }
+
         private RelayCommand saveOptions;
         public RelayCommand SaveOptions => saveOptions ??= new RelayCommand(() => ExecuteSaveOptions());
 
@@ -74,6 +81,7 @@ namespace RumbleJungle.ViewModel
         {
             Config.SetJungleSize(JungleWidth, JungleHeight);
             Config.SetKeepRatio(KeepRatio);
+            Config.SetSuperRambler(SuperRambler);
         }
     }
 }

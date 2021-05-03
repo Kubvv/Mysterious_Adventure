@@ -232,6 +232,17 @@ namespace RumbleJungle.Model
             }
         }
 
+        internal void PointHiddenGoodItems()
+        {
+            foreach (JungleObject jungleObject in Jungle)
+            {
+                if (Config.GoodItems.Contains(jungleObject.JungleObjectType) && jungleObject.Status == Statuses.Hidden)
+                {
+                    jungleObject.SetStatus(Statuses.Pointed);
+                }
+            }
+        }
+
         /// <summary>
         /// Finds a list of surrounding points at a given distance.
         /// </summary>

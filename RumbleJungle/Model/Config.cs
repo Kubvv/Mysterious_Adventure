@@ -70,6 +70,7 @@ namespace RumbleJungle.Model
             JungleObjectType.MagnifyingGlass,
             JungleObjectType.Talisman
         };
+
         public static List<JungleObjectType> Arsenals { get; } = new List<JungleObjectType>() {
             JungleObjectType.Tent
         };
@@ -152,6 +153,9 @@ namespace RumbleJungle.Model
         private const string KEEPRATIO = "KeepRatio";
         public static bool KeepRatio { get; private set; } = true;
 
+        private const string SUPERRAMBLER = "KeepRatio";
+        public static bool SuperRambler { get; private set; } = false;
+
         public static Dictionary<JungleObjectType, int> JungleObjectsCount { get; private set; }
 
         public static void Read()
@@ -159,6 +163,7 @@ namespace RumbleJungle.Model
             JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEWIDTH], CultureInfo.CurrentCulture);
             JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEHEIGHT], CultureInfo.CurrentCulture);
             KeepRatio = Convert.ToBoolean(ConfigurationManager.AppSettings[KEEPRATIO], CultureInfo.CurrentCulture);
+            SuperRambler = Convert.ToBoolean(ConfigurationManager.AppSettings[SUPERRAMBLER], CultureInfo.CurrentCulture);
             RecalculateJungle();
         }
 
@@ -182,6 +187,14 @@ namespace RumbleJungle.Model
 
             KeepRatio = newKeepRatio;
             UpdateSetting(KEEPRATIO, KeepRatio.ToString(CultureInfo.CurrentCulture));
+        }
+
+        public static void SetSuperRambler(bool newSuperRambler)
+        {
+            if (SuperRambler == newSuperRambler) return;
+
+            SuperRambler = newSuperRambler;
+            UpdateSetting(SUPERRAMBLER, SuperRambler.ToString(CultureInfo.CurrentCulture));
         }
 
         private static void RecalculateJungle()
