@@ -1,0 +1,96 @@
+﻿<Window x:Class="RambleJungle.View.JungleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RambleJungle.View"
+        xmlns:images="clr-namespace:RambleJungle.Images"
+        mc:Ignorable="d"
+        Title="RambleJungle"
+        Height="500"
+        Width="800"
+        DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}"
+        MinWidth="200"
+        MinHeight="200"
+        WindowState="Maximized"
+        Background="Green">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ItemsControl x:Name="jungle"
+                      ItemsSource="{Binding JungleObjectsViewModel}"
+                      SizeChanged="Jungle_SizeChanged">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="{Binding Margin, Mode=OneWay}"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Width="{Binding Width}"
+                          Height="{Binding Height}"
+                          Background="Green">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <ContentControl Content="{Binding Shape}" 
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Margin="4"
+                                        Grid.RowSpan="2" />
+                        <ItemsControl ItemsSource="{Binding ArsenalWeapons}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Rows="1" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding Shape}"
+                                                    Margin="4" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
+                                Command="{Binding MoveRamblerCommand, Mode=OneWay}"
+                                BorderThickness="3"
+                                BorderBrush="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
+                                Template="{DynamicResource JungleButtonTemplate}"
+                                IsCancel="{Binding IsMagnifyingGlassMode}"
+                                Grid.RowSpan="2" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Border Background="{Binding RamblerViewModel.Strength, Converter={StaticResource StrengthToColorConverter}}"
+                Margin="{Binding RamblerViewModel.Margin, Mode=OneWay}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="{Binding RamblerViewModel.Width}"
+                Height="{Binding RamblerViewModel.Height}"
+                Visibility="{Binding RamblerViewModel.Visible, Converter={StaticResource BoolToVisibilityConverter}}">
+            <ContentControl Content="{Binding RamblerViewModel.Shape}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Margin="4"
+                            RenderTransformOrigin="0.5,0.5">
+                <ContentControl.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform />
+                        <RotateTransform Angle="{Binding RamblerViewModel.Health, Converter={StaticResource HealthToAngleConverter}}" />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </ContentControl.RenderTransform>
+            </ContentControl>
+        </Border>
+        <local:ActionView />
+        <local:StatusBarView Grid.Row="1" />
+    </Grid>
+</Window>
