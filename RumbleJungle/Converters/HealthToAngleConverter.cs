@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace RumbleJungle.Converters
+namespace RambleJungle.Converters
 {
     public class HealthToAngleConverter : IValueConverter
     {

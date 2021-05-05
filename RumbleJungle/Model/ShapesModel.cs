@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace RumbleJungle.Model
+namespace RambleJungle.Model
 {
     public static class ShapesModel
     {

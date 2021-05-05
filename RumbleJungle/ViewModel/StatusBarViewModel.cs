@@ -1,10 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using RumbleJungle.Model;
+using RambleJungle.Model;
 using System;
 using System.Collections.ObjectModel;
 
-namespace RumbleJungle.ViewModel
+namespace RambleJungle.ViewModel
 {
     public class StatusBarViewModel : ViewModelBase
     {

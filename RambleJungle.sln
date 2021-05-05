@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RumbleJungle", "RumbleJungle\RumbleJungle.csproj", "{A146EBBC-CF88-4EF8-9E69-EE672AF09662}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RambleJungle", "RambleJungle\RambleJungle.csproj", "{A146EBBC-CF88-4EF8-9E69-EE672AF09662}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

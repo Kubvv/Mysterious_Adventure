@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 
-namespace RumbleJungle.Model
+namespace RambleJungle.Model
 {
     public static class Config
     {

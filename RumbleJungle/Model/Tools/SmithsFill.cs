@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 
-namespace RumbleJungle.Model.Tools
+namespace RambleJungle.Model.Tools
 {
     public static class SmithsFill
     {

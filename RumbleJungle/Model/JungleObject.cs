@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace RumbleJungle.Model
+namespace RambleJungle.Model
 {
     public class JungleObject
     {

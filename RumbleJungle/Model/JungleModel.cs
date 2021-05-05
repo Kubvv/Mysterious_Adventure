@@ -1,11 +1,11 @@
-﻿using RumbleJungle.Model.Tools;
+﻿using RambleJungle.Model.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 
-namespace RumbleJungle.Model
+namespace RambleJungle.Model
 {
     public class JungleModel
     {

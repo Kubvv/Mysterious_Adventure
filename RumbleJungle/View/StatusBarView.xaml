@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="RumbleJungle.View.StatusBarView"
+﻿<UserControl x:Class="RambleJungle.View.StatusBarView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:RumbleJungle.View"
-             xmlns:images="clr-namespace:RumbleJungle.Images"
+             xmlns:local="clr-namespace:RambleJungle.View"
+             xmlns:images="clr-namespace:RambleJungle.Images"
              mc:Ignorable="d"
              MinWidth="200"
              DataContext="{Binding StatusBarInstance, Mode=OneWay, Source={StaticResource Locator}}">

@@ -1,10 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
-using RumbleJungle.Model;
+using RambleJungle.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
 
-namespace RumbleJungle.ViewModel
+namespace RambleJungle.ViewModel
 {
     public class JungleViewModel : ViewModelBase
     {

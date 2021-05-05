@@ -1,9 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using RumbleJungle.Model;
+using RambleJungle.Model;
 using System;
 
-namespace RumbleJungle.ViewModel
+namespace RambleJungle.ViewModel
 {
     public class OptionsViewModel : ViewModelBase
     {

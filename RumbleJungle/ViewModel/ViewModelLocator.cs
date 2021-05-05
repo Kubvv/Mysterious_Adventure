@@ -1,7 +1,7 @@
 /*
   In App.xaml:
   <Application.Resources>
-      <vm:ViewModelLocator xmlns:vm="clr-namespace:RumbleJungle"
+      <vm:ViewModelLocator xmlns:vm="clr-namespace:RambleJungle"
                            x:Key="Locator" />
   </Application.Resources>
   
@@ -14,9 +14,9 @@
 
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
-using RumbleJungle.Model;
+using RambleJungle.Model;
 
-namespace RumbleJungle.ViewModel
+namespace RambleJungle.ViewModel
 {
     /// <summary>
     /// This class contains static references to all the view models in the

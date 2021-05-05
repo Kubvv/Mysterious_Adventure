@@ -1,10 +1,10 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight;
-using RumbleJungle.Model;
+using RambleJungle.Model;
 using System;
 using System.Windows;
 
-namespace RumbleJungle.ViewModel
+namespace RambleJungle.ViewModel
 {
     public class JungleObjectStatusViewModel : ViewModelBase, IDisposable
     {

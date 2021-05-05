@@ -1,7 +1,7 @@
-﻿using RumbleJungle.ViewModel;
+﻿using RambleJungle.ViewModel;
 using System.Windows;
 
-namespace RumbleJungle.View
+namespace RambleJungle.View
 {
     /// <summary>
     /// Logika interakcji dla klasy JungleView.xaml

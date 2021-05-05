@@ -1,10 +1,10 @@
-﻿using RumbleJungle.Model;
-using RumbleJungle.ViewModel;
+﻿using RambleJungle.Model;
+using RambleJungle.ViewModel;
 using System;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace RumbleJungle.Converters
+namespace RambleJungle.Converters
 {
     public class JungleObjectToBrushConverter : IValueConverter
     {

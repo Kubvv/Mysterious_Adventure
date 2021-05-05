@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RumbleJungle.Model
+namespace RambleJungle.Model
 {
     public class JungleArsenal : JungleObject
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace RumbleJungle.View
+namespace RambleJungle.View
 {
     /// <summary>
     /// Logika interakcji dla klasy OptionsView.xaml

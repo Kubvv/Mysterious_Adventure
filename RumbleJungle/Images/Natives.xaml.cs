@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace RumbleJungle.Images
+namespace RambleJungle.Images
 {
     /// <summary>
     /// Logika interakcji dla klasy Natives.xaml

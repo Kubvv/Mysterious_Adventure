@@ -1,7 +1,7 @@
-﻿using RumbleJungle.Model;
+﻿using RambleJungle.Model;
 using System;
 
-namespace RumbleJungle.ViewModel
+namespace RambleJungle.ViewModel
 {
     public class RamblerViewModel : JungleObjectViewModel
     {

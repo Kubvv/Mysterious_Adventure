@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace RumbleJungle.Model
+namespace RambleJungle.Model
 {
     public class GameModel
     {

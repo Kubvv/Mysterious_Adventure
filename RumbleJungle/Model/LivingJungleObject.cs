@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RumbleJungle.Model
+namespace RambleJungle.Model
 {
     public class LivingJungleObject : JungleObject
     {

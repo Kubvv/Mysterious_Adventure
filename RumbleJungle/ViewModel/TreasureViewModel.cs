@@ -1,10 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
-using RumbleJungle.Model;
+using RambleJungle.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RumbleJungle.ViewModel
+namespace RambleJungle.ViewModel
 {
     public class TreasureViewModel : ViewModelBase, IDisposable
     {
