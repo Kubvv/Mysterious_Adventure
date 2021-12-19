@@ -23,7 +23,7 @@ namespace RambleJungle.ViewModel
             gameModel.PrepareGame();
             //Task startGameTask = Task.Run(() => gameModel.StartGame());
             gameModel.StartGame();
-            JungleView jungleView = new JungleView();
+            JungleView jungleView = new();
             jungleView.ShowDialog();
         }
 
@@ -62,7 +62,7 @@ namespace RambleJungle.ViewModel
 
         private static void ExecuteOpenOptions()
         {
-            OptionsView optionsView = new OptionsView();
+            OptionsView optionsView = new();
             optionsView.ShowDialog();
         }
 

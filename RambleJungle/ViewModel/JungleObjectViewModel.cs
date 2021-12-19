@@ -27,7 +27,7 @@ namespace RambleJungle.ViewModel
         public bool IsArsenal => Config.Arsenals.Contains(jungleObject.JungleObjectType);
         public ObservableCollection<WeaponViewModel> ArsenalWeapons { get; } = new ObservableCollection<WeaponViewModel>();
 
-        Thickness margin = new Thickness(0);
+        Thickness margin = new(0);
         public Thickness Margin
         {
             get

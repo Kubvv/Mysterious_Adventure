@@ -10,7 +10,7 @@ namespace RambleJungle.ViewModel
     {
         private readonly JungleModel jungleModel;
         private double cellWidth, cellHeight;
-        private readonly DispatcherTimer updateTimer = new DispatcherTimer();
+        private readonly DispatcherTimer updateTimer = new();
 
         private double canvasWidth;
         public double CanvasWidth

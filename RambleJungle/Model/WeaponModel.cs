@@ -5,7 +5,7 @@ namespace RambleJungle.Model
 {
     public class WeaponModel
     {
-        private readonly List<int> weaponsLeftForDraw = new List<int>();
+        private readonly List<int> weaponsLeftForDraw = new();
 
         public List<Weapon> Weapons { get; private set; } = new List<Weapon>();
 

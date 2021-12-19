@@ -64,7 +64,7 @@ namespace RambleJungle.Model
                 {
                     for (int i = 0; i < Config.JungleObjectsCount[jungleObjectType]; i++)
                     {
-                        JungleArsenal jungleArsenal = new JungleArsenal(jungleObjectType);
+                        JungleArsenal jungleArsenal = new(jungleObjectType);
                         for (int j = 0; j < Config.JUNGLEARSENALWEAPONCOUNT; j++)
                         {
                             jungleArsenal.AddWeapon(weaponModel.ExclusiveRandomWeapon());
@@ -93,7 +93,7 @@ namespace RambleJungle.Model
         /// </summary>
         public void GenerateJungle()
         {
-            List<Point> coordinates = new List<Point>(), denseJungleLocations = new List<Point>();
+            List<Point> coordinates = new(), denseJungleLocations = new();
 
             bool everyFieldIsReachable = false;
             while (!everyFieldIsReachable)
@@ -210,7 +210,7 @@ namespace RambleJungle.Model
             int index = 0;
             while (index <= factors.GetUpperBound(0) && result == null)
             {
-                Point point = new Point(coordinates.X + factors[index, 0], coordinates.Y + factors[index, 1]);
+                Point point = new(coordinates.X + factors[index, 0], coordinates.Y + factors[index, 1]);
                 JungleObject jungleObject = GetJungleObjectAt(point);
                 if (jungleObject != null && jungleObject.JungleObjectType == jungleObjectType && (jungleObject.Status & statuses) > 0)
                 {
@@ -346,7 +346,7 @@ namespace RambleJungle.Model
 
         public List<JungleObject> GetJungleObjects(List<JungleObjectType> jungleObjectTypes)
         {
-            List<JungleObject> result = new List<JungleObject>();
+            List<JungleObject> result = new();
             if (jungleObjectTypes != null)
             {
                 foreach (JungleObjectType jungleObjectType in jungleObjectTypes)
@@ -363,7 +363,7 @@ namespace RambleJungle.Model
 
         public List<JungleObject> GetJungleObjects(JungleObjectType jungleObjectType)
         {
-            List<JungleObject> result = new List<JungleObject>();
+            List<JungleObject> result = new();
             foreach (JungleObject jungleObject in Jungle.Where(jo => jo.JungleObjectType == jungleObjectType))
             {
                 result.Add(jungleObject);

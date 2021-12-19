@@ -9,7 +9,7 @@ namespace RambleJungle.Model.Tools
         public const int OUTLINEPOINT = 1;
         public const int FILLEDPOINT = 2;
 
-        private static readonly Stack<Segment> stack = new Stack<Segment>();
+        private static readonly Stack<Segment> stack = new();
 
         /// <summary>
         /// Wypełnienie powodziowe prostokątnego obszaru, zaczynając od punktu startowego.
@@ -42,7 +42,7 @@ namespace RambleJungle.Model.Tools
 
             FloodFill(ref rectangle, (int)start.X, (int)start.Y);
 
-            List<Point> result = new List<Point>();
+            List<Point> result = new();
             for (int col = 0; col < width; col++)
             {
                 for (int row = 0; row < height; row++)
@@ -85,16 +85,16 @@ namespace RambleJungle.Model.Tools
                     {
                         rectangle[i, segment.Y] = FILLEDPOINT;
                     }
-                }
 
-                if (segment.Y > 0)
-                {
-                    SearchSegment(rectangle, segment.X, segment.Y - 1, segment.Length);
-                }
-
-                if (segment.Y < rectangle.GetLength(1) - 1)
-                {
-                    SearchSegment(rectangle, segment.X, segment.Y + 1, segment.Length);
+                    if (segment.Y > 0)
+                    {
+                        SearchSegment(rectangle, segment.X, segment.Y - 1, segment.Length);
+                    }
+    
+                    if (segment.Y < rectangle.GetLength(1) - 1)
+                    {
+                        SearchSegment(rectangle, segment.X, segment.Y + 1, segment.Length);
+                    }
                 }
             }
         }

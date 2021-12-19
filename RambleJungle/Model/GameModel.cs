@@ -12,14 +12,14 @@ namespace RambleJungle.Model
     {
         private readonly JungleModel jungleModel;
         private readonly WeaponModel weaponModel;
-        private readonly DispatcherTimer actionTimer = new DispatcherTimer();
-        private readonly DispatcherTimer walkTimer = new DispatcherTimer();
+        private readonly DispatcherTimer actionTimer = new();
+        private readonly DispatcherTimer walkTimer = new();
         private JungleObject forgottenCity = null;
         private int forgottenCityBeastCount;
-        private readonly MediaPlayer mediaPlayer = new MediaPlayer();
+        private readonly MediaPlayer mediaPlayer = new();
         private bool inGame = true;
         private bool canHit = false;
-        private readonly List<Point> visitedPoints = new List<Point>();
+        private readonly List<Point> visitedPoints = new();
         private bool isSuperRamblerMode = false;
 
         public JungleObject CurrentJungleObject { get; private set; }
@@ -367,7 +367,7 @@ namespace RambleJungle.Model
             else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Radar)
             {
                 // Point all monsters in a 5x5 square around the radar
-                Point point = new Point(CurrentJungleObject.Coordinates.X - 2, CurrentJungleObject.Coordinates.Y - 2);
+                Point point = new(CurrentJungleObject.Coordinates.X - 2, CurrentJungleObject.Coordinates.Y - 2);
                 for (int column = 0; column < 5; column++)
                 {
                     for (int row = 0; row < 5; row++)
