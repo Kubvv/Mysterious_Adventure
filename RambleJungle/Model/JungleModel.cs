@@ -1,7 +1,6 @@
 ﻿using RambleJungle.Model.Tools;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 
@@ -15,7 +14,7 @@ namespace RambleJungle.Model
         {
         }
 
-        public event EventHandler JungleGenerated;
+        public event EventHandler? JungleGenerated;
 
         /// <summary>
         /// Fills jungle with objects
@@ -126,9 +125,9 @@ namespace RambleJungle.Model
             // choose random location for every jungle object but dense jungle
             foreach (JungleObject jungleObject in Jungle.Where(jo => jo.JungleObjectType != JungleObjectType.DenseJungle))
             {
-                if (jungleObject is Beast)
+                if (jungleObject is Beast beast)
                 {
-                    (jungleObject as Beast).Reset();
+                    beast.Reset();
                 }
                 else
                 {
@@ -139,7 +138,7 @@ namespace RambleJungle.Model
                 coordinates.RemoveAt(coordinate);
             }
 
-            JungleGenerated?.Invoke(this, null);
+            JungleGenerated?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
@@ -165,14 +164,12 @@ namespace RambleJungle.Model
         /// <param name="coordinates">coordinates</param>
         /// <param name="jungleObjectType">Jungle object type</param>
         /// <returns>Found object or null</returns>
-        [SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
-            Justification = "Tablica wielowymiarowa jest tu najlepszym rozwiązaniem")]
-        internal JungleObject FindNearestTo(Point coordinates, JungleObjectType jungleObjectType, Statuses statuses)
+        internal JungleObject? FindNearestTo(Point coordinates, JungleObjectType jungleObjectType, Statuses statuses)
         {
             int[,] nearestObjects = { { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } };
             int[,] nearObjects = { { -1, -1 }, { 1, -1 }, { 1, -1 }, { 1, 1 }, { 1, 1 }, { -1, 1 }, { -1, 1 }, { -1, -1 } };
             int distance = 1;
-            JungleObject jungleObject = null;
+            JungleObject? jungleObject = null;
             while ((distance < Config.JungleHeight || distance < Config.JungleWidth) && jungleObject == null)
             {
                 int[,] factors = new int[nearestObjects.GetUpperBound(0) + 1, 2];
@@ -202,16 +199,14 @@ namespace RambleJungle.Model
             return jungleObject;
         }
 
-        [SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
-            Justification = "Tablica wielowymiarowa jest tu najlepszym rozwiązaniem")]
-        private JungleObject FindObjectByFactors(Point coordinates, int[,] factors, JungleObjectType jungleObjectType, Statuses statuses)
+        private JungleObject? FindObjectByFactors(Point coordinates, int[,] factors, JungleObjectType jungleObjectType, Statuses statuses)
         {
-            JungleObject result = null;
+            JungleObject? result = null;
             int index = 0;
             while (index <= factors.GetUpperBound(0) && result == null)
             {
                 Point point = new(coordinates.X + factors[index, 0], coordinates.Y + factors[index, 1]);
-                JungleObject jungleObject = GetJungleObjectAt(point);
+                JungleObject? jungleObject = GetJungleObjectAt(point);
                 if (jungleObject != null && jungleObject.JungleObjectType == jungleObjectType && (jungleObject.Status & statuses) > 0)
                 {
                     result = jungleObject;
@@ -281,7 +276,7 @@ namespace RambleJungle.Model
         /// <param name="beastOrBadOnly">Change the status only for the beast points.</param>
         internal void SetPointedAt(Point point, bool beastOrBadOnly)
         {
-            JungleObject jungleObject = GetJungleObjectAt(point);
+            JungleObject? jungleObject = GetJungleObjectAt(point);
             if (jungleObject != null)
             {
                 bool canPointField = jungleObject.JungleObjectType != JungleObjectType.EmptyField &&
@@ -300,9 +295,19 @@ namespace RambleJungle.Model
             }
         }
 
-        internal JungleObject GetJungleObjectAt(Point point)
+        /// <summary>
+        /// Searches for jungle object at given coordinates.
+        /// </summary>
+        /// <param name="point">Coordinates inside or outside jungle.</param>
+        /// <returns>Jungle object at coordinates or null, if coordinates are outside jungle.</returns>
+        public JungleObject? GetJungleObjectAt(Point point)
         {
-            return Jungle.FirstOrDefault(jo => jo.Coordinates.X == point.X && jo.Coordinates.Y == point.Y);
+            JungleObject? jungleObject = null;
+            if (point.X >= 0 && point.X < Config.JungleWidth && point.Y >= 0 && point.Y < Config.JungleHeight)
+            {
+                jungleObject = Jungle.First(jo => jo.Coordinates.X == point.X && jo.Coordinates.Y == point.Y);
+            }
+            return jungleObject;
         }
 
         /// <summary>
@@ -310,9 +315,9 @@ namespace RambleJungle.Model
         /// </summary>
         /// <param name="jungleObjectType">Type of the searched jungle object</param>
         /// <returns>Found object or null</returns>
-        public JungleObject GetRandomJungleObject(JungleObjectType jungleObjectType)
+        public JungleObject? GetRandomJungleObject(JungleObjectType jungleObjectType)
         {
-            JungleObject result = null;
+            JungleObject? result = null;
             int jungleObjectCount = CountOf(jungleObjectType);
             if (jungleObjectCount > 0)
             {
@@ -351,7 +356,7 @@ namespace RambleJungle.Model
             {
                 foreach (JungleObjectType jungleObjectType in jungleObjectTypes)
                 {
-                    JungleObject jungleObject = Jungle.FirstOrDefault(jo => jo.JungleObjectType == jungleObjectType);
+                    JungleObject? jungleObject = Jungle.FirstOrDefault(jo => jo.JungleObjectType == jungleObjectType);
                     if (jungleObject != null)
                     {
                         result.Add(jungleObject);

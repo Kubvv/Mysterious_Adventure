@@ -12,7 +12,6 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using RambleJungle.Model;
 
@@ -29,8 +28,6 @@ namespace RambleJungle.ViewModel
         /// </summary>
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
             ////if (ViewModelBase.IsInDesignModeStatic)
             ////{
             ////    // Create design time view services and models
@@ -61,47 +58,47 @@ namespace RambleJungle.ViewModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel MainInstance => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public MainViewModel MainInstance => SimpleIoc.Default.GetInstance<MainViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public OptionsViewModel OptionsInstance => ServiceLocator.Current.GetInstance<OptionsViewModel>();
+        public OptionsViewModel OptionsInstance => SimpleIoc.Default.GetInstance<OptionsViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public JungleViewModel JungleInstance => ServiceLocator.Current.GetInstance<JungleViewModel>();
+        public JungleViewModel JungleInstance => SimpleIoc.Default.GetInstance<JungleViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public ActionViewModel ActionInstance => ServiceLocator.Current.GetInstance<ActionViewModel>();
+        public ActionViewModel ActionInstance => SimpleIoc.Default.GetInstance<ActionViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public JungleObjectViewModel JungleObjectInstance => ServiceLocator.Current.GetInstance<JungleObjectViewModel>();
+        public JungleObjectViewModel JungleObjectInstance => SimpleIoc.Default.GetInstance<JungleObjectViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public StatusBarViewModel StatusBarInstance => ServiceLocator.Current.GetInstance<StatusBarViewModel>();
+        public StatusBarViewModel StatusBarInstance => SimpleIoc.Default.GetInstance<StatusBarViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public WeaponViewModel WeaponInstance => ServiceLocator.Current.GetInstance<WeaponViewModel>();
+        public WeaponViewModel WeaponInstance => SimpleIoc.Default.GetInstance<WeaponViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public RamblerViewModel RamblerInstance => ServiceLocator.Current.GetInstance<RamblerViewModel>();
+        public RamblerViewModel RamblerInstance => SimpleIoc.Default.GetInstance<RamblerViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public TreasureViewModel TreasureInstance => ServiceLocator.Current.GetInstance<TreasureViewModel>();
+        public TreasureViewModel TreasureInstance => SimpleIoc.Default.GetInstance<TreasureViewModel>();
 
         public static void Cleanup()
         {

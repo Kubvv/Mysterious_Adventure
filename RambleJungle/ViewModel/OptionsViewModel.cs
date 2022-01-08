@@ -74,8 +74,12 @@ namespace RambleJungle.ViewModel
             set => Set(ref superRambler, value);
         }
 
-        private RelayCommand saveOptions;
-        public RelayCommand SaveOptions => saveOptions ??= new RelayCommand(() => ExecuteSaveOptions());
+        public OptionsViewModel()
+        {
+            SaveOptions = new RelayCommand(() => ExecuteSaveOptions());
+        }
+
+        public RelayCommand SaveOptions { get; private set; }
 
         private void ExecuteSaveOptions()
         {

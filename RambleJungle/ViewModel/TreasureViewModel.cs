@@ -23,11 +23,12 @@ namespace RambleJungle.ViewModel
                 jungleModel.JungleGenerated += JungleGenerated;
                 Load();
             }
+            Name = "?";
         }
 
         private void Load()
         {
-            if (jungleModel == null) return;
+            if (jungleModel == null) { return; }
 
             List<JungleObject> treasures = jungleModel.GetJungleObjects(JungleObjectType.Treasure);
             Name = treasures.First().Name;
@@ -74,22 +75,21 @@ namespace RambleJungle.ViewModel
             }
         }
 
-        private void JungleGenerated(object sender, EventArgs e)
+        private void JungleGenerated(object? sender, EventArgs e)
         {
             Load();
         }
 
-        private void TypeChanged(object sender, EventArgs e)
+        private void TypeChanged(object? sender, EventArgs e)
         {
-            JungleObject jungleObject = (JungleObject)sender;
-            if (jungleObject.JungleObjectType == JungleObjectType.Treasure)
+            if (sender is JungleObject jungleObject && jungleObject.JungleObjectType == JungleObjectType.Treasure)
             {
                 jungleObject.StatusChanged += StatusChanged;
                 RaisePropertyChanged(nameof(Found));
             }
         }
 
-        private void StatusChanged(object sender, EventArgs e)
+        private void StatusChanged(object? sender, EventArgs e)
         {
             RaisePropertyChanged(nameof(Found));
         }

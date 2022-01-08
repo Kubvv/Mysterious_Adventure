@@ -20,11 +20,9 @@ namespace RambleJungle.Model.Tools
         /// <param name="outline">Współrzędne punktów, tworzących kontury.</param>
         /// <param name="start">Współrzędne punktu startowego.</param>
         /// <returns>Współrzędne punktów, tworzących kontury oraz punktów wypełnionych.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
-            Justification = "Tablica z konturem jest zawsze prostokątna")]
         public static List<Point> FloodFill(int width, int height, List<Point> outline, Point start)
         {
-            if (outline == null) return null;
+            List<Point> result = new();
 
             int[,] rectangle = new int[width, height];
             for (int col = 0; col < width; col++)
@@ -42,7 +40,6 @@ namespace RambleJungle.Model.Tools
 
             FloodFill(ref rectangle, (int)start.X, (int)start.Y);
 
-            List<Point> result = new();
             for (int col = 0; col < width; col++)
             {
                 for (int row = 0; row < height; row++)
@@ -66,8 +63,6 @@ namespace RambleJungle.Model.Tools
         /// <param name="rectangle">Obszar do wypełnienia (EMPTYPOINT), zawierający kontury (OUTLINEPOINT).</param>
         /// <param name="startX">Współrzędna X punktu startowego.</param>
         /// <param name="startY">Współrzędna Y punktu startowego.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
-            Justification = "Tablica z konturem jest zawsze prostokątna")]
         public static void FloodFill(ref int[,] rectangle, int startX, int startY)
         {
             if (rectangle == null || rectangle[startX, startY] != EMPTYPOINT) return;
@@ -107,8 +102,6 @@ namespace RambleJungle.Model.Tools
         /// <param name="startX">Współrzędna X punktu startowego.</param>
         /// <param name="startY">Współrzędna Y punktu startowego.</param>
         /// <returns>Współrzędna X punktu, należącego do potencjalnego, następnego segmentu.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
-            Justification = "Tablica z konturem jest zawsze prostokątna")]
         private static int FindSegment(int[,] rectangle, int startX, int startY)
         {
             int x1 = startX, x2 = startX;
@@ -133,8 +126,6 @@ namespace RambleJungle.Model.Tools
         /// <param name="x">Współrzędna X początku segmentu.</param>
         /// <param name="y">Współrzędna Y początku segmentu.</param>
         /// <param name="lenght">Długość segmentu.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1814:Wybieraj tablice nieregularne zamiast wielowymiarowych",
-            Justification = "Tablica z konturem jest zawsze prostokątna")]
         private static void SearchSegment(int[,] rectangle, int x, int y, int lenght)
         {
             int x1 = x, x2 = x + lenght - 1;

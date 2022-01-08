@@ -153,7 +153,7 @@ namespace RambleJungle.Model
         private const string KEEPRATIO = "KeepRatio";
         public static bool KeepRatio { get; private set; } = true;
 
-        private const string SUPERRAMBLER = "KeepRatio";
+        private const string SUPERRAMBLER = "SuperRambler";
         public static bool SuperRambler { get; private set; } = false;
 
         public static Dictionary<JungleObjectType, int> JungleObjectsCount { get; private set; } = new Dictionary<JungleObjectType, int>();

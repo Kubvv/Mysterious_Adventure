@@ -9,16 +9,16 @@ namespace RambleJungle.Model
         public string Name { get; private set; }
         public Point Coordinates { get; private set; }
         public Statuses Status { get; private set; }
-        public object BackingObject { get; private set; }
+        public object? BackingObject { get; private set; }
 
-        public event EventHandler TypeChanged;
-        public event EventHandler StatusChanged;
+        public event EventHandler? TypeChanged;
+        public event EventHandler? StatusChanged;
 
         public JungleObject(JungleObjectType jungleObjectType)
         {
             JungleObjectType = jungleObjectType;
             BackingObject = null;
-            Name = Enum.GetName(typeof(JungleObjectType), jungleObjectType);
+            Name = Enum.GetName(typeof(JungleObjectType), jungleObjectType) ?? "?";
         }
 
         public JungleObject(JungleObjectType jungleObjectType, object backingObject, string name)
@@ -41,7 +41,7 @@ namespace RambleJungle.Model
         public void SetStatus(Statuses status)
         {
             Status = status;
-            StatusChanged?.Invoke(this, null);
+            StatusChanged?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
@@ -51,8 +51,8 @@ namespace RambleJungle.Model
         public void ChangeTypeTo(JungleObjectType jungleObjectType)
         {
             JungleObjectType = jungleObjectType;
-            Name = Enum.GetName(typeof(JungleObjectType), jungleObjectType);
-            TypeChanged?.Invoke(this, null);
+            Name = Enum.GetName(typeof(JungleObjectType), jungleObjectType) ?? "?";
+            TypeChanged?.Invoke(this, new EventArgs());
         }
     }
 }

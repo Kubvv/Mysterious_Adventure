@@ -58,9 +58,6 @@ namespace RambleJungle.Model
         Explored = Visited | Marked | Pointed
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming",
-        "CA1717:Tylko wyliczenia z atrybutem FlagsAttribute powinny mieć nazwy w liczbie mnogiej",
-        Justification = "Mylnie zidentyfikowana liczba mnoga")]
     public enum CampBonus
     {
         Strenght,

@@ -8,10 +8,10 @@ namespace RambleJungle.ViewModel
     public class ActionViewModel : ViewModelBase
     {
         private readonly GameModel gameModel;
-        private JungleObjectViewModel forgottenCityViewModel = null;
+        private JungleObjectViewModel? forgottenCityViewModel;
 
-        private JungleObjectViewModel currentJungleObject;
-        public JungleObjectViewModel CurrentJungleObject
+        private JungleObjectViewModel? currentJungleObject;
+        public JungleObjectViewModel? CurrentJungleObject
         {
             get => currentJungleObject;
             set => Set(ref currentJungleObject, value);
@@ -40,7 +40,7 @@ namespace RambleJungle.ViewModel
             }
         }
 
-        private void ForgottenCityModeChanged(object sender, EventArgs e)
+        private void ForgottenCityModeChanged(object? sender, EventArgs e)
         {
             if (gameModel.IsForgottenCityMode)
             {

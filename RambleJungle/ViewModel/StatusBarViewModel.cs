@@ -22,36 +22,23 @@ namespace RambleJungle.ViewModel
         public StatusBarViewModel(JungleModel jungleModel, WeaponModel weaponModel, RamblerViewModel ramblerViewModel, TreasureViewModel treasureViewModel)
         {
             Rambler = ramblerViewModel;
-            if (Rambler != null)
-            {
-                Rambler.Moved += RamblerMoved;
-            }
+            Rambler.Moved += RamblerMoved;
 
             Treasure = treasureViewModel;
 
             this.jungleModel = jungleModel;
-            if (jungleModel != null)
+            this.jungleModel.JungleGenerated += JungleGenerated;
+            Load();
+
+            foreach (Weapon weapon in weaponModel.Weapons)
             {
-                jungleModel.JungleGenerated += JungleGenerated;
-                Load();
+                Weapons.Add(new WeaponViewModel(weapon));
             }
 
-            if (weaponModel != null)
-            {
-                foreach (Weapon weapon in weaponModel.Weapons)
-                {
-                    Weapons.Add(new WeaponViewModel(weapon));
-                }
-            }
+            SaveGame = new RelayCommand(() => ExecuteSaveGame(), () => CanSaveGame);
         }
 
-        private void RamblerMoved(object sender, EventArgs e)
-        {
-            RaisePropertyChanged(nameof(ExplorationProgress));
-        }
-
-        private RelayCommand saveGame;
-        public RelayCommand SaveGame => saveGame ??= new RelayCommand(() => ExecuteSaveGame(), () => CanSaveGame);
+        public RelayCommand SaveGame { get; private set; }
 
         private static void ExecuteSaveGame()
         {
@@ -69,7 +56,12 @@ namespace RambleJungle.ViewModel
             }
         }
 
-        private void JungleGenerated(object sender, EventArgs e)
+        private void RamblerMoved(object? sender, EventArgs e)
+        {
+            RaisePropertyChanged(nameof(ExplorationProgress));
+        }
+
+        private void JungleGenerated(object? sender, EventArgs e)
         {
             Load();
             RaisePropertyChanged(nameof(ExplorationProgress));

@@ -1,6 +1,6 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using RambleJungle.Model;
 using System;
 using System.Windows;
@@ -9,8 +9,7 @@ namespace RambleJungle.ViewModel
 {
     public class WeaponViewModel : ViewModelBase
     {
-        private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
-
+        private readonly GameModel gameModel = SimpleIoc.Default.GetInstance<GameModel>();
         private readonly Weapon weapon;
 
         public string Name => weapon.Name;
@@ -21,23 +20,20 @@ namespace RambleJungle.ViewModel
         public WeaponViewModel(Weapon weapon)
         {
             this.weapon = weapon;
-            if (weapon != null)
-            {
-                weapon.CountChanged += CountChanged;
-                weapon.DoubleAttackChanged += DoubleAttackChanged;
-            }
+            this.weapon.CountChanged += CountChanged;
+            this.weapon.DoubleAttackChanged += DoubleAttackChanged;
+            HitBeast = new RelayCommand(() => gameModel.HitBeastWith(this.weapon), () => Count != 0);
         }
 
-        private RelayCommand hitBeast;
-        public RelayCommand HitBeast => hitBeast ??= new RelayCommand(() => gameModel.HitBeastWith(weapon), () => Count != 0);
+        public RelayCommand HitBeast { get; private set; }
 
-        private void CountChanged(object sender, EventArgs e)
+        private void CountChanged(object? sender, EventArgs e)
         {
             RaisePropertyChanged(nameof(Count));
             HitBeast.RaiseCanExecuteChanged();
         }
 
-        private void DoubleAttackChanged(object sender, EventArgs e)
+        private void DoubleAttackChanged(object? sender, EventArgs e)
         {
             RaisePropertyChanged(nameof(DoubleAttack));
         }

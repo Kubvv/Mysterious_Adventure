@@ -1,6 +1,6 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using RambleJungle.Model;
 using System;
 using System.Collections.ObjectModel;
@@ -10,8 +10,8 @@ namespace RambleJungle.ViewModel
 {
     public class JungleObjectViewModel : ViewModelBase, IDisposable
     {
-        private readonly GameModel gameModel = ServiceLocator.Current.GetInstance<GameModel>();
-        private readonly ActionViewModel actionViewModel = ServiceLocator.Current.GetInstance<ActionViewModel>();
+        private readonly GameModel gameModel = SimpleIoc.Default.GetInstance<GameModel>();
+        private readonly ActionViewModel actionViewModel = SimpleIoc.Default.GetInstance<ActionViewModel>();
 
         private readonly JungleObject jungleObject;
 
@@ -22,9 +22,9 @@ namespace RambleJungle.ViewModel
         public Statuses Status => jungleObject.Status;
         public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
         public bool IsCamp => jungleObject.JungleObjectType == JungleObjectType.Camp;
-        public int Health => IsLivingJungleObject ? (jungleObject as LivingJungleObject).Health : 0;
+        public int Health => jungleObject is LivingJungleObject livingJungleObject ? livingJungleObject.Health : 0;
         public bool IsMagnifyingGlassMode => gameModel.IsMagnifyingGlassMode;
-        public bool IsArsenal => Config.Arsenals.Contains(jungleObject.JungleObjectType);
+        public bool IsArsenal => jungleObject is JungleArsenal;
         public ObservableCollection<WeaponViewModel> ArsenalWeapons { get; } = new ObservableCollection<WeaponViewModel>();
 
         Thickness margin = new(0);
@@ -41,40 +41,38 @@ namespace RambleJungle.ViewModel
         public double Width { get; private set; }
         public double Height { get; private set; }
 
-        private RelayCommand moveRamblerCommand;
-        public RelayCommand MoveRamblerCommand => moveRamblerCommand ??= new RelayCommand(() => gameModel.MoveRamblerTo(jungleObject.Coordinates));
-
-        private RelayCommand addStrenghtCommand;
-        public RelayCommand AddStrenghtCommand => addStrenghtCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.Strenght));
-
-        private RelayCommand checkAdjacentCommand;
-        public RelayCommand CheckAdjacentCommand => checkAdjacentCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.Adjacency));
-
-        private RelayCommand addHealthCommand;
-        public RelayCommand AddHealthCommand => addHealthCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.Health));
-
-        private RelayCommand addDoubleAttackCommand;
-        public RelayCommand AddDoubleAttackCommand => addDoubleAttackCommand ??= new RelayCommand(() => gameModel.CampBonus(CampBonus.DoubleAttack));
-
         public JungleObjectViewModel(JungleObject jungleObject)
         {
             this.jungleObject = jungleObject;
-            if (jungleObject != null)
+            jungleObject.TypeChanged += TypeChanged;
+            jungleObject.StatusChanged += StatusChanged;
+            if (jungleObject is LivingJungleObject livingJungleObject)
             {
-                jungleObject.TypeChanged += TypeChanged;
-                jungleObject.StatusChanged += StatusChanged;
-                if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged += HealthChanged;
-                if (IsArsenal)
+                livingJungleObject.HealthChanged += HealthChanged;
+            }
+
+            if (jungleObject is JungleArsenal jungleArsenal)
+            {
+                ArsenalWeapons.Clear();
+                foreach (Weapon weapon in jungleArsenal.Weapons)
                 {
-                    ArsenalWeapons.Clear();
-                    foreach (Weapon weapon in (jungleObject as JungleArsenal).Weapons)
-                    {
-                        ArsenalWeapons.Add(new WeaponViewModel(weapon));
-                    }
+                    ArsenalWeapons.Add(new WeaponViewModel(weapon));
                 }
             }
             gameModel.MagnifyingGlassModeChanged += MagnifyingGlassModeChanged;
+
+            MoveRamblerCommand = new RelayCommand(() => gameModel.MoveRamblerTo(this.jungleObject.Coordinates));
+            AddStrenghtCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Strenght));
+            CheckAdjacentCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Adjacency));
+            AddHealthCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Health));
+            AddDoubleAttackCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.DoubleAttack));
         }
+
+        public RelayCommand MoveRamblerCommand { get; private set; }
+        public RelayCommand AddStrenghtCommand { get; private set; }
+        public RelayCommand CheckAdjacentCommand { get; private set; }
+        public RelayCommand AddHealthCommand { get; private set; }
+        public RelayCommand AddDoubleAttackCommand { get; private set; }
 
         public void Dispose()
         {
@@ -90,7 +88,10 @@ namespace RambleJungle.ViewModel
                 {
                     jungleObject.TypeChanged -= TypeChanged;
                     jungleObject.StatusChanged -= StatusChanged;
-                    if (IsLivingJungleObject) (jungleObject as LivingJungleObject).HealthChanged -= HealthChanged;
+                    if (jungleObject is LivingJungleObject livingJungleObject)
+                    {
+                        livingJungleObject.HealthChanged -= HealthChanged;
+                    }
                 }
                 gameModel.MagnifyingGlassModeChanged -= MagnifyingGlassModeChanged;
             }
@@ -111,14 +112,14 @@ namespace RambleJungle.ViewModel
             RaisePropertyChanged(nameof(Health));
         }
 
-        private void TypeChanged(object sender, EventArgs e)
+        private void TypeChanged(object? sender, EventArgs e)
         {
             RaisePropertyChanged(nameof(Shape));
             RaisePropertyChanged(nameof(JungleObjectType));
             RaisePropertyChanged(nameof(Name));
         }
 
-        private void StatusChanged(object sender, EventArgs e)
+        private void StatusChanged(object? sender, EventArgs e)
         {
             RaisePropertyChanged(nameof(Self));
             if (Status == Statuses.Shown)
@@ -132,12 +133,12 @@ namespace RambleJungle.ViewModel
             }
         }
 
-        private void HealthChanged(object sender, EventArgs e)
+        private void HealthChanged(object? sender, EventArgs e)
         {
             RaisePropertyChanged(nameof(Health));
         }
 
-        private void MagnifyingGlassModeChanged(object sender, EventArgs e)
+        private void MagnifyingGlassModeChanged(object? sender, EventArgs e)
         {
             RaisePropertyChanged(nameof(IsMagnifyingGlassMode));
         }
