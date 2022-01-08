@@ -1,5 +1,5 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Ioc;
 using RambleJungle.Model;
 using System;
 using System.Windows;
@@ -8,7 +8,7 @@ namespace RambleJungle.ViewModel
 {
     public class JungleObjectStatusViewModel : ViewModelBase, IDisposable
     {
-        private readonly JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
+        private readonly JungleModel jungleModel = SimpleIoc.Default.GetInstance<JungleModel>();
         private readonly JungleObject jungleObject;
 
         public string Name => jungleObject.Name;
@@ -44,7 +44,7 @@ namespace RambleJungle.ViewModel
             }
         }
 
-        private void StatusChanged(object sender, EventArgs e)
+        private void StatusChanged(object? sender, EventArgs e)
         {
             RaisePropertyChanged(nameof(Count));
         }

@@ -1,4 +1,4 @@
-﻿using CommonServiceLocator;
+﻿using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Windows;
 
@@ -21,31 +21,31 @@ namespace RambleJungle.Model
             SetVisible(true);
         }
 
-        public event EventHandler Moved;
+        public event EventHandler? Moved;
 
         public override void SetCoordinates(Point point)
         {
             base.SetCoordinates(point);
-            JungleModel jungleModel = ServiceLocator.Current.GetInstance<JungleModel>();
-            JungleObject jungleObject = jungleModel.GetJungleObjectAt(point);
-            jungleObject.SetStatus(Statuses.Visited);
-            Moved?.Invoke(this, null);
+            JungleModel jungleModel = SimpleIoc.Default.GetInstance<JungleModel>();
+            JungleObject? jungleObject = jungleModel.GetJungleObjectAt(point);
+            jungleObject?.SetStatus(Statuses.Visited);
+            Moved?.Invoke(this, new EventArgs());
         }
 
-        public event EventHandler StrengthChanged;
+        public event EventHandler? StrengthChanged;
 
         public void SetStrength(double newStrength)
         {
             Strength = newStrength;
-            StrengthChanged?.Invoke(this, null);
+            StrengthChanged?.Invoke(this, new EventArgs());
         }
 
-        public event EventHandler VisibleChanged;
+        public event EventHandler? VisibleChanged;
 
         public void SetVisible(bool visible)
         {
             Visible = visible;
-            VisibleChanged?.Invoke(this, null);
+            VisibleChanged?.Invoke(this, new EventArgs());
         }
     }
 }

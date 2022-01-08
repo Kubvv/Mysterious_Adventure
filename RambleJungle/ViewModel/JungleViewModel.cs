@@ -10,7 +10,7 @@ namespace RambleJungle.ViewModel
     {
         private readonly JungleModel jungleModel;
         private double cellWidth, cellHeight;
-        private readonly DispatcherTimer updateTimer = new DispatcherTimer();
+        private readonly DispatcherTimer updateTimer = new();
 
         private double canvasWidth;
         public double CanvasWidth
@@ -56,7 +56,7 @@ namespace RambleJungle.ViewModel
             updateTimer.Interval = new TimeSpan(0, 0, 0, 0, 300);
         }
 
-        private void UpdateTimerTick(object sender, EventArgs e)
+        private void UpdateTimerTick(object? sender, EventArgs e)
         {
             updateTimer.Stop();
             foreach (JungleObjectViewModel jungleObjectViewModel in JungleObjectsViewModel)
@@ -66,7 +66,7 @@ namespace RambleJungle.ViewModel
             RamblerViewModel.SetSize(cellWidth, cellHeight);
         }
 
-        private void JungleGenerated(object sender, EventArgs e)
+        private void JungleGenerated(object? sender, EventArgs e)
         {
             Load();
         }

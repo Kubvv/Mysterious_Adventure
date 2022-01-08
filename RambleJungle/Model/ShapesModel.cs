@@ -4,24 +4,20 @@ namespace RambleJungle.Model
 {
     public static class ShapesModel
     {
-        public static FrameworkElement GetJungleShape(JungleObjectType jungleObjectType, object backingObject)
+        public static FrameworkElement GetJungleShape(JungleObjectType jungleObjectType, object? backingObject)
         {
             FrameworkElement result;
-            if (backingObject == null)
+            if (backingObject is JungleObject jungleObject)
             {
-                result = NewJungleShape(jungleObjectType);
+                result = NewJungleShape(jungleObject.JungleObjectType);
             }
-            else if (backingObject is JungleObject)
+            else if (backingObject is Weapon weapon)
             {
-                result = NewJungleShape((backingObject as JungleObject).JungleObjectType);
-            }
-            else if (backingObject is Weapon)
-            {
-                result = NewWeaponShape((backingObject as Weapon).WeaponType);
+                result = NewWeaponShape(weapon.WeaponType);
             }
             else
             {
-                result = null;
+                result = NewJungleShape(jungleObjectType);
             }
             return result;
         }
@@ -30,117 +26,47 @@ namespace RambleJungle.Model
 
         private static FrameworkElement NewJungleShape(JungleObjectType jungleObjectType)
         {
-            FrameworkElement result = null;
-            switch (jungleObjectType)
+            FrameworkElement result = jungleObjectType switch
             {
-                case JungleObjectType.Rambler:
-                    if (Config.SuperRambler)
-                    {
-                        result = new Images.SuperRambler();
-                    }
-                    else
-                    {
-                        result = new Images.Rambler();
-                    }
-                    break;
-                case JungleObjectType.DragonflySwarm:
-                    result = new Images.DragonflySwarm();
-                    break;
-                case JungleObjectType.WildPig:
-                    result = new Images.WildPig();
-                    break;
-                case JungleObjectType.Snakes:
-                    result = new Images.Snakes();
-                    break;
-                case JungleObjectType.CarnivorousPlant:
-                    result = new Images.CarnivorousPlant();
-                    break;
-                case JungleObjectType.Minotaur:
-                    result = new Images.Minotaur();
-                    break;
-                case JungleObjectType.Hydra:
-                    result = new Images.Hydra();
-                    break;
-                case JungleObjectType.LostWeapon:
-                    result = new Images.LostWeapon();
-                    break;
-                case JungleObjectType.Elixir:
-                    result = new Images.Elixir();
-                    break;
-                case JungleObjectType.Map:
-                    result = new Images.Map();
-                    break;
-                case JungleObjectType.Radar:
-                    result = new Images.Radar();
-                    break;
-                case JungleObjectType.MagnifyingGlass:
-                    result = new Images.MagnifyingGlass();
-                    break;
-                case JungleObjectType.Talisman:
-                    result = new Images.Talisman();
-                    break;
-                case JungleObjectType.Natives:
-                    result = new Images.Natives();
-                    break;
-                case JungleObjectType.Quicksand:
-                    result = new Images.QuickSand();
-                    break;
-                case JungleObjectType.Trap:
-                    result = new Images.Trap();
-                    break;
-                case JungleObjectType.Treasure:
-                    result = new Images.Treasure();
-                    break;
-                case JungleObjectType.EmptyField:
-                    result = null;
-                    break;
-                case JungleObjectType.Camp:
-                    result = new Images.Camp();
-                    break;
-                case JungleObjectType.Tent:
-                    result = new Images.Tent();
-                    break;
-                case JungleObjectType.ForgottenCity:
-                    result = new Images.ForgottenCity();
-                    break;
-                case JungleObjectType.DenseJungle:
-                    result = new Images.DenseJungle();
-                    break;
-                default:
-                    break;
-            }
+                JungleObjectType.Rambler => Config.SuperRambler ? new Images.SuperRambler() : new Images.Rambler(),
+                JungleObjectType.DragonflySwarm => new Images.DragonflySwarm(),
+                JungleObjectType.WildPig => new Images.WildPig(),
+                JungleObjectType.Snakes => new Images.Snakes(),
+                JungleObjectType.CarnivorousPlant => new Images.CarnivorousPlant(),
+                JungleObjectType.Minotaur => new Images.Minotaur(),
+                JungleObjectType.Hydra => new Images.Hydra(),
+                JungleObjectType.LostWeapon => new Images.LostWeapon(),
+                JungleObjectType.Elixir => new Images.Elixir(),
+                JungleObjectType.Map => new Images.Map(),
+                JungleObjectType.Radar => new Images.Radar(),
+                JungleObjectType.MagnifyingGlass => new Images.MagnifyingGlass(),
+                JungleObjectType.Talisman => new Images.Talisman(),
+                JungleObjectType.Natives => new Images.Natives(),
+                JungleObjectType.Quicksand => new Images.QuickSand(),
+                JungleObjectType.Trap => new Images.Trap(),
+                JungleObjectType.Treasure => new Images.Treasure(),
+                JungleObjectType.Camp => new Images.Camp(),
+                JungleObjectType.Tent => new Images.Tent(),
+                JungleObjectType.ForgottenCity => new Images.ForgottenCity(),
+                JungleObjectType.DenseJungle => new Images.DenseJungle(),
+                _ => new Images.EmptyField(),
+            };
             return result;
         }
 
         private static FrameworkElement NewWeaponShape(WeaponType weaponType)
         {
-            FrameworkElement result = null;
-            switch (weaponType)
+            FrameworkElement result = weaponType switch
             {
-                case WeaponType.Dagger:
-                    result = new Images.Dagger();
-                    break;
-                case WeaponType.Torch:
-                    result = new Images.Torch();
-                    break;
-                case WeaponType.Spear:
-                    result = new Images.Spear();
-                    break;
-                case WeaponType.Machete:
-                    result = new Images.Machete();
-                    break;
-                case WeaponType.Bow:
-                    result = new Images.Bow();
-                    break;
-                case WeaponType.Battleaxe:
-                    result = new Images.BattleAxe();
-                    break;
-                case WeaponType.Sword:
-                    result = new Images.Sword();
-                    break;
-                default:
-                    break;
-            }
+                WeaponType.Dagger => new Images.Dagger(),
+                WeaponType.Torch => new Images.Torch(),
+                WeaponType.Spear => new Images.Spear(),
+                WeaponType.Machete => new Images.Machete(),
+                WeaponType.Bow => new Images.Bow(),
+                WeaponType.Battleaxe => new Images.BattleAxe(),
+                WeaponType.Sword => new Images.Sword(),
+                _ => new Images.EmptyField(),
+            };
             return result;
         }
     }

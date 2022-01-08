@@ -10,7 +10,7 @@ namespace RambleJungle.Model
         {
         }
 
-        public event EventHandler HealthChanged;
+        public event EventHandler? HealthChanged;
 
         public void ChangeHealth(int healthChange)
         {
@@ -23,13 +23,13 @@ namespace RambleJungle.Model
             {
                 Health = 0;
             }
-            HealthChanged?.Invoke(this, null);
+            HealthChanged?.Invoke(this, new EventArgs());
         }
 
         public void SetHealth(int health)
         {
             Health = health;
-            HealthChanged?.Invoke(this, null);
+            HealthChanged?.Invoke(this, new EventArgs());
         }
     }
 }

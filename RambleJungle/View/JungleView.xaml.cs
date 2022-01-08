@@ -15,8 +15,11 @@ namespace RambleJungle.View
 
         private void Jungle_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            (DataContext as JungleViewModel).CanvasHeight = jungle.ActualHeight;
-            (DataContext as JungleViewModel).CanvasWidth = jungle.ActualWidth;
+            if (DataContext is JungleViewModel jungleViewModel)
+            {
+                jungleViewModel.CanvasHeight = jungle.ActualHeight;
+                jungleViewModel.CanvasWidth = jungle.ActualWidth;
+            }
         }
     }
 }

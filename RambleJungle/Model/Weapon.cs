@@ -9,13 +9,13 @@ namespace RambleJungle.Model
         public int Count { get; private set; }
         public bool DoubleAttack { get; private set; }
 
-        public event EventHandler CountChanged;
-        public event EventHandler DoubleAttackChanged;
+        public event EventHandler? CountChanged;
+        public event EventHandler? DoubleAttackChanged;
 
         public Weapon(WeaponType weaponType)
         {
             WeaponType = weaponType;
-            Name = Enum.GetName(typeof(WeaponType), weaponType);
+            Name = Enum.GetName(typeof(WeaponType), weaponType) ?? "?";
             Reset();
         }
 
@@ -30,7 +30,7 @@ namespace RambleJungle.Model
             if (WeaponType != WeaponType.Dagger)
             {
                 Count += quantity;
-                CountChanged?.Invoke(this, null);
+                CountChanged?.Invoke(this, new EventArgs());
             }
         }
 
@@ -39,7 +39,7 @@ namespace RambleJungle.Model
             if (WeaponType != WeaponType.Dagger)
             {
                 DoubleAttack = value;
-                DoubleAttackChanged?.Invoke(this, null);
+                DoubleAttackChanged?.Invoke(this, new EventArgs());
             }
         }
     }

@@ -8,7 +8,7 @@ namespace RambleJungle.Model
     public static class Config
     {
         private const int defaultJungleHeight = 10, defaultJungleWidth = 16;
-        private static readonly Dictionary<JungleObjectType, int> defaultJungleObjectsCount = new Dictionary<JungleObjectType, int>
+        private static readonly Dictionary<JungleObjectType, int> defaultJungleObjectsCount = new()
         {
             [JungleObjectType.DragonflySwarm] = 5,
             [JungleObjectType.WildPig] = 5,
@@ -153,10 +153,10 @@ namespace RambleJungle.Model
         private const string KEEPRATIO = "KeepRatio";
         public static bool KeepRatio { get; private set; } = true;
 
-        private const string SUPERRAMBLER = "KeepRatio";
+        private const string SUPERRAMBLER = "SuperRambler";
         public static bool SuperRambler { get; private set; } = false;
 
-        public static Dictionary<JungleObjectType, int> JungleObjectsCount { get; private set; }
+        public static Dictionary<JungleObjectType, int> JungleObjectsCount { get; private set; } = new Dictionary<JungleObjectType, int>();
 
         public static void Read()
         {
@@ -201,7 +201,7 @@ namespace RambleJungle.Model
         {
             double factor = (double)(JungleHeight * JungleWidth) / (defaultJungleHeight * defaultJungleWidth);
 
-            JungleObjectsCount = new Dictionary<JungleObjectType, int>();
+            JungleObjectsCount.Clear();
             foreach (KeyValuePair<JungleObjectType, int> jungleObjectsCount in defaultJungleObjectsCount)
             {
                 JungleObjectsCount.Add(jungleObjectsCount.Key, (int)Math.Floor(jungleObjectsCount.Value * factor));

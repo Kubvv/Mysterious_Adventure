@@ -13,17 +13,24 @@ namespace RambleJungle.ViewModel
         public MainViewModel(GameModel gameModel)
         {
             this.gameModel = gameModel;
+
+            StartNewGame = new RelayCommand(() => ExecuteStartNewGame(), () => CanStartNewGame);
+            LoadGame = new RelayCommand(() => ExecuteLoadGame(), () => CanLoadGame);
+            OpenOptions = new RelayCommand(() => ExecuteOpenOptions(), () => CanOpenOptions);
+            CloseApp = new RelayCommand(() => Application.Current.Shutdown());
         }
 
-        private RelayCommand startNewGame;
-        public RelayCommand StartNewGame => startNewGame ??= new RelayCommand(() => ExecuteStartNewGame(), () => CanStartNewGame);
+        public RelayCommand StartNewGame { get; private set; }
+        public RelayCommand LoadGame { get; private set; }
+        public RelayCommand OpenOptions { get; private set; }
+        public RelayCommand CloseApp { get; private set; }
 
         private void ExecuteStartNewGame()
         {
             gameModel.PrepareGame();
             //Task startGameTask = Task.Run(() => gameModel.StartGame());
             gameModel.StartGame();
-            JungleView jungleView = new JungleView();
+            JungleView jungleView = new();
             jungleView.ShowDialog();
         }
 
@@ -37,9 +44,6 @@ namespace RambleJungle.ViewModel
                 StartNewGame.RaiseCanExecuteChanged();
             }
         }
-
-        private RelayCommand loadGame;
-        public RelayCommand LoadGame => loadGame ??= new RelayCommand(() => ExecuteLoadGame(), () => CanLoadGame);
 
         private static void ExecuteLoadGame()
         {
@@ -57,12 +61,9 @@ namespace RambleJungle.ViewModel
             }
         }
 
-        private RelayCommand openOptions;
-        public RelayCommand OpenOptions => openOptions ??= new RelayCommand(() => ExecuteOpenOptions(), () => CanOpenOptions);
-
         private static void ExecuteOpenOptions()
         {
-            OptionsView optionsView = new OptionsView();
+            OptionsView optionsView = new();
             optionsView.ShowDialog();
         }
 
@@ -76,8 +77,5 @@ namespace RambleJungle.ViewModel
                 OpenOptions.RaiseCanExecuteChanged();
             }
         }
-
-        private RelayCommand closeApp;
-        public RelayCommand CloseApp => closeApp ??= new RelayCommand(() => Application.Current.Shutdown());
     }
 }
