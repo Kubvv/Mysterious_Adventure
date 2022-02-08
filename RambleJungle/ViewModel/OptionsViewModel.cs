@@ -1,11 +1,11 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using RambleJungle.Model;
 using System;
 
 namespace RambleJungle.ViewModel
 {
-    public class OptionsViewModel : ViewModelBase
+    public class OptionsViewModel : ObservableRecipient
     {
         private double currentRatio = (double)Config.JungleWidth / Config.JungleHeight;
 
@@ -25,14 +25,15 @@ namespace RambleJungle.ViewModel
                     int newHeight = (int)Math.Round(value / currentRatio);
                     if (newHeight >= MinJungleHeight && newHeight <= MaxJungleHeight)
                     {
-                        Set(nameof(JungleHeight), ref jungleHeight, (int)Math.Round(value / currentRatio));
-                        Set(ref jungleWidth, value);
+                        SetProperty(ref jungleHeight, (int)Math.Round(value / currentRatio));
+                        OnPropertyChanged(nameof(JungleHeight));
+                        SetProperty(ref jungleWidth, value);
                     }
                 }
                 else
                 {
                     currentRatio = value / JungleHeight;
-                    Set(ref jungleWidth, value);
+                    SetProperty(ref jungleWidth, value);
                 }
             }
         }
@@ -48,14 +49,15 @@ namespace RambleJungle.ViewModel
                     int newWidth = (int)Math.Round(value * currentRatio);
                     if (newWidth >= MinJungleWidth && newWidth <= MaxJungleWidth)
                     {
-                        Set(nameof(JungleWidth), ref jungleWidth, (int)Math.Round(value * currentRatio));
-                        Set(ref jungleHeight, value);
+                        SetProperty(ref jungleWidth, (int)Math.Round(value * currentRatio));
+                        OnPropertyChanged(nameof(JungleWidth));
+                        SetProperty(ref jungleHeight, value);
                     }
                 }
                 else
                 {
                     currentRatio = JungleWidth / value;
-                    Set(ref jungleHeight, value);
+                    SetProperty(ref jungleHeight, value);
                 }
             }
         }
@@ -64,14 +66,14 @@ namespace RambleJungle.ViewModel
         public bool KeepRatio
         {
             get => keepRatio;
-            set => Set(ref keepRatio, value);
+            set => SetProperty(ref keepRatio, value);
         }
 
         private bool superRambler = Config.SuperRambler;
         public bool SuperRambler
         {
             get => superRambler;
-            set => Set(ref superRambler, value);
+            set => SetProperty(ref superRambler, value);
         }
 
         public OptionsViewModel()

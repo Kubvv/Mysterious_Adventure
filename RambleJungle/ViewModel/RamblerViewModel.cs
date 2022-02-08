@@ -30,17 +30,17 @@ namespace RambleJungle.ViewModel
         }
         private void RamblerHealthChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(Health));
+            OnPropertyChanged(nameof(Health));
         }
 
         private void RamblerStrengthChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(Strength));
+            OnPropertyChanged(nameof(Strength));
         }
 
         private void RamblerVisibleChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(Visible));
+            OnPropertyChanged(nameof(Visible));
         }
     }
 }

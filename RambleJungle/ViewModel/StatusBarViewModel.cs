@@ -1,12 +1,12 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using RambleJungle.Model;
 using System;
 using System.Collections.ObjectModel;
 
 namespace RambleJungle.ViewModel
 {
-    public class StatusBarViewModel : ViewModelBase
+    public class StatusBarViewModel : ObservableRecipient
     {
         private readonly JungleModel jungleModel;
 
@@ -52,19 +52,19 @@ namespace RambleJungle.ViewModel
             set
             {
                 canSaveGame = value;
-                SaveGame.RaiseCanExecuteChanged();
+                SaveGame.NotifyCanExecuteChanged();
             }
         }
 
         private void RamblerMoved(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(ExplorationProgress));
+            OnPropertyChanged(nameof(ExplorationProgress));
         }
 
         private void JungleGenerated(object? sender, EventArgs e)
         {
             Load();
-            RaisePropertyChanged(nameof(ExplorationProgress));
+            OnPropertyChanged(nameof(ExplorationProgress));
         }
 
         private void Load()
@@ -86,7 +86,7 @@ namespace RambleJungle.ViewModel
             {
                 Items.Add(new JungleObjectStatusViewModel(item));
             }
-            RaisePropertyChanged(nameof(ItemsCount));
+            OnPropertyChanged(nameof(ItemsCount));
         }
     }
 }

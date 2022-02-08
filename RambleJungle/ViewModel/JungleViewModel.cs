@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using RambleJungle.Model;
 using System;
 using System.Collections.ObjectModel;
@@ -6,7 +6,7 @@ using System.Windows.Threading;
 
 namespace RambleJungle.ViewModel
 {
-    public class JungleViewModel : ViewModelBase
+    public class JungleViewModel : ObservableRecipient
     {
         private readonly JungleModel jungleModel;
         private double cellWidth, cellHeight;
@@ -18,7 +18,7 @@ namespace RambleJungle.ViewModel
             get => canvasWidth;
             set
             {
-                Set(ref canvasWidth, value);
+                SetProperty(ref canvasWidth, value);
                 cellWidth = Math.Floor(value / Config.JungleWidth);
                 updateTimer.Stop();
                 updateTimer.Start();
@@ -31,7 +31,7 @@ namespace RambleJungle.ViewModel
             get => canvasHeight;
             set
             {
-                Set(ref canvasHeight, value);
+                SetProperty(ref canvasHeight, value);
                 cellHeight = Math.Floor(value / Config.JungleHeight);
                 updateTimer.Stop();
                 updateTimer.Start();

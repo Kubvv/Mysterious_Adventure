@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using System;
 using System.Windows;
 
@@ -26,8 +26,8 @@ namespace RambleJungle.Model
         public override void SetCoordinates(Point point)
         {
             base.SetCoordinates(point);
-            JungleModel jungleModel = SimpleIoc.Default.GetInstance<JungleModel>();
-            JungleObject? jungleObject = jungleModel.GetJungleObjectAt(point);
+            JungleModel? jungleModel = Ioc.Default.GetService<JungleModel>();
+            JungleObject? jungleObject = jungleModel?.GetJungleObjectAt(point);
             jungleObject?.SetStatus(Statuses.Visited);
             Moved?.Invoke(this, new EventArgs());
         }

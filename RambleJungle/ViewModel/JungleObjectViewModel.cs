@@ -1,17 +1,21 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.Input;
 using RambleJungle.Model;
 using System;
 using System.Collections.ObjectModel;
+using System.DirectoryServices.ActiveDirectory;
 using System.Windows;
 
 namespace RambleJungle.ViewModel
 {
-    public class JungleObjectViewModel : ViewModelBase, IDisposable
+    public class JungleObjectViewModel : ObservableRecipient, IDisposable
     {
-        private readonly GameModel gameModel = SimpleIoc.Default.GetInstance<GameModel>();
-        private readonly ActionViewModel actionViewModel = SimpleIoc.Default.GetInstance<ActionViewModel>();
+        private readonly GameModel gameModel = Ioc.Default.GetService<GameModel>() ??
+            throw new Exception(string.Format(Consts.ServiceNotFound, nameof(GameModel)));
+
+        private readonly ActionViewModel actionViewModel = Ioc.Default.GetService<ActionViewModel>() ??
+            throw new Exception(string.Format(Consts.ServiceNotFound, nameof(ActionViewModel)));
 
         private readonly JungleObject jungleObject;
 
@@ -106,22 +110,22 @@ namespace RambleJungle.ViewModel
 
         public virtual void Update()
         {
-            RaisePropertyChanged(nameof(Margin));
-            RaisePropertyChanged(nameof(Width));
-            RaisePropertyChanged(nameof(Height));
-            RaisePropertyChanged(nameof(Health));
+            OnPropertyChanged(nameof(Margin));
+            OnPropertyChanged(nameof(Width));
+            OnPropertyChanged(nameof(Height));
+            OnPropertyChanged(nameof(Health));
         }
 
         private void TypeChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(Shape));
-            RaisePropertyChanged(nameof(JungleObjectType));
-            RaisePropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Shape));
+            OnPropertyChanged(nameof(JungleObjectType));
+            OnPropertyChanged(nameof(Name));
         }
 
         private void StatusChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(Self));
+            OnPropertyChanged(nameof(Self));
             if (Status == Statuses.Shown)
             {
                 actionViewModel.CurrentJungleObject = this;
@@ -135,12 +139,12 @@ namespace RambleJungle.ViewModel
 
         private void HealthChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(Health));
+            OnPropertyChanged(nameof(Health));
         }
 
         private void MagnifyingGlassModeChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(IsMagnifyingGlassMode));
+            OnPropertyChanged(nameof(IsMagnifyingGlassMode));
         }
     }
 }

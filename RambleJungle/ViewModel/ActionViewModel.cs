@@ -1,11 +1,11 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using RambleJungle.Model;
 using System;
 using System.Windows;
 
 namespace RambleJungle.ViewModel
 {
-    public class ActionViewModel : ViewModelBase
+    public class ActionViewModel : ObservableRecipient
     {
         private readonly GameModel gameModel;
         private JungleObjectViewModel? forgottenCityViewModel;
@@ -14,7 +14,7 @@ namespace RambleJungle.ViewModel
         public JungleObjectViewModel? CurrentJungleObject
         {
             get => currentJungleObject;
-            set => Set(ref currentJungleObject, value);
+            set => SetProperty(ref currentJungleObject, value);
         }
 
         private Visibility actionVisibility = Visibility.Hidden;
@@ -23,10 +23,10 @@ namespace RambleJungle.ViewModel
             get => actionVisibility;
             set
             {
-                Set(ref actionVisibility, value);
+                SetProperty(ref actionVisibility, value);
                 if (value == Visibility.Visible)
                 {
-                    RaisePropertyChanged(nameof(CurrentJungleObject));
+                    OnPropertyChanged(nameof(CurrentJungleObject));
                 }
             }
         }

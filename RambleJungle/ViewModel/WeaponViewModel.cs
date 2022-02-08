@@ -1,15 +1,17 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.Input;
 using RambleJungle.Model;
 using System;
 using System.Windows;
 
 namespace RambleJungle.ViewModel
 {
-    public class WeaponViewModel : ViewModelBase
+    public class WeaponViewModel : ObservableRecipient
     {
-        private readonly GameModel gameModel = SimpleIoc.Default.GetInstance<GameModel>();
+        private readonly GameModel gameModel = Ioc.Default.GetService<GameModel>() ??
+            throw new Exception(string.Format(Consts.ServiceNotFound, nameof(GameModel)));
+
         private readonly Weapon weapon;
 
         public string Name => weapon.Name;
@@ -29,13 +31,13 @@ namespace RambleJungle.ViewModel
 
         private void CountChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(Count));
-            HitBeast.RaiseCanExecuteChanged();
+            OnPropertyChanged(nameof(Count));
+            HitBeast.NotifyCanExecuteChanged();
         }
 
         private void DoubleAttackChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(DoubleAttack));
+            OnPropertyChanged(nameof(DoubleAttack));
         }
     }
 }
