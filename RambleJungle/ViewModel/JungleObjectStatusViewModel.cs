@@ -1,14 +1,16 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using RambleJungle.Model;
 using System;
 using System.Windows;
 
 namespace RambleJungle.ViewModel
 {
-    public class JungleObjectStatusViewModel : ViewModelBase, IDisposable
+    public class JungleObjectStatusViewModel : ObservableRecipient, IDisposable
     {
-        private readonly JungleModel jungleModel = SimpleIoc.Default.GetInstance<JungleModel>();
+        private readonly JungleModel jungleModel = Ioc.Default.GetService<JungleModel>() ??
+            throw new Exception(string.Format(Consts.ServiceNotFound, nameof(JungleModel)));
+
         private readonly JungleObject jungleObject;
 
         public string Name => jungleObject.Name;
@@ -46,7 +48,7 @@ namespace RambleJungle.ViewModel
 
         private void StatusChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(Count));
+            OnPropertyChanged(nameof(Count));
         }
     }
 }

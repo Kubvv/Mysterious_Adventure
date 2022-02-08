@@ -1,12 +1,12 @@
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using RambleJungle.Model;
 using RambleJungle.View;
 using System.Windows;
 
 namespace RambleJungle.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ObservableRecipient
     {
         private readonly GameModel gameModel;
 
@@ -41,7 +41,7 @@ namespace RambleJungle.ViewModel
             set
             {
                 canStartNewGame = value;
-                StartNewGame.RaiseCanExecuteChanged();
+                StartNewGame.NotifyCanExecuteChanged();
             }
         }
 
@@ -57,7 +57,7 @@ namespace RambleJungle.ViewModel
             set
             {
                 canLoadGame = value;
-                LoadGame.RaiseCanExecuteChanged();
+                LoadGame.NotifyCanExecuteChanged();
             }
         }
 
@@ -74,7 +74,7 @@ namespace RambleJungle.ViewModel
             set
             {
                 canOpenOptions = value;
-                OpenOptions.RaiseCanExecuteChanged();
+                OpenOptions.NotifyCanExecuteChanged();
             }
         }
     }

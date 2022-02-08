@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using RambleJungle.Model;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace RambleJungle.ViewModel
 {
-    public class TreasureViewModel : ViewModelBase, IDisposable
+    public class TreasureViewModel : ObservableRecipient, IDisposable
     {
         private readonly JungleModel jungleModel;
 
@@ -85,13 +85,13 @@ namespace RambleJungle.ViewModel
             if (sender is JungleObject jungleObject && jungleObject.JungleObjectType == JungleObjectType.Treasure)
             {
                 jungleObject.StatusChanged += StatusChanged;
-                RaisePropertyChanged(nameof(Found));
+                OnPropertyChanged(nameof(Found));
             }
         }
 
         private void StatusChanged(object? sender, EventArgs e)
         {
-            RaisePropertyChanged(nameof(Found));
+            OnPropertyChanged(nameof(Found));
         }
     }
 }
