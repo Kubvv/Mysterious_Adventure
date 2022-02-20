@@ -1,4 +1,6 @@
-﻿using RambleJungle.ViewModel;
+﻿using RambleJungle.Model.Tools;
+using RambleJungle.ViewModel;
+using System;
 using System.Windows;
 
 namespace RambleJungle.View
@@ -11,6 +13,15 @@ namespace RambleJungle.View
         public JungleView()
         {
             InitializeComponent();
+            SourceInitialized += Jungle_SourceInitialized;
+        }
+
+        private void Jungle_SourceInitialized(object? sender, EventArgs e)
+        {
+            Monitor monitor = Monitor.BiggestMonitor();
+            Top = monitor.WorkingArea.Top;
+            Left = monitor.WorkingArea.Left;
+            WindowState = WindowState.Maximized;
         }
 
         private void Jungle_SizeChanged(object sender, SizeChangedEventArgs e)
