@@ -12,7 +12,6 @@
         DataContext="{Binding JungleInstance, Mode=OneWay, Source={StaticResource Locator}}"
         MinWidth="200"
         MinHeight="200"
-        WindowState="Maximized"
         Background="Green">
     <Grid>
         <Grid.RowDefinitions>

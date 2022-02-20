@@ -419,7 +419,7 @@ namespace RambleJungle.Model
                 Rambler.ChangeHealth(healthAdded);
                 // choose one option:
                 //  30% more strength in next battle
-                //  check four fields adjacent to camp
+                //  check fields adjacent to camp
                 //  additional 15% health
                 //  double attack with random weapon
             }
@@ -484,21 +484,13 @@ namespace RambleJungle.Model
                     Rambler.ChangeHealth(15);
                     break;
                 case Model.CampBonus.Adjacency:
-                    CheckAdjacent(CurrentJungleObject);
+                    jungleModel.SetPointedAt(JungleModel.FindNeighboursTo(CurrentJungleObject.Coordinates, 1).ToList());
                     break;
                 case Model.CampBonus.DoubleAttack:
                     weaponModel.SetDoubleAttack();
                     break;
             }
             Rambler.SetCoordinates(CurrentJungleObject.Coordinates);
-        }
-
-        private void CheckAdjacent(JungleObject jungleObject)
-        {
-            jungleModel.SetPointedAt(new Point(jungleObject.Coordinates.X - 1, jungleObject.Coordinates.Y), false);
-            jungleModel.SetPointedAt(new Point(jungleObject.Coordinates.X + 1, jungleObject.Coordinates.Y), false);
-            jungleModel.SetPointedAt(new Point(jungleObject.Coordinates.X, jungleObject.Coordinates.Y - 1), false);
-            jungleModel.SetPointedAt(new Point(jungleObject.Coordinates.X, jungleObject.Coordinates.Y + 1), false);
         }
     }
 }
