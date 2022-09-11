@@ -81,7 +81,7 @@ namespace RambleJungle.Model.Tools
             Monitor result = AllMonitors.First();
             foreach (Monitor monitor in AllMonitors)
             {
-                if (monitor.WorkingArea.Width * monitor.WorkingArea.Height < result.WorkingArea.Width * result.WorkingArea.Height)
+                if (monitor.WorkingArea.Width * monitor.WorkingArea.Height > result.WorkingArea.Width * result.WorkingArea.Height)
                 {
                     result = monitor;
                 }

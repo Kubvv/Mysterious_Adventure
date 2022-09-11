@@ -1,6 +1,6 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 using RambleJungle.Model;
 using System;
 using System.Collections.ObjectModel;
@@ -27,6 +27,7 @@ namespace RambleJungle.ViewModel
         public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
         public bool IsCamp => jungleObject.JungleObjectType == JungleObjectType.Camp;
         public int Health => jungleObject is LivingJungleObject livingJungleObject ? livingJungleObject.Health : 0;
+        public Visibility HealthVisibility => IsLivingJungleObject ? Visibility.Visible : Visibility.Hidden;
         public bool IsMagnifyingGlassMode => gameModel.IsMagnifyingGlassMode;
         public bool IsArsenal => jungleObject is JungleArsenal;
         public ObservableCollection<WeaponViewModel> ArsenalWeapons { get; } = new ObservableCollection<WeaponViewModel>();
@@ -129,7 +130,10 @@ namespace RambleJungle.ViewModel
             if (Status == Statuses.Shown)
             {
                 actionViewModel.CurrentJungleObject = this;
-                actionViewModel.ActionVisibility = Visibility.Visible;
+                if (JungleObjectType == JungleObjectType.Camp || JungleObjectType == JungleObjectType.ForgottenCity)
+                {
+                    actionViewModel.ActionVisibility = Visibility.Visible;
+                }
             }
             else if (Status == Statuses.Visited)
             {

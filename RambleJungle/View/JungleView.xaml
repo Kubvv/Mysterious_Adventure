@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RambleJungle.View"
-        xmlns:images="clr-namespace:RambleJungle.Images"
         mc:Ignorable="d"
         Title="RambleJungle"
         Height="500"
@@ -38,6 +37,9 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
+                        <ProgressBar Value="{Binding Health, Mode=OneWay}"
+                                     Grid.RowSpan="2"
+                                     Visibility="{Binding HealthVisibility, Mode=OneWay}" />
                         <ContentControl Content="{Binding Shape}" 
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"

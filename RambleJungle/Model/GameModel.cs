@@ -97,7 +97,7 @@ namespace RambleJungle.Model
 
         public void MoveRamblerTo(Point point)
         {
-            if (!inGame) { return; }
+            if (!inGame || actionTimer.IsEnabled) { return; }
 
             if (IsMagnifyingGlassMode)
             {
