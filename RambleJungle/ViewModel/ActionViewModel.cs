@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using RambleJungle.Model;
 using System;
 using System.Windows;
@@ -44,10 +44,7 @@ namespace RambleJungle.ViewModel
         {
             if (gameModel.IsForgottenCityMode)
             {
-                if (forgottenCityViewModel == null)
-                {
-                    forgottenCityViewModel = CurrentJungleObject;
-                }
+                forgottenCityViewModel ??= CurrentJungleObject;
                 CurrentJungleObject = new JungleObjectViewModel(gameModel.CurrentJungleObject);
             }
             else
