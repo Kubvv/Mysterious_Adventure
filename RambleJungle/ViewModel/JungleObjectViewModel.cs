@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using RambleJungle.Model;
 using System;
 using System.Collections.ObjectModel;
-using System.DirectoryServices.ActiveDirectory;
 using System.Windows;
 
 namespace RambleJungle.ViewModel
@@ -27,7 +26,7 @@ namespace RambleJungle.ViewModel
         public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
         public bool IsCamp => jungleObject.JungleObjectType == JungleObjectType.Camp;
         public int Health => jungleObject is LivingJungleObject livingJungleObject ? livingJungleObject.Health : 0;
-        public Visibility HealthVisibility => IsLivingJungleObject ? Visibility.Visible : Visibility.Hidden;
+        public Visibility HealthVisibility => IsLivingJungleObject && Health > 0 ? Visibility.Visible : Visibility.Hidden;
         public bool IsMagnifyingGlassMode => gameModel.IsMagnifyingGlassMode;
         public bool IsArsenal => jungleObject is JungleArsenal;
         public ObservableCollection<WeaponViewModel> ArsenalWeapons { get; } = new ObservableCollection<WeaponViewModel>();
@@ -144,6 +143,7 @@ namespace RambleJungle.ViewModel
         private void HealthChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(Health));
+            OnPropertyChanged(nameof(HealthVisibility));
         }
 
         private void MagnifyingGlassModeChanged(object? sender, EventArgs e)
