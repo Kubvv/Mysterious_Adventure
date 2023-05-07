@@ -51,7 +51,7 @@
                                  Visibility="{Binding HealthVisibility, Mode=OneWay}">
                             <TextBlock Text="{Binding Health, Mode=OneWay}"
                                        Style="{DynamicResource BlockHealthStyle}"
-                                       Padding="10,10,2,0" />
+                                       Padding="10,10,3,0" />
                         </Viewbox>
                         <ItemsControl ItemsSource="{Binding ArsenalWeapons}">
                             <ItemsControl.ItemsPanel>
@@ -68,7 +68,7 @@
                         </ItemsControl>
                         <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Command="{Binding MoveRamblerCommand, Mode=OneWay}"
-                                BorderThickness="3"
+                                BorderThickness="1"
                                 BorderBrush="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Template="{DynamicResource JungleButtonTemplate}"
                                 IsCancel="{Binding IsMagnifyingGlassMode}"
