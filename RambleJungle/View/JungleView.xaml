@@ -40,11 +40,19 @@
                         <ProgressBar Value="{Binding Health, Mode=OneWay}"
                                      Grid.RowSpan="2"
                                      Visibility="{Binding HealthVisibility, Mode=OneWay}" />
-                        <ContentControl Content="{Binding Shape}" 
+                        <ContentControl Content="{Binding Shape}"
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"
                                         Margin="4"
                                         Grid.RowSpan="2" />
+                        <Viewbox Grid.Row="1"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom"
+                                 Visibility="{Binding HealthVisibility, Mode=OneWay}">
+                            <TextBlock Text="{Binding Health, Mode=OneWay}"
+                                       Style="{DynamicResource BlockHealthStyle}"
+                                       Padding="10,10,3,0" />
+                        </Viewbox>
                         <ItemsControl ItemsSource="{Binding ArsenalWeapons}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -60,7 +68,7 @@
                         </ItemsControl>
                         <Button Background="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Command="{Binding MoveRamblerCommand, Mode=OneWay}"
-                                BorderThickness="3"
+                                BorderThickness="1"
                                 BorderBrush="{Binding Self, Converter={StaticResource JungleObjectToBrushConverter}, Mode=OneWay}"
                                 Template="{DynamicResource JungleButtonTemplate}"
                                 IsCancel="{Binding IsMagnifyingGlassMode}"

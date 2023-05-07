@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:RambleJungle.View"
              xmlns:images="clr-namespace:RambleJungle.Images"
              mc:Ignorable="d"
              MinWidth="200"
@@ -20,12 +19,8 @@
         <Grid Grid.Column="0">
             <ProgressBar Value="{Binding Rambler.Health, Mode=OneWay}" />
             <Viewbox>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Rambler.Health, Mode=OneWay}"
-                               Style="{DynamicResource ItemsCounterStyle}" />
-                    <TextBlock Text="%"
-                               Style="{DynamicResource ItemsCounterStyle}" />
-                </StackPanel>
+                <TextBlock Text="{Binding Rambler.Health, Mode=OneWay}"
+                           Style="{DynamicResource ItemsCounterStyle}" />
             </Viewbox>
         </Grid>
         <!-- exploration progress -->
