@@ -76,9 +76,16 @@ namespace RambleJungle.ViewModel
             set => SetProperty(ref superRambler, value);
         }
 
+        private bool pacifistRambler = Config.PacifistRambler;
+        public bool PacifistRambler
+        {
+            get => pacifistRambler;
+            set => SetProperty(ref pacifistRambler, value);
+        }
+
         public OptionsViewModel()
         {
-            SaveOptions = new RelayCommand(() => ExecuteSaveOptions());
+            SaveOptions = new RelayCommand(ExecuteSaveOptions);
         }
 
         public RelayCommand SaveOptions { get; private set; }
@@ -88,6 +95,7 @@ namespace RambleJungle.ViewModel
             Config.SetJungleSize(JungleWidth, JungleHeight);
             Config.SetKeepRatio(KeepRatio);
             Config.SetSuperRambler(SuperRambler);
+            Config.SetPacifistRambler(PacifistRambler);
         }
     }
 }

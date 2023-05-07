@@ -156,14 +156,33 @@ namespace RambleJungle.Model
         private const string SUPERRAMBLER = "SuperRambler";
         public static bool SuperRambler { get; private set; } = false;
 
+        private const string PACIFISTRAMBLER = "PacifistRambler";
+        public static bool PacifistRambler { get; private set; } = false;
+
         public static Dictionary<JungleObjectType, int> JungleObjectsCount { get; private set; } = new Dictionary<JungleObjectType, int>();
 
         public static void Read()
         {
-            JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEWIDTH], CultureInfo.CurrentCulture);
-            JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEHEIGHT], CultureInfo.CurrentCulture);
-            KeepRatio = Convert.ToBoolean(ConfigurationManager.AppSettings[KEEPRATIO], CultureInfo.CurrentCulture);
-            SuperRambler = Convert.ToBoolean(ConfigurationManager.AppSettings[SUPERRAMBLER], CultureInfo.CurrentCulture);
+            if (ConfigurationManager.AppSettings[JUNGLEWIDTH] != null)
+            {
+                JungleWidth = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEWIDTH], CultureInfo.CurrentCulture);
+            }
+            if (ConfigurationManager.AppSettings[JUNGLEHEIGHT] != null)
+            {
+                JungleHeight = Convert.ToInt32(ConfigurationManager.AppSettings[JUNGLEHEIGHT], CultureInfo.CurrentCulture);
+            }
+            if (ConfigurationManager.AppSettings[KEEPRATIO] != null)
+            {
+                KeepRatio = Convert.ToBoolean(ConfigurationManager.AppSettings[KEEPRATIO], CultureInfo.CurrentCulture);
+            }
+            if (ConfigurationManager.AppSettings[SUPERRAMBLER] != null)
+            {
+                SuperRambler = Convert.ToBoolean(ConfigurationManager.AppSettings[SUPERRAMBLER], CultureInfo.CurrentCulture);
+            }
+            if (ConfigurationManager.AppSettings[PACIFISTRAMBLER] != null)
+            {
+                PacifistRambler = Convert.ToBoolean(ConfigurationManager.AppSettings[PACIFISTRAMBLER], CultureInfo.CurrentCulture);
+            }
             RecalculateJungle();
         }
 
@@ -195,6 +214,14 @@ namespace RambleJungle.Model
 
             SuperRambler = newSuperRambler;
             UpdateSetting(SUPERRAMBLER, SuperRambler.ToString(CultureInfo.CurrentCulture));
+        }
+
+        public static void SetPacifistRambler(bool newPacifistRambler)
+        {
+            if (PacifistRambler == newPacifistRambler) return;
+
+            PacifistRambler = newPacifistRambler;
+            UpdateSetting(PACIFISTRAMBLER, PacifistRambler.ToString(CultureInfo.CurrentCulture));
         }
 
         private static void RecalculateJungle()
