@@ -50,6 +50,22 @@ namespace RambleJungle.Model
 
         public event EventHandler? ForgottenCityModeChanged;
 
+        private bool isBattleMode = false;
+        public bool IsBattleMode
+        {
+            get => isBattleMode;
+            private set
+            {
+                if (isBattleMode != value)
+                {
+                    isBattleMode = value;
+                    BattleModeChanged?.Invoke(this, new EventArgs());
+                }
+            }
+        }
+
+        public event EventHandler? BattleModeChanged;
+
         public Rambler Rambler { get; private set; }
 
         public GameModel(JungleModel jungleModel, WeaponModel weaponModel)
@@ -97,7 +113,8 @@ namespace RambleJungle.Model
 
         public void MoveRamblerTo(Point point)
         {
-            if (!inGame || actionTimer.IsEnabled) { return; }
+            if (!inGame || actionTimer.IsEnabled || (IsBattleMode && !Config.PacifistRambler)) { return; }
+            IsBattleMode = false;
 
             if (IsMagnifyingGlassMode)
             {
@@ -132,7 +149,11 @@ namespace RambleJungle.Model
                             }
                             else
                             {
-                                if (!Config.Beasts.Contains(CurrentJungleObject.JungleObjectType))
+                                if (Config.Beasts.Contains(CurrentJungleObject.JungleObjectType))
+                                {
+                                    IsBattleMode = true;
+                                }
+                                else
                                 {
                                     PlaySound(CurrentJungleObject.Name);
                                 }
@@ -143,11 +164,6 @@ namespace RambleJungle.Model
                         else if (CurrentJungleObject.Status.HasFlag(Statuses.Visited))
                         {
                             // walk the rambler to the point over visited cells
-
-                            // check if destination point is reachable
-                            // List<Point> fill = SmithsFill.FloodFill(Config.JungleWidth, Config.JungleHeight, denseJungleLocations, coordinates[0]);
-                            // everyFieldIsReachable = filledJungle.Count == Config.JungleWidth * Config.JungleHeight;
-
                             visitedPoints.Clear();
                             visitedPoints.Add(Rambler.Coordinates);
                             walkTimer.Start();
@@ -289,6 +305,7 @@ namespace RambleJungle.Model
                     {
                         Rambler.SetCoordinates(beast.Coordinates);
                         Rambler.SetStrength(1);
+                        IsBattleMode = false;
                     }
                 }
             }
@@ -443,10 +460,7 @@ namespace RambleJungle.Model
                 if (jungleModel.CountOf(JungleObjectType.Treasure) < Config.JungleObjectsCount[JungleObjectType.Treasure])
                 {
                     JungleObject? emptyField = jungleModel.GetRandomJungleObject(JungleObjectType.EmptyField);
-                    if (emptyField != null)
-                    {
-                        emptyField.ChangeTypeTo(JungleObjectType.Treasure);
-                    }
+                    emptyField?.ChangeTypeTo(JungleObjectType.Treasure);
                 }
             }
             else if (CurrentJungleObject.JungleObjectType == JungleObjectType.Trap)

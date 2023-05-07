@@ -22,6 +22,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Text="szerokość dżungli"
                     Margin="3" />
@@ -62,17 +63,22 @@
                   Margin="3"
                   Content="tryb SuperRambler"
                   IsChecked="{Binding SuperRambler}" />
+        <CheckBox Grid.Row="4"
+                  Grid.Column="2"
+                  Margin="3"
+                  Content="tryb pacyfistyczny"
+                  IsChecked="{Binding PacifistRambler}" />
         <Button Content="anuluj"
                 Margin="3"
                 Click="Button_Click"
-                Grid.Row="4"
+                Grid.Row="5"
                 Grid.ColumnSpan="2" />
         <Button Content="ustaw"
                 Margin="3"
                 IsDefault="True"
                 Command="{Binding SaveOptions}"
                 Click="Button_Click"
-                Grid.Row="4"
+                Grid.Row="5"
                 Grid.Column="2" />
     </Grid>
 </Window>
