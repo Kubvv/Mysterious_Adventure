@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Threading;
+using System.Timers;
 
 namespace RambleJungle.Model
 {
@@ -12,8 +11,8 @@ namespace RambleJungle.Model
     {
         private readonly JungleModel jungleModel;
         private readonly WeaponModel weaponModel;
-        private readonly DispatcherTimer actionTimer = new();
-        private readonly DispatcherTimer walkTimer = new();
+        private readonly Timer actionTimer = new();
+        private readonly Timer walkTimer = new();
         private JungleObject forgottenCity;
         private int forgottenCityBeastCount;
         private readonly MediaPlayer mediaPlayer = new();
@@ -78,11 +77,11 @@ namespace RambleJungle.Model
             CurrentJungleObject = new JungleObject(JungleObjectType.EmptyField);
             forgottenCity = CurrentJungleObject;
 
-            actionTimer.Tick += ActionTimerTick;
-            actionTimer.Interval = new TimeSpan(0, 0, 1);
+            actionTimer.Elapsed += ActionTimerTick;
+            actionTimer.Interval = 1000;
 
-            walkTimer.Tick += WalkTimerTick;
-            walkTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            walkTimer.Elapsed += WalkTimerTick;
+            walkTimer.Interval = 100;
         }
 
         public void PrepareGame()
@@ -200,7 +199,7 @@ namespace RambleJungle.Model
                 foreach (Point neighbour in JungleModel.FindNeighboursTo(from, 1))
                 {
                     JungleObject? nextStepObject = jungleModel.GetJungleObjectAt(neighbour);
-                    double nextStepDistance = Point.Subtract(neighbour, to).Length;
+                    double nextStepDistance = Distance(neighbour, to);
                     if (nextStepDistance < minDistance && CanMakeStepTo(nextStepObject))
                     {
                         result = nextStepObject;
@@ -209,6 +208,12 @@ namespace RambleJungle.Model
                 }
             }
             return result;
+        }
+
+        // calculate distance between two points
+        private static double Distance(Point from, Point to)
+        {
+            return Math.Sqrt(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2));
         }
 
         private bool CanMakeStepTo(JungleObject? jungleObject)
