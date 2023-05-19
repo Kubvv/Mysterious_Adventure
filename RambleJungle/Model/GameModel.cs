@@ -4,6 +4,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Timers;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace RambleJungle.Model
 {
@@ -11,8 +13,8 @@ namespace RambleJungle.Model
     {
         private readonly JungleModel jungleModel;
         private readonly WeaponModel weaponModel;
-        private readonly Timer actionTimer = new();
-        private readonly Timer walkTimer = new();
+        private readonly DispatcherTimer actionTimer = new();
+        private readonly DispatcherTimer walkTimer = new();
         private JungleObject forgottenCity;
         private int forgottenCityBeastCount;
         private readonly MediaPlayer mediaPlayer = new();
@@ -77,11 +79,11 @@ namespace RambleJungle.Model
             CurrentJungleObject = new JungleObject(JungleObjectType.EmptyField);
             forgottenCity = CurrentJungleObject;
 
-            actionTimer.Elapsed += ActionTimerTick;
-            actionTimer.Interval = 1000;
+            actionTimer.Tick += ActionTimerTick;
+            actionTimer.Interval = new TimeSpan(0, 0, 1);
 
-            walkTimer.Elapsed += WalkTimerTick;
-            walkTimer.Interval = 100;
+            walkTimer.Tick += WalkTimerTick;
+            walkTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
         }
 
         public void PrepareGame()
@@ -108,6 +110,7 @@ namespace RambleJungle.Model
             isSuperRamblerMode = false;
             isMagnifyingGlassMode = false;
             isForgottenCityMode = false;
+            isBattleMode = false;
         }
 
         public void MoveRamblerTo(Point point)
