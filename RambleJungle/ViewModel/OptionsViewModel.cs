@@ -1,10 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using RambleJungle.Model;
-using System;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
+    using RambleJungle.Base;
+    using System;
+
     public class OptionsViewModel : ObservableRecipient
     {
         private double currentRatio = (double)Config.JungleWidth / Config.JungleHeight;

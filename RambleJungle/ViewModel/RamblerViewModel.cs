@@ -1,8 +1,9 @@
-﻿using RambleJungle.Model;
-using System;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using RambleJungle.Base;
+    using RambleJungle.Model;
+    using System;
+
     public class RamblerViewModel : JungleObjectViewModel
     {
         private readonly Rambler rambler;

@@ -1,7 +1,7 @@
-﻿using System.Drawing;
-
-namespace RambleJungle.Base.Tools
+﻿namespace RambleJungle.Base.Tools
 {
+    using System.Drawing;
+
     public static class SmithsFill
     {
         public const int EMPTYPOINT = 0;

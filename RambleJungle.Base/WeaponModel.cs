@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace RambleJungle.Model
+﻿namespace RambleJungle.Base
 {
     public class WeaponModel
     {

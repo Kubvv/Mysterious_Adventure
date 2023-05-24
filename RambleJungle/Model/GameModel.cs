@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Timers;
-using System.Windows.Media;
-using System.Windows.Threading;
-
-namespace RambleJungle.Model
+﻿namespace RambleJungle.Model
 {
+    using RambleJungle.Base;
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Timers;
+    using System.Windows.Media;
+    using System.Windows.Threading;
+
     public class GameModel
     {
         private readonly JungleModel jungleModel;
         private readonly WeaponModel weaponModel;
         private readonly DispatcherTimer actionTimer = new();
-        private readonly DispatcherTimer walkTimer = new();
+        private readonly Timer walkTimer = new();
         private JungleObject forgottenCity;
         private int forgottenCityBeastCount;
         private readonly MediaPlayer mediaPlayer = new();
@@ -74,7 +75,7 @@ namespace RambleJungle.Model
             Config.Read();
             this.jungleModel = jungleModel;
             this.weaponModel = weaponModel;
-            Rambler = new Rambler();
+            Rambler = new Rambler(jungleModel);
             // can't initialize with null
             CurrentJungleObject = new JungleObject(JungleObjectType.EmptyField);
             forgottenCity = CurrentJungleObject;
@@ -82,8 +83,8 @@ namespace RambleJungle.Model
             actionTimer.Tick += ActionTimerTick;
             actionTimer.Interval = new TimeSpan(0, 0, 1);
 
-            walkTimer.Tick += WalkTimerTick;
-            walkTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            walkTimer.Elapsed += WalkTimerTick;
+            walkTimer.Interval = 100;
         }
 
         public void PrepareGame()
@@ -499,16 +500,16 @@ namespace RambleJungle.Model
         {
             switch (bonus)
             {
-                case Model.CampBonus.Strenght:
+                case Base.CampBonus.Strenght:
                     Rambler.SetStrength(1.3);
                     break;
-                case Model.CampBonus.Health:
+                case Base.CampBonus.Health:
                     Rambler.ChangeHealth(15);
                     break;
-                case Model.CampBonus.Adjacency:
+                case Base.CampBonus.Adjacency:
                     jungleModel.SetPointedAt(JungleModel.FindNeighboursTo(CurrentJungleObject.Coordinates, 1).ToList());
                     break;
-                case Model.CampBonus.DoubleAttack:
+                case Base.CampBonus.DoubleAttack:
                     weaponModel.SetDoubleAttack();
                     break;
             }

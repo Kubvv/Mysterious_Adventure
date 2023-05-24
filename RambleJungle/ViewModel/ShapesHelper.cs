@@ -1,28 +1,17 @@
-﻿using System.Windows;
-
-namespace RambleJungle.Model
+﻿namespace RambleJungle.ViewModel
 {
-    public static class ShapesModel
-    {
-        public static FrameworkElement GetJungleShape(JungleObjectType jungleObjectType, object? backingObject)
-        {
-            FrameworkElement result;
-            if (backingObject is JungleObject jungleObject)
-            {
-                result = NewJungleShape(jungleObject.JungleObjectType);
-            }
-            else if (backingObject is Weapon weapon)
-            {
-                result = NewWeaponShape(weapon.WeaponType);
-            }
-            else
-            {
-                result = NewJungleShape(jungleObjectType);
-            }
-            return result;
-        }
+    using System.Windows;
+    using RambleJungle.Base;
 
-        public static FrameworkElement GetWeaponShape(WeaponType weaponType) => NewWeaponShape(weaponType);
+    public static class ShapesHelper
+    {
+        public static FrameworkElement GetShape(JungleObject jungleItem) => jungleItem.BackingObject is Weapon w
+            ? NewWeaponShape(w.WeaponType)
+            : NewJungleShape(jungleItem.BackingObject is JungleObject o ? o.JungleObjectType : jungleItem.JungleObjectType);
+
+        public static FrameworkElement GetShape(JungleObjectType type) => NewJungleShape(type);
+
+        public static FrameworkElement GetShape(WeaponType type) => NewWeaponShape(type);
 
         private static FrameworkElement NewJungleShape(JungleObjectType jungleObjectType)
         {

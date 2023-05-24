@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-
-namespace RambleJungle.Base.Tools
+﻿namespace RambleJungle.Base.Tools
 {
+    using System.Collections;
+    using System.Drawing;
+    using System.Runtime.InteropServices;
+    using System.Runtime.Versioning;
+
     public class Monitor
     {
         #region Dll imports

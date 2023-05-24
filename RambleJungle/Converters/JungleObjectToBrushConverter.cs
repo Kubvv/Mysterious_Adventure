@@ -1,11 +1,11 @@
-﻿using RambleJungle.Model;
-using RambleJungle.ViewModel;
-using System;
-using System.Windows.Data;
-using System.Windows.Media;
-
-namespace RambleJungle.Converters
+﻿namespace RambleJungle.Converters
 {
+    using RambleJungle.Base;
+    using RambleJungle.ViewModel;
+    using System;
+    using System.Windows.Data;
+    using System.Windows.Media;
+
     public class JungleObjectToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

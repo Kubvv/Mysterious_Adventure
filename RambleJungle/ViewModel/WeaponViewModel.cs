@@ -1,12 +1,13 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
-using RambleJungle.Model;
-using System;
-using System.Windows;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.DependencyInjection;
+    using CommunityToolkit.Mvvm.Input;
+    using RambleJungle.Base;
+    using RambleJungle.Model;
+    using System;
+    using System.Windows;
+
     public class WeaponViewModel : ObservableRecipient
     {
         private readonly GameModel gameModel = Ioc.Default.GetService<GameModel>() ??
@@ -15,7 +16,7 @@ namespace RambleJungle.ViewModel
         private readonly Weapon weapon;
 
         public string Name => weapon.Name;
-        public FrameworkElement Shape => ShapesModel.GetWeaponShape(weapon.WeaponType);
+        public FrameworkElement Shape => ShapesHelper.GetShape(weapon.WeaponType);
         public int Count => weapon.Count;
         public bool DoubleAttack => weapon.DoubleAttack;
 

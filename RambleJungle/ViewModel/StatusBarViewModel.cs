@@ -1,11 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using RambleJungle.Model;
-using System;
-using System.Collections.ObjectModel;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
+    using RambleJungle.Base;
+    using System;
+    using System.Collections.ObjectModel;
+
     public class StatusBarViewModel : ObservableRecipient
     {
         private readonly JungleModel jungleModel;

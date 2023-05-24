@@ -1,11 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using RambleJungle.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using RambleJungle.Base;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class TreasureViewModel : ObservableRecipient, IDisposable
     {
         private readonly JungleModel jungleModel;

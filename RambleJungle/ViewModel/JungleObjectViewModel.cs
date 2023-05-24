@@ -1,13 +1,14 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
-using RambleJungle.Model;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.DependencyInjection;
+    using CommunityToolkit.Mvvm.Input;
+    using RambleJungle.Base;
+    using RambleJungle.Model;
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Windows;
+
     public class JungleObjectViewModel : ObservableRecipient, IDisposable
     {
         private readonly GameModel gameModel = Ioc.Default.GetService<GameModel>() ??
@@ -21,7 +22,7 @@ namespace RambleJungle.ViewModel
         public JungleObjectViewModel Self => this;
         public JungleObjectType JungleObjectType => jungleObject.JungleObjectType;
         public string Name => jungleObject.Name;
-        public FrameworkElement Shape => ShapesModel.GetJungleShape(jungleObject.JungleObjectType, jungleObject.BackingObject);
+        public FrameworkElement Shape => ShapesHelper.GetShape(jungleObject);
         public Statuses Status => jungleObject.Status;
         public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
         public bool IsCamp => jungleObject.JungleObjectType == JungleObjectType.Camp;

@@ -1,10 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using RambleJungle.Model;
-using System;
-using System.Windows;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using RambleJungle.Model;
+    using System;
+    using System.Windows;
+
     public class ActionViewModel : ObservableRecipient
     {
         private readonly GameModel gameModel;

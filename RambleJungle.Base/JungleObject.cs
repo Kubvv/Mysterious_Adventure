@@ -1,8 +1,7 @@
-﻿using System;
-using System.Drawing;
-
-namespace RambleJungle.Model
+﻿namespace RambleJungle.Base
 {
+    using System.Drawing;
+
     public class JungleObject
     {
         public JungleObjectType JungleObjectType { get; private set; }

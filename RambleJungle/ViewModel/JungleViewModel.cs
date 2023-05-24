@@ -1,11 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using RambleJungle.Model;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Threading;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using RambleJungle.Base;
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Windows.Threading;
+
     public class JungleViewModel : ObservableRecipient
     {
         private readonly JungleModel jungleModel;

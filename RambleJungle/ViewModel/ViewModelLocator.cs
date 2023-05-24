@@ -1,10 +1,11 @@
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
-using RambleJungle.Model;
-using System;
-
 namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.DependencyInjection;
+    using Microsoft.Extensions.DependencyInjection;
+    using RambleJungle.Base;
+    using RambleJungle.Model;
+    using System;
+
     /// <summary>
     /// This class contains static references to all the view models in the
     /// application and provides an entry point for the bindings.
