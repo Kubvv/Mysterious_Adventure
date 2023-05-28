@@ -9,6 +9,8 @@
     public class JungleViewModel : ObservableRecipient
     {
         private readonly JungleModel jungleModel;
+        private readonly SoundsHelper soundsHelper;
+
         private double cellWidth, cellHeight;
         private readonly DispatcherTimer updateTimer = new();
 
@@ -42,7 +44,7 @@
 
         public RamblerViewModel RamblerViewModel { get; private set; }
 
-        public JungleViewModel(JungleModel jungleModel, RamblerViewModel ramblerViewModel)
+        public JungleViewModel(JungleModel jungleModel, GameModel gameModel, RamblerViewModel ramblerViewModel, SoundsHelper soundsHelper)
         {
             this.jungleModel = jungleModel;
             if (jungleModel != null)
@@ -50,7 +52,10 @@
                 jungleModel.JungleGenerated += JungleGenerated;
                 Load();
             }
+            gameModel.BeastBites += BeastBites;
+            gameModel.GameOver += GameOver;
             RamblerViewModel = ramblerViewModel;
+            this.soundsHelper = soundsHelper;
 
             updateTimer.Tick += UpdateTimerTick;
             updateTimer.Interval = new TimeSpan(0, 0, 0, 0, 300);
@@ -80,6 +85,16 @@
             {
                 JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
             }
+        }
+        private void BeastBites(object? sender, string nameOfTheBeast)
+        {
+            soundsHelper.PlaySound(nameOfTheBeast);
+        }
+
+
+        private void GameOver(object? sender, bool success)
+        {
+            soundsHelper.PlaySound(success ? "Success" : "Fail");
         }
     }
 }

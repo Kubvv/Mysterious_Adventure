@@ -1,7 +1,7 @@
 ﻿namespace RambleJungle.ViewModel
 {
     using CommunityToolkit.Mvvm.ComponentModel;
-    using RambleJungle.Model;
+    using RambleJungle.Base;
     using System;
     using System.Windows;
 

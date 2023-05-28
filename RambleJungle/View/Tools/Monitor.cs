@@ -1,7 +1,10 @@
-﻿namespace RambleJungle.Base.Tools
+﻿namespace RambleJungle.View.Tools
 {
+    using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
     using System.Runtime.InteropServices;
     using System.Runtime.Versioning;
 
@@ -39,39 +42,16 @@
             internal char[] szDevice = new char[32];
         }
 
-        private const int MonitorinfofPrimary = 0x00000001;
-
         #endregion
 
-        public static HandleRef NullHandleRef { get; } = new(null, IntPtr.Zero);
-
-        public Rectangle Bounds { get; private set; }
         public Rectangle WorkingArea { get; private set; }
-        public string Name { get; private set; }
-
-        public bool IsPrimary { get; private set; }
 
         private Monitor(IntPtr monitor, IntPtr _)
         {
             MonitorInfoEx? info = new();
             GetMonitorInfo(new HandleRef(null, monitor), info);
-            Bounds = new Rectangle(info.rcMonitor.left, info.rcMonitor.top,
-                info.rcMonitor.right - info.rcMonitor.left, info.rcMonitor.bottom - info.rcMonitor.top);
             WorkingArea = new Rectangle(info.rcWork.left, info.rcWork.top,
                 info.rcWork.right - info.rcWork.left, info.rcWork.bottom - info.rcWork.top);
-            IsPrimary = ((info.dwFlags & MonitorinfofPrimary) != 0);
-            Name = new string(info.szDevice).TrimEnd((char)0);
-        }
-
-        public static IEnumerable<Monitor> AllMonitors
-        {
-            get
-            {
-                MonitorEnumCallback? closure = new();
-                MonitorEnumProc? proc = new(closure.Callback);
-                EnumDisplayMonitors(NullHandleRef, IntPtr.Zero, proc, IntPtr.Zero);
-                return closure.Monitors.Cast<Monitor>();
-            }
         }
 
         public static Monitor BiggestMonitor()
@@ -85,6 +65,17 @@
                 }
             }
             return result;
+        }
+
+        private static IEnumerable<Monitor> AllMonitors
+        {
+            get
+            {
+                MonitorEnumCallback? closure = new();
+                MonitorEnumProc? proc = new(closure.Callback);
+                EnumDisplayMonitors(new(null, IntPtr.Zero), IntPtr.Zero, proc, IntPtr.Zero);
+                return closure.Monitors.Cast<Monitor>();
+            }
         }
 
         private class MonitorEnumCallback

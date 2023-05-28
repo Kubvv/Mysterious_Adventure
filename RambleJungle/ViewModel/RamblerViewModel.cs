@@ -1,7 +1,6 @@
 ﻿namespace RambleJungle.ViewModel
 {
     using RambleJungle.Base;
-    using RambleJungle.Model;
     using System;
 
     public class RamblerViewModel : JungleObjectViewModel

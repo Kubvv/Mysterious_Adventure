@@ -2,7 +2,7 @@ namespace RambleJungle.ViewModel
 {
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
-    using RambleJungle.Model;
+    using RambleJungle.Base;
     using RambleJungle.View;
     using System.Windows;
 

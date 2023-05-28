@@ -3,7 +3,6 @@ namespace RambleJungle.ViewModel
     using CommunityToolkit.Mvvm.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection;
     using RambleJungle.Base;
-    using RambleJungle.Model;
     using System;
 
     /// <summary>
@@ -18,9 +17,11 @@ namespace RambleJungle.ViewModel
         public ViewModelLocator()
         {
             Ioc.Default.ConfigureServices(new ServiceCollection()
+                .AddSingleton<SoundsHelper>()
                 .AddSingleton<GameModel>()
                 .AddSingleton<JungleModel>()
                 .AddSingleton<WeaponModel>()
+
                 .AddSingleton<MainViewModel>()
                 .AddSingleton<OptionsViewModel>()
                 .AddSingleton<JungleViewModel>()
