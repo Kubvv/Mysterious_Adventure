@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace RambleJungle.Model
+﻿namespace RambleJungle.Base
 {
     public class JungleArsenal : JungleObject
     {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Globalization;
-
-namespace RambleJungle.Model
+﻿namespace RambleJungle.Base
 {
+    using System.Configuration;
+    using System.Globalization;
+
     public static class Config
     {
         private const int defaultJungleHeight = 10, defaultJungleWidth = 16;

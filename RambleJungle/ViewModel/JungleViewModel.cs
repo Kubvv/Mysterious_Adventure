@@ -1,14 +1,16 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using RambleJungle.Model;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Threading;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using RambleJungle.Base;
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Windows.Threading;
+
     public class JungleViewModel : ObservableRecipient
     {
         private readonly JungleModel jungleModel;
+        private readonly SoundsHelper soundsHelper;
+
         private double cellWidth, cellHeight;
         private readonly DispatcherTimer updateTimer = new();
 
@@ -42,7 +44,7 @@ namespace RambleJungle.ViewModel
 
         public RamblerViewModel RamblerViewModel { get; private set; }
 
-        public JungleViewModel(JungleModel jungleModel, RamblerViewModel ramblerViewModel)
+        public JungleViewModel(JungleModel jungleModel, GameModel gameModel, RamblerViewModel ramblerViewModel, SoundsHelper soundsHelper)
         {
             this.jungleModel = jungleModel;
             if (jungleModel != null)
@@ -50,7 +52,10 @@ namespace RambleJungle.ViewModel
                 jungleModel.JungleGenerated += JungleGenerated;
                 Load();
             }
+            gameModel.BeastBites += BeastBites;
+            gameModel.GameOver += GameOver;
             RamblerViewModel = ramblerViewModel;
+            this.soundsHelper = soundsHelper;
 
             updateTimer.Tick += UpdateTimerTick;
             updateTimer.Interval = new TimeSpan(0, 0, 0, 0, 300);
@@ -80,6 +85,16 @@ namespace RambleJungle.ViewModel
             {
                 JungleObjectsViewModel.Add(new JungleObjectViewModel(jungleObject));
             }
+        }
+        private void BeastBites(object? sender, string nameOfTheBeast)
+        {
+            soundsHelper.PlaySound(nameOfTheBeast);
+        }
+
+
+        private void GameOver(object? sender, bool success)
+        {
+            soundsHelper.PlaySound(success ? "Success" : "Fail");
         }
     }
 }

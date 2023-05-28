@@ -1,4 +1,4 @@
-﻿using RambleJungle.Model.Tools;
+﻿using RambleJungle.View.Tools;
 using RambleJungle.ViewModel;
 using System;
 using System.Windows;

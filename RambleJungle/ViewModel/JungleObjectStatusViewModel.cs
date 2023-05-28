@@ -1,11 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using RambleJungle.Model;
-using System;
-using System.Windows;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.DependencyInjection;
+    using RambleJungle.Base;
+    using System;
+    using System.Windows;
+
     public class JungleObjectStatusViewModel : ObservableRecipient, IDisposable
     {
         private readonly JungleModel jungleModel = Ioc.Default.GetService<JungleModel>() ??
@@ -14,7 +14,7 @@ namespace RambleJungle.ViewModel
         private readonly JungleObject jungleObject;
 
         public string Name => jungleObject.Name;
-        public FrameworkElement Shape => ShapesModel.GetJungleShape(jungleObject.JungleObjectType, null);
+        public FrameworkElement Shape => ShapesHelper.GetShape(jungleObject.JungleObjectType);
         public int Count => jungleModel.CountOf(jungleObject.JungleObjectType);
 
         public JungleObjectStatusViewModel(JungleObject firstJungleObject)

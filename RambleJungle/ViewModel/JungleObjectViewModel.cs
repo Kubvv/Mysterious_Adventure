@@ -1,27 +1,30 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
-using RambleJungle.Model;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows;
-
-namespace RambleJungle.ViewModel
+﻿namespace RambleJungle.ViewModel
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.DependencyInjection;
+    using CommunityToolkit.Mvvm.Input;
+    using RambleJungle.Base;
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
+
     public class JungleObjectViewModel : ObservableRecipient, IDisposable
     {
         private readonly GameModel gameModel = Ioc.Default.GetService<GameModel>() ??
             throw new Exception(string.Format(Consts.ServiceNotFound, nameof(GameModel)));
-
         private readonly ActionViewModel actionViewModel = Ioc.Default.GetService<ActionViewModel>() ??
             throw new Exception(string.Format(Consts.ServiceNotFound, nameof(ActionViewModel)));
+        private readonly SoundsHelper soundsHelper = Ioc.Default.GetService<SoundsHelper>() ??
+            throw new Exception(string.Format(Consts.ServiceNotFound, nameof(SoundsHelper)));
 
         private readonly JungleObject jungleObject;
 
         public JungleObjectViewModel Self => this;
         public JungleObjectType JungleObjectType => jungleObject.JungleObjectType;
         public string Name => jungleObject.Name;
-        public FrameworkElement Shape => ShapesModel.GetJungleShape(jungleObject.JungleObjectType, jungleObject.BackingObject);
+        public FrameworkElement Shape => ShapesHelper.GetShape(jungleObject);
         public Statuses Status => jungleObject.Status;
         public bool IsLivingJungleObject => jungleObject is LivingJungleObject;
         public bool IsCamp => jungleObject.JungleObjectType == JungleObjectType.Camp;
@@ -65,7 +68,7 @@ namespace RambleJungle.ViewModel
             }
             gameModel.MagnifyingGlassModeChanged += MagnifyingGlassModeChanged;
 
-            MoveRamblerCommand = new RelayCommand(() => gameModel.MoveRamblerTo(this.jungleObject.Coordinates));
+            MoveRamblerCommand = new RelayCommand(ExecuteMoveRambler);
             AddStrenghtCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Strenght));
             CheckAdjacentCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Adjacency));
             AddHealthCommand = new RelayCommand(() => gameModel.CampBonus(CampBonus.Health));
@@ -149,6 +152,20 @@ namespace RambleJungle.ViewModel
         private void MagnifyingGlassModeChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(IsMagnifyingGlassMode));
+        }
+
+        private async void ExecuteMoveRambler()
+        {
+            gameModel.MoveRamblerTo(this.jungleObject.Coordinates);
+            if (gameModel.IsActionMode)
+            {
+                if (!Config.Beasts.Contains(JungleObjectType))
+                {
+                    soundsHelper.PlaySound(Name);
+                }
+                await Task.Run(() => Thread.Sleep(1000));
+                gameModel.FinishAction();
+            }
         }
     }
 }

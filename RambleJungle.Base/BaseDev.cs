@@ -1,4 +1,4 @@
-﻿namespace RambleJungle.Model
+﻿namespace RambleJungle.Base
 {
     public class BaseDev
     {

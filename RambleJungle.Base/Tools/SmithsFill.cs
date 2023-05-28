@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-
-namespace RambleJungle.Model.Tools
+﻿namespace RambleJungle.Base.Tools
 {
+    using System.Drawing;
+
     public static class SmithsFill
     {
         public const int EMPTYPOINT = 0;

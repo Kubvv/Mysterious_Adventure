@@ -1,17 +1,18 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using System;
-using System.Windows;
-
-namespace RambleJungle.Model
+﻿namespace RambleJungle.Base
 {
+    using System.Drawing;
+
     public class Rambler : LivingJungleObject
     {
+        private readonly JungleModel jungleModel;
+
         public double Strength { get; private set; } = 1;
 
         public bool Visible { get; private set; }
 
-        public Rambler() : base(JungleObjectType.Rambler)
+        public Rambler(JungleModel jungleModel) : base(JungleObjectType.Rambler)
         {
+            this.jungleModel = jungleModel;
             Reset();
         }
 
@@ -26,8 +27,7 @@ namespace RambleJungle.Model
         public override void SetCoordinates(Point point)
         {
             base.SetCoordinates(point);
-            JungleModel? jungleModel = Ioc.Default.GetService<JungleModel>();
-            JungleObject? jungleObject = jungleModel?.GetJungleObjectAt(point);
+            JungleObject? jungleObject = jungleModel.GetJungleObjectAt(point);
             jungleObject?.SetStatus(Statuses.Visited);
             Moved?.Invoke(this, new EventArgs());
         }

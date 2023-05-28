@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Threading;
-
-namespace RambleJungle.Model
+﻿namespace RambleJungle.Base
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+
     public class GameModel
     {
         private readonly JungleModel jungleModel;
         private readonly WeaponModel weaponModel;
-        private readonly DispatcherTimer actionTimer = new();
-        private readonly DispatcherTimer walkTimer = new();
+
+        private readonly System.Timers.Timer walkTimer = new();
         private JungleObject forgottenCity;
         private int forgottenCityBeastCount;
-        private readonly MediaPlayer mediaPlayer = new();
         private bool inGame = true;
         private bool canHit = false;
         private readonly List<Point> visitedPoints = new();
@@ -51,10 +47,10 @@ namespace RambleJungle.Model
         public event EventHandler? ForgottenCityModeChanged;
 
         private bool isBattleMode = false;
-        public bool IsBattleMode
+        private bool IsBattleMode
         {
             get => isBattleMode;
-            private set
+            set
             {
                 if (isBattleMode != value)
                 {
@@ -66,6 +62,25 @@ namespace RambleJungle.Model
 
         public event EventHandler? BattleModeChanged;
 
+        private bool isActionMode = false;
+        public bool IsActionMode
+        {
+            get => isActionMode;
+            set
+            {
+                if (isActionMode != value)
+                {
+                    isActionMode = value;
+                    ActionModeChanged?.Invoke(this, new EventArgs());
+                }
+            }
+        }
+
+        public event EventHandler? ActionModeChanged;
+
+        public event EventHandler<string>? BeastBites;
+        public event EventHandler<bool>? GameOver;
+
         public Rambler Rambler { get; private set; }
 
         public GameModel(JungleModel jungleModel, WeaponModel weaponModel)
@@ -73,16 +88,14 @@ namespace RambleJungle.Model
             Config.Read();
             this.jungleModel = jungleModel;
             this.weaponModel = weaponModel;
-            Rambler = new Rambler();
+
+            Rambler = new Rambler(jungleModel);
             // can't initialize with null
             CurrentJungleObject = new JungleObject(JungleObjectType.EmptyField);
             forgottenCity = CurrentJungleObject;
 
-            actionTimer.Tick += ActionTimerTick;
-            actionTimer.Interval = new TimeSpan(0, 0, 1);
-
-            walkTimer.Tick += WalkTimerTick;
-            walkTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            walkTimer.Elapsed += WalkTimerTick;
+            walkTimer.Interval = 100;
         }
 
         public void PrepareGame()
@@ -109,11 +122,49 @@ namespace RambleJungle.Model
             isSuperRamblerMode = false;
             isMagnifyingGlassMode = false;
             isForgottenCityMode = false;
+            isBattleMode = false;
+            isActionMode = false;
+        }
+
+        public void CampBonus(CampBonus bonus)
+        {
+            switch (bonus)
+            {
+                case Base.CampBonus.Strenght:
+                    Rambler.SetStrength(1.3);
+                    break;
+                case Base.CampBonus.Health:
+                    Rambler.ChangeHealth(15);
+                    break;
+                case Base.CampBonus.Adjacency:
+                    jungleModel.SetPointedAt(JungleModel.FindNeighboursTo(CurrentJungleObject.Coordinates, 1).ToList());
+                    break;
+                case Base.CampBonus.DoubleAttack:
+                    weaponModel.SetDoubleAttack();
+                    break;
+            }
+            Rambler.SetCoordinates(CurrentJungleObject.Coordinates);
+        }
+
+        public bool CanUseWeapon(Weapon weapon) => inGame && canHit && weapon != null && weapon.Count != 0 && CurrentJungleObject is Beast;
+
+        public void HitBeastWith(Weapon weapon)
+        {
+            if (CanUseWeapon(weapon) && CurrentJungleObject is Beast beast)
+            {
+                canHit = false;
+                bool canDoubleAttack = weapon.DoubleAttack && weapon.Count > 1;
+                beast.ChangeHealth((int)Math.Round(-Config.WeaponStrenght[new Tuple<WeaponType, JungleObjectType>(weapon.WeaponType, beast.JungleObjectType)].RandomValue *
+                    Rambler.Strength * (canDoubleAttack ? 2 : 1)));
+                weapon.ChangeCount(canDoubleAttack ? -2 : -1);
+                weapon.SetDoubleAttack(false);
+                IsActionMode = true;
+            }
         }
 
         public void MoveRamblerTo(Point point)
         {
-            if (!inGame || actionTimer.IsEnabled || (IsBattleMode && !Config.PacifistRambler)) { return; }
+            if (!inGame || IsActionMode || (IsBattleMode && !Config.PacifistRambler)) { return; }
             IsBattleMode = false;
 
             if (IsMagnifyingGlassMode)
@@ -149,16 +200,9 @@ namespace RambleJungle.Model
                             }
                             else
                             {
-                                if (Config.Beasts.Contains(CurrentJungleObject.JungleObjectType))
-                                {
-                                    IsBattleMode = true;
-                                }
-                                else
-                                {
-                                    PlaySound(CurrentJungleObject.Name);
-                                }
                                 CurrentJungleObject.SetStatus(Statuses.Shown);
-                                actionTimer.Start();
+                                IsBattleMode = Config.Beasts.Contains(CurrentJungleObject.JungleObjectType);
+                                IsActionMode = true;
                             }
                         }
                         else if (CurrentJungleObject.Status.HasFlag(Statuses.Visited))
@@ -173,99 +217,9 @@ namespace RambleJungle.Model
             }
         }
 
-        private void WalkTimerTick(object? sender, EventArgs e)
+        public void FinishAction()
         {
-            walkTimer.Stop();
-            JungleObject? nextStepObject = FindNextStepJungleObject(Rambler.Coordinates, CurrentJungleObject.Coordinates);
-            if (nextStepObject != null)
-            {
-                Rambler.SetCoordinates(nextStepObject.Coordinates);
-                visitedPoints.Add(nextStepObject.Coordinates);
-                bool endOfWalk = Rambler.Coordinates.X == CurrentJungleObject.Coordinates.X &&
-                    Rambler.Coordinates.Y == CurrentJungleObject.Coordinates.Y;
-                if (!endOfWalk)
-                {
-                    walkTimer.Start();
-                }
-            }
-        }
-
-        private JungleObject? FindNextStepJungleObject(Point from, Point to)
-        {
-            JungleObject? result = jungleModel.GetJungleObjectAt(FindNextStep(from, to));
-            if (!CanMakeStepTo(result))
-            {
-                result = null;
-                double minDistance = Config.JungleWidth * Config.JungleHeight;
-                foreach (Point neighbour in JungleModel.FindNeighboursTo(from, 1))
-                {
-                    JungleObject? nextStepObject = jungleModel.GetJungleObjectAt(neighbour);
-                    double nextStepDistance = Point.Subtract(neighbour, to).Length;
-                    if (nextStepDistance < minDistance && CanMakeStepTo(nextStepObject))
-                    {
-                        result = nextStepObject;
-                        minDistance = nextStepDistance;
-                    }
-                }
-            }
-            return result;
-        }
-
-        private bool CanMakeStepTo(JungleObject? jungleObject)
-        {
-            return jungleObject != null && jungleObject.Status.HasFlag(Statuses.Visited) && !visitedPoints.Contains(jungleObject.Coordinates);
-        }
-
-        private static Point FindNextStep(Point from, Point to)
-        {
-            int deltaX = 0, deltaY = 0;
-            double angle = from.X == to.X ? 90 : Math.Abs(Math.Atan((from.Y - to.Y) / (from.X - to.X)) * (180 / Math.PI));
-            if (angle < 67.5)
-            {
-                deltaX = from.X > to.X ? -1 : 1;
-            }
-            if (angle > 22.5)
-            {
-                deltaY = from.Y > to.Y ? -1 : 1;
-            }
-            return new Point(from.X + deltaX, from.Y + deltaY);
-        }
-
-        private void PlaySound(string soundName)
-        {
-            string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Sounds\{soundName}.wav");
-            if (!File.Exists(fileName))
-            {
-                fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"Sounds\{soundName}.mp3");
-            }
-            if (File.Exists(fileName))
-            {
-                mediaPlayer.Stop();
-                mediaPlayer.Open(new Uri(fileName));
-                mediaPlayer.Play();
-            }
-        }
-
-        public void HitBeastWith(Weapon weapon)
-        {
-            if (!inGame || !canHit || weapon == null) return;
-
-            if (weapon.Count != 0 && CurrentJungleObject is Beast beast)
-            {
-                canHit = false;
-                bool canDoubleAttack = weapon.DoubleAttack && weapon.Count > 1;
-                PlaySound(weapon.Name);
-                beast.ChangeHealth((int)Math.Round(-Config.WeaponStrenght[new Tuple<WeaponType, JungleObjectType>(weapon.WeaponType, beast.JungleObjectType)].RandomValue *
-                    Rambler.Strength * (canDoubleAttack ? 2 : 1)));
-                weapon.ChangeCount(canDoubleAttack ? -2 : -1);
-                weapon.SetDoubleAttack(false);
-                actionTimer.Start();
-            }
-        }
-
-        private void ActionTimerTick(object? sender, EventArgs e)
-        {
-            actionTimer.Stop();
+            IsActionMode = false;
             if (CurrentJungleObject.JungleObjectType == JungleObjectType.ForgottenCity)
             {
                 forgottenCity = CurrentJungleObject;
@@ -288,8 +242,8 @@ namespace RambleJungle.Model
                 }
                 if (beast.Health > 0)
                 {
-                    PlaySound(beast.Name);
-                    _ = Action();
+                    BeastBites?.Invoke(this, beast.Name);
+                    Action();
                     canHit = true;
                 }
                 else
@@ -362,13 +316,13 @@ namespace RambleJungle.Model
             }
             if (gameOver)
             {
-                PlaySound(gameSuccess ? "Success" : "Fail");
+                GameOver?.Invoke(this, gameSuccess);
                 jungleModel.MarkHiddenObjects();
                 inGame = false;
             }
         }
 
-        public Point Action()
+        private Point Action()
         {
             Point result = CurrentJungleObject.Coordinates;
 
@@ -487,24 +441,68 @@ namespace RambleJungle.Model
             return result;
         }
 
-        internal void CampBonus(CampBonus bonus)
+        private void WalkTimerTick(object? sender, EventArgs e)
         {
-            switch (bonus)
+            walkTimer.Stop();
+            JungleObject? nextStepObject = FindNextStepJungleObject(Rambler.Coordinates, CurrentJungleObject.Coordinates);
+            if (nextStepObject != null)
             {
-                case Model.CampBonus.Strenght:
-                    Rambler.SetStrength(1.3);
-                    break;
-                case Model.CampBonus.Health:
-                    Rambler.ChangeHealth(15);
-                    break;
-                case Model.CampBonus.Adjacency:
-                    jungleModel.SetPointedAt(JungleModel.FindNeighboursTo(CurrentJungleObject.Coordinates, 1).ToList());
-                    break;
-                case Model.CampBonus.DoubleAttack:
-                    weaponModel.SetDoubleAttack();
-                    break;
+                Rambler.SetCoordinates(nextStepObject.Coordinates);
+                visitedPoints.Add(nextStepObject.Coordinates);
+                bool endOfWalk = Rambler.Coordinates.X == CurrentJungleObject.Coordinates.X &&
+                    Rambler.Coordinates.Y == CurrentJungleObject.Coordinates.Y;
+                if (!endOfWalk)
+                {
+                    walkTimer.Start();
+                }
             }
-            Rambler.SetCoordinates(CurrentJungleObject.Coordinates);
+        }
+
+        private JungleObject? FindNextStepJungleObject(Point from, Point to)
+        {
+            JungleObject? result = jungleModel.GetJungleObjectAt(FindNextStep(from, to));
+            if (!CanMakeStepTo(result))
+            {
+                result = null;
+                double minDistance = Config.JungleWidth * Config.JungleHeight;
+                foreach (Point neighbour in JungleModel.FindNeighboursTo(from, 1))
+                {
+                    JungleObject? nextStepObject = jungleModel.GetJungleObjectAt(neighbour);
+                    double nextStepDistance = Distance(neighbour, to);
+                    if (nextStepDistance < minDistance && CanMakeStepTo(nextStepObject))
+                    {
+                        result = nextStepObject;
+                        minDistance = nextStepDistance;
+                    }
+                }
+            }
+            return result;
+        }
+
+        // calculate distance between two points
+        private static double Distance(Point from, Point to)
+        {
+            return Math.Sqrt(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2));
+        }
+
+        private bool CanMakeStepTo(JungleObject? jungleObject)
+        {
+            return jungleObject != null && jungleObject.Status.HasFlag(Statuses.Visited) && !visitedPoints.Contains(jungleObject.Coordinates);
+        }
+
+        private static Point FindNextStep(Point from, Point to)
+        {
+            int deltaX = 0, deltaY = 0;
+            double angle = from.X == to.X ? 90 : Math.Abs(Math.Atan((from.Y - to.Y) / (from.X - to.X)) * (180 / Math.PI));
+            if (angle < 67.5)
+            {
+                deltaX = from.X > to.X ? -1 : 1;
+            }
+            if (angle > 22.5)
+            {
+                deltaY = from.Y > to.Y ? -1 : 1;
+            }
+            return new Point(from.X + deltaX, from.Y + deltaY);
         }
     }
 }

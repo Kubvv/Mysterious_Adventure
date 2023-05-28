@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-
-namespace RambleJungle.Model.Tools
+﻿namespace RambleJungle.View.Tools
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+    using System.Runtime.InteropServices;
+    using System.Runtime.Versioning;
+
     public class Monitor
     {
         #region Dll imports
@@ -22,7 +23,7 @@ namespace RambleJungle.Model.Tools
         private delegate bool MonitorEnumProc (IntPtr monitor, IntPtr hdc, IntPtr lprcMonitor, IntPtr lParam);
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct Rect
+        private struct MonitorRect
         {
             public int left;
             public int top;
@@ -34,46 +35,23 @@ namespace RambleJungle.Model.Tools
         private class MonitorInfoEx
         {
             internal int cbSize = Marshal.SizeOf(typeof(MonitorInfoEx));
-            internal Rect rcMonitor = new();
-            internal Rect rcWork = new();
+            internal MonitorRect rcMonitor = new();
+            internal MonitorRect rcWork = new();
             internal int dwFlags = 0;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
             internal char[] szDevice = new char[32];
         }
 
-        private const int MonitorinfofPrimary = 0x00000001;
-
         #endregion
 
-        public static HandleRef NullHandleRef { get; } = new(null, IntPtr.Zero);
-
-        public System.Windows.Rect Bounds { get; private set; }
-        public System.Windows.Rect WorkingArea { get; private set; }
-        public string Name { get; private set; }
-
-        public bool IsPrimary { get; private set; }
+        public Rectangle WorkingArea { get; private set; }
 
         private Monitor(IntPtr monitor, IntPtr _)
         {
             MonitorInfoEx? info = new();
             GetMonitorInfo(new HandleRef(null, monitor), info);
-            Bounds = new System.Windows.Rect(info.rcMonitor.left, info.rcMonitor.top,
-                info.rcMonitor.right - info.rcMonitor.left, info.rcMonitor.bottom - info.rcMonitor.top);
-            WorkingArea = new System.Windows.Rect(info.rcWork.left, info.rcWork.top,
+            WorkingArea = new Rectangle(info.rcWork.left, info.rcWork.top,
                 info.rcWork.right - info.rcWork.left, info.rcWork.bottom - info.rcWork.top);
-            IsPrimary = ((info.dwFlags & MonitorinfofPrimary) != 0);
-            Name = new string(info.szDevice).TrimEnd((char)0);
-        }
-
-        public static IEnumerable<Monitor> AllMonitors
-        {
-            get
-            {
-                MonitorEnumCallback? closure = new();
-                MonitorEnumProc? proc = new(closure.Callback);
-                EnumDisplayMonitors(NullHandleRef, IntPtr.Zero, proc, IntPtr.Zero);
-                return closure.Monitors.Cast<Monitor>();
-            }
         }
 
         public static Monitor BiggestMonitor()
@@ -87,6 +65,17 @@ namespace RambleJungle.Model.Tools
                 }
             }
             return result;
+        }
+
+        private static IEnumerable<Monitor> AllMonitors
+        {
+            get
+            {
+                MonitorEnumCallback? closure = new();
+                MonitorEnumProc? proc = new(closure.Callback);
+                EnumDisplayMonitors(new(null, IntPtr.Zero), IntPtr.Zero, proc, IntPtr.Zero);
+                return closure.Monitors.Cast<Monitor>();
+            }
         }
 
         private class MonitorEnumCallback

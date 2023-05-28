@@ -1,11 +1,8 @@
-﻿using RambleJungle.Model.Tools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-
-namespace RambleJungle.Model
+﻿namespace RambleJungle.Base
 {
+    using RambleJungle.Base.Tools;
+    using System.Drawing;
+
     public class JungleModel
     {
         public List<JungleObject> Jungle { get; private set; } = new List<JungleObject>();
@@ -164,7 +161,7 @@ namespace RambleJungle.Model
         /// <param name="coordinates">coordinates</param>
         /// <param name="jungleObjectType">Jungle object type</param>
         /// <returns>Found object or null</returns>
-        internal JungleObject? FindNearestTo(Point coordinates, JungleObjectType jungleObjectType, Statuses statuses)
+        public JungleObject? FindNearestTo(Point coordinates, JungleObjectType jungleObjectType, Statuses statuses)
         {
             int[,] nearestObjects = { { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } };
             int[,] nearObjects = { { -1, -1 }, { 1, -1 }, { 1, -1 }, { 1, 1 }, { 1, 1 }, { -1, 1 }, { -1, 1 }, { -1, -1 } };
@@ -216,7 +213,7 @@ namespace RambleJungle.Model
             return result;
         }
 
-        internal void MarkHiddenObjects()
+        public void MarkHiddenObjects()
         {
             foreach (JungleObject jungleObject in Jungle)
             {
@@ -227,7 +224,7 @@ namespace RambleJungle.Model
             }
         }
 
-        internal void PointHiddenGoodItems()
+        public void PointHiddenGoodItems()
         {
             foreach (JungleObject jungleObject in Jungle)
             {
@@ -244,7 +241,7 @@ namespace RambleJungle.Model
         /// <param name="coordinates">Selected center point.</param>
         /// <param name="distance">Distance from the selected point.</param>
         /// <returns>List of Points.</returns>
-        internal static IEnumerable<Point> FindNeighboursTo(Point coordinates, int distance)
+        public static IEnumerable<Point> FindNeighboursTo(Point coordinates, int distance)
         {
             var neighbours = new List<Point>();
             for (var x = -distance; x <= distance; x++)
@@ -264,7 +261,7 @@ namespace RambleJungle.Model
         /// Changes the status of points to pointed.
         /// </summary>
         /// <param name="points">List of points.</param>
-        internal void SetPointedAt(List<Point> points)
+        public void SetPointedAt(List<Point> points)
         {
             points.ForEach(point => SetPointedAt(point, false));
         }
@@ -274,7 +271,7 @@ namespace RambleJungle.Model
         /// </summary>
         /// <param name="point">Point to change a status.</param>
         /// <param name="beastOrBadOnly">Change the status only for the beast points.</param>
-        internal void SetPointedAt(Point point, bool beastOrBadOnly)
+        public void SetPointedAt(Point point, bool beastOrBadOnly)
         {
             JungleObject? jungleObject = GetJungleObjectAt(point);
             if (jungleObject != null)
@@ -344,7 +341,7 @@ namespace RambleJungle.Model
         /// </summary>
         /// <param name="jungleObjectType">type of the jungle object to count</param>
         /// <returns>count of objects</returns>
-        internal int CountOf(JungleObjectType jungleObjectType)
+        public int CountOf(JungleObjectType jungleObjectType)
         {
             return Jungle.Count(jo => jo.JungleObjectType == jungleObjectType && jo.Status != Statuses.Visited);
         }
