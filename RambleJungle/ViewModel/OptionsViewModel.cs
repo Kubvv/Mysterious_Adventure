@@ -83,6 +83,13 @@
             set => SetProperty(ref pacifistRambler, value);
         }
 
+        private bool wastedRadars = Config.WastedRadars;
+        public bool WastedRadars
+        {
+            get => wastedRadars;
+            set => SetProperty(ref wastedRadars, value);
+        }
+
         public OptionsViewModel()
         {
             SaveOptions = new RelayCommand(ExecuteSaveOptions);
@@ -96,6 +103,7 @@
             Config.SetKeepRatio(KeepRatio);
             Config.SetSuperRambler(SuperRambler);
             Config.SetPacifistRambler(PacifistRambler);
+            Config.SetWastedRadars(WastedRadars);
         }
     }
 }
