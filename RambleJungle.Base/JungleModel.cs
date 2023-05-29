@@ -130,12 +130,44 @@
                 {
                     jungleObject.Reset();
                 }
-                int coordinate = Config.Random.Next(coordinates.Count);
-                jungleObject.SetCoordinates(coordinates[coordinate]);
-                coordinates.RemoveAt(coordinate);
+                bool acceptabePosition = false;
+                while (!acceptabePosition)
+                {
+                    int coordinateIndex = Config.Random.Next(coordinates.Count);
+                    Point coordinate = coordinates[coordinateIndex];
+                    if (jungleObject.JungleObjectType == JungleObjectType.Radar)
+                    {
+                        acceptabePosition = Config.WastedRadars || (IsNotBorder(coordinate) && !IsNeighbourOf(coordinate, JungleObjectType.Radar));
+                    }
+                    else
+                    {
+                        acceptabePosition = true;
+                    }
+                    if (acceptabePosition)
+                    {
+                        jungleObject.SetCoordinates(coordinate);
+                        coordinates.RemoveAt(coordinateIndex);
+                    }
+                }
             }
 
             JungleGenerated?.Invoke(this, new EventArgs());
+        }
+
+        private static bool IsNotBorder(Point coordinate) => coordinate.X > 0 && coordinate.X < Config.JungleWidth - 1 && coordinate.Y > 0 && coordinate.Y < Config.JungleHeight - 1;
+
+        private bool IsNeighbourOf(Point coordinate, JungleObjectType jungleObjectType)
+        {
+            IEnumerable<Point> neighbours = FindNeighboursTo(coordinate, 1);
+            bool found = false;
+            int index = 0;
+            while (!found && index < neighbours.Count())
+            {
+                JungleObject? jungleObject = GetJungleObjectAt(neighbours.ElementAt(index));
+                found = jungleObject != null && jungleObject.JungleObjectType == jungleObjectType;
+                index++;
+            }
+            return found;
         }
 
         /// <summary>
@@ -302,7 +334,7 @@
             JungleObject? jungleObject = null;
             if (point.X >= 0 && point.X < Config.JungleWidth && point.Y >= 0 && point.Y < Config.JungleHeight)
             {
-                jungleObject = Jungle.First(jo => jo.Coordinates.X == point.X && jo.Coordinates.Y == point.Y);
+                jungleObject = Jungle.FirstOrDefault(jo => jo.Coordinates.X == point.X && jo.Coordinates.Y == point.Y);
             }
             return jungleObject;
         }

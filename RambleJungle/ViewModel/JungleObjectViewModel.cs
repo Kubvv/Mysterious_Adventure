@@ -156,15 +156,18 @@
 
         private async void ExecuteMoveRambler()
         {
-            gameModel.MoveRamblerTo(this.jungleObject.Coordinates);
-            if (gameModel.IsActionMode)
+            if (!gameModel.IsActionMode)
             {
-                if (!Config.Beasts.Contains(JungleObjectType))
+                gameModel.MoveRamblerTo(jungleObject.Coordinates);
+                if (gameModel.IsActionMode)
                 {
-                    soundsHelper.PlaySound(Name);
+                    if (!Config.Beasts.Contains(JungleObjectType))
+                    {
+                        soundsHelper.PlaySound(Name);
+                    }
+                    await Task.Run(() => Thread.Sleep(1000));
+                    gameModel.FinishAction();
                 }
-                await Task.Run(() => Thread.Sleep(1000));
-                gameModel.FinishAction();
             }
         }
     }

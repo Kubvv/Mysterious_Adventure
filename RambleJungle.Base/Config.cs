@@ -157,6 +157,9 @@
         private const string PACIFISTRAMBLER = "PacifistRambler";
         public static bool PacifistRambler { get; private set; } = false;
 
+        private const string WASTEDRADARS = "WastedRadars";
+        public static bool WastedRadars { get; private set; } = false;
+
         public static Dictionary<JungleObjectType, int> JungleObjectsCount { get; private set; } = new Dictionary<JungleObjectType, int>();
 
         public static void Read()
@@ -180,6 +183,10 @@
             if (ConfigurationManager.AppSettings[PACIFISTRAMBLER] != null)
             {
                 PacifistRambler = Convert.ToBoolean(ConfigurationManager.AppSettings[PACIFISTRAMBLER], CultureInfo.CurrentCulture);
+            }
+            if (ConfigurationManager.AppSettings[WASTEDRADARS] != null)
+            {
+                WastedRadars = Convert.ToBoolean(ConfigurationManager.AppSettings[WASTEDRADARS], CultureInfo.CurrentCulture);
             }
             RecalculateJungle();
         }
@@ -220,6 +227,14 @@
 
             PacifistRambler = newPacifistRambler;
             UpdateSetting(PACIFISTRAMBLER, PacifistRambler.ToString(CultureInfo.CurrentCulture));
+        }
+
+        public static void SetWastedRadars(bool newWastedRadars)
+        {
+            if (WastedRadars == newWastedRadars) return;
+
+            WastedRadars = newWastedRadars;
+            UpdateSetting(WASTEDRADARS, WastedRadars.ToString(CultureInfo.CurrentCulture));
         }
 
         private static void RecalculateJungle()
